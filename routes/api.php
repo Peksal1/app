@@ -78,7 +78,7 @@ Route::group(['middleware'=>['auth:sanctum','role:1|2|3']],function(){
     Route::get('/order/{id}', [OrderController::class,'order']); /// Order list
     Route::delete('/order/{id}', [OrderController::class,'destroy']); /// Deleting orders
     Route::put('/order/{id}', [OrderController::class,'orderedit']); /// Editing orders
-    Route::post('/order', [OrderController::class,'store']); /// New order
+    Route::post('neworder', [OrderController::class,'store']); /// New order
     Route::get('/orders', [OrderController::class,'index']); /// Order list
     Route::get('/users/{id}', [UserController::class,'show']); /// User list
     Route::get('/user/{id}/orders', [OrderController::class,'userorders']); /// Users feedback

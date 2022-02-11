@@ -27,12 +27,16 @@
     "dependencies": {
         "bootstrap-vue": "^2.21.2",
         "cross-env": "^7.0.3",
+        "jw-vue-pagination": "^1.0.3",
         "laravel-vue-pagination": "^2.3.1",
         "sweetalert2": "^11.3.0",
+        "v-click-outside": "^3.1.2",
         "view-design": "^4.7.0",
         "vue-axios": "^3.4.0",
+        "vue-recaptcha": "^2.0.1",
         "vue-resource": "^1.5.3",
         "vue-router": "^3.5.3",
+        "vue2-dropzone": "^3.6.0",
         "vuetify": "^2.6.0"
     }
 }

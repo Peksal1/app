@@ -10,18 +10,35 @@
    New Order! From user {{currentUser.name}}
   </div>
   <div class="card-body">
-    <form action="#" @submit.prevent="createmessage">
+    <form action="#">
     <div class="form-group">
       <input type="text" class="form-control" name="text" placeholder="Description" v-model="formData.text">
-         <p class="text-danger" v-text="errors.text"></p>
+         <p class="text-danger" v-text="errors.text"></p> 
     </div>
     <div class="form-group">
       <input type="text" class="form-control" name="file_path" placeholder="file_path" v-model="formData.file_path">
          <p class="text-danger" v-text="errors.file_path"></p>
     </div>
+
+    <div class="p-2 w-full">
+                <div class="relative">
+                  <label
+                    for="attachment"
+                    class="leading-7 text-sm text-gray-600"
+                    >Attachments</label
+                  ><br />
+                  <vue-dropzone
+                    ref="myVueDropzone"
+                    id="dropzone"
+                    :options="dropzoneOptions"
+                    @vdropzone-complete="afterUploadComplete"
+                    @vdropzone-sending-multiple="sendOrder"
+                  ></vue-dropzone>
+                </div>
+              </div>
   <div class="row">
       <div class="col-md-6">
-        <button type="submit"  class="btn btn-primary">Send</button>
+        <button type="submit"  class="btn btn-primary" @click="shootOrder">Send</button>
       </div>
     </div>
       
@@ -39,6 +56,8 @@
 <script>
 import axios from 'axios'
 import Navbar from '../components/Navbar.vue';
+import vue2Dropzone from 'vue2-dropzone';
+import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 export default {
 data(){
   return{
@@ -50,6 +69,15 @@ data(){
       accepted:'0',
         
     },
+    dropzoneOptions: {
+      url: "http://127.0.0.1:8001/api/neworder",
+      thumbnailWidth: 150,
+      maxFilesize: 2.5,
+      parallelUploads: 5,
+      maxFiles: 5,
+      uploadMultiple:true,
+      autoProcessQueue:false,
+    },
       currentUser: {},
       token: localStorage.getItem("token"),
     errors:{}
@@ -57,8 +85,26 @@ data(){
 },
    components:{
     Navbar,
+    'vue-dropzone': vue2Dropzone,
     },
 methods:{
+  afterUploadComplete:async function(response){
+    if(response.status=="success"){
+      console.log('upload successful');
+      this.sendSuccess = true;
+    }
+    else {
+      console.log('upload failed');
+    }
+  },
+  shootOrder:async function(){
+    this.$refs.myVueDropzone.processQueue();
+
+  },
+  sendOrder:async function (files, xhr, formData){
+    formData.append("text", this.text);
+    formData.append("file_path", this.file_path);
+  },
   createmessage(){
     this.formData.user_id=this.currentUser.id
       axios.post('/api/order',this.formData,{
