@@ -21,6 +21,9 @@
       <input type="text" class="form-control" name="description" placeholder="Description" v-model="formData.description">
          <p class="text-danger" v-text="errors.description"></p>
     </div>
+    <div class="form-group" @change="onFileSelected">
+      <input type="file">
+      </div>
   <div class="row">
       <div class="col-md-6">
         <button type="submit"  class="btn btn-primary">Send</button>
@@ -46,7 +49,7 @@ data(){
   return{
     formData:{
       work_name:'',
-      file_path:'',
+      file_path: null,
       description:'',
         
     },
@@ -76,6 +79,10 @@ methods:{
          this.errors=errors.response.data.errors
          console.log(errors.response.data.errors)
       })
+  },
+  onFileSelected(event) {
+this.file_path =event.target.file[0]
+
   },
   checkLoginStatus() {
       this.loading = true;
