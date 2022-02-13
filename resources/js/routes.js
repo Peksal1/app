@@ -31,9 +31,15 @@ import AdminNewPost from './pages/Admin_newpost.vue'
 import AdminNewTopic from './pages/Admin_newtopic.vue'
 import UserProfile from './pages/User_profile.vue'
 import NewOrder from './pages/NewOrder.vue'
+import OrderList from './pages/orderlist.vue'
 
 
-   const routes= [
+const routes = [
+    {
+        path: '/orderlist',
+        name: 'orderlist',
+        component: OrderList,
+    },
     {
         path: '/neworder',
         name: 'neworder',
@@ -109,92 +115,92 @@ import NewOrder from './pages/NewOrder.vue'
         name: 'adminqna',
         component: AdminQnA
     },
-        {
-            path: '/',
-            name: 'home',
-            component: Home
-        },
-        {
-            path: '/registeruser',
-            name: 'registeruser',
-            component: RegisterUser
-        },
-        {
-            path: '/newtopic',
-            name: '/newtopic',
-            component: NewTopic
-        },
-        {
-            path: '/newfeedback',
-            name: 'newfeedback',
-            component: NewFeedback
-        },
-        {
-            path: '/messages',
-            name: 'messages',
-            component: Messages
-        },
-        {
-            path: '/portfolio',
-            name: 'portfolio',
-            component: Portfolio
-        },
-        {
-            path: '/pleaselogin',
-            name: 'pleaselogin',
-            component: Pleaselogin
-        },
-        {
-            path: '/admin',
-            name: 'admin',
-            component: Admin
-        },
-        {
-            path: '/feedback',
-            name: 'feedback',
-            component: Feedback,
-        },
-        {
-            path: '/register',
-            name: 'register',
-            component: Register,
-        },
-        {
-            path: '/login',
-            name: 'login',
-            component: Login,
-        },
-        {
-            path: '/service',
-            name: 'service',
-            component: Services,
-        },
-        {
-            path: '/qna',
-            name: 'qna',
-            component: Qna,
-        },
-        {
-            path: '/contact',
-            name: 'contact',
-            component: Contact,
-        },
-        {
-            path: '/Topicspost/:id',
-            name: 'Topicspost',
-            component: Topicspost,
-        },
-        {
-            path: '/createuserpost/:id',
-            name: 'createuserpost',
-            component: createuserpost,
-        },
-        
-    ]
-    const router = new VueRouter({
-      mode: 'history',
-      routes: routes,
-  });
-  
-  export default router;
+    {
+        path: '/',
+        name: 'home',
+        component: Home
+    },
+    {
+        path: '/registeruser',
+        name: 'registeruser',
+        component: RegisterUser
+    },
+    {
+        path: '/newtopic',
+        name: '/newtopic',
+        component: NewTopic
+    },
+    {
+        path: '/newfeedback',
+        name: 'newfeedback',
+        component: NewFeedback
+    },
+    {
+        path: '/messages',
+        name: 'messages',
+        component: Messages
+    },
+    {
+        path: '/portfolio',
+        name: 'portfolio',
+        component: Portfolio
+    },
+    {
+        path: '/pleaselogin',
+        name: 'pleaselogin',
+        component: Pleaselogin
+    },
+    {
+        path: '/admin',
+        name: 'admin',
+        component: Admin
+    },
+    {
+        path: '/feedback',
+        name: 'feedback',
+        component: Feedback,
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: Register,
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: Login,
+    },
+    {
+        path: '/service',
+        name: 'service',
+        component: Services,
+    },
+    {
+        path: '/qna',
+        name: 'qna',
+        component: Qna,
+    },
+    {
+        path: '/contact',
+        name: 'contact',
+        component: Contact,
+    },
+    {
+        path: '/Topicspost/:id',
+        name: 'Topicspost',
+        component: Topicspost,
+    },
+    {
+        path: '/createuserpost/:id',
+        name: 'createuserpost',
+        component: createuserpost,
+    },
+
+]
+const router = new VueRouter({
+    mode: 'history',
+    routes: routes,
+});
+
+export default router;
 

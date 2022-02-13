@@ -1,90 +1,150 @@
 <template>
-<div class="container-fuiled">
-     <AdminNavbar />
-<div class="row justify-content-center" >
-  <div class="col-md-6">
-<div class="card">
-  <div class="card-header">
-   Creation of a new portfolio item
-  </div>
-  <div class="card-body">
-    <form action="#" @submit.prevent="createportfolio">
-    <div class="form-group">
-      <input type="text" class="form-control" name="work_name" placeholder="Work Name" v-model="formData.work_name">
-         <p class="text-danger" v-text="errors.work_name"></p>
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control" name="file_path" placeholder="File path" v-model="formData.file_path">
-         <p class="text-danger" v-text="errors.file_path"></p>
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control" name="description" placeholder="Description" v-model="formData.description">
-         <p class="text-danger" v-text="errors.description"></p>
-    </div>
-    <div class="form-group" @change="onFileSelected">
-      <input type="file">
-      </div>
-  <div class="row">
+  <div class="container-fuiled">
+    <Navbar />
+    <div class="row justify-content-center">
       <div class="col-md-6">
-        <button type="submit"  class="btn btn-primary">Send</button>
+        <div class="card">
+          <div class="card-header">
+            New Order! From user {{ currentUser.name }}
+          </div>
+          <div class="card-body">
+            <form action="#" @submit.prevent="createOrder">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="work_name"
+                  placeholder="work_name"
+                  v-model="formData.work_name"
+                />
+                <p class="text-danger" v-text="errors.text"></p>
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="work_name"
+                  placeholder="description"
+                  v-model="formData.description"
+                />
+                <p class="text-danger" v-text="errors.text"></p>
+              </div>
+              <div class="p-2 w-full">
+                <div class="relative">
+                  <label
+                    for="attachment"
+                    class="leading-7 text-sm text-gray-600"
+                    >Attachments</label
+                  ><br />
+                  <!-- <vue-dropzone
+                    ref="myVueDropzone"
+                    id="dropzone"
+                    :options="dropzoneOptions"
+                    @vdropzone-complete="afterUploadComplete"
+                    @vdropzone-sending-multiple="sendOrder"
+                  ></vue-dropzone> -->
+                  <input
+                    type="file"
+                    accept="image/*"
+                    @change="uploadImage($event)"
+                    id="file-input"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-      
-    </form>
   </div>
-
-</div>
-
-  </div>
-</div>
-
-</div>
 </template>
 
 <script>
-import axios from 'axios'
-import AdminNavbar from '../components/AdminNavbar.vue';
+import axios from "axios";
+import Navbar from "../components/Navbar.vue";
+import vue2Dropzone from "vue2-dropzone";
+import "vue2-dropzone/dist/vue2Dropzone.min.css";
 export default {
-data(){
-  return{
-    formData:{
-      work_name:'',
-      file_path: null,
-      description:'',
-        
-    },
+  data() {
+    return {
+      formData: {
+        file_path: "",
+        work_name: "",
+        description: "",
+        image: "",
+      },
+      dropzoneOptions: {
+        url: "http://127.0.0.1:8001/api/portfolio",
+        thumbnailWidth: 150,
+        maxFilesize: 2.5,
+        parallelUploads: 5,
+        maxFiles: 5,
+        uploadMultiple: true,
+        autoProcessQueue: false,
+      },
       currentUser: {},
       token: localStorage.getItem("token"),
-    errors:{}
-  }
-},
-   components:{
-    AdminNavbar,
+      errors: {},
+    };
+  },
+  components: {
+    Navbar,
+    "vue-dropzone": vue2Dropzone,
+  },
+  methods: {
+    afterUploadComplete: async function (response) {
+      if (response.status == "success") {
+        console.log("upload successful");
+        this.sendSuccess = true;
+      } else {
+        console.log("upload failed");
+      }
     },
-methods:{
-  createportfolio(){
-    this.formData.user_id=this.currentUser.id
-      axios.post('/api/portfolio',this.formData,{
-            headers: {
-            Authorization: "Bearer " + this.token,
-          },
-      }).then((response)=>{
-        console.log(response.data)
-          this.$router.push('/adminportfolio')
-        this.errors={}   
-        this.$toaster.success('Message sent successfully!')
-      
-      }).catch((errors)=>{
-        console.log("error")
-         this.errors=errors.response.data.errors
-         console.log(errors.response.data.errors)
-      })
-  },
-  onFileSelected(event) {
-this.file_path =event.target.file[0]
+    uploadImage(event) {
+      const file = event.target.files[0];
+      this.formData.image = file;
+    },
 
-  },
-  checkLoginStatus() {
+    // shootOrder() {
+    //   console.log(this.formData);
+    //   //   this.$refs.myVueDropzone.processQueue();
+    // },
+    // sendOrder: async function (files, xhr, formData) {
+    //   formData.append("text", this.text);
+    //   formData.append("file_path", this.file_path);
+    // },
+
+    createOrder() {
+      const orderForm = new FormData();
+      orderForm.append("work_name", this.formData.work_name);
+      orderForm.append("description", this.formData.description);
+      orderForm.append("image", this.formData.image);
+
+      axios
+        .post("/api/portfolio", orderForm, {
+          headers: {
+            Authorization: "Bearer " + this.token,
+            "Content-Type": "multipart/form-data",
+            boundary: orderForm._boundary,
+          },
+        })
+        .then((response) => {
+          alert("Order Sent!");
+          this.$router.push({
+            name: "adminportfolio",
+            params: { id: this.currentUser.id },
+          });
+        })
+        .catch((errors) => {
+          console.log("erro");
+        });
+    },
+    checkLoginStatus() {
       this.loading = true;
       // this.loading = true
       axios
@@ -97,7 +157,7 @@ this.file_path =event.target.file[0]
           this.currentUser = response.data;
           console.log("LOGGED IN");
           this.isLoggedIn = true;
-		  console.log( response.data.name)
+          console.log(response.data.name);
         })
         .catch((errors) => {
           console.log(errors);
@@ -108,19 +168,19 @@ this.file_path =event.target.file[0]
         });
       // this.loading = false
     },
-},
-mounted() {
+  },
+  mounted() {
     //  axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
     this.checkLoginStatus();
   },
   updated() {
-	  console.log(this.isLoggedIn)
+    console.log(this.isLoggedIn);
   },
   watch: {
-	  $route(to, from) {
-		  this.checkLoginStatus();
-	  }
-  }
+    $route(to, from) {
+      this.checkLoginStatus();
+    },
+  },
 };
 </script>
 
@@ -129,6 +189,6 @@ mounted() {
   margin-left: 25rem;
 }
 .card-header {
-  color:black;
+  color: black;
 }
 </style>

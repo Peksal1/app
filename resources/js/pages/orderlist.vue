@@ -1,16 +1,15 @@
 <template>
   <div>
-    <Navbar />
+    <AdminNavbar />
     <div class="container">
       <div class="row">
         <div class="col-md-3" v-for="order in orders" :key="order.id">
           <div class="card">
             <div class="card-body">
               <div class="product-image">
-                <img :src="`/portfolio/${order.file_path}`" alt="" />
+                <img :src="`/images/${order.file_path}`" alt="" />
               </div>
-              <div class="title">{{ order.work_name }}</div>
-              <div class="title">{{ order.description }}</div>
+              <div class="title">{{ order.text }}</div>
             </div>
           </div>
         </div>
@@ -22,7 +21,7 @@
 
 <script>
 import axios from "axios";
-import Navbar from "../components/Navbar.vue";
+import AdminNavbar from "../components/AdminNavbar.vue";
 export default {
   data() {
     return {
@@ -31,11 +30,11 @@ export default {
     };
   },
   components: {
-    Navbar,
+    AdminNavbar,
   },
   methods: {
     getAllOrders() {
-      axios.get("/api/portfolio").then((res) => {
+      axios.get("/api/orders").then((res) => {
         this.orders = res.data.data;
         this.pagination = res.data;
       });

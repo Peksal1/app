@@ -18,11 +18,11 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        $portfolios=Portfolio::paginate(5);
+        $portfolios=Portfolio::paginate(20);
     return $portfolios;
     }
 
-    public function store(Request $request)
+    /*public function store(Request $request)
     {
         $request->validate([
 
@@ -38,8 +38,36 @@ class PortfolioController extends Controller
 
 
               return  Portfolio::create($request->all());
-    }
+    } */
+    public function store(Request $request)
+    {
+        $orderData =   $request->all();
+        // check if request has image
 
+        if ($request->hasFile('image')) {
+            // get image from request
+            $image = $request->file('image');
+            // get image name
+            $imageName = $image->getClientOriginalName();
+            // move image to public/images
+            $image->move(public_path('portfolio'), $imageName);
+            // save image name to database
+            $orderData['file_path'] = $imageName;
+        }
+
+        $order = Portfolio::create($orderData);
+
+
+        if ($order) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Order created successfully',
+                'order' => $order
+            ], 200);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Order not created'], 400);
+        }
+    }
     public function destroy($portfolio)
     {
         $portfolios=Portfolio::destroy($portfolio);
