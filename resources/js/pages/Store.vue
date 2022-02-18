@@ -5,19 +5,22 @@
       <div class="input-group mb-3">
         <input v-model="searchKeyword" type="text" class="form-control" />
         <div class="input-group-append">
-          <button @click="getAllOrders" class="btn btn-primary">Search</button>
+          <button @click="getAllItems" class="btn btn-primary">Search</button>
         </div>
       </div>
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-md-3" v-for="order in orders" :key="order.id">
+        <div class="col-md-3" v-for="shop in shops" :key="shop.id">
           <div class="card">
             <div class="card-body">
               <div class="product-image">
-                <img :src="`/images/${order.file_path}`" alt="" />
+                <img :src="`/sale/${shop.file_path}`" alt="" />
               </div>
-              <div class="title">{{ order.text }}</div>
+              <div class="title">Art name: {{ shop.work_name }}</div>
+              <div class="title">Description: {{ shop.description }}</div>
+              <div class="title">Category: {{ shop.category }}</div>
+              <div class="title">Price: {{ shop.price_in_eur }} EUR</div>
             </div>
           </div>
         </div>
@@ -25,8 +28,8 @@
       <div class="col-md-12 text-center center-pagination">
         <Pagination
           :pagination="pagination"
-          @perPage="getAllOrders()"
-          @paginate="getAllOrders()"
+          @perPage="getAllItems()"
+          @paginate="getAllItems()"
           :offset="6"
         >
         </Pagination>
@@ -41,7 +44,7 @@ import Pagination from "../components/Pagination.vue";
 export default {
   data() {
     return {
-      orders: [],
+      shops: [],
       searchKeyword: "",
       pagination: {
         data: [],
@@ -58,19 +61,19 @@ export default {
     Pagination,
   },
   methods: {
-    getAllOrders() {
+    getAllItems() {
       axios
         .get(
-          `/api/orders?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}`
+          `/api/store?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}`
         )
         .then((res) => {
-          this.orders = res.data.data;
+          this.shops = res.data.data;
           this.pagination = res.data;
         });
     },
   },
   created() {
-    this.getAllOrders();
+    this.getAllItems();
   },
 };
 </script>

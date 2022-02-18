@@ -32,13 +32,35 @@ import AdminNewTopic from './pages/Admin_newtopic.vue'
 import UserProfile from './pages/User_profile.vue'
 import NewOrder from './pages/NewOrder.vue'
 import OrderList from './pages/orderlist.vue'
+import Store from './pages/Store.vue'
+import NewStore from './pages/new_store.vue'
+import FAQ from './pages/FAQ.vue'
 
 
 const routes = [
     {
+        path: '/faq',
+        name: 'faq',
+        component: FAQ,
+    },
+    {
+        path: '/newstore',
+        name: 'newstore',
+        component: NewStore,
+    },
+    {
+        path: '/store',
+        name: 'store',
+        component: Store,
+    },
+    {
         path: '/orderlist',
         name: 'orderlist',
         component: OrderList,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/neworder',
@@ -201,6 +223,21 @@ const router = new VueRouter({
     mode: 'history',
     routes: routes,
 });
+
+// check if user is authenticated
+router.beforeEach((to, from, next) => {
+    if (to.matched.some((record) => record.meta.requiresAdminAuth)) {
+        if (localStorage.getItem("adminToken") != null) {
+            next();
+        } else {
+            next("/");
+        }
+
+    } else {
+        next();
+    }
+});
+
 
 export default router;
 

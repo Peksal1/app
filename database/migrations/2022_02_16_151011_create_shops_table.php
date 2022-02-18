@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-
-class CreateFeedbackTable extends Migration
+class CreateShopsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +13,13 @@ class CreateFeedbackTable extends Migration
      */
     public function up()
     {
-        Schema::create('feedback', function (Blueprint $table) {
+        Schema::create('shops', function (Blueprint $table) {
             $table->id();
-           
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer("evaluation");
-            $table->longText('pros');
-            $table->longText('cons');
+            $table->string('work_name');
+            $table->longText('description');
+            $table->string('category');
+            $table->string('file_path');
+            $table->double('price_in_eur', 10, 2);
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ class CreateFeedbackTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('feedback');
+        Schema::dropIfExists('shops');
     }
 }

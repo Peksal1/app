@@ -1,87 +1,101 @@
 <template>
-<div>
-  <b-navbar toggleable="lg" type="dark" variant="dark">
-    <b-navbar-brand href="#">Ilja Laurs website</b-navbar-brand>
+  <div>
+    <b-navbar toggleable="lg" type="dark" variant="dark">
+      <b-navbar-brand href="#">Ilja Laurs website</b-navbar-brand>
 
-    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-    <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav>
-        <b-nav-item class="item"
-        ><router-link class="col" :to="{ name: 'adminhome' }"
-                >Home</router-link
-              >
-            </b-nav-item>
-
-         <b-nav-item class="item"
-              ><router-link class="col" :to="{ name: 'adminportfolio' }"
-                >Portfolio</router-link
-              >
-            </b-nav-item>
-          <b-nav-item class="item" v-if="isLoggedIn"
-              ><router-link class="col" :to="{ name: 'adminqna' }"
-                >Q&A</router-link
-              >
-            </b-nav-item>
-                 <b-nav-item class="item" v-if="!isLoggedIn"
-              ><router-link class="col" :to="{ name: 'pleaselogin' }"
-                >Q&A</router-link
-              >
-            </b-nav-item>
-            <b-nav-item class="item"
-              ><router-link class="col" :to="{ name: 'adminfeedback' }"
-                >Feedback</router-link
-              >
-            </b-nav-item>
-              <b-nav-item class="item"
-              ><router-link class="col" :to="{ name: 'users' }"
-                >User list</router-link
-              >
-            </b-nav-item>
-              <b-nav-item class="item"
-              ><router-link class="col" :to="{ name: 'messages' }"
-                >Messages</router-link
-              >
-            </b-nav-item>
-            
-      </b-navbar-nav>
-
-      <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
-
-          <!-- Using 'button-content' slot -->
-
-          <b-navbar-nav v-if="!isLoggedIn && !loading">
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav>
           <b-nav-item class="item"
-            ><router-link class="col" :to="{ name: 'register' }"
-              >Register</router-link
+            ><router-link class="col" :to="{ name: 'adminhome' }"
+              >Home</router-link
+            >
+          </b-nav-item>
+
+          <b-nav-item class="item"
+            ><router-link class="col" :to="{ name: 'adminportfolio' }"
+              >Portfolio</router-link
+            >
+          </b-nav-item>
+          <b-nav-item class="item" v-if="isLoggedIn"
+            ><router-link class="col" :to="{ name: 'adminqna' }"
+              >Q&A</router-link
+            >
+          </b-nav-item>
+          <b-nav-item class="item" v-if="!isLoggedIn"
+            ><router-link class="col" :to="{ name: 'pleaselogin' }"
+              >Q&A</router-link
             >
           </b-nav-item>
           <b-nav-item class="item"
-            ><router-link class="col" :to="{ name: 'login' }">Login</router-link>
+            ><router-link class="col" :to="{ name: 'adminfeedback' }"
+              >Feedback</router-link
+            >
+          </b-nav-item>
+          <b-nav-item class="item"
+            ><router-link class="col" :to="{ name: 'users' }"
+              >User list</router-link
+            >
+          </b-nav-item>
+          <b-nav-item class="item"
+            ><router-link class="col" :to="{ name: 'messages' }"
+              >Messages</router-link
+            >
+          </b-nav-item>
+          <b-nav-item class="item"
+            ><router-link class="col" :to="{ name: 'orderlist' }"
+              >Orders</router-link
+            >
+          </b-nav-item>
+          <b-nav-item class="item"
+            ><router-link class="col" :to="{ name: 'store' }"
+              >For sale</router-link
+            >
+          </b-nav-item>
+          <b-nav-item class="item"
+            ><router-link class="col" :to="{ name: 'newstore' }"
+              >New store</router-link
+            >
+          </b-nav-item>
+          <b-nav-item class="item"
+            ><router-link class="col" :to="{ name: 'faq' }">FAQ</router-link>
           </b-nav-item>
         </b-navbar-nav>
 
-        <b-nav-item-dropdown
-          class="profileMenu"
-          :text="currentUser.name"
-          right
-          v-if="isLoggedIn && !loading "
-        >
-          <b-dropdown-item></b-dropdown-item>
-     
-          <b-dropdown-item>
-            <button  class="btn btn-danger" @click="logout">
-              Logout
-            </button>
-          </b-dropdown-item>
-        </b-nav-item-dropdown>
-      </b-navbar-nav>
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+          <!-- Using 'button-content' slot -->
 
-        
-    </b-collapse>
-  </b-navbar>
-</div>
+          <b-navbar-nav v-if="!isLoggedIn && !loading">
+            <b-nav-item class="item"
+              ><router-link class="col" :to="{ name: 'register' }"
+                >Register</router-link
+              >
+            </b-nav-item>
+            <b-nav-item class="item"
+              ><router-link class="col" :to="{ name: 'login' }"
+                >Login</router-link
+              >
+            </b-nav-item>
+          </b-navbar-nav>
+
+          <b-nav-item-dropdown
+            class="profileMenu"
+            :text="currentUser.name"
+            right
+            v-if="isLoggedIn && !loading"
+          >
+            <b-dropdown-item></b-dropdown-item>
+
+            <b-dropdown-item>
+              <button class="btn btn-danger" @click="logout">Logout</button>
+            </b-dropdown-item>
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+  </div>
 </template>
 
 <script>
@@ -109,7 +123,7 @@ export default {
           this.currentUser = response.data;
           console.log("LOGGED IN");
           this.isLoggedIn = true;
-		  console.log( response.data.id)
+          console.log(response.data.id);
         })
         .catch((errors) => {
           console.log(errors);
@@ -134,8 +148,9 @@ export default {
         .then((response) => {
           console.log(response);
           localStorage.removeItem("token");
+          localStorage.removeItem("adminToken");
           this.isLoggedIn = false;
-		  this.$router.push('/')
+          this.$router.push("/");
         })
         .catch((errors) => {
           console.log("it is not working");
@@ -148,13 +163,13 @@ export default {
     this.checkLoginStatus();
   },
   updated() {
-	  console.log(this.isLoggedIn)
+    console.log(this.isLoggedIn);
   },
   watch: {
-	  $route(to, from) {
-		  this.checkLoginStatus();
-	  }
-  }
+    $route(to, from) {
+      this.checkLoginStatus();
+    },
+  },
 };
 </script>
 
@@ -176,16 +191,14 @@ export default {
 .col:hover {
   color: #fca504 !important;
 }
-.v-row {
-}
+
 .pages {
   margin-left: 70%;
 }
 .nav {
   border-color: coral;
 }
-.user {
-}
+
 .v-tab {
   text-transform: none;
 }

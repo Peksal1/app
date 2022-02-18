@@ -10,7 +10,7 @@ class ContactsController extends Controller
    
     public function index()
     {
-        $messages=Messages::paginate(5);
+        $messages=Messages::paginate(2);
         return $messages;
     }
     public function store(Request $request)

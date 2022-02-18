@@ -82,7 +82,7 @@ export default {
         email: "",
         password: "",
         password_confirmation: "",
-        role: "3",
+        role: "1",
       },
       errors: {},
     };

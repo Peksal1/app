@@ -10,6 +10,7 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ShopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +83,10 @@ Route::group(['middleware'=>['auth:sanctum','role:1|2|3']],function(){
     Route::get('/orders', [OrderController::class,'index']); /// Order list
     Route::get('/users/{id}', [UserController::class,'show']); /// User list
     Route::get('/user/{id}/orders', [OrderController::class,'userorders']); /// Users feedback
+
+    Route::post('/store', [ShopController::class,'store']); /// New order
+    Route::get('/store', [ShopController::class,'index']); /// Order list
+    Route::put('/store/{id}', [ShopController::class,'storeedit']); /// Editing orders
 ///registration
 Route::post('/register',[AuthController::class,'register'] );
 Route::post('/login', [AuthController::class, 'login']);

@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Orders;
 use Illuminate\Http\Request;
+use App\Http\Resources\OrderResource;
 
 class OrderController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Orders::with(['userorders'])->paginate(20);
-        return $orders;
+        $orderQuery = Orders::query();
+         if($request->searchKeyword != null){
+            $orderQuery->where('text','LIKE',"%{$request->searchKeyword}%");
+        }
+         $orders = $orderQuery->paginate(4);
+        return OrderResource::collection( $orders);
     }
     public function store(Request $request)
     {

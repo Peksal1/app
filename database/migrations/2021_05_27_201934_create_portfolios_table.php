@@ -17,6 +17,7 @@ class CreatePortfoliosTable extends Migration
             $table->id();
             $table->string('work_name');
             $table->string('file_path');
+            $table->string('category');
             $table->string('description');
             $table->timestamps();
         });

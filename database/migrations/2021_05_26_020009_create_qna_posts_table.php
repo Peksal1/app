@@ -20,7 +20,7 @@ class CreateQnaPostsTable extends Migration
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             //$table->unsignedBigInteger('topic_id');
             $table->foreignId('topic_id')->references('id')->on('qna_topics')->onDelete('cascade');
-            $table->string('post_text')->nullable();
+            $table->longText('post_text')->nullable();
 
         });
     }
