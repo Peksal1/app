@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Exception;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -10,24 +11,25 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function register(Request $request) {
+    public function register(Request $request)
+    {
         $fields = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string|confirmed',
-            'role'=>'string'
+            'role' => 'string'
         ]);
 
         $user = User::create([
             'name' => $fields['name'],
             'email' => $fields['email'],
-         
+
             'password' => bcrypt($fields['password']),
             'role' => $fields['role']
         ]);
 
         $token = $user->createToken('myapptoken')->plainTextToken;
-       /// $user->attachRole('user'); 
+        /// $user->attachRole('user'); 
         //later we will make doctor or patient
         $user->attachRole($request->role);
         $response = [
@@ -37,14 +39,16 @@ class AuthController extends Controller
 
         return response($response, 201);
     }
-    public function logout(Request $request) {
+    public function logout(Request $request)
+    {
         auth()->user()->tokens()->delete();
 
         return [
             'message' => 'Logged out'
         ];
     }
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $fields = $request->validate([
             'email' => 'required|string',
             'password' => 'required|string'
@@ -54,7 +58,7 @@ class AuthController extends Controller
         $user = User::where('email', $fields['email'])->first();
 
         // Check password
-        if(!$user || !Hash::check($fields['password'], $user->password)) {
+        if (!$user || !Hash::check($fields['password'], $user->password)) {
             return response([
                 'message' => 'Bad creds'
             ], 401);
@@ -64,10 +68,8 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $token
         ];
-       
-            return response($response, 201);
-            
- 
+
+        return response($response, 201);
     }
     public function refresh(Request $request)
     {

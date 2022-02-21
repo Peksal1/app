@@ -35,6 +35,7 @@ import OrderList from './pages/orderlist.vue'
 import Store from './pages/Store.vue'
 import NewStore from './pages/new_store.vue'
 import FAQ from './pages/FAQ.vue'
+import ThankYou from './pages/ThankYou.vue';
 
 
 const routes = [
@@ -52,6 +53,11 @@ const routes = [
         path: '/store',
         name: 'store',
         component: Store,
+    },
+    {
+        path: '/thank-you',
+        name: 'store',
+        component: ThankYou,
     },
     {
         path: '/orderlist',

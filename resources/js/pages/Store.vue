@@ -11,7 +11,12 @@
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-md-3" v-for="shop in shops" :key="shop.id">
+        <div
+          v-if="!isPaymentLoading"
+          class="col-md-3"
+          v-for="shop in shops"
+          :key="shop.id"
+        >
           <div class="card">
             <div class="card-body">
               <div class="product-image">
@@ -21,7 +26,21 @@
               <div class="title">Description: {{ shop.description }}</div>
               <div class="title">Category: {{ shop.category }}</div>
               <div class="title">Price: {{ shop.price_in_eur }} EUR</div>
+
+              <div class="buy-btn mt-3">
+                <div
+                  @click="buyProduct(shop.id)"
+                  class="btn btn-block btn-primary"
+                >
+                  Buy Now
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
+        <div v-else>
+          <div class="text-center">
+            <h2>Payment Page Loading</h2>
           </div>
         </div>
       </div>
@@ -46,6 +65,7 @@ export default {
     return {
       shops: [],
       searchKeyword: "",
+      isPaymentLoading: false,
       pagination: {
         data: [],
         total: 0,
@@ -61,6 +81,40 @@ export default {
     Pagination,
   },
   methods: {
+    buyProduct(id) {
+      this.isPaymentLoading = true;
+      axios
+        .post(
+          "/api/create-payment-session",
+          {
+            product: id,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        )
+        .then((response) => {
+          this.redirectToStripe(response.data.session_id);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          this.isPaymentLoading = false;
+        });
+    },
+    redirectToStripe(sessionID) {
+      let stripe = Stripe("pk_test_d6aChIuFov53M3i5n00Fn1j200m37XdpTE");
+      stripe
+        .redirectToCheckout({
+          sessionId: sessionID,
+        })
+        .then((res) => {
+          console.log(res);
+        });
+    },
     getAllItems() {
       axios
         .get(
