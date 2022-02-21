@@ -41,8 +41,8 @@ class StripeController extends Controller
             'unit_amount' =>  $shop->price_in_eur * 100
         ]);
         $session = Session::create([
-            'success_url' =>  'http://127.0.0.1:8001/success?stripe_id={CHECKOUT_SESSION_ID}&order_id=' . $purchase->uuid,
-            'cancel_url' => 'http://127.0.0.1:8001/store',
+            'success_url' => url('/success?stripe_id={CHECKOUT_SESSION_ID}&order_id=' . $purchase->uuid),
+            'cancel_url' =>  url('/store'),
             'payment_method_types' => ['card'],
             'mode' => 'payment',
             'line_items' => [[

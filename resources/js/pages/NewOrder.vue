@@ -72,7 +72,7 @@ export default {
         image: "",
       },
       dropzoneOptions: {
-        url: "http://127.0.0.1:8001/api/neworder",
+        url: "/api/neworder",
         thumbnailWidth: 150,
         maxFilesize: 2.5,
         parallelUploads: 5,

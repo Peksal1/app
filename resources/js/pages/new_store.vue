@@ -94,7 +94,7 @@ export default {
         price_in_eur: "",
       },
       dropzoneOptions: {
-        url: "http://127.0.0.1:8001/api/store",
+        url: "/api/store",
         thumbnailWidth: 150,
         maxFilesize: 2.5,
         parallelUploads: 5,
