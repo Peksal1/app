@@ -18,6 +18,10 @@ class CreatePortfoliosTable extends Migration
             $table->string('work_name');
             $table->string('file_path');
             $table->string('category');
+            $table->string('size');
+            $table->string('paint');
+            $table->string('canvas');
+            $table->foreignId('collection_id')->references('id')->on('collection')->onDelete('cascade');
             $table->string('description');
             $table->timestamps();
         });

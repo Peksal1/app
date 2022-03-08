@@ -18,6 +18,7 @@ class CreateQnaTopicsTable extends Migration
             $table->timestamps();
              $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('topic_title')->nullable();
+            $table->string('file_path');
             $table->longText('topic_description');
         });
     }

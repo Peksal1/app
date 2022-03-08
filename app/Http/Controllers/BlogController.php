@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Http\Requests\StoreBlogRequest;
 use App\Http\Requests\UpdateBlogRequest;
+use Illuminate\Http\Request;
+use App\Http\Resources\BlogResource;
 
 class BlogController extends Controller
 {
@@ -15,7 +17,8 @@ class BlogController extends Controller
      */
     public function index()
     {
-        //
+        $blogs=Blog::paginate(20);
+    return $blogs;
     }
 
     /**
@@ -34,9 +37,34 @@ class BlogController extends Controller
      * @param  \App\Http\Requests\StoreBlogRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreBlogRequest $request)
+    public function store(Request $request)
     {
-        //
+        $topicData =   $request->all();
+        // check if request has image
+
+        if ($request->hasFile('image')) {
+            // get image from request
+            $image = $request->file('image');
+            // get image name
+            $imageName = $image->getClientOriginalName();
+            // move image to public/images
+            $image->move(public_path('blog'), $imageName);
+            // save image name to database
+            $topicData['image'] = $imageName;
+        }
+
+        $topic = Blog::create($topicData);
+
+
+        if ($topic) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Topic created successfully',
+                'topic' => $topic
+            ], 200);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Blog post was not created'], 400);
+        }
     }
 
     /**
@@ -47,7 +75,8 @@ class BlogController extends Controller
      */
     public function show(Blog $blog)
     {
-        //
+        $blogs=Blog::findOrFail($blog);
+        return $blogs;
     }
 
     /**
@@ -83,4 +112,15 @@ class BlogController extends Controller
     {
         //
     }
+    public function blog_search(Request $request, $title)
+{
+    $result = Blog::where('title', 'LIKE', '%'. $title. '%')->get();
+    if(count($result)){
+     return Response()->json($result);
+    }
+    else
+    {
+    return response()->json(['Result' => 'No posts found'], 404);
+  }
+}
 }

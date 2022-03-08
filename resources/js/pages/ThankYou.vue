@@ -20,55 +20,55 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="name">Name</label>
-                  <input type="text" class="form-control" />
+                  <input type="text" class="form-control" name="name" v-model="formData.name"/>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="name">Surname</label>
-                  <input type="text" class="form-control" />
+                  <input type="text" class="form-control" v-model="formData.surname"/>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="name">Email</label>
-                  <input type="text" class="form-control" />
+                  <input type="text" class="form-control" v-model="formData.email"/>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="name">Phone</label>
-                  <input type="text" class="form-control" />
+                  <input type="text" class="form-control" v-model="formData.phone_number"/>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="name">Country</label>
-                  <input type="text" class="form-control" />
+                  <input type="text" class="form-control" v-model="formData.country"/>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="name">City</label>
-                  <input type="text" class="form-control" />
+                  <input type="text" class="form-control" v-model="formData.city"/>
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="name">Address 1</label>
-                  <input type="text" class="form-control" />
+                  <input type="text" class="form-control" v-model="formData.adress1"/>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="name">Address 2</label>
-                  <input type="text" class="form-control" />
+                  <input type="text" class="form-control" v-model="formData.adress2"/>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="name">Postal Code</label>
-                  <input type="text" class="form-control" />
+                  <input type="text" class="form-control" v-model="formData.postal_code"/>
                 </div>
               </div>
               <div class="col-md-12 mt-4">
@@ -83,7 +83,9 @@
         </div>
       </div>
     </div>
+
   </div>
+
 </template>
 <script>
 import axios from "axios";
@@ -91,8 +93,19 @@ import AdminNavbar from "../components/AdminNavbar.vue";
 export default {
   data() {
     return {
-      orderId: null,
-    };
+        formData: {
+      purchase_id: orderId,
+      name: "",
+      surname: "",
+      phone_number: "",
+      email: "",
+      country: "",
+      city: "",
+      adress1: "",
+      adress2: "",
+      postal_code: "",
+        }
+    }
   },
   components: {
     AdminNavbar,
@@ -109,6 +122,37 @@ export default {
         });
     },
   },
+  
+  createItem() {
+      const itemForm = new FormData();
+      itemForm.append("purchase_id", this.formData.purchase_id);
+      itemForm.append("name", this.formData.name);
+      itemForm.append("surname", this.formData.surname);
+      itemForm.append("phone_number", this.formData.phone_number);
+      itemForm.append("email", this.formData.email);
+      itemForm.append("country", this.formData.country);
+      itemForm.append("city", this.formData.city);
+      itemForm.append("adress1", this.formData.adress1);
+      itemForm.append("adress2", this.formData.adress2);
+      itemForm.append("postal_code", this.formData.postal_code);
+      axios
+        .post("/api/shipping", itemForm, {
+          headers: {
+            Authorization: "Bearer " + this.token,
+            "Content-Type": "multipart/form-data",
+            boundary: itemForm._boundary,
+          },
+        })
+        .then((response) => {
+          alert("Item Sent!");
+          this.$router.push({
+            name: "store",
+          });
+        })
+        .catch((errors) => {
+          console.log("error");
+        });
+    },
   created() {
     this.orderId = this.$route.query.order;
   },

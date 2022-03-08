@@ -16,17 +16,13 @@
               >Portfolio</router-link
             >
           </b-nav-item>
-          <b-nav-item class="item" v-if="isLoggedIn"
-            ><router-link class="col" :to="{ name: 'qna' }">Q&A</router-link>
-          </b-nav-item>
-          <b-nav-item class="item" v-if="!isLoggedIn"
-            ><router-link class="col" :to="{ name: 'pleaselogin' }"
-              >Q&A</router-link
-            >
-          </b-nav-item>
           <b-nav-item class="item"
-            ><router-link class="col" :to="{ name: 'feedback' }"
-              >Feedback</router-link
+            ><router-link class="col" :to="{ name: 'blog' }">Blog</router-link>
+          </b-nav-item>
+        
+          <b-nav-item class="item"
+            ><router-link class="col" :to="{ name: 'store' }"
+              >For sale!</router-link
             >
           </b-nav-item>
           <b-nav-item class="item"

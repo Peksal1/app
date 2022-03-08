@@ -18,7 +18,12 @@ class CreateOrdersTable extends Migration
             $table->timestamps();
             $table->boolean('completion')->default(0);
             $table->boolean('accepted')->default(0);
-            $table->string('file_path');
+            $table->string('file_path')->nullable();
+            $table->string('size');
+            $table->string('paint');
+            $table->string('canvas');
+            $table->double('price')->default(0);
+            $table->boolean('is_paid')->default(0);
             $table->longText('text');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             

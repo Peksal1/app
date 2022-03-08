@@ -19,6 +19,9 @@ class CreateShopsTable extends Migration
             $table->longText('description');
             $table->string('category');
             $table->string('file_path');
+            $table->string('size');
+            $table->string('paint');
+            $table->string('canvas');
             $table->double('price_in_eur', 10, 2);
             $table->timestamps();
         });

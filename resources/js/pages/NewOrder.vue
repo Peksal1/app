@@ -8,9 +8,9 @@
             New Order! From user {{ currentUser.name }}
           </div>
           <div class="card-body">
-            <form action="#" @submit.prevent="createOrder">
+            <form class="form" action="#" @submit.prevent="createOrder">
               <div class="form-group">
-                <input
+                <textarea
                   type="text"
                   class="form-control"
                   name="text"
@@ -19,7 +19,36 @@
                 />
                 <p class="text-danger" v-text="errors.text"></p>
               </div>
-
+                 <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="size"
+                  placeholder="size"
+                  v-model="formData.size"
+                />
+                <p class="text-danger" v-text="errors.text"></p>
+              </div>
+                 <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="paint"
+                  placeholder="paint"
+                  v-model="formData.paint"
+                />
+                <p class="text-danger" v-text="errors.text"></p>
+              </div>
+                 <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="canvas"
+                  placeholder="canvas"
+                  v-model="formData.canvas"
+                />
+                <p class="text-danger" v-text="errors.text"></p>
+              </div>
               <div class="p-2 w-full">
                 <div class="relative">
                   <label
@@ -27,13 +56,6 @@
                     class="leading-7 text-sm text-gray-600"
                     >Attachments</label
                   ><br />
-                  <!-- <vue-dropzone
-                    ref="myVueDropzone"
-                    id="dropzone"
-                    :options="dropzoneOptions"
-                    @vdropzone-complete="afterUploadComplete"
-                    @vdropzone-sending-multiple="sendOrder"
-                  ></vue-dropzone> -->
                   <input
                     type="file"
                     accept="image/*"
@@ -42,6 +64,7 @@
                   />
                 </div>
               </div>
+              <v-select label="canvas" :options="['Canada', 'United States']" v-model="formData.canvas"></v-select>
               <div class="row">
                 <div class="col-md-6">
                   <button type="submit" class="btn btn-primary">Send</button>
@@ -58,8 +81,6 @@
 <script>
 import axios from "axios";
 import Navbar from "../components/Navbar.vue";
-import vue2Dropzone from "vue2-dropzone";
-import "vue2-dropzone/dist/vue2Dropzone.min.css";
 export default {
   data() {
     return {
@@ -70,24 +91,18 @@ export default {
         completion: "0",
         accepted: "0",
         image: "",
-      },
-      dropzoneOptions: {
-        url: "/api/neworder",
-        thumbnailWidth: 150,
-        maxFilesize: 2.5,
-        parallelUploads: 5,
-        maxFiles: 5,
-        uploadMultiple: true,
-        autoProcessQueue: false,
+        canvas: "",
+        size: "",
+        paint: "",
       },
       currentUser: {},
       token: localStorage.getItem("token"),
       errors: {},
     };
   },
+  
   components: {
     Navbar,
-    "vue-dropzone": vue2Dropzone,
   },
   methods: {
     afterUploadComplete: async function (response) {
@@ -103,20 +118,15 @@ export default {
       this.formData.image = file;
     },
 
-    // shootOrder() {
-    //   console.log(this.formData);
-    //   //   this.$refs.myVueDropzone.processQueue();
-    // },
-    // sendOrder: async function (files, xhr, formData) {
-    //   formData.append("text", this.text);
-    //   formData.append("file_path", this.file_path);
-    // },
 
     createOrder() {
       const orderForm = new FormData();
       orderForm.append("text", this.formData.text);
       orderForm.append("file_path", this.formData.file_path);
       orderForm.append("image", this.formData.image);
+      orderForm.append("canvas", this.formData.canvas);
+      orderForm.append("size", this.formData.size);
+      orderForm.append("paint", this.formData.paint);
       orderForm.append("user_id", this.currentUser.id);
 
       axios
@@ -135,7 +145,7 @@ export default {
           });
         })
         .catch((errors) => {
-          console.log("erro");
+          console.log("error");
         });
     },
     checkLoginStatus() {
@@ -184,5 +194,21 @@ export default {
 }
 .card-header {
   color: black;
+}
+.vue-select {
+  color:black;
+}
+.card-body {
+  background:white;
+  width:400px;
+}
+.card {
+  background:white;
+  width:400px;
+  margin-bottom:70px;
+  margin-top:70px;
+}
+.form {
+  color:white;
 }
 </style>

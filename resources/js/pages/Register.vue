@@ -53,7 +53,6 @@
                   sitekey="6LeG2XQeAAAAAJ8C7glTYNJY4cgWMHkzHBF85J87"
                 ></vue-recaptcha>
               </div>
-
               <div class="row">
                 <div class="col-md-6">
                   <button type="submit" class="btn btn-primary">

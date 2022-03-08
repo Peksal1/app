@@ -10,6 +10,7 @@
                 <img :src="`/portfolio/${order.file_path}`" alt="" />
               </div>
               <div class="title">{{ order.work_name }}</div>
+              <div class="title">{{ order.category }}</div>
               <div class="title">{{ order.description }}</div>
             </div>
           </div>

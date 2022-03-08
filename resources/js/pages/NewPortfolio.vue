@@ -4,9 +4,7 @@
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="card">
-          <div class="card-header">
-            New Order! From user {{ currentUser.name }}
-          </div>
+          <div class="card-header">New Portfolio item!</div>
           <div class="card-body">
             <form action="#" @submit.prevent="createOrder">
               <div class="form-group">
@@ -16,6 +14,7 @@
                   name="work_name"
                   placeholder="work_name"
                   v-model="formData.work_name"
+                  required
                 />
                 <p class="text-danger" v-text="errors.text"></p>
               </div>
@@ -25,8 +24,21 @@
                   class="form-control"
                   name="work_name"
                   placeholder="description"
-                  v-model="formData.description"
+                  v-model="formData.description" 
+                  required
                 />
+                <span class="validity"></span>
+                <p class="text-danger" v-text="errors.text"></p>
+              </div>
+              <div class="form-group">
+Category:
+<br>
+  <input type="radio" id="Portrait" name="category" value="Portrait" v-model="formData.category">
+  <label for="Portrait">Portrait</label><br>
+  <input type="radio" id="Landscape" name="category" value="Landscape" v-model="formData.category">
+  <label for="Landscape">Landscape</label><br>
+  <input type="radio" id="Random" name="category" value="Random" v-model="formData.category">
+  <label for="Random">Random</label>
                 <p class="text-danger" v-text="errors.text"></p>
               </div>
               <div class="p-2 w-full">
@@ -76,7 +88,9 @@ export default {
         file_path: "",
         work_name: "",
         description: "",
+        category: "",
         image: "",
+        collection_id: "0",
       },
       dropzoneOptions: {
         url: "/api/portfolio",
@@ -124,7 +138,7 @@ export default {
       orderForm.append("work_name", this.formData.work_name);
       orderForm.append("description", this.formData.description);
       orderForm.append("image", this.formData.image);
-
+      orderForm.append("category", this.formData.category);
       axios
         .post("/api/portfolio", orderForm, {
           headers: {

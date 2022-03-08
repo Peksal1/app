@@ -63,4 +63,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(qna_topics::class);
     }
+    public function user_orders()
+    {
+        return $this->hasMany(Orders::class);
+    }
 }

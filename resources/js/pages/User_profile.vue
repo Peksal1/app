@@ -3,6 +3,19 @@
   <Navbar />
   <router-link class="new_feedback" :to="{ name: 'neworder' }"
                 >New Order!</router-link>
+<router-link class="item"
+
+                :to="{
+
+                  name: 'user_orders',
+
+                  params: { id: currentUser.id },
+                }"
+                >My orders</router-link
+
+              >
+
+           
     <div class="row justify-content-center my-5">
       <div class="col-md-6">
         <div class="card">
@@ -72,6 +85,7 @@ import Navbar from "../components/Navbar.vue";
 export default {
   data() {
     return {
+      currentUser: {},
       name: "",
       email: "",
       password: "",
@@ -137,6 +151,7 @@ export default {
       .then((response) => {
         const user = response.data;
         this.name = user.name;
+        this.currentUser = response.data;
         this.email = user.email;
         console.log(user.email);
       })

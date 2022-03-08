@@ -44,6 +44,7 @@ class QnAController extends Controller
     
               return  qna_topic::create($request->all());
     }
+
     public function newpost(Request $request)
     {
         $request->validate([

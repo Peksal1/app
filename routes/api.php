@@ -12,6 +12,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,9 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
 
 ///Owner, admin, user APIs
 Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
+    Route::post('/blogs', [BlogController::class, 'store']);
+    Route::get('/bloginfo', [BlogController::class, 'show']);
+    Route::get('/blog/search/{title}', [BlogController::class, 'blog_search ']);
     Route::post('/topics', [QnAController::class, 'newtopic']); /// Store a new topic to the database
     Route::get('/topic/post/{id}', [QnAController::class, 'display']); /// Store a new topic to the database
     Route::post('/posts', [QnAController::class, 'newpost']); /// Store a new post to the database
@@ -66,6 +70,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
     Route::get('/topics/search/{topic_title}', [QnAController::class, 'topic_search']); /// topic search
     Route::put('/user/{id}', [UserController::class, 'updateuser']); /// User editing
     Route::post('/create-payment-session', [StripeController::class, 'createPaymentSession']);
+    
 });
 
 ///Everyones APIs
@@ -77,15 +82,17 @@ Route::post('/messages', [ContactsController::class, 'store']);; /// New message
 Route::get('/portfolio/search/{name}', [PortfolioController::class, 'portfolio_search']); /// Search a work in the portfolio by its name
 Route::get('/portfolio', [PortfolioController::class, 'index']); /// All of the portfolio items
 Route::get('/feedback/{id}', [FeedbackController::class, 'feedback']); /// Feedback list
+Route::get('/blog', [BlogController::class, 'index']);
 Route::get('/portfolio/{id}', [FeedbackController::class, 'portfolio']); /// Feedback list
 Route::get('/order/{id}', [OrderController::class, 'order']); /// Order list
 Route::delete('/order/{id}', [OrderController::class, 'destroy']); /// Deleting orders
 Route::put('/order/{id}', [OrderController::class, 'orderedit']); /// Editing orders
 Route::post('neworder', [OrderController::class, 'store']); /// New order
 Route::get('/orders', [OrderController::class, 'index']); /// Order list
+Route::get('/orders/{id}',[OrderController::class,'show'] );
 Route::get('/users/{id}', [UserController::class, 'show']); /// User list
 Route::get('/user/{id}/orders', [OrderController::class, 'userorders']); /// Users feedback
-
+Route::post('/shipping', [ShopController::class, 'create_shipping']);
 Route::post('/store', [ShopController::class, 'store']); /// New order
 Route::get('/store', [ShopController::class, 'index']); /// Order list
 Route::put('/store/{id}', [ShopController::class, 'storeedit']); /// Editing orders

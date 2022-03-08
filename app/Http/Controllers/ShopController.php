@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shop;
+use App\Models\Shipping;
 use Illuminate\Http\Request;
+
 use App\Http\Resources\ShopResource;
 
 class ShopController extends Controller
@@ -68,5 +70,10 @@ class ShopController extends Controller
     {
         $shops = Shop::findOrFail($shop);
         return $shops;
+    }
+    public function create_shipping(Request $request)
+    {
+        $shipping = Shipping::create($request->all());
+        
     }
 }

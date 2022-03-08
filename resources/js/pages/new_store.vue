@@ -26,17 +26,45 @@
                 />
               </div>
               <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="category"
-                  placeholder="category"
-                  v-model="formData.category"
-                />
+              Category:
+<br>
+  <input type="radio" id="Portrait" name="category" value="Portrait" v-model="formData.category">
+  <label for="Portrait">Portrait</label><br>
+  <input type="radio" id="Landscape" name="category" value="Landscape" v-model="formData.category">
+  <label for="Landscape">Landscape</label><br>
+  <input type="radio" id="Random" name="category" value="Random" v-model="formData.category">
+  <label for="Random">Random</label>
               </div>
               <div class="form-group">
                 <input
                   type="text"
+                  class="form-control"
+                  name="size"
+                  placeholder="size"
+                  v-model="formData.size"
+                />
+              </div>
+                <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="canvas"
+                  placeholder="canvas"
+                  v-model="formData.canvas"
+                />
+              </div>
+                <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="paint"
+                  placeholder="paint"
+                  v-model="formData.paint"
+                />
+              </div>
+                <div class="form-group">
+                <input
+                  type="number"
                   class="form-control"
                   name="price_in_eur"
                   placeholder="price_in_eur"
@@ -92,6 +120,9 @@ export default {
         category: "",
         file_path: "",
         price_in_eur: "",
+        paint: "",
+        canvas: "",
+        size: "",
       },
       dropzoneOptions: {
         url: "/api/store",
@@ -141,6 +172,9 @@ export default {
       itemForm.append("description", this.formData.description);
       itemForm.append("category", this.formData.category);
       itemForm.append("price_in_eur", this.formData.price_in_eur);
+      itemForm.append("size", this.formData.size);
+      itemForm.append("canvas", this.formData.canvas);
+      itemForm.append("paint", this.formData.paint);
       axios
         .post("/api/store", itemForm, {
           headers: {
@@ -205,5 +239,17 @@ export default {
 }
 .card-header {
   color: black;
+}
+.card-body {
+  color:white !important;
+  background:white !important;
+}
+.card {
+  color:black;
+  background:black;
+}
+.form {
+  color:black !important ;
+  background:black !important;
 }
 </style>

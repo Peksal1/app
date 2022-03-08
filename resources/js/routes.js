@@ -4,7 +4,7 @@ import Home from './pages/Home.vue'
 import Register from './pages/Register.vue'
 import Login from './pages/Login.vue'
 import Services from './pages/Services.vue'
-import Qna from './pages/Qna.vue'
+import Blog from './pages/Blog.vue'
 import Contact from './pages/Contact_us.vue'
 import Feedback from './pages/Feedback.vue'
 import Admin from './components/Admin.vue'
@@ -35,7 +35,9 @@ import OrderList from './pages/orderlist.vue'
 import Store from './pages/Store.vue'
 import NewStore from './pages/new_store.vue'
 import FAQ from './pages/FAQ.vue'
-import ThankYou from './pages/ThankYou.vue';
+import ThankYou from './pages/ThankYou.vue'
+import User_orders from './pages/User_orders.vue'
+import Bloginfo from './pages/Bloginfo.vue'
 
 
 const routes = [
@@ -204,9 +206,9 @@ const routes = [
         component: Services,
     },
     {
-        path: '/qna',
-        name: 'qna',
-        component: Qna,
+        path: '/blog',
+        name: 'blog',
+        component: Blog,
     },
     {
         path: '/contact',
@@ -217,6 +219,18 @@ const routes = [
         path: '/Topicspost/:id',
         name: 'Topicspost',
         component: Topicspost,
+    },
+    {
+        path: '/Bloginfo/:id',
+        name: 'Bloginfo',
+        component: Bloginfo,
+    },
+
+    {
+
+        path:'/user_orders/:id',
+        name:'user_orders',
+        component: User_orders,
     },
     {
         path: '/createuserpost/:id',

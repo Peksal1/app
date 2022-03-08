@@ -12,6 +12,10 @@ class orders extends Model
         'file_path',
         'text',
         'user_id',
+        'size',
+        'paint',
+        'canvas',
+        'price',
     ];
 
     public function user()

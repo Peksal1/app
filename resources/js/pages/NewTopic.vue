@@ -2,29 +2,51 @@
   <div class="container-fuiled">
     <Navbar />
     <form action="#" @submit.prevent="newpost">
-      <p>
         <strong>Topic Title:</strong><br />
         <input
           type="text"
-          name="topic_title"
-          v-model="formData.topic_title"
+          name="title"
+          v-model="formData.title"
           size="40"
           maxlength="150"
         /><br />
-        <strong>Post Text:</strong><br />
+           <strong>Topic description:</strong><br />
+        <input
+          type="text"
+          name="description"
+          v-model="formData.description"
+          size="40"
+          maxlength="150"
+        /><br />
+        <strong>Post thumbnail:</strong><br />
         <textarea
-          name="topic_description"
-          v-model="formData.topic_description"
+          name="thumbnail"
+          v-model="formData.thumbnail"
           rows="8"
           cols="40"
           wrap="virtual"
         ></textarea>
+         <div class="p-2 w-full">
+                <div class="relative">
+                  <label
+                    for="attachment"
+                    class="leading-7 text-sm text-gray-600"
+                    >Attachments</label
+                  ><br />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    @change="uploadImage($event)"
+                    id="file-input"
+                  />
+                </div>
+              </div>
         <input type="submit" name="submit" value="Add Topic" />
-      </p>
+
     </form>
   </div>
 </template>
-
+ 
 <script>
 import axios from "axios";
 import Navbar from "../components/Navbar.vue";
@@ -32,9 +54,10 @@ export default {
   data() {
     return {
       formData: {
-        user_id: "",
-        topic_title: "",
-        topic_description: "",
+        title: "",
+        description: "",
+        thumbnail: "",
+        image: "",
       },
       currentUser: {},
       token: localStorage.getItem("token"),
@@ -45,24 +68,41 @@ export default {
     Navbar,
   },
   methods: {
+    afterUploadComplete: async function (response) {
+      if (response.status == "success") {
+        console.log("upload successful");
+        this.sendSuccess = true;
+      } else {
+        console.log("upload failed");
+      }
+    },
+    uploadImage(event) {
+      const file = event.target.files[0];
+      this.formData.image = file;
+    },
+
     newpost() {
-      this.formData.user_id = this.currentUser.id;
+      const itemForm = new FormData();
+      itemForm.append("title", this.formData.title);
+      itemForm.append("description", this.formData.description);
+      itemForm.append("thumbnail", this.formData.thumbnail);
+      itemForm.append("image", this.formData.image);
       axios
-        .post("/api/topics", this.formData, {
+        .post("/api/blogs", itemForm, {
           headers: {
             Authorization: "Bearer " + this.token,
+            "Content-Type": "multipart/form-data",
+            boundary: itemForm._boundary,
           },
         })
         .then((response) => {
-          console.log(response.data);
-          this.$router.push("/qna");
-          this.errors = {};
-          this.$toaster.success("Message sent successfully!");
+          alert("Item Sent!");
+          this.$router.push({
+            name: "qna",
+          });
         })
         .catch((errors) => {
-          console.log("erro");
-          this.errors = errors.response.data.errors;
-          console.log(errors.response.data.errors);
+          console.log("error");
         });
     },
     checkLoginStatus() {

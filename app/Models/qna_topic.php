@@ -9,6 +9,7 @@ class qna_topic extends Model
         'topic_title',
         'topic_description',
         'user_id',
+        'file_path',
     ];
 
     public function user()

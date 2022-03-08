@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Orders;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\OrderResource;
+
 
 class OrderController extends Controller
 {
@@ -68,5 +70,14 @@ class OrderController extends Controller
     {
         $orders = Orders::findOrFail($order);
         return $orders;
+    }
+    public function show($id)
+    {
+        $user = User::where('id', $id)->firstOrFail();
+
+        $user_order = $user->user_orders;
+     
+        return response()->json($user_order, 200, [], JSON_PRETTY_PRINT);
+      
     }
 }
