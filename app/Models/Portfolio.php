@@ -8,7 +8,7 @@ class Portfolio extends Model
 {
     protected $fillable = ["work_name", "file_path", "description", "category", "size", "paint", "canvas", "price"];
 
-    public function portfolio_collections()
+    public function portfolio_collection()
     {
         return $this->belongsTo(Collection::class);
     }

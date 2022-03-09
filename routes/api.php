@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['auth:sanctum', 'role:1']], function () {
     Route::post('/portfolio', [PortfolioController::class, 'store']); /// Store a new item to the portfolio
     Route::get('/messages', [ContactsController::class, 'index']); /// Message list
+    Route::post('/collection', [PortfolioController::class, 'new_collection']);
     Route::delete('/messages/{id}', [ContactsController::class, 'destroy']); /// Deleting a message
     Route::delete('/portfolio/{id}', [PortfolioController::class, 'destroy']); /// Information about a specific portfolio item
     Route::put('/portfolio/{id}', [PortfolioController::class, 'update']); /// User editing

@@ -38,9 +38,32 @@ import FAQ from './pages/FAQ.vue'
 import ThankYou from './pages/ThankYou.vue'
 import User_orders from './pages/User_orders.vue'
 import Bloginfo from './pages/Bloginfo.vue'
-
+import NewCollection from './pages/NewCollection.vue'
+import Collections from './pages/Collections.vue'
+import PaymentOptions from './pages/payment_options'
+import DeliveryShipping from './pages/Deliveryshipping.vue'
 
 const routes = [
+    {
+        path:'/deliveryshipping',
+        name: 'deliveryshipping',
+        component: DeliveryShipping,
+    },
+    {
+        path: '/paymentoptions',
+        name: 'paymentoptions',
+        component: PaymentOptions,
+    },
+    {
+        path: '/collections',
+        name: 'collections',
+        component: Collections,
+    },
+    {
+        path: '/newcollection',
+        name: 'newcollection',
+        component: NewCollection,
+    },
     {
         path: '/faq',
         name: 'faq',

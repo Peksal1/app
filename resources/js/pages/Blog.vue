@@ -38,6 +38,7 @@ export default {
     return {
       blogs: [],
       pagination: {},
+      token: localStorage.getItem("token"),
     };
   },
   components: {
@@ -51,6 +52,31 @@ export default {
       });
     },
   },
+    checkLoginStatus() {
+      this.loading = true;
+      // this.loading = true
+      axios
+        .get("/api/user", {
+          headers: {
+            Authorization: "Bearer " + this.token,
+          },
+        })
+        .then((response) => {
+          
+          this.currentUser = response.data;
+          console.log("LOGGED IN");
+          this.isLoggedIn = true;
+		  console.log( this.currentUser.name)
+        })
+        .catch((errors) => {
+          console.log(errors);
+          this.isLoggedIn = false;
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+      // this.loading = false
+    },
   created() {
     this.getAllBlogs();
   },

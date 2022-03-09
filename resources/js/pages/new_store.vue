@@ -15,6 +15,11 @@
                   placeholder="Work Name"
                   v-model="formData.work_name"
                 />
+                 $table->string('image');
+            $table->longText('description');
+            $table->string('name');
+            $table->string('start_date');
+            $table->string('end_date');
               </div>
               <div class="form-group">
                 <input

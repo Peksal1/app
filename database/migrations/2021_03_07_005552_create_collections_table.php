@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCollectionTable extends Migration
+class CreateCollectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateCollectionTable extends Migration
      */
     public function up()
     {
-        Schema::create('collection', function (Blueprint $table) {
+        Schema::create('collections', function (Blueprint $table) {
             $table->id();
             $table->string('image');
             $table->longText('description');
             $table->string('name');
+            $table->string('start_date');
+            $table->string('end_date');
             $table->timestamps();
         });
     }

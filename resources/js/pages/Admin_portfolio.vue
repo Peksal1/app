@@ -4,6 +4,8 @@
      <AdminNavbar />
 <router-link class="new_feedback" :to="{ name: 'newportfolio' }"
                 >New portfolio item</router-link>
+                <router-link class="new_feedback" :to="{ name: 'newcollection' }"
+                >New collection!!!</router-link>
 
     <v-row class="p-5">
       <v-card

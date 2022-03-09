@@ -157,7 +157,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .logoimage {
   margin-left: 4rem;
 }

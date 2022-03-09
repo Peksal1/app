@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Portfolio;
+use App\Models\Collection;
 
 use Image;
 use Auth;
@@ -98,5 +99,34 @@ class PortfolioController extends Controller
     {
         $portfolios=Portfolio::findOrFail($portfolio);
         return $portfolios;
+    }
+    public function new_collection(Request $request)
+    {
+        $collectionData =   $request->all();
+        // check if request has image
+
+        if ($request->hasFile('image')) {
+            // get image from request
+            $image = $request->file('image');
+            // get image name
+            $imageName = $image->getClientOriginalName();
+            // move image to public/images
+            $image->move(public_path('collection'), $imageName);
+            // save image name to database
+            $collectionData['image'] = $imageName;
+        }
+
+        $collection = Collection::create($collectionData);
+
+
+        if ($collection) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Collection created successfully',
+                'collection' => $collection
+            ], 200);
+        } else {
+            return response()->json(['success' => false, 'message' => 'The collection was not created not created'], 400);
+        }
     }
 }

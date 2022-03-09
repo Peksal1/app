@@ -4,41 +4,49 @@
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="card">
-          <div class="card-header">New Portfolio item!</div>
+          <div class="card-header">
+            New collection!
+          </div>
           <div class="card-body">
-            <form action="#" @submit.prevent="createOrder">
+            <form class="form" action="#" @submit.prevent="createCollection">
               <div class="form-group">
-                <input
+                <textarea
                   type="text"
                   class="form-control"
-                  name="work_name"
-                  placeholder="work_name"
-                  v-model="formData.work_name"
-                  required
+                  name="name"
+                  placeholder="name"
+                  v-model="formData.name"
                 />
                 <p class="text-danger" v-text="errors.text"></p>
               </div>
-              <div class="form-group">
+                 <div class="form-group">
                 <input
                   type="text"
                   class="form-control"
-                  name="work_name"
+                  name="start_date"
+                  placeholder="start_date"
+                  v-model="formData.start_date"
+                />
+                <p class="text-danger" v-text="errors.text"></p>
+              </div>
+                 <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="end_date"
+                  placeholder="end_date"
+                  v-model="formData.end_date"
+                />
+                <p class="text-danger" v-text="errors.text"></p>
+              </div>
+                 <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="description"
                   placeholder="description"
-                  v-model="formData.description" 
-                  required
+                  v-model="formData.description"
                 />
-                <span class="validity"></span>
-                <p class="text-danger" v-text="errors.text"></p>
-              </div>
-              <div class="form-group">
-Category:
-<br>
-  <input type="radio" id="Portrait" name="category" value="Portrait" v-model="formData.category">
-  <label for="Portrait">Portrait</label><br>
-  <input type="radio" id="Landscape" name="category" value="Landscape" v-model="formData.category">
-  <label for="Landscape">Landscape</label><br>
-  <input type="radio" id="Random" name="category" value="Random" v-model="formData.category">
-  <label for="Random">Random</label>
                 <p class="text-danger" v-text="errors.text"></p>
               </div>
               <div class="p-2 w-full">
@@ -48,7 +56,6 @@ Category:
                     class="leading-7 text-sm text-gray-600"
                     >Attachments</label
                   ><br />
-
                   <input
                     type="file"
                     accept="image/*"
@@ -73,36 +80,25 @@ Category:
 <script>
 import axios from "axios";
 import Navbar from "../components/Navbar.vue";
-import vue2Dropzone from "vue2-dropzone";
-import "vue2-dropzone/dist/vue2Dropzone.min.css";
 export default {
   data() {
     return {
       formData: {
-        file_path: "",
-        work_name: "",
-        description: "",
-        category: "",
         image: "",
-        collection_id: "",
-      },
-      dropzoneOptions: {
-        url: "/api/portfolio",
-        thumbnailWidth: 150,
-        maxFilesize: 2.5,
-        parallelUploads: 5,
-        maxFiles: 5,
-        uploadMultiple: true,
-        autoProcessQueue: false,
+        description: "",
+        name: "",
+        start_date: "",
+        end_date: "",
+
       },
       currentUser: {},
       token: localStorage.getItem("token"),
       errors: {},
     };
   },
+  
   components: {
     Navbar,
-    "vue-dropzone": vue2Dropzone,
   },
   methods: {
     afterUploadComplete: async function (response) {
@@ -118,23 +114,17 @@ export default {
       this.formData.image = file;
     },
 
-    // shootOrder() {
-    //   console.log(this.formData);
-    //   //   this.$refs.myVueDropzone.processQueue();
-    // },
-    // sendOrder: async function (files, xhr, formData) {
-    //   formData.append("text", this.text);
-    //   formData.append("file_path", this.file_path);
-    // },
 
-    createOrder() {
+    createCollection() {
       const orderForm = new FormData();
-      orderForm.append("work_name", this.formData.work_name);
-      orderForm.append("description", this.formData.description);
       orderForm.append("image", this.formData.image);
-      orderForm.append("category", this.formData.category);
+      orderForm.append("description", this.formData.description);
+      orderForm.append("name", this.formData.name);
+      orderForm.append("start_date", this.formData.start_date);
+      orderForm.append("end_date", this.formData.end_date);
+
       axios
-        .post("/api/portfolio", orderForm, {
+        .post("/api/collection", orderForm, {
           headers: {
             Authorization: "Bearer " + this.token,
             "Content-Type": "multipart/form-data",
@@ -142,14 +132,13 @@ export default {
           },
         })
         .then((response) => {
-          alert("Order Sent!");
+          alert("Collection created!");
           this.$router.push({
             name: "adminportfolio",
-            params: { id: this.currentUser.id },
           });
         })
         .catch((errors) => {
-          console.log("erro");
+          console.log("error");
         });
     },
     checkLoginStatus() {
@@ -198,5 +187,21 @@ export default {
 }
 .card-header {
   color: black;
+}
+.vue-select {
+  color:black;
+}
+.card-body {
+  background:white;
+  width:400px;
+}
+.card {
+  background:white;
+  width:400px;
+  margin-bottom:70px;
+  margin-top:70px;
+}
+.form {
+  color:white;
 }
 </style>
