@@ -12,7 +12,7 @@
           </b-nav-item>
 
           <b-nav-item class="item"
-            ><router-link class="col" :to="{ name: 'portfolio' }"
+            ><router-link class="col" :to="{ name: 'collections' }"
               >Portfolio</router-link
             >
           </b-nav-item>

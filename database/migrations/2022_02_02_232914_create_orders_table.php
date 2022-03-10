@@ -19,9 +19,9 @@ class CreateOrdersTable extends Migration
             $table->boolean('completion')->default(0);
             $table->boolean('accepted')->default(0);
             $table->string('file_path')->nullable();
-            $table->string('size');
-            $table->string('paint');
-            $table->string('canvas');
+            $table->foreignId('size_id')->references('id')->on('sizes')->onDelete('cascade');
+            $table->foreignId('paint_id')->references('id')->on('paints')->onDelete('cascade');
+            $table->foreignId('canvas_id')->references('id')->on('canvases')->onDelete('cascade');
             $table->double('price')->default(0);
             $table->boolean('is_paid')->default(0);
             $table->longText('text');

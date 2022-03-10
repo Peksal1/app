@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1']], function () {
     Route::post('/portfolio', [PortfolioController::class, 'store']); /// Store a new item to the portfolio
     Route::get('/messages', [ContactsController::class, 'index']); /// Message list
     Route::post('/collection', [PortfolioController::class, 'new_collection']);
+    Route::get('/collections', [PortfolioController::class, 'collections']);
     Route::delete('/messages/{id}', [ContactsController::class, 'destroy']); /// Deleting a message
     Route::delete('/portfolio/{id}', [PortfolioController::class, 'destroy']); /// Information about a specific portfolio item
     Route::put('/portfolio/{id}', [PortfolioController::class, 'update']); /// User editing
@@ -73,7 +74,8 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
     Route::post('/create-payment-session', [StripeController::class, 'createPaymentSession']);
     
 });
-
+Route::get('/collection/portfolio/{id}', [PortfolioController::class, 'display']);
+Route::get('/portinfo', [PortfolioController::class, 'create']); /// Feedback list
 ///Everyones APIs
 Route::get('/topic/{id}/post', [QnAController::class, 'topic_posts']); /// Returns a list of topics in a post
 Route::get('/topics', [QnAController::class, 'topiclist']); /// Returns the list of topics
@@ -97,6 +99,7 @@ Route::post('/shipping', [ShopController::class, 'create_shipping']);
 Route::post('/store', [ShopController::class, 'store']); /// New order
 Route::get('/store', [ShopController::class, 'index']); /// Order list
 Route::put('/store/{id}', [ShopController::class, 'storeedit']); /// Editing orders
+Route::get('/collections', [PortfolioController::class, 'collections']);
 ///registration
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

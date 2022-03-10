@@ -19,27 +19,18 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        $portfolios=Portfolio::paginate(20);
+
+    $portfolios=Portfolio::with(['portfolio_collection'])->paginate(20);
+
     return $portfolios;
     }
 
-    /*public function store(Request $request)
+    public function collections()
     {
-        $request->validate([
+        $collections=Collection::paginate(20);
+    return $collections;
+    }
 
-            'work_name'=>'required',
-    
-            'file_path'=>'required',
-    
-            'description'=>'required',
-    
-            
-    
-              ]);
-
-
-              return  Portfolio::create($request->all());
-    } */
     public function store(Request $request)
     {
         $orderData =   $request->all();
@@ -129,4 +120,10 @@ class PortfolioController extends Controller
             return response()->json(['success' => false, 'message' => 'The collection was not created not created'], 400);
         }
     }
+    public function display( $id)
+
+{
+    $portfolio = Portfolio::with(['portfolio_collection'])->where('collection_id', $id)->latest()->get();
+    return $portfolio;
+}
 }

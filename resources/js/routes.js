@@ -43,6 +43,7 @@ import Collections from './pages/Collections.vue'
 import PaymentOptions from './pages/payment_options'
 import DeliveryShipping from './pages/Deliveryshipping.vue'
 
+
 const routes = [
     {
         path:'/deliveryshipping',
@@ -81,7 +82,7 @@ const routes = [
     },
     {
         path: '/thank-you',
-        name: 'store',
+        name: 'thank-you',
         component: ThankYou,
     },
     {
@@ -194,9 +195,9 @@ const routes = [
         component: Messages
     },
     {
-        path: '/portfolio',
+        path: '/portfolio/:id',
         name: 'portfolio',
-        component: Portfolio
+        component: Portfolio,
     },
     {
         path: '/pleaselogin',

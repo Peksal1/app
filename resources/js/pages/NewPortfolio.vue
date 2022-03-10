@@ -39,6 +39,11 @@ Category:
   <label for="Landscape">Landscape</label><br>
   <input type="radio" id="Random" name="category" value="Random" v-model="formData.category">
   <label for="Random">Random</label>
+     <select name="collection" v-model="formData.collection_id" style="width:15rem;" >
+       <option value="">Choose</option>
+       <option v-for="collection in collections" v-bind:key="collection.id" :value="collection.id" >{{collection.name}}</option>
+  
+     </select>
                 <p class="text-danger" v-text="errors.text"></p>
               </div>
               <div class="p-2 w-full">
@@ -78,6 +83,7 @@ import "vue2-dropzone/dist/vue2Dropzone.min.css";
 export default {
   data() {
     return {
+        collections: {},
       formData: {
         file_path: "",
         work_name: "",
@@ -85,6 +91,9 @@ export default {
         category: "",
         image: "",
         collection_id: "",
+        size_id: 1,
+        canvas_id: 1,
+        paint_id: 1,
       },
       dropzoneOptions: {
         url: "/api/portfolio",
@@ -176,9 +185,16 @@ export default {
         });
       // this.loading = false
     },
+  
+  loadCollections() {
+      axios.get("api/collections").then(({ data }) => (this.collections = data.data));
+       this.isLoggedIn= false
+      console.log(this.collections)
+    },
   },
   mounted() {
     //  axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
+    this.loadCollections();
     this.checkLoginStatus();
   },
   updated() {

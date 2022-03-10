@@ -19,9 +19,9 @@ class CreateShopsTable extends Migration
             $table->longText('description');
             $table->string('category');
             $table->string('file_path');
-            $table->string('size');
-            $table->string('paint');
-            $table->string('canvas');
+            $table->foreignId('size_id')->references('id')->on('sizes')->onDelete('cascade');
+            $table->foreignId('paint_id')->references('id')->on('paints')->onDelete('cascade');
+            $table->foreignId('canvas_id')->references('id')->on('canvases')->onDelete('cascade');
             $table->double('price_in_eur', 10, 2);
             $table->timestamps();
         });

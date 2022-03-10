@@ -21,7 +21,7 @@
               </div>
                  <div class="form-group">
                 <input
-                  type="text"
+                  type="month"
                   class="form-control"
                   name="start_date"
                   placeholder="start_date"
@@ -31,7 +31,7 @@
               </div>
                  <div class="form-group">
                 <input
-                  type="text"
+                  type="month"
                   class="form-control"
                   name="end_date"
                   placeholder="end_date"
