@@ -17,7 +17,9 @@ import App from './components/App'
 import vuetify from './vuetify';
 import Swal from 'sweetalert2';
 import vSelect from 'vue-select'
-window.Swal=Swal
+window.Swal = Swal
+
+
 
 const app = new Vue({
     el: '#app',

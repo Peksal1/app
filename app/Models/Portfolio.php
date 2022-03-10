@@ -16,11 +16,11 @@ class Portfolio extends Model
     {
         return $this->belongsTo(Size::class);
     }
-    public function portfolio_collection()
+    public function portfolio_paint()
     {
         return $this->belongsTo(Paint::class);
     }
-    public function portfolio_collection()
+    public function portfolio_canvas()
     {
         return $this->belongsTo(Canvas::class);
     }

@@ -13,6 +13,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\UtilityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +63,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
 Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
     Route::post('/blogs', [BlogController::class, 'store']);
     Route::get('/bloginfo', [BlogController::class, 'show']);
+    
     Route::get('/blog/search/{title}', [BlogController::class, 'blog_search ']);
     Route::post('/topics', [QnAController::class, 'newtopic']); /// Store a new topic to the database
     Route::get('/topic/post/{id}', [QnAController::class, 'display']); /// Store a new topic to the database
@@ -77,6 +79,14 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
 Route::get('/collection/portfolio/{id}', [PortfolioController::class, 'display']);
 Route::get('/portinfo', [PortfolioController::class, 'create']); /// Feedback list
 ///Everyones APIs
+Route::get('/sizes', [UtilityController::class, 'sizes']);
+Route::post('/sizes', [UtilityController::class, 'store_size']);
+Route::delete('/sizes/{size}', [UtilityController::class, 'delete_size']);
+Route::get('/canvases', [UtilityController::class, 'canvas_list']);
+Route::post('/canvases', [UtilityController::class, 'canvas_store']);
+Route::get('/paints', [UtilityController::class, 'paint_list']);
+Route::post('/paints', [UtilityController::class, 'paint_store']);
+
 Route::get('/topic/{id}/post', [QnAController::class, 'topic_posts']); /// Returns a list of topics in a post
 Route::get('/topics', [QnAController::class, 'topiclist']); /// Returns the list of topics
 Route::get('/posts', [QnAController::class, 'postlist']); /// Returns the list of topics
