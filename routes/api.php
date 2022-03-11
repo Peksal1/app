@@ -82,10 +82,12 @@ Route::get('/portinfo', [PortfolioController::class, 'create']); /// Feedback li
 Route::get('/sizes', [UtilityController::class, 'sizes']);
 Route::post('/sizes', [UtilityController::class, 'store_size']);
 Route::delete('/sizes/{size}', [UtilityController::class, 'delete_size']);
-Route::get('/canvases', [UtilityController::class, 'canvas_list']);
-Route::post('/canvases', [UtilityController::class, 'canvas_store']);
-Route::get('/paints', [UtilityController::class, 'paint_list']);
-Route::post('/paints', [UtilityController::class, 'paint_store']);
+Route::get('/canvases', [UtilityController::class, 'canvases']);
+Route::post('/canvases', [UtilityController::class, 'store_canvas']);
+Route::delete('/canvases/{canvas}', [UtilityController::class, 'delete_canvas']);
+Route::get('/paints', [UtilityController::class, 'paints']);
+Route::post('/paints', [UtilityController::class, 'store_paint']);
+Route::delete('/paints/{paint}', [UtilityController::class, 'delete_paint']);
 
 Route::get('/topic/{id}/post', [QnAController::class, 'topic_posts']); /// Returns a list of topics in a post
 Route::get('/topics', [QnAController::class, 'topiclist']); /// Returns the list of topics
@@ -110,6 +112,9 @@ Route::post('/store', [ShopController::class, 'store']); /// New order
 Route::get('/store', [ShopController::class, 'index']); /// Order list
 Route::put('/store/{id}', [ShopController::class, 'storeedit']); /// Editing orders
 Route::get('/collections', [PortfolioController::class, 'collections']);
+Route::get('/all_sizes', [UtilityController::class, 'all_sizes']);
+Route::get('/all_paints', [UtilityController::class, 'all_paints']);
+Route::get('/all_canvases', [UtilityController::class, 'all_canvases']);
 ///registration
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

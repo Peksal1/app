@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Canvas extends Model
 {
     use HasFactory;
+    protected $fillable  = [
+        'type',
+        'price_in_eur',
+    ];
 }

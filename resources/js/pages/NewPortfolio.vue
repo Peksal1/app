@@ -24,26 +24,98 @@
                   class="form-control"
                   name="work_name"
                   placeholder="description"
-                  v-model="formData.description" 
+                  v-model="formData.description"
                   required
                 />
                 <span class="validity"></span>
                 <p class="text-danger" v-text="errors.text"></p>
               </div>
               <div class="form-group">
-Category:
-<br>
-  <input type="radio" id="Portrait" name="category" value="Portrait" v-model="formData.category">
-  <label for="Portrait">Portrait</label><br>
-  <input type="radio" id="Landscape" name="category" value="Landscape" v-model="formData.category">
-  <label for="Landscape">Landscape</label><br>
-  <input type="radio" id="Random" name="category" value="Random" v-model="formData.category">
-  <label for="Random">Random</label>
-     <select name="collection" v-model="formData.collection_id" style="width:15rem;" >
-       <option value="">Choose</option>
-       <option v-for="collection in collections" v-bind:key="collection.id" :value="collection.id" >{{collection.name}}</option>
-  
-     </select>
+                Category:
+                <br />
+                <input
+                  type="radio"
+                  id="Portrait"
+                  name="category"
+                  value="Portrait"
+                  v-model="formData.category"
+                />
+                <label for="Portrait">Portrait</label><br />
+                <input
+                  type="radio"
+                  id="Landscape"
+                  name="category"
+                  value="Landscape"
+                  v-model="formData.category"
+                />
+                <label for="Landscape">Landscape</label><br />
+                <input
+                  type="radio"
+                  id="Random"
+                  name="category"
+                  value="Random"
+                  v-model="formData.category"
+                />
+                <label for="Random">Random</label>
+                <select
+                  name="collection"
+                  v-model="formData.collection_id"
+                  style="width: 15rem"
+                >
+                  <option value="">Choose</option>
+                  <option
+                    v-for="collection in collections"
+                    v-bind:key="collection.id"
+                    :value="collection.id"
+                  >
+                    {{ collection.name }}
+                  </option>
+                </select>
+                <!-- SIZE -->
+                <select
+                  name="size"
+                  v-model="formData.size_id"
+                  style="width: 15rem"
+                >
+                  <option value="">Choose</option>
+                  <option
+                    v-for="size in sizes"
+                    v-bind:key="size.id"
+                    :value="size.id"
+                  >
+                    {{ size.type }}
+                  </option>
+                </select>
+                <!-- PAINT -->
+                <select
+                  name="paint"
+                  v-model="formData.paint_id"
+                  style="width: 15rem"
+                >
+                  <option value="">Choose</option>
+                  <option
+                    v-for="paint in paints"
+                    v-bind:key="paint.id"
+                    :value="paint.id"
+                  >
+                    {{ paint.type }}
+                  </option>
+                </select>
+                <!--  CANVAS -->
+                <select
+                  name="canvas"
+                  v-model="formData.canvas_id"
+                  style="width: 15rem"
+                >
+                  <option value="">Choose</option>
+                  <option
+                    v-for="canvas in canvases"
+                    v-bind:key="canvas.id"
+                    :value="canvas.id"
+                  >
+                    {{ canvas.type }}
+                  </option>
+                </select>
                 <p class="text-danger" v-text="errors.text"></p>
               </div>
               <div class="p-2 w-full">
@@ -78,12 +150,15 @@ Category:
 <script>
 import axios from "axios";
 import Navbar from "../components/Navbar.vue";
-import vue2Dropzone from "vue2-dropzone";
-import "vue2-dropzone/dist/vue2Dropzone.min.css";
+
 export default {
   data() {
     return {
-        collections: {},
+      collections: {},
+      sizes: {},
+      canvases: {},
+      paints: {},
+
       formData: {
         file_path: "",
         work_name: "",
@@ -91,18 +166,9 @@ export default {
         category: "",
         image: "",
         collection_id: "",
-        size_id: 1,
-        canvas_id: 1,
-        paint_id: 1,
-      },
-      dropzoneOptions: {
-        url: "/api/portfolio",
-        thumbnailWidth: 150,
-        maxFilesize: 2.5,
-        parallelUploads: 5,
-        maxFiles: 5,
-        uploadMultiple: true,
-        autoProcessQueue: false,
+        size_id: "",
+        canvas_id: "",
+        paint_id: "",
       },
       currentUser: {},
       token: localStorage.getItem("token"),
@@ -111,7 +177,6 @@ export default {
   },
   components: {
     Navbar,
-    "vue-dropzone": vue2Dropzone,
   },
   methods: {
     afterUploadComplete: async function (response) {
@@ -126,15 +191,6 @@ export default {
       const file = event.target.files[0];
       this.formData.image = file;
     },
-
-    // shootOrder() {
-    //   console.log(this.formData);
-    //   //   this.$refs.myVueDropzone.processQueue();
-    // },
-    // sendOrder: async function (files, xhr, formData) {
-    //   formData.append("text", this.text);
-    //   formData.append("file_path", this.file_path);
-    // },
 
     createOrder() {
       const orderForm = new FormData();
@@ -185,17 +241,39 @@ export default {
         });
       // this.loading = false
     },
-  
-  loadCollections() {
-      axios.get("api/collections").then(({ data }) => (this.collections = data.data));
-       this.isLoggedIn= false
-      console.log(this.collections)
+
+    loadCollections() {
+      axios
+        .get("api/collections")
+        .then(({ data }) => (this.collections = data.data));
+      this.isLoggedIn = false;
+      console.log(this.collections);
+    },
+    loadSizes() {
+      axios.get("api/all_sizes").then(({ data }) => (this.sizes = data.data));
+      this.isLoggedIn = false;
+      console.log(this.sizes);
+    },
+    loadPaints() {
+      axios.get("api/all_paints").then(({ data }) => (this.paints = data.data));
+      this.isLoggedIn = false;
+      console.log(this.paints);
+    },
+    loadCanvases() {
+      axios
+        .get("api/all_canvases")
+        .then(({ data }) => (this.canvases = data.data));
+      this.isLoggedIn = false;
+      console.log(this.canvases);
     },
   },
   mounted() {
     //  axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
     this.loadCollections();
     this.checkLoginStatus();
+    this.loadSizes();
+    this.loadPaints();
+    this.loadCanvases();
   },
   updated() {
     console.log(this.isLoggedIn);
