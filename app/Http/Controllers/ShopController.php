@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Purchases;
 use App\Models\Shop;
 use App\Models\Shipping;
 use Illuminate\Http\Request;
@@ -73,7 +74,24 @@ class ShopController extends Controller
     }
     public function create_shipping(Request $request)
     {
-        $shipping = Shipping::create($request->all());
+         $shipping = Shipping::create($request->all());
+        return response()->json(['success' => true, 'message' => 'Shipping added'],200);
         
+    }
+
+    public function checkPurchase($pruchaseId){
+    
+       $order = Purchases::where('uuid', $pruchaseId)->first();
+        $shippingInfo = Shipping::where('purchase_id', $order->uuid)->first();
+       if( $order){
+            $res['success'] = true;
+            $res['order'] = $order;
+            $res['isShippingInfoFilled'] = !!$shippingInfo;
+            return response()->json($res, 200);
+        }else{
+            $res['success'] = false;
+            $res['message'] = 'Order not found';
+            return response()->json($res, 200);
+        }
     }
 }

@@ -42,11 +42,18 @@ import NewCollection from './pages/NewCollection.vue'
 import Collections from './pages/Collections.vue'
 import PaymentOptions from './pages/payment_options'
 import DeliveryShipping from './pages/Deliveryshipping.vue'
-
+import PortfolioAll from './pages/PortfolioAll.vue'
 
 const routes = [
+
     {
-        path:'/deliveryshipping',
+        path: '/portfolio/all',
+        name: 'portfolio/all',
+        component: PortfolioAll,
+    },
+
+    {
+        path: '/deliveryshipping',
         name: 'deliveryshipping',
         component: DeliveryShipping,
     },
@@ -252,8 +259,8 @@ const routes = [
 
     {
 
-        path:'/user_orders/:id',
-        name:'user_orders',
+        path: '/user_orders/:id',
+        name: 'user_orders',
         component: User_orders,
     },
     {

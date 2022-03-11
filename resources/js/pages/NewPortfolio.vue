@@ -198,6 +198,10 @@ export default {
       orderForm.append("description", this.formData.description);
       orderForm.append("image", this.formData.image);
       orderForm.append("category", this.formData.category);
+      orderForm.append("collection_id", this.formData.collection_id);
+      orderForm.append("size_id", this.formData.size_id);
+      orderForm.append("canvas_id", this.formData.canvas_id);
+      orderForm.append("paint_id", this.formData.paint_id);
       axios
         .post("/api/portfolio", orderForm, {
           headers: {

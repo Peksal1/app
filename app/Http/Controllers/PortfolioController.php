@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Portfolio;
 use App\Models\Collection;
+use App\Http\Resources\PortfolioResource;
 
 use Image;
 use Auth;
@@ -23,6 +24,16 @@ class PortfolioController extends Controller
     $portfolios=Portfolio::with(['portfolio_collection'])->paginate(20);
 
     return $portfolios;
+    }
+
+    public function full_portfolio(Request $request)
+    {
+        $portfolioQuery = Portfolio::query();
+         if($request->searchKeyword != null){
+            $portfolioQuery->where('work_name','LIKE',"%{$request->searchKeyword}%");
+        }
+         $portfolios = $portfolioQuery->paginate(4);
+        return PortfolioResource::collection( $portfolios);
     }
 
     public function collections()

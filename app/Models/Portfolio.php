@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Portfolio extends Model
 {
-    protected $fillable = ['work_name', 'file_path', 'description', 'category', 'size_id', 'paint_id', 'canvas_id', 'price',];
+    protected $fillable = ['work_name', 'file_path', 'description', 'category', 'size_id', 'collection_id', 'paint_id', 'canvas_id', 'price',];
 
     public function portfolio_collection()
     {
