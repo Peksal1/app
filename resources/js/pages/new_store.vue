@@ -15,11 +15,6 @@
                   placeholder="Work Name"
                   v-model="formData.work_name"
                 />
-                 $table->string('image');
-            $table->longText('description');
-            $table->string('name');
-            $table->string('start_date');
-            $table->string('end_date');
               </div>
               <div class="form-group">
                 <input
@@ -31,43 +26,34 @@
                 />
               </div>
               <div class="form-group">
-              Category:
-<br>
-  <input type="radio" id="Portrait" name="category" value="Portrait" v-model="formData.category">
-  <label for="Portrait">Portrait</label><br>
-  <input type="radio" id="Landscape" name="category" value="Landscape" v-model="formData.category">
-  <label for="Landscape">Landscape</label><br>
-  <input type="radio" id="Random" name="category" value="Random" v-model="formData.category">
-  <label for="Random">Random</label>
+                Category:
+                <br />
+                <input
+                  type="radio"
+                  id="Portrait"
+                  name="category"
+                  value="Portrait"
+                  v-model="formData.category"
+                />
+                <label for="Portrait">Portrait</label><br />
+                <input
+                  type="radio"
+                  id="Landscape"
+                  name="category"
+                  value="Landscape"
+                  v-model="formData.category"
+                />
+                <label for="Landscape">Landscape</label><br />
+                <input
+                  type="radio"
+                  id="Random"
+                  name="category"
+                  value="Random"
+                  v-model="formData.category"
+                />
+                <label for="Random">Random</label>
               </div>
               <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="size"
-                  placeholder="size"
-                  v-model="formData.size"
-                />
-              </div>
-                <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="canvas"
-                  placeholder="canvas"
-                  v-model="formData.canvas"
-                />
-              </div>
-                <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="paint"
-                  placeholder="paint"
-                  v-model="formData.paint"
-                />
-              </div>
-                <div class="form-group">
                 <input
                   type="number"
                   class="form-control"
@@ -76,6 +62,51 @@
                   v-model="formData.price_in_eur"
                 />
               </div>
+              <!-- SIZE -->
+              <select
+                name="size"
+                v-model="formData.size_id"
+                style="width: 15rem"
+              >
+                <option value="">Choose</option>
+                <option
+                  v-for="size in sizes"
+                  v-bind:key="size.id"
+                  :value="size.id"
+                >
+                  {{ size.type }}
+                </option>
+              </select>
+              <!-- PAINT -->
+              <select
+                name="paint"
+                v-model="formData.paint_id"
+                style="width: 15rem"
+              >
+                <option value="">Choose</option>
+                <option
+                  v-for="paint in paints"
+                  v-bind:key="paint.id"
+                  :value="paint.id"
+                >
+                  {{ paint.type }}
+                </option>
+              </select>
+              <!--  CANVAS -->
+              <select
+                name="canvas"
+                v-model="formData.canvas_id"
+                style="width: 15rem"
+              >
+                <option value="">Choose</option>
+                <option
+                  v-for="canvas in canvases"
+                  v-bind:key="canvas.id"
+                  :value="canvas.id"
+                >
+                  {{ canvas.type }}
+                </option>
+              </select>
               <div class="p-2 w-full">
                 <div class="relative">
                   <label
@@ -83,13 +114,6 @@
                     class="leading-7 text-sm text-gray-600"
                     >Attachments</label
                   ><br />
-                  <!-- <vue-dropzone
-                    ref="myVueDropzone"
-                    id="dropzone"
-                    :options="dropzoneOptions"
-                    @vdropzone-complete="afterUploadComplete"
-                    @vdropzone-sending-multiple="sendOrder"
-                  ></vue-dropzone> -->
                   <input
                     type="file"
                     accept="image/*"
@@ -114,30 +138,24 @@
 <script>
 import axios from "axios";
 import AdminNavbar from "../components/AdminNavbar.vue";
-import vue2Dropzone from "vue2-dropzone";
-import "vue2-dropzone/dist/vue2Dropzone.min.css";
 export default {
   data() {
     return {
+      sizes: {},
+      canvases: {},
+      paints: {},
+
       formData: {
         work_name: "",
         description: "",
         category: "",
         file_path: "",
         price_in_eur: "",
-        paint: "",
-        canvas: "",
-        size: "",
+        size_id: "",
+        canvas_id: "",
+        paint_id: "",
       },
-      dropzoneOptions: {
-        url: "/api/store",
-        thumbnailWidth: 150,
-        maxFilesize: 2.5,
-        parallelUploads: 5,
-        maxFiles: 5,
-        uploadMultiple: true,
-        autoProcessQueue: false,
-      },
+
       currentUser: {},
       token: localStorage.getItem("token"),
       errors: {},
@@ -145,7 +163,6 @@ export default {
   },
   components: {
     AdminNavbar,
-    "vue-dropzone": vue2Dropzone,
   },
   methods: {
     afterUploadComplete: async function (response) {
@@ -177,9 +194,9 @@ export default {
       itemForm.append("description", this.formData.description);
       itemForm.append("category", this.formData.category);
       itemForm.append("price_in_eur", this.formData.price_in_eur);
-      itemForm.append("size", this.formData.size);
-      itemForm.append("canvas", this.formData.canvas);
-      itemForm.append("paint", this.formData.paint);
+      itemForm.append("size_id", this.formData.size_id);
+      itemForm.append("canvas_id", this.formData.canvas_id);
+      itemForm.append("paint_id", this.formData.paint_id);
       axios
         .post("/api/store", itemForm, {
           headers: {
@@ -222,10 +239,29 @@ export default {
         });
       // this.loading = false
     },
+    loadSizes() {
+      axios.get("api/all_sizes").then(({ data }) => (this.sizes = data.data));
+      this.isLoggedIn = false;
+      console.log(this.sizes);
+    },
+    loadPaints() {
+      axios.get("api/all_paints").then(({ data }) => (this.paints = data.data));
+      this.isLoggedIn = false;
+      console.log(this.paints);
+    },
+    loadCanvases() {
+      axios
+        .get("api/all_canvases")
+        .then(({ data }) => (this.canvases = data.data));
+      this.isLoggedIn = false;
+      console.log(this.canvases);
+    },
   },
   mounted() {
-    //  axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
     this.checkLoginStatus();
+    this.loadSizes();
+    this.loadPaints();
+    this.loadCanvases();
   },
   updated() {
     console.log(this.isLoggedIn);
@@ -246,15 +282,15 @@ export default {
   color: black;
 }
 .card-body {
-  color:white !important;
-  background:white !important;
+  color: white !important;
+  background: white !important;
 }
 .card {
-  color:black;
-  background:black;
+  color: black;
+  background: black;
 }
 .form {
-  color:black !important ;
-  background:black !important;
+  color: black !important ;
+  background: black !important;
 }
 </style>

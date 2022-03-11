@@ -19,36 +19,51 @@
                 />
                 <p class="text-danger" v-text="errors.text"></p>
               </div>
-                 <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="size"
-                  placeholder="size"
-                  v-model="formData.size"
-                />
-                <p class="text-danger" v-text="errors.text"></p>
-              </div>
-                 <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="paint"
-                  placeholder="paint"
-                  v-model="formData.paint"
-                />
-                <p class="text-danger" v-text="errors.text"></p>
-              </div>
-                 <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="canvas"
-                  placeholder="canvas"
-                  v-model="formData.canvas"
-                />
-                <p class="text-danger" v-text="errors.text"></p>
-              </div>
+              <!-- SIZE -->
+              <select
+                name="size"
+                v-model="formData.size_id"
+                style="width: 15rem"
+              >
+                <option value="">Choose</option>
+                <option
+                  v-for="size in sizes"
+                  v-bind:key="size.id"
+                  :value="size.id"
+                >
+                  {{ size.type }}
+                </option>
+              </select>
+              <!-- PAINT -->
+              <select
+                name="paint"
+                v-model="formData.paint_id"
+                style="width: 15rem"
+              >
+                <option value="">Choose</option>
+                <option
+                  v-for="paint in paints"
+                  v-bind:key="paint.id"
+                  :value="paint.id"
+                >
+                  {{ paint.type }}
+                </option>
+              </select>
+              <!--  CANVAS -->
+              <select
+                name="canvas"
+                v-model="formData.canvas_id"
+                style="width: 15rem"
+              >
+                <option value="">Choose</option>
+                <option
+                  v-for="canvas in canvases"
+                  v-bind:key="canvas.id"
+                  :value="canvas.id"
+                >
+                  {{ canvas.type }}
+                </option>
+              </select>
               <div class="p-2 w-full">
                 <div class="relative">
                   <label
@@ -64,7 +79,11 @@
                   />
                 </div>
               </div>
-              <v-select label="canvas" :options="['Canada', 'United States']" v-model="formData.canvas"></v-select>
+              <v-select
+                label="canvas"
+                :options="['Canada', 'United States']"
+                v-model="formData.canvas"
+              ></v-select>
               <div class="row">
                 <div class="col-md-6">
                   <button type="submit" class="btn btn-primary">Send</button>
@@ -84,6 +103,9 @@ import Navbar from "../components/Navbar.vue";
 export default {
   data() {
     return {
+      sizes: {},
+      canvases: {},
+      paints: {},
       formData: {
         user_id: "",
         text: "",
@@ -91,16 +113,16 @@ export default {
         completion: "0",
         accepted: "0",
         image: "",
-        canvas: "",
-        size: "",
-        paint: "",
+        size_id: "",
+        canvas_id: "",
+        paint_id: "",
       },
       currentUser: {},
       token: localStorage.getItem("token"),
       errors: {},
     };
   },
-  
+
   components: {
     Navbar,
   },
@@ -118,15 +140,14 @@ export default {
       this.formData.image = file;
     },
 
-
     createOrder() {
       const orderForm = new FormData();
       orderForm.append("text", this.formData.text);
       orderForm.append("file_path", this.formData.file_path);
       orderForm.append("image", this.formData.image);
-      orderForm.append("canvas", this.formData.canvas);
-      orderForm.append("size", this.formData.size);
-      orderForm.append("paint", this.formData.paint);
+      orderForm.append("size_id", this.formData.size_id);
+      orderForm.append("canvas_id", this.formData.canvas_id);
+      orderForm.append("paint_id", this.formData.paint_id);
       orderForm.append("user_id", this.currentUser.id);
 
       axios
@@ -172,10 +193,30 @@ export default {
         });
       // this.loading = false
     },
+    loadSizes() {
+      axios.get("api/all_sizes").then(({ data }) => (this.sizes = data.data));
+      this.isLoggedIn = false;
+      console.log(this.sizes);
+    },
+    loadPaints() {
+      axios.get("api/all_paints").then(({ data }) => (this.paints = data.data));
+      this.isLoggedIn = false;
+      console.log(this.paints);
+    },
+    loadCanvases() {
+      axios
+        .get("api/all_canvases")
+        .then(({ data }) => (this.canvases = data.data));
+      this.isLoggedIn = false;
+      console.log(this.canvases);
+    },
   },
   mounted() {
     //  axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
     this.checkLoginStatus();
+    this.loadSizes();
+    this.loadPaints();
+    this.loadCanvases();
   },
   updated() {
     console.log(this.isLoggedIn);
@@ -196,19 +237,19 @@ export default {
   color: black;
 }
 .vue-select {
-  color:black;
+  color: black;
 }
 .card-body {
-  background:white;
-  width:400px;
+  background: white;
+  width: 400px;
 }
 .card {
-  background:white;
-  width:400px;
-  margin-bottom:70px;
-  margin-top:70px;
+  background: white;
+  width: 400px;
+  margin-bottom: 70px;
+  margin-top: 70px;
 }
 .form {
-  color:white;
+  color: white;
 }
 </style>

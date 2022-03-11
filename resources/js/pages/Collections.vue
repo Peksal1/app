@@ -3,6 +3,24 @@
     <Navbar />
     <div class="container">
       <div class="row">
+        <div class="card">
+          <div class="card-body">
+            <div class="product-image">
+              <img :src="`/utility/all_portfolio`" alt="" />
+            </div>
+
+            <a href="#" name="Blog">
+              <router-link
+                :to="{
+                  name: 'portfolio/all',
+                }"
+                >Full portfolio</router-link
+              >
+            </a>
+            <div class="title">123</div>
+            <div class="title">123</div>
+          </div>
+        </div>
         <div
           class="col-md-3"
           v-for="collection in collections"

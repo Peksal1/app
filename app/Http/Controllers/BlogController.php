@@ -15,10 +15,14 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $blogs=Blog::paginate(20);
-    return $blogs;
+        $blogQuery = Blog::query();
+         if($request->searchKeyword != null){
+            $blogQuery->where('title','LIKE',"%{$request->searchKeyword}%");
+        }
+         $blogs = $blogQuery->paginate(4);
+        return BlogResource::collection( $blogs);
     }
 
     /**

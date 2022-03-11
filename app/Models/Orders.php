@@ -12,9 +12,9 @@ class orders extends Model
         'file_path',
         'text',
         'user_id',
-        'size',
-        'paint',
-        'canvas',
+        'size_id',
+        'paint_id',
+        'canvas_id',
         'price',
     ];
 

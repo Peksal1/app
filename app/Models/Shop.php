@@ -10,9 +10,9 @@ class Shop extends Model
     protected $fillable = [
         'work_name',
         'description',
-        'size',
-        'paint',
-        'canvas',
+        'size_id',
+        'paint_id',
+        'canvas_id',
         'category',
         'file_path',
         'price_in_eur',
