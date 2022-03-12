@@ -26,4 +26,8 @@ class orders extends Model
     {
         return $this->belongsTo(User::class,'name');
     }
+    public function user_order_messages()
+    {
+        return $this->hasMany(Order_message::class);
+    }
 }

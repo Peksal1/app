@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Orders;
 use App\Models\User;
+use App\Models\Order_message;
 use Illuminate\Http\Request;
 use App\Http\Resources\OrderResource;
+use App\Http\Resources\OrderMessageResource;
 
 
 class OrderController extends Controller
@@ -80,4 +82,31 @@ class OrderController extends Controller
         return response()->json($user_order, 200, [], JSON_PRETTY_PRINT);
       
     }
+    public function get_order_messages()
+    {
+
+    }
+    public function post_order_messages(Request $request)
+    {
+       
+        $order_message = new Order_message;
+        $order_message->message = $request->message;
+        $canvas->save();
+           $res['order_message'] = $order_message;
+           $res['status'] = 'success';
+
+        return response()->json($res);
+      
+    }
+    public function delete_order_messages($order_message)
+    {
+    try{
+        $order_message = Order_message::find($order_message);
+        $order_message->delete();
+        $res['status'] = 'success';
+     }catch(Exception $e){
+        $res['status'] = 'error';
+     }
+     return response()->json($res);
+ }
 }
