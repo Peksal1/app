@@ -71,6 +71,10 @@ const routes = [
         path: '/newcollection',
         name: 'newcollection',
         component: NewCollection,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/faq',
@@ -81,6 +85,10 @@ const routes = [
         path: '/newstore',
         name: 'newstore',
         component: NewStore,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/store',
@@ -105,76 +113,134 @@ const routes = [
         path: '/neworder',
         name: 'neworder',
         component: NewOrder,
+        meta: {
+            requiresAuth: true,
+        },
     },
     {
         path: '/user/:id',
         name: 'userprofile',
         component: UserProfile,
+        meta: {
+            requiresAuth: true,
+        },
     },
     {
         path: '/adminnewpost/:id',
         name: 'adminnewpost',
         component: AdminNewPost,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/adminnewtopic',
         name: '/adminnewtopic',
-        component: AdminNewTopic
+        component: AdminNewTopic,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/updatetopic/:id',
         name: 'updatetopic',
-        component: UpdateTopic
+        component: UpdateTopic,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/updateportfolio/:id',
         name: 'updateportfolio',
-        component: UpdatePortfolio
+        component: UpdatePortfolio,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/admintopicsposts/:id',
         name: 'admintopicsposts',
-        component: AdminTopicPosts
+        component: AdminTopicPosts,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/newportfolio',
         name: 'newportfolio',
-        component: NewPortfolio
+        component: NewPortfolio,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/adminhome',
         name: 'adminhome',
-        component: AdminHome
+        component: AdminHome,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/adminportfolio',
         name: 'adminportfolio',
-        component: AdminPortfolio
+        component: AdminPortfolio,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/adminfeedback',
         name: 'adminfeedback',
-        component: AdminFeedback
+        component: AdminFeedback,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/updateuser/:id',
         name: 'updateuser',
-        component: updateuser
+        component: updateuser,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/users',
         name: 'users',
-        component: Users
+        component: Users,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/updatefeedback/:id',
         name: 'updatefeedback',
-        component: updatefeedback
+        component: updatefeedback,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/adminqna',
         name: 'adminqna',
-        component: AdminQnA
+        component: AdminQnA,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/',
@@ -189,7 +255,11 @@ const routes = [
     {
         path: '/newtopic',
         name: '/newtopic',
-        component: NewTopic
+        component: NewTopic,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/newfeedback',
@@ -199,7 +269,11 @@ const routes = [
     {
         path: '/messages',
         name: 'messages',
-        component: Messages
+        component: Messages,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/portfolio/:id',
@@ -214,7 +288,11 @@ const routes = [
     {
         path: '/admin',
         name: 'admin',
-        component: Admin
+        component: Admin,
+        meta: {
+            requiresAuth: true,
+            requiresAdminAuth: true,
+        },
     },
     {
         path: '/feedback',
@@ -230,11 +308,6 @@ const routes = [
         path: '/login',
         name: 'login',
         component: Login,
-    },
-    {
-        path: '/service',
-        name: 'service',
-        component: Services,
     },
     {
         path: '/blog',
@@ -262,6 +335,9 @@ const routes = [
         path: '/user_orders/:id',
         name: 'user_orders',
         component: User_orders,
+        meta: {
+            requiresAuth: true,
+        },
     },
     {
         path: '/createuserpost/:id',
