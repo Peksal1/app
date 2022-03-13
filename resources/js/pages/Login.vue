@@ -1,39 +1,35 @@
 <template>
-  <div class="container-fuiled">
+  <div>
     <Navbar />
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">login</div>
-          <div class="card-body">
-            <form action="#" @submit.prevent="login">
-              <div class="form-group">
+    <div class="body">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-offset-5 col-md-4 text-center">
+            <div class="form-login">
+              <h4>Secure Login</h4>
+              <form action="#" @submit.prevent="login">
                 <input
                   type="text"
-                  class="form-control"
-                  name="email"
+                  id="email"
+                  class="form-control input-sm chat-input"
                   placeholder="email"
                   v-model="formData.email"
                 />
-                <p class="text-danger" v-text="errors.email"></p>
-              </div>
-              <div class="form-group">
+
                 <input
                   type="password"
-                  class="form-control"
-                  name="password"
+                  id="userPassword"
+                  class="form-control input-sm chat-input"
                   placeholder="password"
                   v-model="formData.password"
                 />
-                <p class="text-danger" v-text="errors.password"></p>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6">
-                  <button type="submit" class="btn btn-primary">login</button>
+                <div class="wrapper">
+                  <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary">login</button>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       </div>
@@ -50,7 +46,6 @@ export default {
       formData: {
         email: "",
         password: "",
-        device_name: "browser",
       },
       errors: {},
     };
@@ -96,4 +91,62 @@ export default {
 
 
 <style>
+.body {
+  background-image: url("https://i.redd.it/o8dlfk93azs31.jpg");
+  background-position: center;
+  background-size: cover;
+
+  -webkit-font-smoothing: antialiased;
+  font: normal 14px Roboto, arial, sans-serif;
+  font-family: "Dancing Script", cursive !important;
+}
+
+.container {
+  padding: 110px;
+}
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #ffffff !important;
+  opacity: 1; /* Firefox */
+  font-size: 18px !important;
+}
+.form-login {
+  background-color: rgba(0, 0, 0, 0.55);
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 15px;
+  border-color: #d2d2d2;
+  border-width: 5px;
+  color: white;
+  box-shadow: 0 1px 0 #cfcfcf;
+}
+.form-control {
+  background: transparent !important;
+  color: white !important;
+  font-size: 18px !important;
+}
+h1 {
+  color: white !important;
+}
+h4 {
+  border: 0 solid #fff;
+  border-bottom-width: 1px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.form-control {
+  border-radius: 10px;
+}
+.text-white {
+  color: white !important;
+}
+.wrapper {
+  text-align: center;
+}
+.footer p {
+  font-size: 18px;
+}
 </style>

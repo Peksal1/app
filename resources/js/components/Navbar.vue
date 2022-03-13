@@ -19,7 +19,11 @@
           <b-nav-item class="item"
             ><router-link class="col" :to="{ name: 'blog' }">Blog</router-link>
           </b-nav-item>
-        
+          <b-nav-item class="item"
+            ><router-link class="col" :to="{ name: 'biography' }"
+              >About me</router-link
+            >
+          </b-nav-item>
           <b-nav-item class="item"
             ><router-link class="col" :to="{ name: 'store' }"
               >For sale!</router-link

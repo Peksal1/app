@@ -1,27 +1,46 @@
-<template>
+    <template>
   <div>
     <Navbar />
-    <div class="container">
-      <div class="row">
-        <div
-          class="col-md-3"
-          v-for="portfolio in portfolios"
-          :key="portfolio.id"
-        >
-          <div class="card">
-            <div class="card-body">
-              <div class="product-image">
+    <section class="section-products">
+      <div class="container">
+        <div class="row justify-content-center text-center">
+          <div class="col-md-8 col-lg-6">
+            <div class="header">
+              <h2>Collection - XXX</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- Single Product -->
+          <div
+            class="col-md-6 col-lg-4 col-xl-3"
+            v-for="portfolio in portfolios"
+            :key="portfolio.id"
+          >
+            <div id="product-1" class="single-product">
+              <div class="part-1">
                 <img :src="`/portfolio/${portfolio.file_path}`" alt="" />
+
+                <ul>
+                  <li>
+                    <a href="#"><i class="fas fa-expand"></i></a>
+                  </li>
+                </ul>
               </div>
-              <div class="title">{{ portfolio.work_name }}</div>
-              <div class="title">
-                {{ portfolio.category }}
+              <div class="part-2">
+                <h3 class="product-title">
+                  <strong>{{ portfolio.work_name }}</strong>
+                </h3>
+                <div class="category">{{ portfolio.description }}</div>
+                <h4 class="product-price">
+                  {{ portfolio.category }}
+                </h4>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -42,7 +61,7 @@ export default {
   },
 
   methods: {
-    loadUsers() {
+    loadPortfolios() {
       axios
         .get("/api/collection/portfolio/" + this.$route.params.id, {
           headers: {
@@ -89,99 +108,172 @@ export default {
 
   mounted() {
     this.checkLoginStatus();
-    this.loadUsers();
+    this.loadPortfolios();
   },
 };
 </script>
 
  <style>
-* {
-  box-sizing: border-box;
-}
-.search {
-  text-align: right;
-}
-.bland {
-  font-size: 60px;
-  color: #ffa309;
-  font-family: "Queen of Camelot" !important;
-  margin-left: 40px;
-}
-.home {
-  font-size: 30px;
-  font-family: "Queen of Camelot" !important;
-  text-align: center;
-}
-.addtopic {
-  color: #ffa309;
-  text-align: right;
-  font-size: 24px;
-}
-html {
-  font-size: 14px;
-  font-family: "Titillium Web", sans-serif;
-  background-color: #151426;
-  color: #fefefe;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: #444444;
 }
 
-a {
-  color: #ffa309;
-  font-weight: bolder;
+a,
+a:hover {
   text-decoration: none;
+  color: inherit;
 }
 
-h1 {
-  font-size: 16px;
-  font-weight: bolder;
+.section-products {
+  padding: 80px 0 54px;
 }
 
-/* ########################################### */
-/*           Forums.html                       */
-/* ########################################### */
-.container {
-  margin: 20px;
-  padding: 20px;
+.section-products .header {
+  margin-bottom: 50px;
 }
 
-.subforum {
-  margin-top: 20px;
+.section-products .header h3 {
+  font-size: 1rem;
+  color: #fe302f;
+  font-weight: 500;
 }
 
-.subforum-title {
-  background-color: #292b2e;
-  padding: 5px;
-  border-radius: 5px;
-  margin: 4px;
-  color: white;
+.section-products .header h2 {
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: #444444;
 }
 
-.subforum-row {
-  display: grid;
-  grid-template-columns: 7% 60% 13% 20%;
+.section-products .single-product {
+  margin-bottom: 26px;
 }
 
-.subforum-column {
-  padding: 10px;
-  margin: 4px;
-  border-radius: 5px;
-  background-color: #111314;
+.section-products .single-product .part-1 {
+  position: relative;
+  height: 290px;
+  max-height: 290px;
+  margin-bottom: 20px;
+  overflow: hidden;
 }
 
-.subforum-description * {
-  margin-block: 0;
+.section-products .single-product .part-1::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  transition: all 0.3s;
 }
 
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.section-products .single-product:hover .part-1::before {
+  transform: scale(1.2, 1.2) rotate(5deg);
 }
 
-.subforum-icon i {
-  font-size: 45px;
+.section-products #product-1 .part-1::before {
+  background: url("https://i.ibb.co/L8Nrb7p/1.jpg") no-repeat center;
+  background-size: cover;
+  transition: all 0.3s;
 }
 
-.subforum-devider {
-  display: none;
+.section-products #product-2 .part-1::before {
+  background: url("https://i.ibb.co/cLnZjnS/2.jpg") no-repeat center;
+  background-size: cover;
+}
+
+.section-products #product-3 .part-1::before {
+  background: url("https://i.ibb.co/L8Nrb7p/1.jpg") no-repeat center;
+  background-size: cover;
+}
+
+.section-products #product-4 .part-1::before {
+  background: url("https://i.ibb.co/cLnZjnS/2.jpg") no-repeat center;
+  background-size: cover;
+}
+
+.section-products .single-product .part-1 .discount,
+.section-products .single-product .part-1 .new {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  color: #ffffff;
+  background-color: #fe302f;
+  padding: 2px 8px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.section-products .single-product .part-1 .new {
+  left: 0;
+  background-color: #444444;
+}
+
+.section-products .single-product .part-1 ul {
+  position: absolute;
+  bottom: -41px;
+  left: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  opacity: 0;
+  transition: bottom 0.5s, opacity 0.5s;
+}
+
+.section-products .single-product:hover .part-1 ul {
+  bottom: 30px;
+  opacity: 1;
+}
+
+.section-products .single-product .part-1 ul li {
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.section-products .single-product .part-1 ul li a {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #ffffff;
+  color: #444444;
+  text-align: center;
+  box-shadow: 0 2px 20px rgb(50 50 50 / 10%);
+  transition: color 0.2s;
+}
+
+.section-products .single-product .part-1 ul li a:hover {
+  color: #fe302f;
+}
+
+.section-products .single-product .part-2 .product-title {
+  font-size: 1rem;
+}
+
+.section-products .single-product .part-2 h4 {
+  display: inline-block;
+  font-size: 1rem;
+  color: gray;
+}
+
+.section-products .single-product .part-2 .product-old-price {
+  position: relative;
+  padding: 0 7px;
+  margin-right: 2px;
+  opacity: 0.6;
+}
+
+.section-products .single-product .part-2 .product-old-price::after {
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #444444;
+  transform: translateY(-50%);
 }
 </style>

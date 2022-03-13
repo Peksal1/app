@@ -18,7 +18,7 @@ class ShopController extends Controller
          if($request->searchKeyword != null){
             $shopQuery->where('work_name','LIKE',"%{$request->searchKeyword}%");
         }
-         $shops = $shopQuery->paginate(4);
+         $shops = $shopQuery->paginate(8);
         return ShopResource::collection( $shops);
     }
     public function store(Request $request)

@@ -43,8 +43,14 @@ import Collections from './pages/Collections.vue'
 import PaymentOptions from './pages/payment_options'
 import DeliveryShipping from './pages/Deliveryshipping.vue'
 import PortfolioAll from './pages/PortfolioAll.vue'
+import Biography from './pages/Biography.vue'
 
 const routes = [
+    {
+        path: '/biography',
+        name: 'biography',
+        component: Biography,
+    },
 
     {
         path: '/portfolio/all',
