@@ -90,7 +90,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 .body {
   background-image: url("https://i.redd.it/o8dlfk93azs31.jpg");
   background-position: center;
