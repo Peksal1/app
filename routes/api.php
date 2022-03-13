@@ -90,9 +90,11 @@ Route::get('/paints', [UtilityController::class, 'paints']);
 Route::post('/paints', [UtilityController::class, 'store_paint']);
 Route::delete('/paints/{paint}', [UtilityController::class, 'delete_paint']);
 
-Route::get('/chats', [OrderController::class, 'get_order_messages']);
-Route::post('/chats', [OrderController::class, 'post_order_messages']);
-Route::delete('/chats', [OrderController::class, 'delete_order_messages']);
+
+
+Route::get('/order_messages', [OrderController::class, 'get_order_messages']);
+Route::post('/order_messages', [OrderController::class, 'post_order_messages']);
+Route::delete('/order_messages', [OrderController::class, 'delete_order_messages']);
 
 Route::get('/topic/{id}/post', [QnAController::class, 'topic_posts']); /// Returns a list of topics in a post
 Route::get('/topics', [QnAController::class, 'topiclist']); /// Returns the list of topics

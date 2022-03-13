@@ -23,6 +23,8 @@ class CreatePortfoliosTable extends Migration
             $table->foreignId('canvas_id')->references('id')->on('canvases')->onDelete('cascade');
             $table->foreignId('collection_id')->references('id')->on('collections')->onDelete('cascade');
             $table->string('description');
+            $table->boolean('available_in_digital');
+            $table->string('digital_copy')->nullable();
             $table->timestamps();
         });
     }

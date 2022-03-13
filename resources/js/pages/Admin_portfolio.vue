@@ -74,6 +74,10 @@ export default {
   data: function () {
     return {
       portfolios: [],
+      OrderMessageForm: {
+        type: "",
+        price_in_eur: "",
+      },
       isLoggedIn: false,
       token: localStorage.getItem("token"),
     };

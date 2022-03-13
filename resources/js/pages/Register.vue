@@ -50,7 +50,7 @@
               <div class="form-group">
                 <vue-recaptcha
                   @verify="register"
-                  sitekey="6LeG2XQeAAAAAJ8C7glTYNJY4cgWMHkzHBF85J87"
+                  sitekey="6LeIVm8eAAAAABWkQlQj5VpVsr41N-83LZ9xKHLJ"
                 ></vue-recaptcha>
               </div>
               <div class="row">
