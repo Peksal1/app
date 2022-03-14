@@ -19,6 +19,7 @@
                     class="form-control input-lg"
                     placeholder="First Name"
                     tabindex="1"
+                    required
                     v-model="formData.name"
                   />
                 </div>
@@ -31,6 +32,7 @@
                     id="last_name"
                     class="form-control input-lg"
                     placeholder="Last Name"
+                    required
                     tabindex="2"
                   />
                 </div>
@@ -43,6 +45,7 @@
                 id="display_name"
                 class="form-control input-lg"
                 placeholder="Display Name"
+                required
                 tabindex="3"
               />
             </div>
@@ -54,6 +57,7 @@
                 class="form-control input-lg"
                 placeholder="Email Address"
                 tabindex="4"
+                required
                 v-model="formData.email"
               />
             </div>
@@ -67,6 +71,7 @@
                     class="form-control input-lg"
                     placeholder="Password"
                     tabindex="5"
+                    required
                     v-model="formData.password"
                   />
                 </div>
@@ -80,6 +85,7 @@
                     class="form-control input-lg"
                     placeholder="Confirm Password"
                     tabindex="6"
+                    required
                     v-model="formData.password_confirmation"
                   />
                 </div>
@@ -102,7 +108,11 @@
                 />
               </div>
               <div class="col-xs-12 col-md-6">
-                <a href="#" class="btn btn-success btn-block btn-lg">Sign In</a>
+                <router-link :to="{ name: 'login' }">
+                  <a class="btn btn-success btn-block btn-lg"
+                    >Login</a
+                  ></router-link
+                >
               </div>
             </div>
           </form>
