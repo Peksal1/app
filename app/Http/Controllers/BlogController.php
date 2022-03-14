@@ -7,6 +7,7 @@ use App\Http\Requests\StoreBlogRequest;
 use App\Http\Requests\UpdateBlogRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\BlogResource;
+use App\Models\Blog_category;
 
 class BlogController extends Controller
 {
@@ -17,13 +18,15 @@ class BlogController extends Controller
      */
     public function index(Request $request)
     {
-        $blogQuery = Blog::query();
-         if($request->searchKeyword != null){
-            $blogQuery->where('title','LIKE',"%{$request->searchKeyword}%");
-        }
-         $blogs = $blogQuery->paginate(4);
-        return BlogResource::collection( $blogs);
+    if(!empty($request->cat)){
+    $data = Blog::where('blog_category_id',$request->cat)->paginate(4);
+    return response()->json($data);
     }
+    $blogQuery = Blog::query();
+    $blogs = $blogQuery->paginate(4);
+return BlogResource::collection( $blogs);
+}
+    
 
     /**
      * Show the form for creating a new resource.
@@ -127,4 +130,23 @@ class BlogController extends Controller
     return response()->json(['Result' => 'No posts found'], 404);
   }
 }
+public function post_blog_categories(Request $request, $title)
+{
+
+}
+
+public function delete_blog_categories(Request $request, $title)
+{
+
+}
+
+public function get_blog_categories()
+{
+     
+    $blog_categories = Blog_category::all();
+    $res['blog_categories'] = $blog_categories;
+      
+    return response()->json($res);
+ 
+ }
 }

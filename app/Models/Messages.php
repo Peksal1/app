@@ -10,6 +10,8 @@ class Messages extends Model
         'name',
         'Email',
         'message',
+        'subject',
+        'phone_number',
     ];
 
     public function user()

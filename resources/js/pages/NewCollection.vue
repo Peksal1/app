@@ -4,9 +4,7 @@
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="card">
-          <div class="card-header">
-            New collection!
-          </div>
+          <div class="card-header">New collection!</div>
           <div class="card-body">
             <form class="form" action="#" @submit.prevent="createCollection">
               <div class="form-group">
@@ -19,7 +17,7 @@
                 />
                 <p class="text-danger" v-text="errors.text"></p>
               </div>
-                 <div class="form-group">
+              <div class="form-group">
                 <input
                   type="month"
                   class="form-control"
@@ -29,7 +27,7 @@
                 />
                 <p class="text-danger" v-text="errors.text"></p>
               </div>
-                 <div class="form-group">
+              <div class="form-group">
                 <input
                   type="month"
                   class="form-control"
@@ -39,7 +37,7 @@
                 />
                 <p class="text-danger" v-text="errors.text"></p>
               </div>
-                 <div class="form-group">
+              <div class="form-group">
                 <input
                   type="text"
                   class="form-control"
@@ -89,14 +87,13 @@ export default {
         name: "",
         start_date: "",
         end_date: "",
-
       },
       currentUser: {},
       token: localStorage.getItem("token"),
       errors: {},
     };
   },
-  
+
   components: {
     Navbar,
   },
@@ -113,7 +110,6 @@ export default {
       const file = event.target.files[0];
       this.formData.image = file;
     },
-
 
     createCollection() {
       const orderForm = new FormData();
@@ -181,7 +177,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .login {
   margin-left: 25rem;
 }
@@ -189,19 +185,19 @@ export default {
   color: black;
 }
 .vue-select {
-  color:black;
+  color: black;
 }
 .card-body {
-  background:white;
-  width:400px;
+  background: white;
+  width: 400px;
 }
 .card {
-  background:white;
-  width:400px;
-  margin-bottom:70px;
-  margin-top:70px;
+  background: white;
+  width: 400px;
+  margin-bottom: 70px;
+  margin-top: 70px;
 }
 .form {
-  color:white;
+  color: white;
 }
 </style>

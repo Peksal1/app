@@ -1,21 +1,19 @@
 <template>
   <div>
-  <Navbar />
-  <router-link class="new_feedback" :to="{ name: 'neworder' }"
-                >New Order!</router-link>
-<router-link class="item"
+    <Navbar />
+    <router-link class="new_feedback" :to="{ name: 'neworder' }"
+      >New Order!</router-link
+    >
+    <router-link
+      class="item"
+      :to="{
+        name: 'user_orders',
 
-                :to="{
+        params: { id: currentUser.id },
+      }"
+      >My orders</router-link
+    >
 
-                  name: 'user_orders',
-
-                  params: { id: currentUser.id },
-                }"
-                >My orders</router-link
-
-              >
-
-           
     <div class="row justify-content-center my-5">
       <div class="col-md-6">
         <div class="card">
@@ -45,32 +43,46 @@
 
               <div class="row">
                 <div class="col-md-6">
-                  <button type="submit" id="show-btn" class="btn btn-primary">Update</button>
+                  <button type="submit" id="show-btn" class="btn btn-primary">
+                    Update
+                  </button>
                 </div>
-                 <div class="col-md-6">
-                    <b-button id="show-btn" class="btn btn-danger" @click="$bvModal.show('bv-modal-example')">Delete</b-button>
+                <div class="col-md-6">
+                  <b-button
+                    id="show-btn"
+                    class="btn btn-danger"
+                    @click="$bvModal.show('bv-modal-example')"
+                    >Delete</b-button
+                  >
 
-  <b-modal id="bv-modal-example" hide-footer>
-    <template #modal-title>
-      Delete account
-    </template>
-    <div class="d-block text-center">
-      <h3>Do you want to delete your account</h3>
-    </div>
-    <b-button class="btn btn-primary mt-3" block @click="$bvModal.hide('bv-modal-example')">Cancel</b-button>
-    <b-button class="btn btn-danger mt-3" block   @click="deleteUser($route.params.id)">delete</b-button>
-  </b-modal>
-                 <!-- <button
+                  <b-modal id="bv-modal-example" hide-footer>
+                    <template #modal-title> Delete account </template>
+                    <div class="d-block text-center">
+                      <h3>Do you want to delete your account</h3>
+                    </div>
+                    <b-button
+                      class="btn btn-primary mt-3"
+                      block
+                      @click="$bvModal.hide('bv-modal-example')"
+                      >Cancel</b-button
+                    >
+                    <b-button
+                      class="btn btn-danger mt-3"
+                      block
+                      @click="deleteUser($route.params.id)"
+                      >delete</b-button
+                    >
+                  </b-modal>
+                  <!-- <button
               type="submit"
               class="btn btn-danger "
               @click="deleteUser($route.params.id)"
             >
               Delete
             </button> -->
-                 </div>
+                </div>
               </div>
             </form>
-           
           </div>
         </div>
       </div>
@@ -93,9 +105,9 @@ export default {
       token: localStorage.getItem("token"),
     };
   },
-      components:{
+  components: {
     Navbar,
-    },
+  },
   methods: {
     updateUser() {
       axios
@@ -162,5 +174,5 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 </style>

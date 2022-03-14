@@ -22,6 +22,10 @@ class ContactsController extends Controller
             'Email'=>'required',
     
             'message'=>'required',
+
+            'phone_number'=>'required',
+
+            'subject'=>'required',
     
             
     

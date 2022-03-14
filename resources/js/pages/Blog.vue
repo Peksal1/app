@@ -52,21 +52,13 @@
               </div>
             </div>
             <ul class="pagination pagination-primary">
-              <li class="page-item">
-                <a class="page-link" href="javascript:void(0);">Previous</a>
-              </li>
-              <li class="page-item active">
-                <a class="page-link" href="javascript:void(0);">1</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="javascript:void(0);">2</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="javascript:void(0);">3</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="javascript:void(0);">Next</a>
-              </li>
+              <Pagination
+                :pagination="pagination"
+                @perPage="getAllBlogs()"
+                @paginate="getAllBlogs()"
+                :offset="6"
+              >
+              </Pagination>
             </ul>
           </div>
           <div class="col-lg-4 col-md-12 right-box">
@@ -74,38 +66,46 @@
               <div class="body search">
                 <div class="input-group m-b-0">
                   <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fa fa-search"></i
-                    ></span>
+                    <button @click="getAllBlogs">
+                      <span class="input-group-text"
+                        ><i class="fa fa-search"></i
+                      ></span>
+                    </button>
                   </div>
                   <input
                     type="text"
                     class="form-control"
                     placeholder="Search..."
+                    v-model="searchKeyword"
                   />
                 </div>
               </div>
             </div>
             <div class="card">
               <div class="header">
-                <h2>Categories Clouds</h2>
+                <h2>Categories</h2>
               </div>
               <div class="body widget">
                 <ul class="list-unstyled categories-clouds m-b-0">
-                  <li><a href="javascript:void(0);">eCommerce</a></li>
-                  <li>
-                    <a href="javascript:void(0);">Microsoft Technologies</a>
-                  </li>
-                  <li><a href="javascript:void(0);">Creative UX</a></li>
-                  <li><a href="javascript:void(0);">Wordpress</a></li>
-                  <li><a href="javascript:void(0);">Angular JS</a></li>
-                  <li><a href="javascript:void(0);">Enterprise Mobility</a></li>
-                  <li><a href="javascript:void(0);">Website Design</a></li>
-                  <li><a href="javascript:void(0);">HTML5</a></li>
-                  <li><a href="javascript:void(0);">Infographics</a></li>
-                  <li>
-                    <a href="javascript:void(0);">Wordpress Development</a>
-                  </li>
+                  <div
+                    v-for="blog_category in blog_categories"
+                    :key="blog_category.id"
+                    class="m-1"
+                  >
+                    <li>
+                      <input
+                        type="checkbox"
+                        :id="blog_category.id"
+                        class="mycat"
+                        v-model="cat"
+                        :value="blog_category.id"
+                      /><label
+                        :for="blog_category.id"
+                        class="btn btn-sm border"
+                        >{{ blog_category.category }}</label
+                      >
+                    </li>
+                  </div>
                 </ul>
               </div>
             </div>
@@ -251,6 +251,8 @@ export default {
   data() {
     return {
       blogs: [],
+      cat: [],
+      blog_categories: [],
       searchKeyword: "",
       pagination: {
         data: [],
@@ -271,12 +273,17 @@ export default {
     getAllBlogs() {
       axios
         .get(
-          `/api/blog?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}`
+          `/api/blog?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}&cat=${this.cat}`
         )
         .then((res) => {
           this.blogs = res.data.data;
           this.pagination = res.data;
         });
+    },
+    getAllBlogCategories() {
+      axios.get(`/api/blog_categories`).then((res) => {
+        this.blog_categories = res.data.blog_categories;
+      });
     },
   },
   checkLoginStatus() {
@@ -305,87 +312,27 @@ export default {
   },
   created() {
     this.getAllBlogs();
+    this.getAllBlogCategories();
+  },
+  watch: {
+    cat(after, before) {
+      this.getAllBlogs();
+    },
   },
 };
 </script>
 
 
 <style  scoped>
-.product-image img {
-  max-width: 100%;
-  width: 100%;
+input.mycat {
+  display: none;
 }
-</style>
-  </div>
-</template>
-<script>
-import axios from "axios";
-import Navbar from "../components/Navbar.vue";
-import Pagination from "../components/Pagination.vue";
-export default {
-  data() {
-    return {
-      blogs: [],
-      searchKeyword: "",
-      pagination: {
-        data: [],
-        total: 0,
-        per_page: 2,
-        from: 1,
-        to: 0,
-        current_page: 1,
-      },
-      token: localStorage.getItem("token"),
-    };
-  },
-  components: {
-    Navbar,
-    Pagination,
-  },
-  methods: {
-    getAllBlogs() {
-      axios
-        .get(
-          `/api/blog?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}`
-        )
-        .then((res) => {
-          this.blogs = res.data.data;
-          this.pagination = res.data;
-        });
-    },
-  },
-  checkLoginStatus() {
-    this.loading = true;
-    // this.loading = true
-    axios
-      .get("/api/user", {
-        headers: {
-          Authorization: "Bearer " + this.token,
-        },
-      })
-      .then((response) => {
-        this.currentUser = response.data;
-        console.log("LOGGED IN");
-        this.isLoggedIn = true;
-        console.log(this.currentUser.name);
-      })
-      .catch((errors) => {
-        console.log(errors);
-        this.isLoggedIn = false;
-      })
-      .finally(() => {
-        this.loading = false;
-      });
-    // this.loading = false
-  },
-  created() {
-    this.getAllBlogs();
-  },
-};
-</script>
 
-
-<style  scoped>
+input.mycat:checked + label {
+  background: green;
+  color: white;
+  box-shadow: 0px 1px 3px inset;
+}
 body {
   background-color: #f4f7f6;
   margin-top: 20px;

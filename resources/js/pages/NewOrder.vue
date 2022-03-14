@@ -229,7 +229,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .login {
   margin-left: 25rem;
 }

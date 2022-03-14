@@ -1,6 +1,6 @@
 <template>
-<div class="container-fuiled">
-     <AdminNavbar />
+  <div class="container-fuiled">
+    <AdminNavbar />
     <div class="addtopic">
       <i class="fa fa-tachometer-alt"></i>
       <router-link class="new_feedback" :to="{ name: '/adminnewtopic' }"
@@ -20,8 +20,7 @@
         />
       </div>
       <div class="subforum-description subforum-column">
-        <a href="#" name="topic"
-          >
+        <a href="#" name="topic">
           <router-link
             :to="{
               name: 'admintopicsposts',
@@ -41,12 +40,19 @@
         <br />
         on <small>{{ qna_topic.created_at }} </small>
       </div>
-          <button><router-link class="item"
-              :to="{ name: 'updatetopic', params: { id: qna_topic.id } }"
-            > Update</router-link>  </button>
+      <button>
+        <router-link
+          class="item"
+          :to="{ name: 'updatetopic', params: { id: qna_topic.id } }"
+        >
+          Update</router-link
+        >
+      </button>
       <div>
         <b-button class="mod" @click="$bvModal.show('bv-modal-example')"
-          >Delete<v-icon large color="teal darken-2"> mdi-delete </v-icon></b-button
+          >Delete<v-icon large color="teal darken-2">
+            mdi-delete
+          </v-icon></b-button
         >
         <b-modal id="bv-modal-example" hide-footer>
           <template #modal-title> Delete topic </template>
@@ -75,7 +81,7 @@
 
 <script>
 import axios from "axios";
-import AdminNavbar from '../components/AdminNavbar.vue';
+import AdminNavbar from "../components/AdminNavbar.vue";
 export default {
   data: function () {
     return {
@@ -85,9 +91,8 @@ export default {
       token: localStorage.getItem("token"),
     };
   },
-    components:{
+  components: {
     AdminNavbar,
-
   },
   methods: {
     loadUsers() {
@@ -149,7 +154,7 @@ export default {
 };
 </script>
 
- <style>
+ <style scoped>
 * {
   box-sizing: border-box;
 }

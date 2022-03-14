@@ -20,6 +20,7 @@ class BlogResource extends JsonResource
             'description' => $this->description,
             'thumbnail' => $this->thumbnail,
             'image'=> $this->image,
+            'blog_category_id'=> $this->blog_category_id,
         ];
     }
 }

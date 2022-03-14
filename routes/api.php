@@ -90,7 +90,9 @@ Route::get('/paints', [UtilityController::class, 'paints']);
 Route::post('/paints', [UtilityController::class, 'store_paint']);
 Route::delete('/paints/{paint}', [UtilityController::class, 'delete_paint']);
 
-
+Route::get('/blog_categories', [BlogController::class, 'get_blog_categories']);
+Route::post('/blog_categories', [BlogController::class, 'post_blog_categories']);
+Route::delete('/blog_categories', [BlogController::class, 'delete_blog_categories']);
 
 Route::get('/order_messages', [OrderController::class, 'get_order_messages']);
 Route::post('/order_messages', [OrderController::class, 'post_order_messages']);

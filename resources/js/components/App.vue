@@ -23,7 +23,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .main {
   height: 89vh;
   width: 100%;
