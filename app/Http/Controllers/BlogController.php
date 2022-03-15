@@ -18,13 +18,14 @@ class BlogController extends Controller
      */
     public function index(Request $request)
     {
-    if(!empty($request->cat)){
-    $data = Blog::where('blog_category_id',$request->cat)->paginate(4);
-    return response()->json($data);
+        $query = Blog::query();
+    if (!empty($request->cat)) {
+        $query->whereIn('blog_category_id', explode(',', $request->cat));
     }
-    $blogQuery = Blog::query();
-    $blogs = $blogQuery->paginate(4);
-return BlogResource::collection( $blogs);
+    if (!empty($request->searchKeyword)) {
+        $query->where('title', 'LIKE', "%{$request->searchKeyword}%");
+    }
+    return $query->paginate(4);
 }
     
 
@@ -60,17 +61,17 @@ return BlogResource::collection( $blogs);
     {
         $topicData =   $request->all();
         // check if request has image
-
         if ($request->hasFile('image')) {
             // get image from request
+            
             $image = $request->file('image');
             // get image name
             $imageName = $image->getClientOriginalName();
             // move image to public/images
             $image->move(public_path('blog'), $imageName);
             // save image name to database
-            $topicData['image'] = $imageName;
-        }
+            $topicData['image'] = $imageName; 
+        } 
 
         $topic = Blog::create($topicData);
 

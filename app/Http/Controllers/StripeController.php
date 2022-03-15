@@ -15,8 +15,6 @@ class StripeController extends Controller
     public function createPaymentSession(Request $request)
     {
         $shop = Shop::findOrFail($request->product);
-
-
         // create a new Pruchase
         $purchase = Purchases::create([
             'uuid' =>  time(),

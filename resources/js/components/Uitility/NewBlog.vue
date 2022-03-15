@@ -50,6 +50,7 @@
                   v-model="blogForm.title"
                   type="text"
                   class="form-control"
+                  required
                 />
               </div>
               <div class="form-group">
@@ -58,6 +59,7 @@
                   v-model="blogForm.description"
                   type="text"
                   class="form-control"
+                  required
                 />
               </div>
               <div class="form-group">
@@ -66,12 +68,14 @@
                   v-model="blogForm.thumbnail"
                   type="text"
                   class="form-control"
+                  required
                 />
               </div>
               <select
                 name="paint"
                 v-model="blogForm.blog_category_id"
                 style="width: 15rem"
+                required
               >
                 <option value="">Choose</option>
                 <option
@@ -95,6 +99,7 @@
                     accept="image/*"
                     @change="uploadImage($event)"
                     id="file-input"
+                    required
                   />
                 </div>
               </div>
@@ -206,10 +211,21 @@ export default {
       this.showBlogModal = false;
     },
     submitBlogForm() {
+      let formData = new FormData();
+      formData.append("title", this.blogForm.title);
+      formData.append("description", this.blogForm.description);
+      formData.append("thumbnail", this.blogForm.thumbnail);
+      formData.append("image", this.blogForm.image);
+      formData.append("blog_category_id", this.blogForm.blog_category_id);
+
       axios
-        .post("/api/blogs", this.blogForm)
+        .post("/api/blogs", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
         .then((res) => {
-          if (res.data.status == "success") {
+          if (res.data.success) {
             this.blogs.push(res.data.blog);
             // reset the form
             this.blogForm = {
