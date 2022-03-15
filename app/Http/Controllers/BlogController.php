@@ -37,7 +37,19 @@ return BlogResource::collection( $blogs);
     {
         //
     }
+    
 
+    public function new_category(Request $request){
+       
+        $blog_category = new Blog_category;
+        $blog_category->category = $request->category;
+        $blog_category->save();
+           $res['blog_category'] = $blog_category;
+           $res['status'] = 'success';
+
+        return response()->json($res);
+      
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -140,7 +152,7 @@ public function delete_blog_categories(Request $request, $title)
 
 }
 
-public function get_blog_categories()
+public function blog_categories()
 {
      
     $blog_categories = Blog_category::all();

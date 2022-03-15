@@ -44,8 +44,26 @@ import PaymentOptions from './pages/payment_options'
 import DeliveryShipping from './pages/Deliveryshipping.vue'
 import PortfolioAll from './pages/PortfolioAll.vue'
 import Biography from './pages/Biography.vue'
+import Purchases from './pages/Purchases.vue'
+import AdminBlog from './pages/Admin_blog.vue'
 
 const routes = [
+    {
+        path: '/admin_blog',
+        name: 'admin_blog',
+        component: AdminBlog,
+        meta: {
+            requiresAdminAuth: true,
+        },
+    },
+    {
+        path: '/purchases/:id',
+        name: 'purchases',
+        component: Purchases,
+        meta: {
+            requiresAuth: true,
+        },
+    },
     {
         path: '/biography',
         name: 'biography',
@@ -78,7 +96,6 @@ const routes = [
         name: 'newcollection',
         component: NewCollection,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -92,7 +109,6 @@ const routes = [
         name: 'newstore',
         component: NewStore,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -111,7 +127,6 @@ const routes = [
         name: 'orderlist',
         component: OrderList,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -136,7 +151,6 @@ const routes = [
         name: 'adminnewpost',
         component: AdminNewPost,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -145,7 +159,6 @@ const routes = [
         name: '/adminnewtopic',
         component: AdminNewTopic,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -154,7 +167,6 @@ const routes = [
         name: 'updatetopic',
         component: UpdateTopic,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -163,7 +175,6 @@ const routes = [
         name: 'updateportfolio',
         component: UpdatePortfolio,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -172,7 +183,6 @@ const routes = [
         name: 'admintopicsposts',
         component: AdminTopicPosts,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -181,7 +191,6 @@ const routes = [
         name: 'newportfolio',
         component: NewPortfolio,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -190,7 +199,6 @@ const routes = [
         name: 'adminhome',
         component: AdminHome,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -199,7 +207,6 @@ const routes = [
         name: 'adminportfolio',
         component: AdminPortfolio,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -208,7 +215,6 @@ const routes = [
         name: 'adminfeedback',
         component: AdminFeedback,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -217,7 +223,6 @@ const routes = [
         name: 'updateuser',
         component: updateuser,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -226,7 +231,6 @@ const routes = [
         name: 'users',
         component: Users,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -235,7 +239,6 @@ const routes = [
         name: 'updatefeedback',
         component: updatefeedback,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -244,7 +247,6 @@ const routes = [
         name: 'adminqna',
         component: AdminQnA,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -263,7 +265,6 @@ const routes = [
         name: '/newtopic',
         component: NewTopic,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -277,7 +278,6 @@ const routes = [
         name: 'messages',
         component: Messages,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -296,7 +296,6 @@ const routes = [
         name: 'admin',
         component: Admin,
         meta: {
-            requiresAuth: true,
             requiresAdminAuth: true,
         },
     },
@@ -370,7 +369,18 @@ router.beforeEach((to, from, next) => {
         next();
     }
 });
+router.beforeEach((to, from, next) => {
+    if (to.matched.some((record) => record.meta.requiresAuth)) {
+        if (localStorage.getItem("token") != null) {
+            next();
+        } else {
+            next("/");
+        }
 
+    } else {
+        next();
+    }
+});
 
 export default router;
 

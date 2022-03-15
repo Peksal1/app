@@ -178,15 +178,6 @@ export default {
       this.formData.file_path = file;
     },
 
-    // shootOrder() {
-    //   console.log(this.formData);
-    //   //   this.$refs.myVueDropzone.processQueue();
-    // },
-    // sendOrder: async function (files, xhr, formData) {
-    //   formData.append("text", this.text);
-    //   formData.append("file_path", this.file_path);
-    // },
-
     createItem() {
       const itemForm = new FormData();
       itemForm.append("work_name", this.formData.work_name);

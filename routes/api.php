@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1']], function () {
     Route::delete('/messages/{id}', [ContactsController::class, 'destroy']); /// Deleting a message
     Route::delete('/portfolio/{id}', [PortfolioController::class, 'destroy']); /// Information about a specific portfolio item
     Route::put('/portfolio/{id}', [PortfolioController::class, 'update']); /// User editing
+    
 });
 
 ///Owner and admin APIs
@@ -61,7 +62,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
 
 ///Owner, admin, user APIs
 Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
-    Route::post('/blogs', [BlogController::class, 'store']);
+    
     Route::get('/bloginfo', [BlogController::class, 'show']);
     
     Route::get('/blog/search/{title}', [BlogController::class, 'blog_search ']);
@@ -79,6 +80,8 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
 Route::get('/collection/portfolio/{id}', [PortfolioController::class, 'display']);
 Route::get('/portinfo', [PortfolioController::class, 'create']); /// Feedback list
 ///Everyones APIs
+Route::get('/blog_categories', [BlogController::class, 'blog_categories']);
+Route::post('/blog_categories', [BlogController::class, 'new_category']);
 Route::get('/portfolio/all', [PortfolioController::class, 'full_portfolio']);
 Route::get('/sizes', [UtilityController::class, 'sizes']);
 Route::post('/sizes', [UtilityController::class, 'store_size']);
@@ -90,8 +93,7 @@ Route::get('/paints', [UtilityController::class, 'paints']);
 Route::post('/paints', [UtilityController::class, 'store_paint']);
 Route::delete('/paints/{paint}', [UtilityController::class, 'delete_paint']);
 
-Route::get('/blog_categories', [BlogController::class, 'get_blog_categories']);
-Route::post('/blog_categories', [BlogController::class, 'post_blog_categories']);
+Route::post('/blogs', [BlogController::class, 'store']);
 Route::delete('/blog_categories', [BlogController::class, 'delete_blog_categories']);
 
 Route::get('/order_messages', [OrderController::class, 'get_order_messages']);

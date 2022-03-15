@@ -18,19 +18,9 @@
               >Portfolio</router-link
             >
           </b-nav-item>
-          <b-nav-item class="item" v-if="isLoggedIn"
-            ><router-link class="col" :to="{ name: 'adminqna' }"
-              >Q&A</router-link
-            >
-          </b-nav-item>
-          <b-nav-item class="item" v-if="!isLoggedIn"
-            ><router-link class="col" :to="{ name: 'pleaselogin' }"
-              >Q&A</router-link
-            >
-          </b-nav-item>
           <b-nav-item class="item"
-            ><router-link class="col" :to="{ name: 'adminfeedback' }"
-              >Feedback</router-link
+            ><router-link class="col" :to="{ name: 'admin_blog' }"
+              >Blog</router-link
             >
           </b-nav-item>
           <b-nav-item class="item"

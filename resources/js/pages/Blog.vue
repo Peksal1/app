@@ -261,7 +261,7 @@ export default {
         to: 0,
         current_page: 1,
       },
-      token: localStorage.getItem("token"),
+      adminToken: localStorage.getItem("adminToken"),
     };
   },
   components: {
@@ -291,7 +291,7 @@ export default {
     axios
       .get("/api/user", {
         headers: {
-          Authorization: "Bearer " + this.token,
+          Authorization: "Bearer " + this.adminToken,
         },
       })
       .then((response) => {

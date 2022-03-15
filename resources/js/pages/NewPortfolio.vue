@@ -214,7 +214,6 @@ export default {
           alert("Order Sent!");
           this.$router.push({
             name: "adminportfolio",
-            params: { id: this.currentUser.id },
           });
         })
         .catch((errors) => {

@@ -1,12 +1,13 @@
 <template>
   <div>
-    <Navbar />
+    <AdminNavbar />
     <link
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
 
     <div id="main-content" class="blog-page">
+      <AdminBlog />
       <div class="container">
         <div class="row clearfix">
           <div class="col-lg-8 col-md-12 left-box">
@@ -244,8 +245,9 @@
 </template>
 <script>
 import axios from "axios";
-import Navbar from "../components/Navbar.vue";
+import AdminNavbar from "../components/AdminNavbar.vue";
 import Pagination from "../components/Pagination.vue";
+import AdminBlog from "../components/Uitility/NewBlog.vue";
 export default {
   data() {
     return {
@@ -265,7 +267,8 @@ export default {
     };
   },
   components: {
-    Navbar,
+    AdminNavbar,
+    AdminBlog,
     Pagination,
   },
   methods: {
