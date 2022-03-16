@@ -2,7 +2,7 @@
   <div class="container-fuiled">
     <Navbar />
 
-    <div class="subforum-row" v-for="blog in blogs" v-bind:key="blog.id">
+    <div class="subforum-row">
       <div class="subforum-icon subforum-column center">
         <img
           src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
@@ -30,7 +30,7 @@ import Navbar from "../components/Navbar.vue";
 export default {
   data: function () {
     return {
-      blogs: [],
+      blog: [],
       currentUser: {},
       isLoggedIn: false,
       token: localStorage.getItem("token"),
@@ -76,6 +76,25 @@ export default {
 
   created() {
     this.getAllBlogs();
+  },
+  mounted() {
+    axios
+      .get("/api/blog/" + this.$route.params.id, {
+        headers: {
+          Authorization: "Bearer " + this.token,
+        },
+      })
+
+      .then((response) => {
+        const blog = response.data;
+        this.title = blog.title;
+        this.description = blog.description;
+        this.thumbnail = blog.thumbnail;
+        this.image = blog.image;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 };
 </script>
