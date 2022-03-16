@@ -22,8 +22,14 @@
               }"
               >My orders</router-link
             >
-            <a href="#" class="list-group-item list-group-item-action"
-              >Purchases</a
+            <router-link
+              class="list-group-item list-group-item-action"
+              :to="{
+                name: 'purchases',
+
+                params: { id: currentUser.id },
+              }"
+              >My purchases</router-link
             >
           </div>
         </div>

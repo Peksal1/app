@@ -3,7 +3,6 @@ import VueRouter from 'vue-router';
 import Home from './pages/Home.vue'
 import Register from './pages/Register.vue'
 import Login from './pages/Login.vue'
-import Services from './pages/Services.vue'
 import Blog from './pages/Blog.vue'
 import Contact from './pages/Contact_us.vue'
 import Feedback from './pages/Feedback.vue'
@@ -21,7 +20,7 @@ import updatefeedback from './pages/updatefeedback.vue'
 import Users from './pages/users.vue'
 import updateuser from './pages/updateuser.vue'
 import AdminFeedback from './pages/Admin_feedback.vue'
-import AdminPortfolio from './pages/Admin_portfolio.vue'
+import AdminCollections from './pages/Admin_collections.vue'
 import AdminHome from './pages/Admin_home.vue'
 import NewPortfolio from './pages/NewPortfolio.vue'
 import AdminTopicPosts from './pages/Admin_topicsposts.vue'
@@ -46,8 +45,26 @@ import PortfolioAll from './pages/PortfolioAll.vue'
 import Biography from './pages/Biography.vue'
 import Purchases from './pages/Purchases.vue'
 import AdminBlog from './pages/Admin_blog.vue'
+import AdminStore from './pages/AdminStore.vue'
+import AdminFAQ from './pages/Admin_FAQ.vue'
 
 const routes = [
+    {
+        path: '/admin_faq',
+        name: 'admin_faq',
+        component: AdminFAQ,
+        meta: {
+            requiresAdminAuth: true,
+        },
+    },
+    {
+        path: '/admin_store',
+        name: 'admin_store',
+        component: AdminStore,
+        meta: {
+            requiresAdminAuth: true,
+        },
+    },
     {
         path: '/admin_blog',
         name: 'admin_blog',
@@ -203,9 +220,9 @@ const routes = [
         },
     },
     {
-        path: '/adminportfolio',
-        name: 'adminportfolio',
-        component: AdminPortfolio,
+        path: '/admincollections',
+        name: 'admincollections',
+        component: AdminCollections,
         meta: {
             requiresAdminAuth: true,
         },

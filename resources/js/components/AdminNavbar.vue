@@ -14,7 +14,7 @@
           </b-nav-item>
 
           <b-nav-item class="item"
-            ><router-link class="col" :to="{ name: 'adminportfolio' }"
+            ><router-link class="col" :to="{ name: 'admincollections' }"
               >Portfolio</router-link
             >
           </b-nav-item>
@@ -39,17 +39,14 @@
             >
           </b-nav-item>
           <b-nav-item class="item"
-            ><router-link class="col" :to="{ name: 'store' }"
+            ><router-link class="col" :to="{ name: 'admin_store' }"
               >For sale</router-link
             >
           </b-nav-item>
           <b-nav-item class="item"
-            ><router-link class="col" :to="{ name: 'newstore' }"
-              >New store</router-link
+            ><router-link class="col" :to="{ name: 'admin_faq' }"
+              >FAQ</router-link
             >
-          </b-nav-item>
-          <b-nav-item class="item"
-            ><router-link class="col" :to="{ name: 'faq' }">FAQ</router-link>
           </b-nav-item>
         </b-navbar-nav>
 
