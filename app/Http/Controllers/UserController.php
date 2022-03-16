@@ -41,12 +41,18 @@ class UserController extends Controller
         'name' => 'required|string|max:255',
                            'email' => 'required|string|email|max:255|unique:users',
                            'password' => 'required|string|min:8|confirmed',
+                           'surname' => 'required|string|max:50',
+                           'display_name' => 'required|string|min:3|max:12|unique:users',
+                           'phone_number' => 'required|string|min:6|max:15|unique:users',
+                           
         ]);
-        
               $user = User::create([
-                      'name' => $validatedData['name'],
-                           'email' => $validatedData['email'],
-                           'password' => Hash::make($validatedData['password']),
+                        'name' => $validatedData['name'],
+                        'display_name' => $validatedData['display_name'],
+                        'surname' => $validatedData['surname'],
+                        'phone_number' => $validatedData['phone_number'],
+                        'email' => $validatedData['email'],
+                        'password' => Hash::make($validatedData['password']),
                ]);
         
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -83,6 +89,10 @@ class UserController extends Controller
         'email'=>'required',
 
         'password'=>'required',
+
+        'surname' =>'required',
+        'display_name' =>'required',
+        'phone_number' =>'required',
 
         
 

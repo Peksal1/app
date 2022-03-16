@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
 ///Owner, admin, user APIs
 Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
     
-    Route::get('/bloginfo', [BlogController::class, 'show']);
+
     
     Route::get('/blog/search/{title}', [BlogController::class, 'blog_search ']);
     Route::post('/topics', [QnAController::class, 'newtopic']); /// Store a new topic to the database
@@ -80,6 +80,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
 Route::get('/collection/portfolio/{id}', [PortfolioController::class, 'display']);
 Route::get('/portinfo', [PortfolioController::class, 'create']); /// Feedback list
 ///Everyones APIs
+Route::get('/blog/{id}', [BlogController::class, 'show']); /// User list
 Route::get('/blog_categories', [BlogController::class, 'blog_categories']);
 Route::post('/blog_categories', [BlogController::class, 'new_category']);
 Route::get('/portfolio/all', [PortfolioController::class, 'full_portfolio']);

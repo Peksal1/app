@@ -34,6 +34,7 @@
                     placeholder="Last Name"
                     required
                     tabindex="2"
+                    v-model="formData.surname"
                   />
                 </div>
               </div>
@@ -47,6 +48,7 @@
                 placeholder="Display Name"
                 required
                 tabindex="3"
+                v-model="formData.display_name"
               />
             </div>
             <div class="form-group">
@@ -59,6 +61,18 @@
                 tabindex="4"
                 required
                 v-model="formData.email"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                name="phone_number"
+                id="phone_number"
+                class="form-control input-lg"
+                placeholder="Phone number"
+                tabindex="4"
+                required
+                v-model="formData.phone_number"
               />
             </div>
             <div class="row">
@@ -217,6 +231,9 @@ export default {
         password: "",
         password_confirmation: "",
         role: "1",
+        surname: "",
+        display_name: "",
+        phone_number: "",
       },
       errors: {},
     };

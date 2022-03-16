@@ -21,6 +21,7 @@ class CreateMessagesTable extends Migration
             $table->string('phone_number');
             $table->string('subject');
             $table->longText('message');
+            $table->boolean('isread')->default(0);
         });
     }
 
