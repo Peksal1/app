@@ -240,6 +240,7 @@ export default {
       axios
         .post("/api/store", formData, {
           headers: {
+            Authorization: "Bearer " + this.adminToken,
             "Content-Type": "multipart/form-data",
           },
         })

@@ -9,7 +9,7 @@
       "
     >
       <div class="btn btn-sm btn-primary" @click="openCollectionModal">
-        Add New Store Item
+        New collection
       </div>
     </div>
 
@@ -17,7 +17,7 @@
     <div
       class="modal"
       :class="{ show: showCollectionModal }"
-      id="storeModal"
+      id="collectionModal"
       tabindex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"
@@ -27,7 +27,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">
-              Add a new item to the store
+              New collection
             </h5>
             <button
               type="button"
@@ -44,7 +44,7 @@
               <div class="form-group">
                 <label for="">Title</label>
                 <input
-                  v-model="storeForm.work_name"
+                  v-model="collectionForm.name"
                   type="text"
                   class="form-control"
                   required
@@ -53,102 +53,30 @@
               <div class="form-group">
                 <label for="">Description</label>
                 <input
-                  v-model="storeForm.description"
+                  v-model="collectionForm.description"
                   type="text"
                   class="form-control"
                   required
                 />
               </div>
               <div class="form-group">
-                Category:
-                <br />
+                <label for="">Start date: </label>
                 <input
-                  type="radio"
-                  id="Portrait"
-                  name="category"
-                  value="Portrait"
-                  v-model="storeForm.category"
-                />
-                <label for="Portrait">Portrait</label><br />
-                <input
-                  type="radio"
-                  id="Landscape"
-                  name="category"
-                  value="Landscape"
-                  v-model="storeForm.category"
-                />
-                <label for="Landscape">Landscape</label><br />
-                <input
-                  type="radio"
-                  id="Random"
-                  name="category"
-                  value="Random"
-                  v-model="storeForm.category"
-                />
-                <label for="Random">Random</label>
-              </div>
-              <div class="form-group">
-                <label for="">Price (EUR)</label>
-                <input
-                  v-model="storeForm.price_in_eur"
-                  type="number"
+                  v-model="collectionForm.start_date"
+                  type="month"
                   class="form-control"
                   required
                 />
               </div>
-              <label for="size">Size:</label>
-              <select
-                class="options"
-                name="size"
-                v-model="storeForm.size_id"
-                style="width: 15rem"
-                required
-              >
-                <option class="options" value="">Choose</option>
-                <option
-                  v-for="size in sizes"
-                  v-bind:key="size.id"
-                  :value="size.id"
-                >
-                  {{ size.type }}
-                </option>
-              </select>
-              <br />
-              <label for="canvas">Canvas:</label>
-              <select
-                class="options"
-                name="canvas"
-                v-model="storeForm.canvas_id"
-                style="width: 15rem"
-                required
-              >
-                <option value="">Choose</option>
-                <option
-                  v-for="canvas in canvases"
-                  v-bind:key="canvas.id"
-                  :value="canvas.id"
-                >
-                  {{ canvas.type }}
-                </option>
-              </select>
-              <br />
-              <label for="paint">Paint:</label>
-              <select
-                name="paint"
-                v-model="storeForm.paint_id"
-                style="width: 15rem"
-                class="options"
-                required
-              >
-                <option value="">Choose</option>
-                <option
-                  v-for="paint in paints"
-                  v-bind:key="paint.id"
-                  :value="paint.id"
-                >
-                  {{ paint.type }}
-                </option>
-              </select>
+              <div class="form-group">
+                <label for="">End date:</label>
+                <input
+                  v-model="collectionForm.end_date"
+                  type="month"
+                  class="form-control"
+                  required
+                />
+              </div>
               <div class="p-2 w-full">
                 <div class="relative">
                   <label
@@ -196,7 +124,7 @@ export default {
         start_date: "",
         end_date: "",
       },
-      stores: [],
+      collections: [],
       adminToken: localStorage.getItem("adminToken"),
     };
   },
@@ -221,19 +149,18 @@ export default {
     },
 
     submitCollectionForm() {
-      const collectionForm = new FormData();
-      collectionForm.append("image", this.formData.image);
-      collectionForm.append("description", this.formData.description);
-      collectionForm.append("name", this.formData.name);
-      collectionForm.append("start_date", this.formData.start_date);
-      collectionForm.append("end_date", this.formData.end_date);
+      let formData = new FormData();
+      formData.append("image", this.collectionForm.image);
+      formData.append("description", this.collectionForm.description);
+      formData.append("name", this.collectionForm.name);
+      formData.append("start_date", this.collectionForm.start_date);
+      formData.append("end_date", this.collectionForm.end_date);
 
       axios
-        .post("/api/collection", orderForm, {
+        .post("/api/collection", formData, {
           headers: {
-            Authorization: "Bearer " + this.token,
+            Authorization: "Bearer " + this.adminToken,
             "Content-Type": "multipart/form-data",
-            boundary: orderForm._boundary,
           },
         })
         .then((response) => {

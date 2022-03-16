@@ -73,9 +73,19 @@
             right
             v-if="isLoggedIn && !loading"
           >
-            <b-dropdown-item></b-dropdown-item>
-
             <b-dropdown-item>
+              <router-link
+                class="item"
+                :to="{
+                  name: 'userprofile',
+                  params: { id: currentUser.id },
+                }"
+                ><v-icon large text color="teal darken-2">
+                  mdi-account-circle </v-icon
+                >Account</router-link
+              >
+              <br />
+              <br />
               <button class="btn btn-danger" @click="logout">Logout</button>
             </b-dropdown-item>
           </b-nav-item-dropdown>
@@ -129,6 +139,7 @@ export default {
           {
             headers: {
               Authorization: "Bearer " + this.token,
+              Authorization: "Bearer " + this.adminToken,
             },
           }
         )

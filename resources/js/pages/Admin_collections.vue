@@ -2,6 +2,8 @@
   <div>
     <AdminNavbar />
     <Utility />
+    <NewCollection />
+    <NewPortfolio />
     <section class="section-products">
       <div class="container">
         <div class="row justify-content-center text-center">
@@ -65,6 +67,8 @@ import axios from "axios";
 import AdminNavbar from "../components/AdminNavbar.vue";
 import Pagination from "../components/Pagination.vue";
 import Utility from "../components/Uitility/Uitility.vue";
+import NewCollection from "../components/Uitility/NewCollection.vue";
+import NewPortfolio from "../components/Uitility/NewPortfolio.vue";
 export default {
   data() {
     return {
@@ -84,6 +88,8 @@ export default {
     AdminNavbar,
     Pagination,
     Utility,
+    NewCollection,
+    NewPortfolio,
   },
   methods: {
     getAllCollections() {

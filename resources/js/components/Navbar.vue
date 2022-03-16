@@ -62,8 +62,6 @@
             right
             v-if="isLoggedIn && !loading"
           >
-            <b-dropdown-item></b-dropdown-item>
-
             <b-dropdown-item>
               <router-link
                 class="item"

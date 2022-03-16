@@ -47,9 +47,9 @@ class PortfolioController extends Controller
         $orderData =   $request->all();
         // check if request has image
 
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('file_path')) {
             // get image from request
-            $image = $request->file('image');
+            $image = $request->file('file_path');
             // get image name
             $imageName = $image->getClientOriginalName();
             // move image to public/images

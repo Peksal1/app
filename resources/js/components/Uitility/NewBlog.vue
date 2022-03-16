@@ -221,6 +221,7 @@ export default {
       axios
         .post("/api/blogs", formData, {
           headers: {
+            Authorization: "Bearer " + this.adminToken,
             "Content-Type": "multipart/form-data",
           },
         })

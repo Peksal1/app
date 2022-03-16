@@ -22,7 +22,6 @@ import updateuser from './pages/updateuser.vue'
 import AdminFeedback from './pages/Admin_feedback.vue'
 import AdminCollections from './pages/Admin_collections.vue'
 import AdminHome from './pages/Admin_home.vue'
-import NewPortfolio from './pages/NewPortfolio.vue'
 import AdminTopicPosts from './pages/Admin_topicsposts.vue'
 import UpdatePortfolio from './pages/updateportfolio.vue'
 import UpdateTopic from './pages/updatetopic.vue'
@@ -37,7 +36,6 @@ import FAQ from './pages/FAQ.vue'
 import ThankYou from './pages/ThankYou.vue'
 import User_orders from './pages/User_orders.vue'
 import Bloginfo from './pages/Bloginfo.vue'
-import NewCollection from './pages/NewCollection.vue'
 import Collections from './pages/Collections.vue'
 import PaymentOptions from './pages/payment_options'
 import DeliveryShipping from './pages/Deliveryshipping.vue'
@@ -108,14 +106,7 @@ const routes = [
         name: 'collections',
         component: Collections,
     },
-    {
-        path: '/newcollection',
-        name: 'newcollection',
-        component: NewCollection,
-        meta: {
-            requiresAdminAuth: true,
-        },
-    },
+
     {
         path: '/faq',
         name: 'faq',
@@ -203,14 +194,7 @@ const routes = [
             requiresAdminAuth: true,
         },
     },
-    {
-        path: '/newportfolio',
-        name: 'newportfolio',
-        component: NewPortfolio,
-        meta: {
-            requiresAdminAuth: true,
-        },
-    },
+
     {
         path: '/adminhome',
         name: 'adminhome',
