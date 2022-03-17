@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Purchases;
 use App\Models\Shop;
 use App\Models\Shipping;
+use App\Models\Painting_category;
 use Illuminate\Http\Request;
 
 use App\Http\Resources\ShopResource;
@@ -14,13 +15,16 @@ class ShopController extends Controller
 
     public function index(Request $request)
     {
-        $shopQuery = Shop::query();
-         if($request->searchKeyword != null){
-            $shopQuery->where('work_name','LIKE',"%{$request->searchKeyword}%");
-        }
-         $shops = $shopQuery->paginate(8);
-        return ShopResource::collection( $shops);
+        $query= Shop::query();
+    if (!empty($request->cat)) {
+        $query->whereIn('category_id', explode(',', $request->cat));
     }
+    if (!empty($request->searchKeyword)) {
+        $query->where('work_name', 'LIKE', "%{$request->searchKeyword}%");
+    }
+    return $query->paginate(4);
+}
+    
     public function store(Request $request)
     {
         $shopData =   $request->all();

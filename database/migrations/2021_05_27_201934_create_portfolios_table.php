@@ -17,7 +17,7 @@ class CreatePortfoliosTable extends Migration
             $table->id();
             $table->string('work_name');
             $table->string('file_path');
-            $table->string('category');
+            $table->foreignId('category_id')->references('id')->on('painting_categories')->onDelete('cascade');
             $table->foreignId('size_id')->references('id')->on('sizes')->onDelete('cascade');
             $table->foreignId('paint_id')->references('id')->on('paints')->onDelete('cascade');
             $table->foreignId('canvas_id')->references('id')->on('canvases')->onDelete('cascade');

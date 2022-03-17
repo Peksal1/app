@@ -18,6 +18,23 @@
             </div>
           </div>
         </div>
+        <div
+          v-for="painting_category in painting_categories"
+          :key="painting_category.id"
+          class="m-1"
+        >
+          <li>
+            <input
+              type="checkbox"
+              :id="painting_category.id"
+              class="mycat"
+              v-model="cat"
+              :value="painting_category.id"
+            /><label :for="painting_category.id" class="btn btn-sm border">{{
+              painting_category.category
+            }}</label>
+          </li>
+        </div>
         <div class="row">
           <!-- Single Product -->
           <div
@@ -39,7 +56,7 @@
                 <h3 class="product-title">
                   <strong>{{ shop.work_name }}</strong>
                 </h3>
-                <div class="category">{{ shop.category }}</div>
+                <div class="category">{{ shop.category_id }}</div>
                 <h4 class="product-price">{{ shop.price_in_eur }} EUR</h4>
                 <div class="buy-btn mt-3">
                   <div
@@ -79,7 +96,9 @@ export default {
   data() {
     return {
       shops: [],
+      cat: [],
       searchKeyword: "",
+      painting_categories: "",
       isPaymentLoading: false,
       pagination: {
         data: [],
@@ -133,21 +152,41 @@ export default {
     getAllItems() {
       axios
         .get(
-          `/api/store?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}`
+          `/api/store?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}&cat=${this.cat}`
         )
         .then((res) => {
           this.shops = res.data.data;
           this.pagination = res.data;
         });
     },
+    getAllPaintingCategories() {
+      axios.get(`/api/painting_categories`).then((res) => {
+        this.painting_categories = res.data.painting_categories;
+      });
+    },
   },
   created() {
     this.getAllItems();
+    this.getAllPaintingCategories();
+  },
+  watch: {
+    cat(after, before) {
+      this.getAllItems();
+    },
   },
 };
 </script>
 
 <style scoped>
+input.mycat {
+  display: none;
+}
+
+input.mycat:checked + label {
+  background: green;
+  color: white;
+  box-shadow: 0px 1px 3px inset;
+}
 @import url("https://fonts.googleapis.com/css2?family=Heebo:wght@500&display=swap");
 
 .form-control {

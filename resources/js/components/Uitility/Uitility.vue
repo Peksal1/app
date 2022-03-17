@@ -302,6 +302,7 @@ export default {
   name: "Uitility",
   data() {
     return {
+      adminToken: localStorage.getItem("adminToken"),
       showSizeModal: false,
       showPaintModal: false,
       showCanvasModal: false,
@@ -331,7 +332,11 @@ export default {
     },
     submitSizeForm() {
       axios
-        .post("/api/sizes", this.sizeForm)
+        .post("/api/sizes", this.sizeForm, {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+          },
+        })
         .then((res) => {
           if (res.data.status == "success") {
             this.sizes.push(res.data.size);
@@ -352,7 +357,11 @@ export default {
     },
     getAllSizes() {
       axios
-        .get("/api/sizes")
+        .get("/api/sizes", {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+          },
+        })
         .then((res) => {
           this.sizes = res.data.sizes;
           console.log(this.sizes);
@@ -363,7 +372,11 @@ export default {
     },
     deleteSize(index) {
       axios
-        .delete("/api/sizes/" + this.sizes[index].id)
+        .delete("/api/sizes/" + this.sizes[index].id, {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+          },
+        })
         .then((res) => {
           if (res.data.status == "success") {
             this.sizes.splice(index, 1);
@@ -381,7 +394,11 @@ export default {
     },
     submitPaintForm() {
       axios
-        .post("/api/paints", this.paintForm)
+        .post("/api/paints", this.paintForm, {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+          },
+        })
         .then((res) => {
           if (res.data.status == "success") {
             this.paints.push(res.data.paint);
@@ -402,7 +419,11 @@ export default {
     },
     getAllPaints() {
       axios
-        .get("/api/paints")
+        .get("/api/paints", {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+          },
+        })
         .then((res) => {
           this.paints = res.data.paints;
           console.log(this.paints);
@@ -413,7 +434,11 @@ export default {
     },
     deletePaint(index) {
       axios
-        .delete("/api/paints/" + this.paints[index].id)
+        .delete("/api/paints/" + this.paints[index].id, {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+          },
+        })
         .then((res) => {
           if (res.data.status == "success") {
             this.paints.splice(index, 1);
@@ -431,7 +456,11 @@ export default {
     },
     submitCanvasForm() {
       axios
-        .post("/api/canvases", this.canvasForm)
+        .post("/api/canvases", this.canvasForm, {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+          },
+        })
         .then((res) => {
           if (res.data.status == "success") {
             this.canvases.push(res.data.canvas);
@@ -452,7 +481,11 @@ export default {
     },
     getAllCanvases() {
       axios
-        .get("/api/canvases")
+        .get("/api/canvases", {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+          },
+        })
         .then((res) => {
           this.canvases = res.data.canvases;
           console.log(this.canvases);
@@ -463,7 +496,11 @@ export default {
     },
     deleteCanvas(index) {
       axios
-        .delete("/api/canvases/" + this.canvases[index].id)
+        .delete("/api/canvases/" + this.canvases[index].id, {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+          },
+        })
         .then((res) => {
           if (res.data.status == "success") {
             this.canvases.splice(index, 1);
@@ -473,11 +510,36 @@ export default {
           console.log(err);
         });
     },
+    checkLoginStatus() {
+      this.loading = true;
+      // this.loading = true
+      axios
+        .get("/api/user", {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+          },
+        })
+        .then((response) => {
+          this.currentUser = response.data;
+          console.log("LOGGED IN");
+          this.isLoggedIn = true;
+          console.log(this.currentUser.name);
+        })
+        .catch((errors) => {
+          console.log(errors);
+          this.isLoggedIn = false;
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+      // this.loading = false
+    },
   },
   mounted() {
     this.getAllSizes();
     this.getAllPaints();
     this.getAllCanvases();
+    this.checkLoginStatus();
   },
 };
 </script>

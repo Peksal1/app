@@ -4,6 +4,7 @@
     <Utility />
     <NewCollection />
     <NewPortfolio />
+    <NewPaintingCategory />
     <section class="section-products">
       <div class="container">
         <div class="row justify-content-center text-center">
@@ -69,6 +70,7 @@ import Pagination from "../components/Pagination.vue";
 import Utility from "../components/Uitility/Uitility.vue";
 import NewCollection from "../components/Uitility/NewCollection.vue";
 import NewPortfolio from "../components/Uitility/NewPortfolio.vue";
+import NewPaintingCategory from "../components/Uitility/NewPaintingCategory.vue";
 export default {
   data() {
     return {
@@ -90,6 +92,7 @@ export default {
     Utility,
     NewCollection,
     NewPortfolio,
+    NewPaintingCategory,
   },
   methods: {
     getAllCollections() {

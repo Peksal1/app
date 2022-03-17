@@ -18,4 +18,12 @@ class Purchases extends Model
         'user_id',
         'tnx_id',
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
+    public function store()
+    {
+        return $this->belongsTo(Shop::class, 'product_id');
+    }
 }

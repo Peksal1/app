@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Size;
 use App\Models\Paint;
 use App\Models\Canvas;
+use App\Models\Painting_category;
 
 class UtilityController extends Controller
 {
@@ -132,4 +133,41 @@ class UtilityController extends Controller
          $sizes=Size::paginate(20);
      return $sizes;
      }
+
+     public function painting_categories(){
+     
+      $painting_categories = Painting_category::all();
+      $res['painting_categories'] = $painting_categories;
+        
+      return response()->json($res);
+   
+   }
+
+   public function all_painting_categories()
+   {
+       $painting_categories=Painting_category::paginate(20);
+   return $painting_categories;
+   }
+   public function store_painting_category(Request $request){
+     
+       $painting_category = new Painting_category;
+       $painting_category->category = $request->category;
+       $painting_category->save();
+          $res['painting_category'] = $painting_category;
+          $res['status'] = 'success';
+
+       return response()->json($res);
+     
+   }
+
+   public function delete_painting_category($painting_category){
+       try{
+          $painting_category = Painting_category::find($painting_category);
+          $painting_category->delete();
+          $res['status'] = 'success';
+       }catch(Exception $e){
+          $res['status'] = 'error';
+       }
+       return response()->json($res);
+   }
 }

@@ -7,6 +7,8 @@ use App\Models\Purchases;
 use Illuminate\Http\Request;
 use Stripe\Product;
 use Stripe\Price;
+use App\Models\Orders;
+use App\Models\Order_purchases;
 use Stripe\Checkout\Session;
 
 
@@ -55,29 +57,29 @@ class StripeController extends Controller
 
     public function createOrderPaymentSession(Request $request)
     {
-        $shop = Shop::findOrFail($request->product);
+        $order = Orders::findOrFail($request->product);
         // create a new Pruchase
-        $purchase = Purchases::create([
+        $purchase = Order_purchases::create([
             'uuid' =>  time(),
             'user_id' => auth()->user()->id,
-            'product_id' => $request->product,
+            'order_id' => $request->product,
             'status' => 'pending',
             'is_paid' => 0,
             'tnx_id' => '',
-            'Price' => $shop->price_in_eur,
+            'Price' => $order->price,
         ]);
 
         \Stripe\Stripe::setApiKey('sk_test_7NyImHAKY2arJv2aDu9jqJ1600TjVN3zFF');
 
         // register the product in stipe
         $product = Product::create([
-            'name' => $shop->work_name,
+            'name' => $order->text,
         ]);
 
         $price = Price::create([
             'currency' => 'eur',
             'product' => $product['id'],
-            'unit_amount' =>  $shop->price_in_eur * 100
+            'unit_amount' =>  $order->price * 100
         ]);
         $session = Session::create([
             'success_url' => url('/success?stripe_id={CHECKOUT_SESSION_ID}&order_id=' . $purchase->uuid),

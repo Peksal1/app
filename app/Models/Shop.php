@@ -13,8 +13,13 @@ class Shop extends Model
         'size_id',
         'paint_id',
         'canvas_id',
-        'category',
+        'orientation',
+        'category_id',
         'file_path',
         'price_in_eur',
     ];
+    public function category()
+    {
+        return $this->belongsTo(Painting_category::class);
+    }
 }

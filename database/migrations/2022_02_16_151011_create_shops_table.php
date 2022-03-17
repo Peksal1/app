@@ -17,7 +17,7 @@ class CreateShopsTable extends Migration
             $table->id();
             $table->string('work_name');
             $table->longText('description');
-            $table->string('category');
+            $table->foreignId('category_id')->references('id')->on('painting_categories')->onDelete('cascade');
             $table->string('file_path');
             $table->string('orientation');
             $table->foreignId('size_id')->references('id')->on('sizes')->onDelete('cascade');

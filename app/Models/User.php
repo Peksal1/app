@@ -56,7 +56,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Feedback::class);
     }
-
+    public function purchases()
+    {
+        return $this->hasMany(Purchases::class);
+    }
     public function posts()
     {
         return $this->hasMany(qna_post::class);
@@ -74,4 +77,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order_message::class);
     }
+    public function getId()
+{
+  return $this->id;
+}
 }

@@ -1,18 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\purchases;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Purchases;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PurchasesController extends Controller
 {
-    public function users_purchases($id){
-        $purchase = Purchases::where('user_id', $id)->firstOrFail();
-    
-    
-         
-    
-            return response()->json($purchase, 200, [], JSON_PRETTY_PRINT);
-    } 
+    public function user_purchases(Request $request){
+        
+        $purchases = auth()->user()->purchases()->with('store')->paginate(5);
+        return $purchases;  
+  
+    }   
 }

@@ -14,6 +14,7 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UtilityController;
+use App\Http\Controllers\PurchasesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +42,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1']], function () {
     Route::put('/portfolio/{id}', [PortfolioController::class, 'update']); /// User editing
     
 });
-
+Route::get('/painting_categories', [UtilityController::class, 'painting_categories']);
 ///Owner and admin APIs
 Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
 
@@ -49,6 +50,13 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
     Route::delete('/posts/{id}', [QnAController::class, 'destroy_post']); /// Information about a specific portfolio item
     Route::delete('/feedback/{id}', [FeedbackController::class, 'destroy']); /// Deleting feedback
     Route::put('/feedback/{id}', [FeedbackController::class, 'feedbackedit']); /// Editing feedback
+    Route::get('/sizes', [UtilityController::class, 'sizes']);
+    Route::post('/sizes', [UtilityController::class, 'store_size']);
+    Route::delete('/sizes/{size}', [UtilityController::class, 'delete_size']);
+    
+
+    Route::post('/painting_categories', [UtilityController::class, 'store_painting_category']);
+    Route::delete('/painting_categories/{category}', [UtilityController::class, 'delete_painting_category']);
 
     Route::post('/users', [UserController::class, 'store']); /// New user
     Route::get('/users', [UserController::class, 'index']); /// User list
@@ -62,7 +70,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
 
 ///Owner, admin, user APIs
 Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
-    
+    Route::get('/purchases', [PurchasesController::class, 'user_purchases']);
 
     
     Route::get('/blog/search/{title}', [BlogController::class, 'blog_search ']);
@@ -80,13 +88,12 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
 Route::get('/collection/portfolio/{id}', [PortfolioController::class, 'display']);
 Route::get('/portinfo', [PortfolioController::class, 'create']); /// Feedback list
 ///Everyones APIs
+
 Route::get('/blog/{id}', [BlogController::class, 'show']); /// User list
 Route::get('/blog_categories', [BlogController::class, 'blog_categories']);
 Route::post('/blog_categories', [BlogController::class, 'new_category']);
 Route::get('/portfolio/all', [PortfolioController::class, 'full_portfolio']);
-Route::get('/sizes', [UtilityController::class, 'sizes']);
-Route::post('/sizes', [UtilityController::class, 'store_size']);
-Route::delete('/sizes/{size}', [UtilityController::class, 'delete_size']);
+
 Route::get('/canvases', [UtilityController::class, 'canvases']);
 Route::post('/canvases', [UtilityController::class, 'store_canvas']);
 Route::delete('/canvases/{canvas}', [UtilityController::class, 'delete_canvas']);
@@ -128,6 +135,8 @@ Route::get('/collections', [PortfolioController::class, 'collections']);
 Route::get('/all_sizes', [UtilityController::class, 'all_sizes']);
 Route::get('/all_paints', [UtilityController::class, 'all_paints']);
 Route::get('/all_canvases', [UtilityController::class, 'all_canvases']);
+Route::get('/all_painting_categories', [UtilityController::class, 'all_painting_categories']);
+
 ///registration
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

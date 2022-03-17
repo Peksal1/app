@@ -132,6 +132,36 @@
                 </option>
               </select>
               <br />
+              <label for="category">Category:</label>
+              <select
+                class="options"
+                name="category"
+                v-model="storeForm.category_id"
+                style="width: 15rem"
+                required
+              >
+                <option value="">Choose</option>
+                <option
+                  v-for="painting_category in painting_categories"
+                  v-bind:key="painting_category.id"
+                  :value="painting_category.id"
+                >
+                  {{ painting_category.category }}
+                </option>
+              </select>
+              <br />
+              <label for="orientation">Orientation:</label>
+              <select
+                class="options"
+                name="orientation"
+                v-model="storeForm.orientation"
+                style="width: 15rem"
+                required
+              >
+                <option value="horizontal">Horizontal</option>
+                <option value="vertical">Vertical</option>
+              </select>
+              <br />
               <label for="paint">Paint:</label>
               <select
                 name="paint"
@@ -191,16 +221,18 @@ export default {
       sizes: {},
       canvases: {},
       paints: {},
+      painting_categories: {},
       showStoreModal: false,
       storeForm: {
         work_name: "",
         file_path: "",
         description: "",
-        category: "",
+        category_id: "",
         price_in_eur: "",
         size_id: "",
         canvas_id: "",
         paint_id: "",
+        orientation: "",
       },
       stores: [],
       adminToken: localStorage.getItem("adminToken"),
@@ -231,7 +263,8 @@ export default {
       formData.append("work_name", this.storeForm.work_name);
       formData.append("file_path", this.storeForm.file_path);
       formData.append("description", this.storeForm.description);
-      formData.append("category", this.storeForm.category);
+      formData.append("category_id", this.storeForm.category_id);
+      formData.append("orientation", this.storeForm.orientation);
       formData.append("price_in_eur", this.storeForm.price_in_eur);
       formData.append("size_id", this.storeForm.size_id);
       formData.append("canvas_id", this.storeForm.canvas_id);
@@ -252,7 +285,8 @@ export default {
               work_name: "",
               file_path: "",
               description: "",
-              category: "",
+              orientation: "",
+              category_id: "",
               price_in_eur: "",
               size_id: "",
               canvas_id: "",
@@ -279,6 +313,14 @@ export default {
       this.isLoggedIn = false;
       console.log(this.paints);
     },
+    getAllPaintingCategories() {
+      axios
+        .get("api/all_painting_categories")
+        .then(({ data }) => (this.painting_categories = data.data));
+      this.isLoggedIn = false;
+      console.log(this.painting_categories);
+    },
+
     loadCanvases() {
       axios
         .get("api/all_canvases")
@@ -316,6 +358,7 @@ export default {
     this.loadSizes();
     this.loadCanvases();
     this.loadPaints();
+    this.getAllPaintingCategories();
   },
 };
 </script>
