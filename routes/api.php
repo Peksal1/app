@@ -83,6 +83,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
     Route::get('/topics/search/{topic_title}', [QnAController::class, 'topic_search']); /// topic search
     Route::put('/user/{id}', [UserController::class, 'updateuser']); /// User editing
     Route::post('/create-payment-session', [StripeController::class, 'createPaymentSession']);
+    Route::post('/order/create-payment-session', [StripeController::class, 'createOrderPaymentSession']);
     
 });
 Route::get('/collection/portfolio/{id}', [PortfolioController::class, 'display']);

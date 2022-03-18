@@ -17,6 +17,7 @@ class orders extends Model
         'canvas_id',
         'price',
         'orientation',
+        'is_paid'
     ];
 
     public function user()

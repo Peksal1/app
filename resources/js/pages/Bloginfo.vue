@@ -30,7 +30,7 @@ import Navbar from "../components/Navbar.vue";
 export default {
   data: function () {
     return {
-      blog: [],
+      blog: {},
       currentUser: {},
       isLoggedIn: false,
       token: localStorage.getItem("token"),
@@ -41,13 +41,6 @@ export default {
   },
 
   methods: {
-    getAllBlogs() {
-      axios.get("/api/bloginfo").then((res) => {
-        this.blogs = res.data.data;
-        this.pagination = res.data;
-      });
-    },
-
     checkLoginStatus() {
       this.loading = true;
       // this.loading = true
@@ -73,10 +66,6 @@ export default {
       // this.loading = false
     },
   },
-
-  created() {
-    this.getAllBlogs();
-  },
   mounted() {
     axios
       .get("/api/blog/" + this.$route.params.id, {
@@ -86,11 +75,7 @@ export default {
       })
 
       .then((response) => {
-        const blog = response.data;
-        this.title = blog.title;
-        this.description = blog.description;
-        this.thumbnail = blog.thumbnail;
-        this.image = blog.image;
+        this.blog = response.data;
       })
       .catch((error) => {
         console.log(error);

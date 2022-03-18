@@ -24,7 +24,7 @@
         <v-card-subtitle class="pb-0">
           <div>
             size:
-            {{ purchase.store.uuid }}
+            {{ purchase.store.price_in_eur }}
           </div>
         </v-card-subtitle>
 
@@ -67,8 +67,7 @@ export default {
         })
         .then((response) => {
           this.isLoggedIn = false;
-
-          this.purchases = response.data;
+          this.purchases = response.data.data;
         })
         .catch((error) => {
           console.log(error.message);
@@ -86,9 +85,7 @@ export default {
         })
         .then((response) => {
           this.currentUser = response.data;
-          console.log("LOGGED IN");
           this.isLoggedIn = true;
-          console.log(this.currentUser.name);
         })
         .catch((errors) => {
           console.log(errors);

@@ -72,7 +72,7 @@ const routes = [
         },
     },
     {
-        path: '/purchases/:id',
+        path: '/purchases',
         name: 'purchases',
         component: Purchases,
         meta: {
@@ -131,6 +131,11 @@ const routes = [
         component: ThankYou,
     },
     {
+        path: '/order/thank-you',
+        name: 'thank-you',
+        component: ThankYou,
+    },
+    {
         path: '/orderlist',
         name: 'orderlist',
         component: OrderList,
@@ -147,7 +152,7 @@ const routes = [
         },
     },
     {
-        path: '/user/:id',
+        path: '/user',
         name: 'userprofile',
         component: UserProfile,
         meta: {

@@ -37,6 +37,9 @@
         <div class="btn btn-sm btn-primary" @click="openOrderMessageModal">
           Discuss the order
         </div>
+        <div @click="makePayment(order)" class="btn btn-sm btn-danger">
+          Pay now
+        </div>
       </v-card>
     </div>
     <div
@@ -129,6 +132,41 @@ export default {
         })
         .catch((error) => {
           console.log(error.message);
+        });
+    },
+
+    makePayment(order) {
+      this.isPaymentLoading = true;
+      axios
+        .post(
+          "/api/order/create-payment-session",
+          {
+            order: order,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        )
+        .then((response) => {
+          this.redirectToStripe(response.data.session_id);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          this.isPaymentLoading = false;
+        });
+    },
+    redirectToStripe(sessionID) {
+      let stripe = Stripe("pk_test_d6aChIuFov53M3i5n00Fn1j200m37XdpTE");
+      stripe
+        .redirectToCheckout({
+          sessionId: sessionID,
+        })
+        .then((res) => {
+          console.log(res);
         });
     },
 

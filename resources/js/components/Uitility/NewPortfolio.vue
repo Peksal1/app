@@ -59,34 +59,6 @@
                   required
                 />
               </div>
-              <div class="form-group">
-                Category:
-                <br />
-                <input
-                  type="radio"
-                  id="Portrait"
-                  name="category"
-                  value="Portrait"
-                  v-model="portfolioForm.category"
-                />
-                <label for="Portrait">Portrait</label><br />
-                <input
-                  type="radio"
-                  id="Landscape"
-                  name="category"
-                  value="Landscape"
-                  v-model="portfolioForm.category"
-                />
-                <label for="Landscape">Landscape</label><br />
-                <input
-                  type="radio"
-                  id="Random"
-                  name="category"
-                  value="Random"
-                  v-model="portfolioForm.category"
-                />
-                <label for="Random">Random</label>
-              </div>
               <label for="collection">Collection:</label>
               <select
                 class="options"
@@ -158,6 +130,36 @@
                   {{ paint.type }}
                 </option>
               </select>
+              <br />
+              <label for="orientation">Orientation:</label>
+              <select
+                name="orientation"
+                v-model="portfolioForm.orientation"
+                style="width: 15rem"
+                class="options"
+                required
+              >
+                <option value="vertical">Vertical</option>
+                <option value="horizontal">Horizontal</option>
+              </select>
+              <br />
+              <label for="category">Category:</label>
+              <select
+                name="category"
+                v-model="portfolioForm.category_id"
+                style="width: 15rem"
+                class="options"
+                required
+              >
+                <option value="">Choose</option>
+                <option
+                  v-for="painting_category in painting_categories"
+                  v-bind:key="painting_category.id"
+                  :value="painting_category.id"
+                >
+                  {{ painting_category.category }}
+                </option>
+              </select>
               <div class="p-2 w-full">
                 <div class="relative">
                   <label
@@ -201,16 +203,18 @@ export default {
       canvases: {},
       paints: {},
       collections: {},
+      painting_categories: {},
       showPortfolioModal: false,
       portfolioForm: {
         file_path: "",
         work_name: "",
         description: "",
-        category: "",
         collection_id: "",
         size_id: "",
         canvas_id: "",
         paint_id: "",
+        orientation: "",
+        category_id: "",
         available_in_digital: "0",
       },
       portfolios: [],
@@ -241,12 +245,13 @@ export default {
       let formData = new FormData();
       formData.append("work_name", this.portfolioForm.work_name);
       formData.append("description", this.portfolioForm.description);
-      formData.append("category", this.portfolioForm.category);
       formData.append("file_path", this.portfolioForm.file_path);
       formData.append("collection_id", this.portfolioForm.collection_id);
       formData.append("size_id", this.portfolioForm.size_id);
       formData.append("canvas_id", this.portfolioForm.canvas_id);
       formData.append("paint_id", this.portfolioForm.paint_id);
+      formData.append("orientation", this.portfolioForm.orientation);
+      formData.append("category_id", this.portfolioForm.category_id);
       formData.append(
         "available_in_digital",
         this.portfolioForm.available_in_digital
@@ -267,7 +272,7 @@ export default {
               work_name: "",
               file_path: "",
               description: "",
-              category: "",
+              category_id: "",
               price_in_eur: "",
               size_id: "",
               canvas_id: "",
@@ -288,25 +293,29 @@ export default {
       axios
         .get("api/collections")
         .then(({ data }) => (this.collections = data.data));
-      this.isLoggedIn = false;
+
       console.log(this.collections);
     },
     loadSizes() {
-      axios.get("api/all_sizes").then(({ data }) => (this.sizes = data.data));
-      this.isLoggedIn = false;
-      console.log(this.sizes);
+      axios.get(`/api/all_sizes`).then((res) => {
+        this.sizes = res.data.sizes;
+      });
     },
     loadPaints() {
-      axios.get("api/all_paints").then(({ data }) => (this.paints = data.data));
-      this.isLoggedIn = false;
-      console.log(this.paints);
+      axios.get(`/api/all_paints`).then((res) => {
+        this.paints = res.data.paints;
+      });
     },
     loadCanvases() {
+      axios.get(`/api/all_canvases`).then((res) => {
+        this.canvases = res.data.canvases;
+      });
+    },
+    getAllPaintingCategories() {
       axios
-        .get("api/all_canvases")
-        .then(({ data }) => (this.canvases = data.data));
-      this.isLoggedIn = false;
-      console.log(this.canvases);
+        .get("api/all_painting_categories")
+        .then(({ data }) => (this.painting_categories = data.data));
+      console.log(this.painting_categories);
     },
     checkLoginStatus() {
       this.loading = true;
@@ -338,6 +347,7 @@ export default {
     this.checkLoginStatus();
     this.loadSizes();
     this.loadPaints();
+    this.getAllPaintingCategories();
     this.loadCanvases();
   },
 };

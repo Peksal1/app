@@ -18,109 +18,122 @@
             </div>
           </div>
         </div>
-        <h3>FILTER BY CATEGORY</h3>
-        <!-- painting category filtering -->
-        <div
-          v-for="painting_category in painting_categories"
-          :key="painting_category.id"
-          class="m-1"
-        >
-          <li>
-            <input
-              type="checkbox"
-              :id="painting_category.id"
-              class="mycat"
-              v-model="cat"
-              :value="painting_category.id"
-            /><label :for="painting_category.id" class="btn btn-sm border">{{
-              painting_category.category
-            }}</label>
-          </li>
-        </div>
-        <h3>FILTER BY SIZE</h3>
-        <!-- painting size filtering -->
-        <div v-for="size in sizes" :key="size.id" class="m-2">
-          <li>
-            <input
-              type="checkbox"
-              :id="size.type"
-              class="mysize"
-              v-model="sizefilter"
-              :value="size.id"
-            /><label :for="size.type" class="btn btn-sm border">{{
-              size.type
-            }}</label>
-          </li>
-        </div>
-        <h3>FILTER BY PAINT</h3>
-        <!-- paint filterting -->
-        <div v-for="paint in paints" :key="paint.id" class="m-1">
-          <input
-            type="checkbox"
-            :id="paint.type"
-            class="mypaint"
-            v-model="paintfilter"
-            :value="paint.id"
-          /><label :for="paint.type" class="btn btn-sm border">{{
-            paint.type
-          }}</label>
-        </div>
-        <h3>FILTER BY CANVAS</h3>
-        <!-- canvas filtering -->
-        <div v-for="canvas in canvases" :key="canvas.id" class="m-1">
-          <li>
-            <input
-              type="checkbox"
-              :id="canvas.type"
-              class="mycanvas"
-              v-model="canvasfilter"
-              :value="canvas.id"
-            /><label :for="canvas.type" class="btn btn-sm border">{{
-              canvas.type
-            }}</label>
-          </li>
-        </div>
-        <!-- products -->
         <div class="row">
-          <!-- Single Product -->
-          <div
-            class="col-md-6 col-lg-4 col-xl-3"
-            v-if="!isPaymentLoading"
-            v-for="shop in shops"
-            :key="shop.id"
-          >
-            <div id="product-1" class="single-product">
-              <div class="part-1">
-                <img :src="`/sale/${shop.file_path}`" alt="" />
-                <ul>
-                  <li>
-                    <a href="#"><i class="fas fa-expand"></i></a>
-                  </li>
-                </ul>
+          <div class="col-md-3">
+            <p><strong>FILTER BY CATEGORY</strong></p>
+            <!-- painting category filtering -->
+            <div
+              v-for="(painting_category, index) in painting_categories"
+              :key="index"
+              class="m-1"
+            >
+              <div>
+                <input
+                  type="checkbox"
+                  :id="painting_category.id"
+                  class="mycat"
+                  v-model="cat"
+                  :value="painting_category.id"
+                /><label
+                  :for="painting_category.id"
+                  class="btn btn-sm border btn-block"
+                  >{{ painting_category.category }}</label
+                >
               </div>
-              <div class="part-2">
-                <h3 class="product-title">
-                  <strong>{{ shop.work_name }}</strong>
-                </h3>
-                <div class="category">{{ shop.category_id }}</div>
-                <h4 class="product-price">{{ shop.price_in_eur }} EUR</h4>
-                <div class="buy-btn mt-3">
-                  <div
-                    @click="buyProduct(shop.id)"
-                    class="btn btn-block btn-primary"
-                  >
-                    Buy Now
+            </div>
+            <p class="mt-4"><strong>FILTER BY SIZE</strong></p>
+            <!-- painting size filtering -->
+            <div v-for="(size, index) in sizes" :key="index" class="m-2">
+              <div>
+                <input
+                  type="checkbox"
+                  :id="size.type"
+                  class="mysize"
+                  v-model="sizefilter"
+                  :value="size.id"
+                /><label :for="size.type" class="btn btn-sm border btn-block">{{
+                  size.type
+                }}</label>
+              </div>
+            </div>
+            <p class="mt-4"><strong>FILTER BY PAINT</strong></p>
+            <!-- paint filterting -->
+            <div v-for="(paint, index) in paints" :key="index" class="m-1">
+              <input
+                type="checkbox"
+                :id="paint.type"
+                class="mypaint"
+                v-model="paintfilter"
+                :value="paint.id"
+              /><label :for="paint.type" class="btn btn-sm border btn-block">{{
+                paint.type
+              }}</label>
+            </div>
+
+            <p class="mt-4"><strong>FILTER BY CANVAS</strong></p>
+
+            <!-- canvas filtering -->
+            <div v-for="(canvas, index) in canvases" :key="index" class="m-1">
+              <div>
+                <input
+                  type="checkbox"
+                  :id="canvas.type"
+                  class="mycanvas"
+                  v-model="canvasfilter"
+                  :value="canvas.id"
+                /><label
+                  :for="canvas.type"
+                  class="btn btn-sm border btn-block"
+                  >{{ canvas.type }}</label
+                >
+              </div>
+            </div>
+            <!-- products -->
+          </div>
+          <div class="col-md-9">
+            <div class="row">
+              <!-- Single Product -->
+              <div
+                class="col-md-6"
+                v-if="!isPaymentLoading"
+                v-for="(shop, index) in shops"
+                :key="index"
+              >
+                <div id="product-1" class="single-product">
+                  <div class="part-1">
+                    <img :src="`/sale/${shop.file_path}`" alt="" />
+                    <ul>
+                      <li>
+                        <a href="#"><i class="fas fa-expand"></i></a>
+                      </li>
+                    </ul>
                   </div>
+                  <div class="part-2">
+                    <h3 class="product-title">
+                      <strong>{{ shop.work_name }}</strong>
+                    </h3>
+                    <div class="category">{{ shop.category_id }}</div>
+                    <h4 class="product-price">{{ shop.price_in_eur }} EUR</h4>
+                    <div class="buy-btn mt-3">
+                      <div
+                        @click="buyProduct(shop.id)"
+                        class="btn btn-block btn-primary"
+                      >
+                        Buy Now
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div v-else>
+                <div class="text-center">
+                  <h2>Payment Page Loading</h2>
                 </div>
               </div>
             </div>
           </div>
-          <div v-else>
-            <div class="text-center">
-              <h2>Payment Page Loading</h2>
-            </div>
-          </div>
         </div>
+
         <div class="col-md-12 text-center center-pagination">
           <Pagination
             :pagination="pagination"
@@ -460,5 +473,13 @@ a:hover {
   height: 1px;
   background-color: #444444;
   transform: translateY(-50%);
+}
+.btn-block {
+  width: 100%;
+  text-align: left;
+}
+
+.mt-4 {
+  margin-top: 10px;
 }
 </style>

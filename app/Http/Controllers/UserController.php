@@ -75,7 +75,7 @@ class UserController extends Controller
     }
     public function show($user)
     {
-        $users=User::findOrFail($user);
+         $users=User::findOrFail($user);
         return $users;
     }
 

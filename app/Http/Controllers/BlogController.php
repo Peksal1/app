@@ -93,10 +93,11 @@ class BlogController extends Controller
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function show(Blog $blog)
+    public function show($blog)
     {
-        $blogs=Blog::findOrFail($blog);
-        return $blogs;
+   
+        $blog = Blog::where('id',$blog)->first();
+        return response()->json($blog);
     }
 
     /**

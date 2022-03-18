@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/success',  [StripeController::class, 'paymentSuccess']);
+Route::get('/order/success',  [StripeController::class, 'orderPaymentSuccess']);
 
 
 Route::get('/{any}', [App\Http\Controllers\SpaController::class, 'index'])->where('any', '.*');
