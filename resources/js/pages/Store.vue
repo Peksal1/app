@@ -18,6 +18,8 @@
             </div>
           </div>
         </div>
+        <h3>FILTER BY CATEGORY</h3>
+        <!-- painting category filtering -->
         <div
           v-for="painting_category in painting_categories"
           :key="painting_category.id"
@@ -35,6 +37,50 @@
             }}</label>
           </li>
         </div>
+        <h3>FILTER BY SIZE</h3>
+        <!-- painting size filtering -->
+        <div v-for="size in sizes" :key="size.id" class="m-2">
+          <li>
+            <input
+              type="checkbox"
+              :id="size.type"
+              class="mysize"
+              v-model="sizefilter"
+              :value="size.id"
+            /><label :for="size.type" class="btn btn-sm border">{{
+              size.type
+            }}</label>
+          </li>
+        </div>
+        <h3>FILTER BY PAINT</h3>
+        <!-- paint filterting -->
+        <div v-for="paint in paints" :key="paint.id" class="m-1">
+          <input
+            type="checkbox"
+            :id="paint.type"
+            class="mypaint"
+            v-model="paintfilter"
+            :value="paint.id"
+          /><label :for="paint.type" class="btn btn-sm border">{{
+            paint.type
+          }}</label>
+        </div>
+        <h3>FILTER BY CANVAS</h3>
+        <!-- canvas filtering -->
+        <div v-for="canvas in canvases" :key="canvas.id" class="m-1">
+          <li>
+            <input
+              type="checkbox"
+              :id="canvas.type"
+              class="mycanvas"
+              v-model="canvasfilter"
+              :value="canvas.id"
+            /><label :for="canvas.type" class="btn btn-sm border">{{
+              canvas.type
+            }}</label>
+          </li>
+        </div>
+        <!-- products -->
         <div class="row">
           <!-- Single Product -->
           <div
@@ -97,6 +143,12 @@ export default {
     return {
       shops: [],
       cat: [],
+      sizefilter: [],
+      canvasfilter: [],
+      paintfilter: [],
+      sizes: "",
+      canvases: "",
+      paints: "",
       searchKeyword: "",
       painting_categories: "",
       isPaymentLoading: false,
@@ -152,7 +204,7 @@ export default {
     getAllItems() {
       axios
         .get(
-          `/api/store?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}&cat=${this.cat}`
+          `/api/store?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}&cat=${this.cat}&sizefilter=${this.sizefilter}&paintfilter=${this.paintfilter}&canvasfilter=${this.canvasfilter}`
         )
         .then((res) => {
           this.shops = res.data.data;
@@ -164,13 +216,40 @@ export default {
         this.painting_categories = res.data.painting_categories;
       });
     },
+    loadSizes() {
+      axios.get(`/api/all_sizes`).then((res) => {
+        this.sizes = res.data.sizes;
+      });
+    },
+    loadPaints() {
+      axios.get(`/api/all_paints`).then((res) => {
+        this.paints = res.data.paints;
+      });
+    },
+    loadCanvases() {
+      axios.get(`/api/all_canvases`).then((res) => {
+        this.canvases = res.data.canvases;
+      });
+    },
   },
   created() {
     this.getAllItems();
     this.getAllPaintingCategories();
+    this.loadCanvases();
+    this.loadPaints();
+    this.loadSizes();
   },
   watch: {
     cat(after, before) {
+      this.getAllItems();
+    },
+    sizefilter(after, before) {
+      this.getAllItems();
+    },
+    canvasfilter(after, before) {
+      this.getAllItems();
+    },
+    paintfilter(after, before) {
       this.getAllItems();
     },
   },
@@ -178,11 +257,17 @@ export default {
 </script>
 
 <style scoped>
-input.mycat {
+input.mycat,
+input.mypaint,
+input.mysize,
+input.mycanvas {
   display: none;
 }
 
-input.mycat:checked + label {
+input.mycat:checked + label,
+input.mypaint:checked + label,
+input.mysize:checked + label,
+input.mycanvas:checked + label {
   background: green;
   color: white;
   box-shadow: 0px 1px 3px inset;

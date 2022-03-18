@@ -20,6 +20,7 @@ class CreateShopsTable extends Migration
             $table->foreignId('category_id')->references('id')->on('painting_categories')->onDelete('cascade');
             $table->string('file_path');
             $table->string('orientation');
+            $table->boolean('is_bought')->default(0);
             $table->foreignId('size_id')->references('id')->on('sizes')->onDelete('cascade');
             $table->foreignId('paint_id')->references('id')->on('paints')->onDelete('cascade');
             $table->foreignId('canvas_id')->references('id')->on('canvases')->onDelete('cascade');

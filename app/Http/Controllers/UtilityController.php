@@ -118,21 +118,30 @@ class UtilityController extends Controller
          return response()->json($res);
      }
 
-     public function all_paints()
-     {
-         $paints=Paint::paginate(20);
-     return $paints;
-     }
-     public function all_canvases()
-     {
-         $canvases=Canvas::paginate(20);
-     return $canvases;
-     }
-     public function all_sizes()
-     {
-         $sizes=Size::paginate(20);
-     return $sizes;
-     }
+     public function all_paints(){
+     
+      $paints = Paint::all();
+      $res['paints'] = $paints;
+        
+      return response()->json($res);
+   
+   }
+   public function all_canvases(){
+     
+      $canvases = Canvas::all();
+      $res['canvases'] = $canvases;
+        
+      return response()->json($res);
+   
+   }
+   public function all_sizes(){
+     
+      $sizes = Size::all();
+      $res['sizes'] = $sizes;
+        
+      return response()->json($res);
+   
+   }
 
      public function painting_categories(){
      

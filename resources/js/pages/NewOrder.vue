@@ -66,6 +66,16 @@
                   {{ canvas.type }}
                 </option>
               </select>
+              <!-- ORIENTATION -->
+              <select
+                name="orientation"
+                v-model="formData.orientation"
+                style="width: 15rem"
+              >
+                <option value="">Choose</option>
+                <option value="horizontal">horizontal</option>
+                <option value="vertical">vertical</option>
+              </select>
               <div class="p-2 w-full">
                 <div class="relative">
                   <label
@@ -118,6 +128,7 @@ export default {
         size_id: "",
         canvas_id: "",
         paint_id: "",
+        orientation: "",
         price: 0,
       },
       currentUser: {},
@@ -151,6 +162,7 @@ export default {
       orderForm.append("size_id", this.formData.size_id);
       orderForm.append("canvas_id", this.formData.canvas_id);
       orderForm.append("paint_id", this.formData.paint_id);
+      orderForm.append("orientation", this.formData.orientation);
       orderForm.append("user_id", this.currentUser.id);
       orderForm.append("price", this.customPrice);
 
@@ -198,21 +210,19 @@ export default {
       // this.loading = false
     },
     loadSizes() {
-      axios.get("api/all_sizes").then(({ data }) => (this.sizes = data.data));
-      this.isLoggedIn = false;
-      console.log(this.sizes);
+      axios.get(`/api/all_sizes`).then((res) => {
+        this.sizes = res.data.sizes;
+      });
     },
     loadPaints() {
-      axios.get("api/all_paints").then(({ data }) => (this.paints = data.data));
-      this.isLoggedIn = false;
-      console.log(this.paints);
+      axios.get(`/api/all_paints`).then((res) => {
+        this.paints = res.data.paints;
+      });
     },
     loadCanvases() {
-      axios
-        .get("api/all_canvases")
-        .then(({ data }) => (this.canvases = data.data));
-      this.isLoggedIn = false;
-      console.log(this.canvases);
+      axios.get(`/api/all_canvases`).then((res) => {
+        this.canvases = res.data.canvases;
+      });
     },
   },
   computed: {

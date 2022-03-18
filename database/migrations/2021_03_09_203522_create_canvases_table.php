@@ -16,7 +16,7 @@ class CreateCanvasesTable extends Migration
         Schema::create('canvases', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('type');
+            $table->string('type')->unique();
             $table->double('price_in_eur', 10, 2);
         });
     }

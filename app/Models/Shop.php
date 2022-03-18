@@ -15,6 +15,7 @@ class Shop extends Model
         'canvas_id',
         'orientation',
         'category_id',
+        'is_bought',
         'file_path',
         'price_in_eur',
     ];

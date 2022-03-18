@@ -16,6 +16,7 @@ class orders extends Model
         'paint_id',
         'canvas_id',
         'price',
+        'orientation',
     ];
 
     public function user()
