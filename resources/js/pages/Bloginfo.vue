@@ -31,6 +31,7 @@ export default {
   data: function () {
     return {
       blog: {},
+      comments: [],
       currentUser: {},
       isLoggedIn: false,
       token: localStorage.getItem("token"),
@@ -79,6 +80,22 @@ export default {
       })
       .catch((error) => {
         console.log(error);
+      });
+    axios
+      .get("/api/blog/comments/" + this.$route.params.id, {
+        headers: {
+          Authorization: "Bearer " + this.token,
+        },
+      })
+      .then((response) => {
+        this.isLoggedIn = false;
+        ///    this.appointments=response.data.data
+        this.comments = response.data;
+        console.log("lol" + comments);
+        ///    console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
       });
   },
 };

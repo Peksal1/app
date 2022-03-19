@@ -59,34 +59,7 @@
                   required
                 />
               </div>
-              <div class="form-group">
-                Category:
-                <br />
-                <input
-                  type="radio"
-                  id="Portrait"
-                  name="category"
-                  value="Portrait"
-                  v-model="storeForm.category"
-                />
-                <label for="Portrait">Portrait</label><br />
-                <input
-                  type="radio"
-                  id="Landscape"
-                  name="category"
-                  value="Landscape"
-                  v-model="storeForm.category"
-                />
-                <label for="Landscape">Landscape</label><br />
-                <input
-                  type="radio"
-                  id="Random"
-                  name="category"
-                  value="Random"
-                  v-model="storeForm.category"
-                />
-                <label for="Random">Random</label>
-              </div>
+
               <div class="form-group">
                 <label for="">Price (EUR)</label>
                 <input
@@ -304,14 +277,19 @@ export default {
         });
     },
     loadSizes() {
-      axios.get("api/all_sizes").then(({ data }) => (this.sizes = data.data));
-      this.isLoggedIn = false;
-      console.log(this.sizes);
+      axios.get(`/api/all_sizes`).then((res) => {
+        this.sizes = res.data.sizes;
+      });
     },
     loadPaints() {
-      axios.get("api/all_paints").then(({ data }) => (this.paints = data.data));
-      this.isLoggedIn = false;
-      console.log(this.paints);
+      axios.get(`/api/all_paints`).then((res) => {
+        this.paints = res.data.paints;
+      });
+    },
+    loadCanvases() {
+      axios.get(`/api/all_canvases`).then((res) => {
+        this.canvases = res.data.canvases;
+      });
     },
     getAllPaintingCategories() {
       axios
@@ -321,13 +299,6 @@ export default {
       console.log(this.painting_categories);
     },
 
-    loadCanvases() {
-      axios
-        .get("api/all_canvases")
-        .then(({ data }) => (this.canvases = data.data));
-      this.isLoggedIn = false;
-      console.log(this.canvases);
-    },
     checkLoginStatus() {
       this.loading = true;
       // this.loading = true

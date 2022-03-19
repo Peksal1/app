@@ -34,6 +34,7 @@ import Store from './pages/Store.vue'
 import NewStore from './pages/new_store.vue'
 import FAQ from './pages/FAQ.vue'
 import ThankYou from './pages/ThankYou.vue'
+import OrderThankYou from './pages/OrderThankYou.vue'
 import User_orders from './pages/User_orders.vue'
 import Bloginfo from './pages/Bloginfo.vue'
 import Collections from './pages/Collections.vue'
@@ -132,8 +133,8 @@ const routes = [
     },
     {
         path: '/order/thank-you',
-        name: 'thank-you',
-        component: ThankYou,
+        name: 'order-thank-you',
+        component: OrderThankYou,
     },
     {
         path: '/orderlist',

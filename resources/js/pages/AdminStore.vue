@@ -40,7 +40,7 @@
                 <h3 class="product-title">
                   <strong>{{ shop.work_name }}</strong>
                 </h3>
-                <div class="category">{{ shop.category.category }}</div>
+                <div class="category">{{ shop.category_id }}</div>
                 <h4 class="product-price">{{ shop.price_in_eur }} EUR</h4>
                 <div class="buy-btn mt-3">
                   <div

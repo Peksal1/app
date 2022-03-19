@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateBlogRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\BlogResource;
 use App\Models\Blog_category;
+use App\Models\Blog_comment;
 
 class BlogController extends Controller
 {
@@ -118,10 +119,12 @@ class BlogController extends Controller
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBlogRequest $request, Blog $blog)
-    {
-        //
-    }
+    public function display( $id)
+
+{
+    $blog_comment = Blog_comment::with(['userComment'])->where('blog_id', $id)->latest()->get();
+    return $blog_comment;
+}
 
     /**
      * Remove the specified resource from storage.

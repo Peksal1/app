@@ -94,7 +94,7 @@ Route::get('/blog/{id}', [BlogController::class, 'show']); /// User list
 Route::get('/blog_categories', [BlogController::class, 'blog_categories']);
 Route::post('/blog_categories', [BlogController::class, 'new_category']);
 Route::get('/portfolio/all', [PortfolioController::class, 'full_portfolio']);
-
+Route::get('/blog/comments/{id}', [BlogController::class, 'display']);
 Route::get('/canvases', [UtilityController::class, 'canvases']);
 Route::post('/canvases', [UtilityController::class, 'store_canvas']);
 Route::delete('/canvases/{canvas}', [UtilityController::class, 'delete_canvas']);
@@ -129,6 +129,7 @@ Route::get('/users/{id}', [UserController::class, 'show']); /// User list
 Route::get('/user/{id}/orders', [OrderController::class, 'userorders']); /// Users feedback
 Route::post('/shipping', [ShopController::class, 'create_shipping']);
 Route::get('/check/purchase/{purchase}/status', [ShopController::class, 'checkPurchase']);
+Route::get('/check/order/{order}/status', [OrderController::class, 'checkOrderPurchase']);
 Route::post('/store', [ShopController::class, 'store']); /// New order
 Route::get('/store', [ShopController::class, 'index']); /// Order list
 Route::put('/store/{id}', [ShopController::class, 'storeedit']); /// Editing orders

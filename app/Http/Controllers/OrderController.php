@@ -6,6 +6,7 @@ use App\Models\Orders;
 use App\Models\User;
 use App\Models\Order_message;
 use Illuminate\Http\Request;
+use App\Models\Shipping;
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\OrderMessageResource;
 
@@ -108,5 +109,21 @@ class OrderController extends Controller
         $res['status'] = 'error';
      }
      return response()->json($res);
+ }
+
+ public function checkOrderPurchase($pruchaseId){
+    
+    $order = Orders::where('id', $pruchaseId)->first();
+     $shippingInfo = Shipping::where('purchase_id', $order->id)->first();
+    if( $order){
+         $res['success'] = true;
+         $res['order'] = $order;
+         $res['isShippingInfoFilled'] = !!$shippingInfo;
+         return response()->json($res, 200);
+     }else{
+         $res['success'] = false;
+         $res['message'] = 'Order not found';
+         return response()->json($res, 200);
+     }
  }
 }
