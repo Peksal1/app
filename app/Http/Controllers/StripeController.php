@@ -9,6 +9,7 @@ use Stripe\Product;
 use Stripe\Price;
 use App\Models\Orders;
 use App\Models\Order_purchases;
+use App\Models\Digital_painting;
 use Stripe\Checkout\Session;
 
 
@@ -87,6 +88,69 @@ class StripeController extends Controller
         $res['session_id'] = $session['id'];
 
         return response()->json($res, 200);
+    }
+
+    // DIGITAL PAINTINGS
+
+    public function createDigitalPaintingPaymentSession(Request $request)
+    {
+        $digital = Digital_painting::findOrFail($request->product);
+        // create a new Pruchase
+        $purchase = Digital_purchase::create([
+            'uuid' =>  time(),
+            'user_id' => auth()->user()->id,
+            'digital_painting_id' => $request->product,
+            'status' => 'pending',
+            'is_paid' => 0,
+            'tnx_id' => '',
+            'Price' => $digital->price,
+        ]);
+
+        \Stripe\Stripe::setApiKey('sk_test_7NyImHAKY2arJv2aDu9jqJ1600TjVN3zFF');
+
+        // register the product in stipe
+        $product = Product::create([
+            'name' => $digital->portfolio_id,
+        ]);
+
+        $price = Price::create([
+            'currency' => 'eur',
+            'product' => $product['id'],
+            'unit_amount' =>  $digital->price * 100
+        ]);
+        $session = Session::create([
+            'success_url' => url('/success?stripe_id={CHECKOUT_SESSION_ID}&order_id=' . $purchase->uuid),
+            'cancel_url' =>  url('/store'),
+            'payment_method_types' => ['card'],
+            'mode' => 'payment',
+            'line_items' => [[
+                'price' => $price['id'],
+                'quantity' => 1,
+            ]]
+        ]);
+        $res['session_id'] = $session['id'];
+
+        return response()->json($res, 200);
+    }
+
+    public function DigitalPaymentSuccess(Request $request)
+    {
+            $digital = Digital_purchase::where('id',$request->digital_painting_id)->first();
+
+
+        // check session from stripe
+        \Stripe\Stripe::setApiKey('sk_test_7NyImHAKY2arJv2aDu9jqJ1600TjVN3zFF');
+        $session = Session::retrieve($request->stripe_id);
+
+        if ($session['payment_status'] == 'paid') {
+            $digital->tnx_id = $request->stripe_id;
+            $digital->status = 'paid';
+            $digital->is_paid = 1;
+            $digital->save();
+            return redirect('/digital/thank-you?order=' . $digital->id);
+        } else {
+            return redirect('/');
+        }
     }
 
     public function orderPaymentSuccess(Request $request)

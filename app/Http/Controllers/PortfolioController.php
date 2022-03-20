@@ -42,6 +42,13 @@ class PortfolioController extends Controller
     return $collections;
     }
 
+    public function show($portfolio)
+    {
+   
+        $portfolio = Portfolio::where('id',$portfolio)->first();
+        return response()->json($portfolio);
+    }
+
     public function store(Request $request)
     {
         $orderData =   $request->all();

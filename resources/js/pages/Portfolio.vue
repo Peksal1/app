@@ -19,7 +19,12 @@
           >
             <div id="product-1" class="single-product">
               <div class="part-1">
-                <img :src="`/portfolio/${portfolio.file_path}`" alt="" />
+                <img
+                  :src="`/portfolio/${portfolio.file_path}`"
+                  alt="{portfolio.work_name}"
+                  style="cursor: pointer; max-width: 450px"
+                  @click="openPortfolioModal"
+                />
 
                 <ul>
                   <li>
@@ -40,6 +45,49 @@
           </div>
         </div>
       </div>
+      <div
+        class="modal"
+        :class="{ show: showPortfolioModal }"
+        id="portfolioModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-dark" id="exampleModalLabel">
+                {{ portfolio.work_name }}
+              </h5>
+              <button
+                type="button"
+                class="close text-dark cursor: pointer"
+                data-dismiss="modal"
+                aria-label="Close"
+                @click="hidePortfolioModal"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <img
+                :src="`/portfolio/${portfolio.file_path}`"
+                style="max-width: 500px"
+              />
+
+              <br />
+              {{ portfolio.orientation }}
+              <br />
+              {{ portfolio.id }}
+              <br />
+              <div @click="buyDigital(portfolio)" class="btn btn-sm btn-danger">
+                Buy in digital
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </div>
 </template>
@@ -51,6 +99,8 @@ export default {
   data: function () {
     return {
       portfolios: {},
+      portfolio: {},
+      showPortfolioModal: false,
       currentUser: {},
       isLoggedIn: false,
       token: localStorage.getItem("token"),
@@ -61,6 +111,51 @@ export default {
   },
 
   methods: {
+    loadSpecificPortfolio() {
+      axios
+        .get("/api/portfolio/" + this.$route.params.id, {})
+
+        .then((response) => {
+          this.portfolio = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    buyDigital(portfolio) {
+      this.isPaymentLoading = true;
+      axios
+        .post(
+          "/api/portfolio/create-payment-session",
+          {
+            portfolio: portfolio,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        )
+        .then((response) => {
+          this.redirectToStripe(response.data.session_id);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          this.isPaymentLoading = false;
+        });
+    },
+    redirectToStripe(sessionID) {
+      let stripe = Stripe("pk_test_d6aChIuFov53M3i5n00Fn1j200m37XdpTE");
+      stripe
+        .redirectToCheckout({
+          sessionId: sessionID,
+        })
+        .then((res) => {
+          console.log(res);
+        });
+    },
     loadPortfolios() {
       axios
         .get("/api/collection/portfolio/" + this.$route.params.id, {
@@ -78,7 +173,13 @@ export default {
           console.log(error.message);
         });
     },
-
+    openPortfolioModal() {
+      this.showPortfolioModal = true;
+      this.loadSpecificPortfolio();
+    },
+    hidePortfolioModal() {
+      this.showPortfolioModal = false;
+    },
     checkLoginStatus() {
       this.loading = true;
       // this.loading = true

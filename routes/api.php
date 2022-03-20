@@ -84,12 +84,13 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
     Route::put('/user/{id}', [UserController::class, 'updateuser']); /// User editing
     Route::post('/create-payment-session', [StripeController::class, 'createPaymentSession']);
     Route::post('/order/create-payment-session', [StripeController::class, 'createOrderPaymentSession']);
+    Route::post('/portfolio/create-payment-session', [StripeController::class, 'createDigitalPaintingPaymentSession']);
     
 });
 Route::get('/collection/portfolio/{id}', [PortfolioController::class, 'display']);
 Route::get('/portinfo', [PortfolioController::class, 'create']); /// Feedback list
 ///Everyones APIs
-
+Route::get('/portfolio/{id}', [PortfolioController::class, 'show']); /// User list
 Route::get('/blog/{id}', [BlogController::class, 'show']); /// User list
 Route::get('/blog_categories', [BlogController::class, 'blog_categories']);
 Route::post('/blog_categories', [BlogController::class, 'new_category']);
@@ -118,7 +119,7 @@ Route::get('/portfolio/search/{name}', [PortfolioController::class, 'portfolio_s
 Route::get('/portfolio', [PortfolioController::class, 'index']); /// All of the portfolio items
 Route::get('/feedback/{id}', [FeedbackController::class, 'feedback']); /// Feedback list
 Route::get('/blog', [BlogController::class, 'index']);
-Route::get('/portfolio/{id}', [FeedbackController::class, 'portfolio']); /// Feedback list
+//Route::get('/portfolio/{id}', [FeedbackController::class, 'portfolio']); /// Feedback list
 Route::get('/order/{id}', [OrderController::class, 'order']); /// Order list
 Route::delete('/order/{id}', [OrderController::class, 'destroy']); /// Deleting orders
 Route::put('/order/{id}', [OrderController::class, 'orderedit']); /// Editing orders

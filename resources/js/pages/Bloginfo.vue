@@ -2,25 +2,223 @@
   <div class="container-fuiled">
     <Navbar />
 
-    <div class="subforum-row">
-      <div class="subforum-icon subforum-column center">
-        <img
-          src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
-          style="width: 45px; height: 45px; margin-right: 25px"
-        />
+    <section class="banner-section">
+      <img
+        class="d-block img-fluid"
+        :src="`/blog/${blog.image}`"
+        alt="First slide"
+      />
+    </section>
+    <section class="post-content-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 post-title-block">
+            <h1 class="text-center">{{ blog.title }}</h1>
+            <ul class="list-inline text-center">
+              <li>Author |</li>
+              <li>Category | {{ blog.blog_category_id }}</li>
+              <li>Date | {{ blog.created_at }}</li>
+            </ul>
+          </div>
+          <div class="col-lg-9 col-md-9 col-sm-12">
+            <p class="lead">
+              {{ blog.thumbnail }}
+            </p>
+            <p>
+              {{ blog.description }}
+            </p>
+            <div class="well">
+              <large>This is image</large>
+            </div>
+            <p>
+              Maecenas sed diam eget risus varius blandit sit amet non magna.
+              Donec id elit non mi porta gravida at eget metus. Duis mollis, est
+              non commodo luctus, nisi erat porttitor ligula, eget lacinia odio
+              sem nec elit.
+            </p>
+            <blockquote>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+                posuere erat a ante.
+              </p>
+              <footer>
+                Someone famous in <cite title="Source Title">Source Title</cite>
+              </footer>
+            </blockquote>
+            <p>
+              Cum sociis natoque penatibus et magnis dis parturient montes,
+              nascetur ridiculus mus. Donec ullamcorper nulla non metus auctor
+              fringilla. Duis mollis, est non commodo luctus, nisi erat
+              porttitor ligula, eget lacinia odio sem nec elit. Donec
+              ullamcorper nulla non metus auctor fringilla.
+            </p>
+            <p>
+              Maecenas sed diam eget risus varius blandit sit amet non magna.
+              Donec id elit non mi porta gravida at eget metus. Duis mollis, est
+              non commodo luctus, nisi erat porttitor ligula, eget lacinia odio
+              sem nec elit.
+            </p>
+            <blockquote>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+                posuere erat a ante. nascetur ridiculus mus. Donec ullamcorper
+                nulla non metus auctor fringilla. Duis mollis, est non commodo
+                luctus, nisi erat porttitor ligula, eget lacinia odio sem nec
+                elit. Donec ullamcorper nulla non metus auctor fringilla.
+              </p>
+            </blockquote>
+
+            <div class="image-block">
+              <img
+                src="https://static.pexels.com/photos/268455/pexels-photo-268455.jpeg"
+                class="img-responsive"
+              />
+            </div>
+
+            <p>
+              Maecenas sed diam eget risus varius blandit sit amet non magna.
+              Donec id elit non mi porta gravida at eget metus. Duis mollis, est
+              non commodo luctus, nisi erat porttitor ligula, eget lacinia odio
+              sem nec elit.
+            </p>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12">
+            <div class="well">
+              <h2>Subscription Box</h2>
+              <p>Form Description Goes here</p>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Search for..."
+                />
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button">Go!</button>
+                </span>
+              </div>
+            </div>
+            <div class="well">
+              <h2>Share love</h2>
+              <ul class="list-inline">
+                <li>
+                  <span
+                    class="glyphicon glyphicon-heart"
+                    aria-hidden="true"
+                  ></span>
+                </li>
+                <li>
+                  <span
+                    class="glyphicon glyphicon-heart"
+                    aria-hidden="true"
+                  ></span>
+                </li>
+                <li>
+                  <span
+                    class="glyphicon glyphicon-heart"
+                    aria-hidden="true"
+                  ></span>
+                </li>
+                <li>
+                  <span
+                    class="glyphicon glyphicon-heart"
+                    aria-hidden="true"
+                  ></span>
+                </li>
+              </ul>
+            </div>
+            <div class="well">
+              <h2>About Author</h2>
+              <img src="" class="img-rounded" />
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna
+              </p>
+              <a href="#" class="btn btn-default">Read more</a>
+            </div>
+            <div class="list-group">
+              <a class="list-group-item active" href="#">
+                <h4 class="list-group-item-heading">List group item heading</h4>
+                <p class="list-group-item-text">
+                  Donec id elit non mi porta gravida at eget metus. Maecenas sed
+                  diam eget risus varius blandit.
+                </p>
+              </a>
+              <a class="list-group-item" href="#">
+                <h4 class="list-group-item-heading">List group item heading</h4>
+                <p class="list-group-item-text">
+                  Donec id elit non mi porta gravida at eget metus. Maecenas sed
+                  diam eget risus varius blandit.
+                </p>
+              </a>
+              <a class="list-group-item" href="#">
+                <h4 class="list-group-item-heading">List group item heading</h4>
+                <p class="list-group-item-text">
+                  Donec id elit non mi porta gravida at eget metus. Maecenas sed
+                  diam eget risus varius blandit.
+                </p>
+              </a>
+            </div>
+            <div class="well">
+              <div class="media">
+                <div class="media-left">
+                  <a href="#">
+                    <img
+                      data-src="holder.js/64x64"
+                      class="media-object"
+                      alt="64x64"
+                      style="width: 64px; height: 64px"
+                      src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTY5MjIxZTM1NSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1NjkyMjFlMzU1Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxMi41IiB5PSIzNi44Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg=="
+                      data-holder-rendered="true"
+                    />
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">Media heading</h4>
+                  Cras sit amet nibh libero, in gravida nulla.
+                </div>
+              </div>
+              <div class="media">
+                <div class="media-left">
+                  <a href="#">
+                    <img
+                      data-src="holder.js/64x64"
+                      class="media-object"
+                      alt="64x64"
+                      style="width: 64px; height: 64px"
+                      src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTY5MjIxZTM1NSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1NjkyMjFlMzU1Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxMi41IiB5PSIzNi44Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg=="
+                      data-holder-rendered="true"
+                    />
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">Media heading</h4>
+                  Cras sit amet nibh libero, in gravida nulla.
+                </div>
+              </div>
+              <div class="media">
+                <div class="media-left">
+                  <a href="#">
+                    <img
+                      data-src="holder.js/64x64"
+                      class="media-object"
+                      alt="64x64"
+                      style="width: 64px; height: 64px"
+                      src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTY5MjIxZTM1NSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1NjkyMjFlMzU1Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxMi41IiB5PSIzNi44Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg=="
+                      data-holder-rendered="true"
+                    />
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">Media heading</h4>
+                  Cras sit amet nibh libero, in gravida nulla.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="subforum-description subforum-column">
-        <p>{{ blog.description }}</p>
-      </div>
-      <div class="subform-stats subforum-column center">
-        <span>24 posts and 15 topics</span>
-      </div>
-      <div class="subforum-info subforum-column">
-        <b><a href="">Created</a></b> by <a href="">{{ blog.thumbnail }}</a>
-        <br />
-        on <small>{{ blog.created_at }} </small>
-      </div>
-    </div>
+      <!-- /container -->
+    </section>
   </div>
 </template>
 
@@ -102,93 +300,4 @@ export default {
 </script>
 
  <style scoped>
-* {
-  box-sizing: border-box;
-}
-.search {
-  text-align: right;
-}
-.bland {
-  font-size: 60px;
-  color: #ffa309;
-  font-family: "Queen of Camelot" !important;
-  margin-left: 40px;
-}
-.home {
-  font-size: 30px;
-  font-family: "Queen of Camelot" !important;
-  text-align: center;
-}
-.addtopic {
-  color: #ffa309;
-  text-align: right;
-  font-size: 24px;
-}
-html {
-  font-size: 14px;
-  font-family: "Titillium Web", sans-serif;
-  background-color: #151426;
-  color: #fefefe;
-}
-
-a {
-  color: #ffa309;
-  font-weight: bolder;
-  text-decoration: none;
-}
-
-h1 {
-  font-size: 16px;
-  font-weight: bolder;
-}
-
-/* ########################################### */
-/*           Forums.html                       */
-/* ########################################### */
-.container {
-  margin: 20px;
-  padding: 20px;
-}
-
-.subforum {
-  margin-top: 20px;
-}
-
-.subforum-title {
-  background-color: #292b2e;
-  padding: 5px;
-  border-radius: 5px;
-  margin: 4px;
-  color: white;
-}
-
-.subforum-row {
-  display: grid;
-  grid-template-columns: 7% 60% 13% 20%;
-}
-
-.subforum-column {
-  padding: 10px;
-  margin: 4px;
-  border-radius: 5px;
-  background-color: #111314;
-}
-
-.subforum-description * {
-  margin-block: 0;
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.subforum-icon i {
-  font-size: 45px;
-}
-
-.subforum-devider {
-  display: none;
-}
 </style>

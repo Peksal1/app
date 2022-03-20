@@ -46,6 +46,7 @@ import Purchases from './pages/Purchases.vue'
 import AdminBlog from './pages/Admin_blog.vue'
 import AdminStore from './pages/AdminStore.vue'
 import AdminFAQ from './pages/Admin_FAQ.vue'
+import DigitalThankYou from './pages/DigitalThankYou.vue'
 
 const routes = [
     {
@@ -135,6 +136,17 @@ const routes = [
         path: '/order/thank-you',
         name: 'order-thank-you',
         component: OrderThankYou,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/digital/thank-you',
+        name: 'digital-thank-you',
+        component: DigitalThankYou,
+        meta: {
+            requiresAuth: true,
+        },
     },
     {
         path: '/orderlist',
