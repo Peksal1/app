@@ -14,5 +14,18 @@ class PurchasesController extends Controller
         $purchases = auth()->user()->purchases()->with('store')->paginate(5);
         return $purchases;  
   
-    }   
+    }
+    // public function show($portfolio)
+    // {
+   
+    //     $portfolio = Portfolio::where('id',$portfolio)->first();
+    //     return response()->json($portfolio);
+    // }
+    public function show($id){
+        
+        $purchase = auth()->user()->purchases()->with('store')->where('id',$purchase)->first();
+        return $purchase;  
+  
+    }
+
 }

@@ -43,6 +43,7 @@ export default {
     return {
       orders: [],
       searchKeyword: "",
+      adminToken: localStorage.getItem("adminToken"),
       pagination: {
         data: [],
         total: 0,
@@ -61,7 +62,12 @@ export default {
     getAllOrders() {
       axios
         .get(
-          `/api/orders?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}`
+          `/api/orders?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}`,
+          {
+            headers: {
+              Authorization: "Bearer " + this.adminToken,
+            },
+          }
         )
         .then((res) => {
           this.orders = res.data.data;

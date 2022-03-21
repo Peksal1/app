@@ -53,7 +53,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
     Route::get('/sizes', [UtilityController::class, 'sizes']);
     Route::post('/sizes', [UtilityController::class, 'store_size']);
     Route::delete('/sizes/{size}', [UtilityController::class, 'delete_size']);
-    
+    Route::get('/orders', [OrderController::class, 'index']); /// Order list
 
     Route::post('/painting_categories', [UtilityController::class, 'store_painting_category']);
     Route::delete('/painting_categories/{category}', [UtilityController::class, 'delete_painting_category']);
@@ -71,7 +71,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
 ///Owner, admin, user APIs
 Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
     Route::get('/purchases', [PurchasesController::class, 'user_purchases']);
-
+    Route::get('/purchase/{id}', [PurchasesController::class, 'show']); /// User list
     
     Route::get('/blog/search/{title}', [BlogController::class, 'blog_search ']);
     Route::post('/topics', [QnAController::class, 'newtopic']); /// Store a new topic to the database
@@ -124,8 +124,9 @@ Route::get('/order/{id}', [OrderController::class, 'order']); /// Order list
 Route::delete('/order/{id}', [OrderController::class, 'destroy']); /// Deleting orders
 Route::put('/order/{id}', [OrderController::class, 'orderedit']); /// Editing orders
 Route::post('neworder', [OrderController::class, 'store']); /// New order
-Route::get('/orders', [OrderController::class, 'index']); /// Order list
+
 Route::get('/orders/{id}',[OrderController::class,'show'] );
+Route::get('/paid_orders/{id}', [OrderController::class, 'show_paid']);
 Route::get('/users/{id}', [UserController::class, 'show']); /// User list
 Route::get('/user/{id}/orders', [OrderController::class, 'userorders']); /// Users feedback
 Route::post('/shipping', [ShopController::class, 'create_shipping']);

@@ -23,7 +23,7 @@
             <h2 class="text-uppercase mt-3 font-weight-bold text-white">
               Contact me!
             </h2>
-            <form action="">
+            <form action="#" @submit.prevent="createmessage">
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
@@ -140,7 +140,14 @@ export default {
         })
         .then((response) => {
           console.log(response.data);
-
+          this.formData = {
+            name: "",
+            Email: "",
+            phone_number: "",
+            subject: "",
+            message: "",
+          };
+          alert("Message sent! You will get a responce shortly");
           this.errors = {};
           this.$toaster.success("Message sent successfully!");
         })

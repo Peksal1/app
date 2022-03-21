@@ -12,6 +12,7 @@ class Messages extends Model
         'message',
         'subject',
         'phone_number',
+        'isread',
     ];
 
     public function user()

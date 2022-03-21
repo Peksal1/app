@@ -10,6 +10,7 @@ class orders extends Model
         'completion',
         'accepted',
         'file_path',
+        'uuid',
         'text',
         'user_id',
         'size_id',

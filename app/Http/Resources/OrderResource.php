@@ -19,7 +19,8 @@ class OrderResource extends JsonResource
             'text' => $this->text,
             'file_path' => $this->file_path,
             'created_at' => $this->created_at,
-            'user'=> $this->user->name
+            'user'=> $this->user->name,
+            'is_paid' => $this->is_paid,
         ];
     }
 }

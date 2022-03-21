@@ -23,6 +23,7 @@ class CreatePurchasesTable extends Migration
             $table->boolean('is_paid')->default(0);
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('tnx_id')->nullable();
+            $table->string('tracking_number')->default('Not yet available');
         });
     }
 

@@ -16,12 +16,23 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-        $orderQuery = Orders::query();
+        $orderQuery = Orders::where('is_paid', '1')->where('completion', '0');
          if($request->searchKeyword != null){
             $orderQuery->where('text','LIKE',"%{$request->searchKeyword}%");
         }
          $orders = $orderQuery->paginate(4);
-        return OrderResource::collection( $orders);
+         return response()->json($orders);
+       // return OrderResource::collection( $orders);
+    }
+    public function completedOrders(Request $request)
+    {
+        $orderQuery = Orders::where('is_paid', '1')->where('completion', '1');
+         if($request->searchKeyword != null){
+            $orderQuery->where('text','LIKE',"%{$request->searchKeyword}%");
+        }
+         $orders = $orderQuery->paginate(4);
+         return response()->json($orders);
+       // return OrderResource::collection( $orders);
     }
     public function store(Request $request)
     {
@@ -78,7 +89,16 @@ class OrderController extends Controller
     {
         $user = User::where('id', $id)->firstOrFail();
 
-        $user_order = $user->user_orders;
+        $user_order = $user->user_orders->where('is_paid', '0');
+     
+        return response()->json($user_order, 200, [], JSON_PRETTY_PRINT);
+      
+    }
+    public function show_paid($id)
+    {
+        $user = User::where('id', $id)->firstOrFail();
+
+        $user_order = $user->user_orders->where('is_paid', '1');
      
         return response()->json($user_order, 200, [], JSON_PRETTY_PRINT);
       

@@ -16,6 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('uuid')->nullable();
             $table->boolean('completion')->default(0);
             $table->boolean('accepted')->default(0);
             $table->string('file_path')->nullable();

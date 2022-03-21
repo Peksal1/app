@@ -38,7 +38,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-12">
-                  <h4>{{ currentUser.name }}</h4>
+                  <h4>{{ currentUser.name }} {{ currentUser.surname }}</h4>
                   <hr />
                 </div>
               </div>
@@ -68,6 +68,7 @@
                         <input
                           id="lastname"
                           name="lastname"
+                          v-model="surname"
                           placeholder="Last Name"
                           class="form-control here"
                           type="text"
@@ -179,6 +180,7 @@ export default {
     return {
       currentUser: {},
       name: "",
+      surname: "",
       email: "",
       password: "",
       id: "",
@@ -243,6 +245,7 @@ export default {
       .then((response) => {
         const user = response.data;
         this.name = user.name;
+        this.surname = user.surname;
         this.currentUser = response.data;
         this.email = user.email;
         console.log(user.email);
