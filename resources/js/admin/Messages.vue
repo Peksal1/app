@@ -18,6 +18,7 @@
           {{ message.message }}
         </v-card-title>
         <v-card-actions>
+          <div class="btn btn-sm btn-primary" @click="messageIsRead">Read</div>
           <div>
             <b-button class="mod" @click="$bvModal.show('bv-modal-example')"
               >Delete<v-icon large color="teal darken-2">
@@ -78,7 +79,7 @@ export default {
         current_page: 1,
       },
       isLoggedIn: false,
-      token: localStorage.getItem("token"),
+      adminToken: localStorage.getItem("adminToken"),
     };
   },
   components: {
@@ -86,11 +87,18 @@ export default {
     Pagination,
   },
   methods: {
+    messageIsRead(id) {
+      axios.put("/api/messages/" + id, {
+        headers: {
+          Authorization: "Bearer " + this.adminToken,
+        },
+      });
+    },
     loadUsers() {
       axios
         .get(`/api/messages?page=${this.pagination.current_page}`, {
           headers: {
-            Authorization: "Bearer " + this.token,
+            Authorization: "Bearer " + this.adminToken,
           },
         })
         .then(({ data }) => {
@@ -122,11 +130,38 @@ export default {
           console.log(error);
         });
     },
+    checkLoginStatus() {
+      this.loading = true;
+      // this.loading = true
+      axios
+        .get("/api/user", {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+          },
+        })
+        .then((response) => {
+          this.currentUser = response.data;
+          console.log("LOGGED IN");
+          this.isLoggedIn = true;
+          console.log(this.currentUser.name);
+        })
+        .catch((errors) => {
+          console.log(errors);
+          this.isLoggedIn = false;
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+      // this.loading = false
+    },
   },
 
   created() {
     this.loadUsers();
     this.isLoggedIn = false;
+  },
+  mounted() {
+    this.checkLoginStatus();
   },
 };
 </script>

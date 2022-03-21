@@ -13,6 +13,11 @@ class ContactsController extends Controller
         $messages=Messages::paginate(2);
         return $messages;
     }
+    public function isRead(Request $request, $message)
+    {
+        $messages=Messages::find($message) ->update(['isread' => 1]);;
+ 
+    }
     public function store(Request $request)
     {
         $request->validate([

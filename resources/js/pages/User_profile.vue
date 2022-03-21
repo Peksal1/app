@@ -197,6 +197,7 @@ export default {
           "/api/users/" + this.$route.params.id,
           {
             name: this.name,
+            surname: this.surname,
             email: this.email,
           },
           {

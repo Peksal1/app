@@ -42,10 +42,11 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1']], function () {
     Route::put('/portfolio/{id}', [PortfolioController::class, 'update']); /// User editing
     
 });
+
 Route::get('/painting_categories', [UtilityController::class, 'painting_categories']);
 ///Owner and admin APIs
 Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
-
+    Route::put('/messages/{id}', [ContactsController::class, 'isRead']);; /// New message
     Route::delete('/topics/{id}', [QnAController::class, 'destroy_topic']); /// Information about a specific portfolio item
     Route::delete('/posts/{id}', [QnAController::class, 'destroy_post']); /// Information about a specific portfolio item
     Route::delete('/feedback/{id}', [FeedbackController::class, 'destroy']); /// Deleting feedback
@@ -57,7 +58,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
 
     Route::post('/painting_categories', [UtilityController::class, 'store_painting_category']);
     Route::delete('/painting_categories/{category}', [UtilityController::class, 'delete_painting_category']);
-
+   
     Route::post('/users', [UserController::class, 'store']); /// New user
     Route::get('/users', [UserController::class, 'index']); /// User list
     Route::delete('/users/{id}', [UserController::class, 'destroy']); /// User deleting
