@@ -55,7 +55,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
     Route::post('/sizes', [UtilityController::class, 'store_size']);
     Route::delete('/sizes/{size}', [UtilityController::class, 'delete_size']);
     Route::get('/orders', [OrderController::class, 'index']); /// Order list
-
+    Route::delete('/blogs/{blog}', [BlogController::class, 'destroy']);
     Route::post('/painting_categories', [UtilityController::class, 'store_painting_category']);
     Route::delete('/painting_categories/{category}', [UtilityController::class, 'delete_painting_category']);
    

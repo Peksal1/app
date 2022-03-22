@@ -11,7 +11,11 @@
       <div class="container">
         <div class="row clearfix">
           <div class="col-lg-8 col-md-12 left-box">
-            <div class="card single_post" v-for="blog in blogs" :key="blog.id">
+            <div
+              class="card single_post"
+              v-for="(blog, index) in blogs"
+              :key="index"
+            >
               <div class="body">
                 <div class="img-post">
                   <img
@@ -49,6 +53,9 @@
                     <a href="javascript:void(0);" class="fa fa-comment">128</a>
                   </li>
                 </ul>
+              </div>
+              <div @click="deleteBlog(index)" class="btn btn-sm btn-danger">
+                Delete
               </div>
             </div>
             <ul class="pagination pagination-primary">
@@ -251,7 +258,7 @@ import AdminBlog from "../components/Uitility/NewBlog.vue";
 export default {
   data() {
     return {
-      blogs: [],
+      blogs: {},
       cat: [],
       blog_categories: [],
       searchKeyword: "",
@@ -263,7 +270,7 @@ export default {
         to: 0,
         current_page: 1,
       },
-      token: localStorage.getItem("token"),
+      adminToken: localStorage.getItem("adminToken"),
     };
   },
   components: {
@@ -287,6 +294,23 @@ export default {
         this.blog_categories = res.data.blog_categories;
       });
     },
+    deleteBlog(index) {
+      axios
+        .delete("/api/blogs/" + this.blogs[index].id, {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+          },
+        })
+        .then((res) => {
+          if (res.data.status == "success") {
+            this.blogs.splice(index, 1);
+            this.getAllBlogs();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   checkLoginStatus() {
     this.loading = true;
@@ -294,7 +318,7 @@ export default {
     axios
       .get("/api/user", {
         headers: {
-          Authorization: "Bearer " + this.token,
+          Authorization: "Bearer " + this.adminToken,
         },
       })
       .then((response) => {
