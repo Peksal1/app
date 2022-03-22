@@ -18,6 +18,13 @@ class ContactsController extends Controller
         $messages=Messages::find($message) ->update(['isread' => 1]);;
  
     }
+
+    public function show($specific_message)
+    {
+   
+        $specific_message = Messages::where('id',$specific_message)->first();
+        return response()->json($specific_message);
+    }
     public function store(Request $request)
     {
         $request->validate([

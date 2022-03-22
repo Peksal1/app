@@ -98,7 +98,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">specific_purchase.</div>
+          <div class="modal-body">{{ specific_purchase.Price }}</div>
         </div>
       </div>
     </div>

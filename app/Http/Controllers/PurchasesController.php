@@ -21,7 +21,7 @@ class PurchasesController extends Controller
     //     $portfolio = Portfolio::where('id',$portfolio)->first();
     //     return response()->json($portfolio);
     // }
-    public function show($id){
+    public function show($purchase){
         
         $purchase = auth()->user()->purchases()->with('store')->where('id',$purchase)->first();
         return $purchase;  

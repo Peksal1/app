@@ -40,13 +40,13 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1']], function () {
     Route::delete('/messages/{id}', [ContactsController::class, 'destroy']); /// Deleting a message
     Route::delete('/portfolio/{id}', [PortfolioController::class, 'destroy']); /// Information about a specific portfolio item
     Route::put('/portfolio/{id}', [PortfolioController::class, 'update']); /// User editing
-    
+    Route::get('/message/{id}', [ContactsController::class, 'show']); /// Deleting a message
 });
-
+Route::put('/messages/{id}', [ContactsController::class, 'isRead']);; /// New message
 Route::get('/painting_categories', [UtilityController::class, 'painting_categories']);
 ///Owner and admin APIs
 Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
-    Route::put('/messages/{id}', [ContactsController::class, 'isRead']);; /// New message
+ 
     Route::delete('/topics/{id}', [QnAController::class, 'destroy_topic']); /// Information about a specific portfolio item
     Route::delete('/posts/{id}', [QnAController::class, 'destroy_post']); /// Information about a specific portfolio item
     Route::delete('/feedback/{id}', [FeedbackController::class, 'destroy']); /// Deleting feedback

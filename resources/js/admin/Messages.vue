@@ -1,64 +1,129 @@
 <template>
-  <div class="container-fuiled">
+  <div>
     <AdminNavbar />
-
-    <v-row class="p-5">
-      <v-card
-        v-for="message in messages"
-        v-bind:key="message.id"
-        class="mx-auto"
-      >
-        <v-card-title>
-          {{ message.name }}
-        </v-card-title>
-        <v-card-title>
-          {{ message.Email }}
-        </v-card-title>
-        <v-card-title>
-          {{ message.message }}
-        </v-card-title>
-        <v-card-actions>
-          <div class="btn btn-sm btn-primary" @click="messageIsRead">Read</div>
-          <div>
-            <b-button class="mod" @click="$bvModal.show('bv-modal-example')"
-              >Delete<v-icon large color="teal darken-2">
-                mdi-delete
-              </v-icon></b-button
-            >
-            <b-modal id="bv-modal-example" hide-footer>
-              <template #modal-title> Delete message </template>
-              <div class="d-block text-center">
-                <h3>
-                  Do you want to delete this {{ message.message }} message?
-                </h3>
-              </div>
-              <b-button
-                class="btn btn-primary mt-3"
-                block
-                @click="$bvModal.hide('bv-modal-example')"
-                >Cancel</b-button
-              >
-              <b-button
-                class="btn btn-danger mt-3"
-                block
-                @click="deleteMessage(message.id)"
-                >delete</b-button
-              >
-            </b-modal>
-          </div>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-      </v-card>
-      <div class="col-md-12 text-center center-pagination">
-        <Pagination
-          :pagination="pagination"
-          @perPage="loadUsers()"
-          @paginate="loadUsers()"
-          :offset="6"
-        >
-        </Pagination>
+    <div class="container d-flex justify-content-center mt-5 p-4">
+      <div class="input-group mb-3">
+        <!-- <input v-model="searchKeyword" type="text" class="form-control" /> -->
+        <div class="input-group-append">
+          <!-- <button @click="getAllItems" class="btn btn-primary">Search</button> -->
+        </div>
       </div>
-    </v-row>
+    </div>
+    <section class="section-products">
+      <div class="container">
+        <div class="row justify-content-center text-center">
+          <div class="col-md-8 col-lg-6">
+            <div class="header">
+              <h2>User posted messages:</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <!-- painting category filtering -->
+
+            <!-- canvas filtering -->
+
+            <div>
+              <input
+                type="checkbox"
+                id="0"
+                class="unread"
+                v-model="isread"
+                :value="0"
+              /><label :for="0" class="btn btn-sm border btn-block"
+                >UNREAD
+              </label>
+            </div>
+            <br />
+            <div>
+              <input
+                type="checkbox"
+                id="1"
+                class="read"
+                v-model="isread"
+                :value="1"
+              /><label :for="1" class="btn btn-sm border btn-block"
+                >READ
+              </label>
+            </div>
+
+            <!-- products -->
+          </div>
+          <div class="col-md-9">
+            <div class="row">
+              <!-- Single Product -->
+              <div
+                class="col-md-6"
+                v-for="message in messages"
+                v-bind:key="message.id"
+              >
+                <div
+                  id="product-1"
+                  class="single-product"
+                  @click="openMessageModal"
+                >
+                  <div class="part-2">
+                    <h3 class="product-title">
+                      Subject: <strong>{{ message.subject }}</strong>
+                    </h3>
+                    Sent by:
+                    <div class="category">{{ message.name }}</div>
+                    On: {{ message.created_at }}
+                    <div class="buy-btn mt-3"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 text-center center-pagination">
+          <Pagination
+            :pagination="pagination"
+            @perPage="loadMessages()"
+            @paginate="loadMessages()"
+            :offset="6"
+          >
+          </Pagination>
+        </div>
+      </div>
+      <div
+        class="modal"
+        :class="{ show: showMessageModal }"
+        id="messageModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-dark" id="exampleModalLabel">TEST</h5>
+              <button
+                type="button"
+                class="close text-dark cursor: pointer"
+                data-dismiss="modal"
+                aria-label="Close"
+                @click="hideMessageModal"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {{ specific_message.message }}
+              <div
+                @click="messageIsRead(message)"
+                class="btn btn-sm btn-danger"
+              >
+                Read
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -69,11 +134,14 @@ import Pagination from "../components/Pagination.vue";
 export default {
   data: function () {
     return {
-      messages: [],
+      showMessageModal: false,
+      messages: {},
+      isread: {},
+      specific_message: {},
       pagination: {
         data: [],
         total: 0,
-        per_page: 2,
+        per_page: 10,
         from: 1,
         to: 0,
         current_page: 1,
@@ -87,14 +155,37 @@ export default {
     Pagination,
   },
   methods: {
-    messageIsRead(id) {
-      axios.put("/api/messages/" + id, {
+    messageIsRead(message) {
+      axios.put("/api/messages/" + message, {
         headers: {
           Authorization: "Bearer " + this.adminToken,
         },
       });
     },
-    loadUsers() {
+    loadSpecificMessage() {
+      axios
+        .get("/api/message/" + this.$route.params.id, {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+          },
+        })
+
+        .then((response) => {
+          this.specific_message = response.data;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    openMessageModal() {
+      this.showMessageModal = true;
+      this.loadSpecificMessage();
+    },
+    hideMessageModal() {
+      this.showMessageModal = false;
+    },
+    loadMessages() {
       axios
         .get(`/api/messages?page=${this.pagination.current_page}`, {
           headers: {
@@ -157,14 +248,30 @@ export default {
   },
 
   created() {
-    this.loadUsers();
+    this.loadMessages();
     this.isLoggedIn = false;
   },
   mounted() {
     this.checkLoginStatus();
   },
+  watch: {
+    isread(after, before) {
+      this.getAllItems();
+    },
+  },
 };
 </script>
 
 <style scoped>
+input.read,
+input.unread {
+  display: none;
+}
+
+input.read:checked + label,
+input.unread:checked + label {
+  background: green;
+  color: white;
+  box-shadow: 0px 1px 3px inset;
+}
 </style>
