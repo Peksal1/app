@@ -8,11 +8,15 @@ use Illuminate\Http\Request;
 class ContactsController extends Controller
 {
    
-    public function index()
+    public function index(Request $request)
     {
-        $messages=Messages::paginate(2);
-        return $messages;
+        $query = Messages::query();
+    if (!empty($request->searchKeyword)) {
+        $query->where('subject', 'LIKE', "%{$request->searchKeyword}%");
     }
+    return $query->paginate(8);
+}
+  
     public function isRead(Request $request, $message)
     {
         $messages=Messages::find($message) ->update(['isread' => 1]);;

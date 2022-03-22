@@ -70,11 +70,13 @@ class ShopController extends Controller
 
     public function destroy($shop)
     {
-        $shops = Shop::destroy($shop);
+      $shops=Shop::destroy($shop);
+  
+      return response()->json($shops,204);
+  
+  }
 
-        return response()->json($shops, 204);
-    }
-
+   
     public function shopedit(Request $request, $shop)
 
     {

@@ -3,14 +3,24 @@
     <AdminNavbar />
     <div class="container d-flex justify-content-center mt-5 p-4">
       <div class="input-group mb-3">
-        <!-- <input v-model="searchKeyword" type="text" class="form-control" /> -->
-        <div class="input-group-append">
-          <!-- <button @click="getAllItems" class="btn btn-primary">Search</button> -->
-        </div>
+        <div class="input-group-append"></div>
       </div>
     </div>
     <section class="section-products">
       <div class="container">
+        <div class="input-group mb-3">
+          <input
+            v-model="searchKeyword"
+            type="text"
+            class="form-control"
+            placeholder="Search by subject..."
+          />
+          <div class="input-group-append">
+            <button @click="loadMessages" class="btn btn-primary">
+              Search
+            </button>
+          </div>
+        </div>
         <div class="row justify-content-center text-center">
           <div class="col-md-8 col-lg-6">
             <div class="header">
@@ -72,6 +82,12 @@
                     On: {{ message.created_at }}
                     <div class="buy-btn mt-3"></div>
                   </div>
+                </div>
+                <div
+                  @click="deleteMessage(index)"
+                  class="btn btn-sm btn-danger"
+                >
+                  Delete
                 </div>
               </div>
             </div>
@@ -146,6 +162,7 @@ export default {
         to: 0,
         current_page: 1,
       },
+      searchKeyword: "",
       isLoggedIn: false,
       adminToken: localStorage.getItem("adminToken"),
     };
@@ -187,11 +204,14 @@ export default {
     },
     loadMessages() {
       axios
-        .get(`/api/messages?page=${this.pagination.current_page}`, {
-          headers: {
-            Authorization: "Bearer " + this.adminToken,
-          },
-        })
+        .get(
+          `/api/messages?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}`,
+          {
+            headers: {
+              Authorization: "Bearer " + this.adminToken,
+            },
+          }
+        )
         .then(({ data }) => {
           this.messages = data.data;
           this.pagination = data;
@@ -199,26 +219,21 @@ export default {
       this.isLoggedIn = false;
       console.log(this.messages);
     },
-    deleteMessage(id) {
+    deleteMessage(index) {
       axios
-        .delete("/api/messages/" + id, {
+        .delete("/api/messages/" + this.messages[index].id, {
           headers: {
-            Authorization: "Bearer " + this.token,
+            Authorization: "Bearer " + this.adminToken,
           },
         })
-        .then((response) => {
-          console.log(response);
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "The message was deleted successfully!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          this.$router.push("/messages");
+        .then((res) => {
+          this.loadMessages();
+          if (res.data.status == "success") {
+            this.messages.splice(index, 1);
+          }
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
+          console.log(err);
         });
     },
     checkLoginStatus() {
@@ -256,7 +271,7 @@ export default {
   },
   watch: {
     isread(after, before) {
-      this.getAllItems();
+      this.loadMessages();
     },
   },
 };

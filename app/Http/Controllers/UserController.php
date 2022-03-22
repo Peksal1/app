@@ -10,12 +10,15 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $users=User::paginate(5);
-        return $users;
+        $query = User::query();
+    if (!empty($request->searchKeyword)) {
+        $query->where('name', 'LIKE', "%{$request->searchKeyword}%");
     }
-
+    return $query->paginate(8);
+}
+   
     public function login(Request $request)
     {
         if (!Auth::attempt($request->only('email', 'password'))) {

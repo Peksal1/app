@@ -24,8 +24,8 @@
           <div
             class="col-md-6 col-lg-4 col-xl-3"
             v-if="!isPaymentLoading"
-            v-for="shop in shops"
-            :key="shop.id"
+            v-for="(shop, index) in shops"
+            :key="index"
           >
             <div id="product-1" class="single-product">
               <div class="part-1">
@@ -48,6 +48,9 @@
                     class="btn btn-block btn-primary"
                   >
                     Buy Now
+                  </div>
+                  <div @click="deleteShop(index)" class="btn btn-sm btn-danger">
+                    Delete
                   </div>
                 </div>
               </div>
@@ -82,6 +85,7 @@ export default {
     return {
       shops: [],
       searchKeyword: "",
+      adminToken: localStorage.getItem("adminToken"),
       isPaymentLoading: false,
       pagination: {
         data: [],
@@ -99,6 +103,23 @@ export default {
     NewStore,
   },
   methods: {
+    deleteShop(index) {
+      axios
+        .delete("/api/shops/" + this.shops[index].id, {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+          },
+        })
+        .then((res) => {
+          this.getAllItems();
+          if (res.data.status == "success") {
+            this.shops.splice(index, 1);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     buyProduct(id) {
       this.isPaymentLoading = true;
       axios

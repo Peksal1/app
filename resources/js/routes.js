@@ -12,16 +12,17 @@ import Portfolio from './pages/Portfolio.vue'
 import createuserpost from './pages/createuserpost.vue'
 import Topicspost from './pages/Topicspost.vue'
 import Messages from './admin/Messages.vue'
+import AdminPurchases from './admin/Admin_purchases.vue'
 import NewFeedback from './pages/NewFeedback.vue'
 import NewTopic from './pages/NewTopic.vue'
 import RegisterUser from './pages/RegisterUser.vue'
 import AdminQnA from './pages/Admin_QnA.vue'
 import updatefeedback from './pages/updatefeedback.vue'
-import Users from './pages/users.vue'
+import Users from './admin/users.vue'
 import updateuser from './pages/updateuser.vue'
-import AdminFeedback from './pages/Admin_feedback.vue'
-import AdminCollections from './pages/Admin_collections.vue'
-import AdminHome from './pages/Admin_home.vue'
+import AdminFeedback from './admin/Admin_feedback.vue'
+import AdminCollections from './admin/Admin_collections.vue'
+import AdminHome from './admin/Admin_home.vue'
 import AdminTopicPosts from './pages/Admin_topicsposts.vue'
 import UpdatePortfolio from './pages/updateportfolio.vue'
 import UpdateTopic from './pages/updatetopic.vue'
@@ -43,9 +44,9 @@ import DeliveryShipping from './pages/Deliveryshipping.vue'
 import PortfolioAll from './pages/PortfolioAll.vue'
 import Biography from './pages/Biography.vue'
 import Purchases from './pages/Purchases.vue'
-import AdminBlog from './pages/Admin_blog.vue'
-import AdminStore from './pages/AdminStore.vue'
-import AdminFAQ from './pages/Admin_FAQ.vue'
+import AdminBlog from './admin/Admin_blog.vue'
+import AdminStore from './admin/AdminStore.vue'
+import AdminFAQ from './admin/Admin_FAQ.vue'
 import DigitalThankYou from './pages/DigitalThankYou.vue'
 
 const routes = [
@@ -296,6 +297,14 @@ const routes = [
         path: '/messages',
         name: 'messages',
         component: Messages,
+        meta: {
+            requiresAdminAuth: true,
+        },
+    },
+    {
+        path: '/purchases/manage',
+        name: 'purchases/manage',
+        component: AdminPurchases,
         meta: {
             requiresAdminAuth: true,
         },
