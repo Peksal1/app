@@ -55,13 +55,13 @@
               <!-- Single Product -->
               <div
                 class="col-md-6"
-                v-for="message in messages"
-                v-bind:key="message.id"
+                v-for="(message, index) in messages"
+                :key="index"
               >
                 <div
                   id="product-1"
                   class="single-product"
-                  @click="openMessageModal"
+                  @click="openMessageModal(index)"
                 >
                   <div class="part-2">
                     <h3 class="product-title">
@@ -135,9 +135,9 @@ export default {
   data: function () {
     return {
       showMessageModal: false,
-      messages: {},
+      messages: [],
       isread: {},
-      specific_message: {},
+      specific_message: [],
       pagination: {
         data: [],
         total: 0,
@@ -162,9 +162,9 @@ export default {
         },
       });
     },
-    loadSpecificMessage() {
+    loadSpecificMessage(index) {
       axios
-        .get("/api/message/" + this.$route.params.id, {
+        .get("/api/message/" + this.messages[index].id, {
           headers: {
             Authorization: "Bearer " + this.adminToken,
           },
