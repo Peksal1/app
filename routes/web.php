@@ -18,7 +18,7 @@ Route::get('/success',  [StripeController::class, 'paymentSuccess']);
 Route::get('/order/success',  [StripeController::class, 'orderPaymentSuccess']);
 
 
-Route::get('/{any}', [App\Http\Controllers\HomeController::class, 'welcome'])->where('any', '.*');
+Route::get('/{any}', [App\Http\Controllers\SpaController::class, 'index'])->where('any', '.*');
 Route::get('/', function () {
     return view('welcome');
 });

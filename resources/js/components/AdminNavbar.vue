@@ -48,6 +48,11 @@
               >FAQ</router-link
             >
           </b-nav-item>
+          <b-nav-item class="item"
+            ><router-link class="col" :to="{ name: 'purchases/manage' }"
+              >Purchases</router-link
+            >
+          </b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->

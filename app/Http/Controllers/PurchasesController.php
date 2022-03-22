@@ -15,6 +15,14 @@ class PurchasesController extends Controller
         return $purchases;  
   
     }
+    public function index(Request $request)
+    {
+        $query= Purchases::query()->with('store')->with('user');
+    if (!empty($request->searchKeyword)) {
+        $query->where('uuid', 'LIKE', "%{$request->searchKeyword}%");
+    }
+    return $query->paginate(8);
+}
     // public function show($portfolio)
     // {
    

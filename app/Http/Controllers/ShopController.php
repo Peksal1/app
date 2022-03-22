@@ -18,7 +18,7 @@ class ShopController extends Controller
 
     public function index(Request $request)
     {
-        $query= Shop::query();
+        $query= Shop::query()->where('is_bought',0);
     if (!empty($request->cat)) {
         $query->whereIn('category_id', explode(',', $request->cat));
     }

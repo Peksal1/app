@@ -46,7 +46,7 @@ Route::put('/messages/{id}', [ContactsController::class, 'isRead']);; /// New me
 Route::get('/painting_categories', [UtilityController::class, 'painting_categories']);
 ///Owner and admin APIs
 Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
- 
+ Route::get('/purchases/all', [PurchasesController::class, 'index']);
     Route::delete('/topics/{id}', [QnAController::class, 'destroy_topic']); /// Information about a specific portfolio item
     Route::delete('/posts/{id}', [QnAController::class, 'destroy_post']); /// Information about a specific portfolio item
     Route::delete('/feedback/{id}', [FeedbackController::class, 'destroy']); /// Deleting feedback
