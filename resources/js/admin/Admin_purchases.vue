@@ -29,8 +29,8 @@
               <!-- Single Product -->
               <div
                 class="col-md-6"
-                v-for="purchase in purchases"
-                v-bind:key="purchase.id"
+                v-for="(purchase, index) in purchases"
+                :key="index"
               >
                 <div id="product-1" class="single-product">
                   <div class="part-1">
@@ -38,7 +38,7 @@
                       :src="`/sale/${purchase.store.file_path}`"
                       alt="{purchase.store,work_name}"
                       style="cursor: pointer; max-width: 450px"
-                      @click="openPurchaseModal"
+                      @click="openPurchaseModal(index)"
                     />
                     <ul>
                       <li>
@@ -96,7 +96,8 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">{{ specific_purchase.Price }}</div>
+
+          <div class="modal-body">{{ specific_purchase.store }}</div>
         </div>
       </div>
     </div>
@@ -110,9 +111,9 @@ import Pagination from "../components/Pagination.vue";
 export default {
   data: function () {
     return {
-      purchases: {},
+      purchases: [],
       store: [],
-      specific_purchase: {},
+      specific_purchase: [],
       searchKeyword: "",
       showPurchaseModal: false,
       users: [],
@@ -135,9 +136,9 @@ export default {
   },
 
   methods: {
-    openPurchaseModal() {
+    openPurchaseModal(index) {
       this.showPurchaseModal = true;
-      this.loadSpecificPurchase();
+      this.loadSpecificPurchase(index);
     },
     hidePurchaseModal() {
       this.showPurchaseModal = false;
@@ -161,11 +162,11 @@ export default {
           console.log(error.message);
         });
     },
-    loadSpecificPurchase() {
+    loadSpecificPurchase(index) {
       axios
-        .get("/api/purchase/" + this.$route.params.id, {
+        .get("/api/purchases/" + this.purchases[index].id, {
           headers: {
-            Authorization: "Bearer " + this.token,
+            Authorization: "Bearer " + this.adminToken,
           },
         })
 

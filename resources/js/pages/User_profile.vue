@@ -16,9 +16,7 @@
             <router-link
               class="list-group-item list-group-item-action"
               :to="{
-                name: 'user_orders',
-
-                params: { id: currentUser.id },
+                name: 'orders',
               }"
               >My orders</router-link
             >

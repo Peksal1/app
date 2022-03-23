@@ -14,8 +14,8 @@
           <!-- Single Product -->
           <div
             class="col-md-6 col-lg-4 col-xl-3"
-            v-for="portfolio in portfolios"
-            :key="portfolio.id"
+            v-for="(portfolio, index) in portfolios"
+            :key="index"
           >
             <div id="product-1" class="single-product">
               <div class="part-1">
@@ -23,7 +23,7 @@
                   :src="`/portfolio/${portfolio.file_path}`"
                   alt="{portfolio.work_name}"
                   style="cursor: pointer; max-width: 450px"
-                  @click="openPortfolioModal"
+                  @click="openPortfolioModal(index)"
                 />
 
                 <ul>
@@ -98,7 +98,7 @@ import Navbar from "../components/Navbar.vue";
 export default {
   data: function () {
     return {
-      portfolios: {},
+      portfolios: [],
       portfolio: {},
       showPortfolioModal: false,
       currentUser: {},
@@ -111,9 +111,9 @@ export default {
   },
 
   methods: {
-    loadSpecificPortfolio() {
+    loadSpecificPortfolio(index) {
       axios
-        .get("/api/portfolio/" + this.$route.params.id, {})
+        .get("/api/portfolio/" + this.portfolios[index].id, {})
 
         .then((response) => {
           this.portfolio = response.data;
@@ -173,9 +173,9 @@ export default {
           console.log(error.message);
         });
     },
-    openPortfolioModal() {
+    openPortfolioModal(index) {
       this.showPortfolioModal = true;
-      this.loadSpecificPortfolio();
+      this.loadSpecificPortfolio(index);
     },
     hidePortfolioModal() {
       this.showPortfolioModal = false;

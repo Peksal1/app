@@ -155,7 +155,7 @@ export default {
   methods: {
     loadUserOrders() {
       axios
-        .get("/api/orders/" + this.$route.params.id, {
+        .get("/api/users_orders/", {
           headers: {
             Authorization: "Bearer " + this.token,
           },
@@ -171,7 +171,7 @@ export default {
     },
     loadUserPaidOrders() {
       axios
-        .get("/api/paid_orders/" + this.$route.params.id, {
+        .get("/api/users_paid_orders/", {
           headers: {
             Authorization: "Bearer " + this.token,
           },

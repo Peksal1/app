@@ -29,11 +29,12 @@ class PurchasesController extends Controller
     //     $portfolio = Portfolio::where('id',$portfolio)->first();
     //     return response()->json($portfolio);
     // }
-    public function show($purchase){
-        
-        $purchase = auth()->user()->purchases()->with('store')->where('id',$purchase)->first();
-        return $purchase;  
-  
+   
+    public function show($specific_purchase)
+    {
+   
+        $specific_purchase = Purchases::where('id',$specific_purchase)->with('store')->with('user')->first();
+        return response()->json($specific_purchase);
     }
 
 }

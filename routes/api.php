@@ -72,7 +72,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
 ///Owner, admin, user APIs
 Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
     Route::get('/purchases', [PurchasesController::class, 'user_purchases']);
-    Route::get('/purchase/{id}', [PurchasesController::class, 'show']); /// User list
+    Route::get('/purchases/{specific_purchase}', [PurchasesController::class, 'show']); /// User list
     
     Route::get('/blog/search/{title}', [BlogController::class, 'blog_search ']);
     Route::post('/topics', [QnAController::class, 'newtopic']); /// Store a new topic to the database
@@ -126,8 +126,8 @@ Route::delete('/order/{id}', [OrderController::class, 'destroy']); /// Deleting 
 Route::put('/order/{id}', [OrderController::class, 'orderedit']); /// Editing orders
 Route::post('neworder', [OrderController::class, 'store']); /// New order
 
-Route::get('/orders/{id}',[OrderController::class,'show'] );
-Route::get('/paid_orders/{id}', [OrderController::class, 'show_paid']);
+Route::get('/users_orders',[OrderController::class,'show'] );
+Route::get('/users_paid_orders', [OrderController::class, 'show_paid']);
 Route::get('/users/{id}', [UserController::class, 'show']); /// User list
 Route::get('/user/{id}/orders', [OrderController::class, 'userorders']); /// Users feedback
 Route::post('/shipping', [ShopController::class, 'create_shipping']);

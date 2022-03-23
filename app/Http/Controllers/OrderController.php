@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Orders;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Order_message;
 use Illuminate\Http\Request;
 use App\Models\Shipping;
@@ -85,24 +87,36 @@ class OrderController extends Controller
         $orders = Orders::findOrFail($order);
         return $orders;
     }
-    public function show($id)
-    {
-        $user = User::where('id', $id)->firstOrFail();
+    // public function show($id )
+    // {
+    //     $user = User::where('id', $id)->firstOrFail();
 
-        $user_order = $user->user_orders->where('is_paid', '0');
+    //     $user_order = $user->user_orders->where('is_paid', '0');
      
-        return response()->json($user_order, 200, [], JSON_PRETTY_PRINT);
+    //     return response()->json($user_order, 200, [], JSON_PRETTY_PRINT);
       
+    // }
+    public function show(Request $request){
+        
+        $orders = auth()->user()->user_orders()->where('is_paid', '0')->paginate(5);
+        return $orders;  
+  
     }
-    public function show_paid($id)
-    {
-        $user = User::where('id', $id)->firstOrFail();
+    public function show_paid(Request $request){
+        
+        $orders = auth()->user()->user_orders()->where('is_paid', '1')->paginate(5);
+        return $orders;  
+  
+    }
+    // public function show_paid($id)
+    // {
+    //     $user = User::where('id', $id)->firstOrFail();
 
-        $user_order = $user->user_orders->where('is_paid', '1');
+    //     $user_order = $user->user_orders->where('is_paid', '1');
      
-        return response()->json($user_order, 200, [], JSON_PRETTY_PRINT);
+    //     return response()->json($user_order, 200, [], JSON_PRETTY_PRINT);
       
-    }
+    // }
     public function get_order_messages()
     {
 

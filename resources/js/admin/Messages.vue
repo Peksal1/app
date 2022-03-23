@@ -116,7 +116,9 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title text-dark" id="exampleModalLabel">TEST</h5>
+              <h5 class="modal-title text-dark" id="exampleModalLabel">
+                Message sent by: {{ specific_message.name }}
+              </h5>
               <button
                 type="button"
                 class="close text-dark cursor: pointer"
@@ -128,11 +130,16 @@
               </button>
             </div>
             <div class="modal-body">
+              <strong> Message: </strong>
+              <br />
               {{ specific_message.message }}
-              <div
-                @click="messageIsRead(message)"
-                class="btn btn-sm btn-danger"
-              >
+              <br />
+              <strong> Reply by: </strong>
+              <br />
+              Email: {{ specific_message.Email }} <br />
+              Phone number: {{ specific_message.phone_number }} <br />
+
+              <div @click="messageIsRead(index)" class="btn btn-sm btn-danger">
                 Read
               </div>
             </div>
@@ -195,9 +202,9 @@ export default {
           console.log(error);
         });
     },
-    openMessageModal() {
+    openMessageModal(index) {
       this.showMessageModal = true;
-      this.loadSpecificMessage();
+      this.loadSpecificMessage(index);
     },
     hideMessageModal() {
       this.showMessageModal = false;

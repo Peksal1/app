@@ -23,4 +23,16 @@ class Shop extends Model
     {
         return $this->belongsTo(Painting_category::class);
     }
+    public function size()
+    {
+        return $this->belongsTo(Size::class);
+    }
+    public function canvas()
+    {
+        return $this->belongsTo(Canvas::class);
+    }
+    public function paint()
+    {
+        return $this->belongsTo(Paint::class);
+    }
 }

@@ -365,8 +365,8 @@ const routes = [
 
     {
 
-        path: '/user_orders/:id',
-        name: 'user_orders',
+        path: '/orders',
+        name: 'orders',
         component: User_orders,
         meta: {
             requiresAuth: true,
