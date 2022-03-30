@@ -31,16 +31,17 @@
               <!-- Single Product -->
               <div
                 class="col-md-6"
-                v-for="purchase in purchases"
-                v-bind:key="purchase.id"
+               v-for="(purchase, index) in purchases"
+            :key="index"
               >
+                  
                 <div id="product-1" class="single-product">
                   <div class="part-1">
                     <img
                       :src="`/sale/${purchase.store.file_path}`"
                       alt="{purchase.store,work_name}"
                       style="cursor: pointer; max-width: 450px"
-                      @click="openPurchaseModal"
+                      @click="openPurchaseModal(index)"
                     />
                     <ul>
                       <li>
@@ -84,7 +85,7 @@
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog" role="document" v-if="specific_purchase != null">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">TEST</h5>
@@ -99,6 +100,7 @@
             </button>
           </div>
           <div class="modal-body">{{ specific_purchase.Price }}</div>
+          <div class="modal-body">{{ specific_purchase.store.work_name }}</div>
         </div>
       </div>
     </div>
@@ -113,7 +115,7 @@ export default {
     return {
       purchases: {},
       store: [],
-      specific_purchase: {},
+      specific_purchase: null,
       searchKeyword: "",
       showPurchaseModal: false,
       users: [],
@@ -135,12 +137,13 @@ export default {
   },
 
   methods: {
-    openPurchaseModal() {
+    openPurchaseModal(index) {
       this.showPurchaseModal = true;
-      this.loadSpecificPurchase();
+      this.loadSpecificPurchase(index);
     },
     hidePurchaseModal() {
       this.showPurchaseModal = false;
+      
     },
     loadUserPurchases() {
       axios
@@ -158,9 +161,9 @@ export default {
           console.log(error.message);
         });
     },
-    loadSpecificPurchase() {
+    loadSpecificPurchase(index) {
       axios
-        .get("/api/purchase/" + this.$route.params.id, {
+        .get("/api/purchases/" + this.purchases[index].id, {
           headers: {
             Authorization: "Bearer " + this.token,
           },

@@ -12,6 +12,9 @@ class Digital_painting extends Model
         'resolution',
         'image',
     ];
-
+    public function digitalPortfolio()
+    {
+        return $this->belongsTo(Portfolio::class);
+    }
  
 }

@@ -60,6 +60,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Purchases::class);
     }
+    public function digitalPurchases()
+    {
+        return $this->hasMany(Digital_purchase::class);
+    }
     public function posts()
     {
         return $this->hasMany(qna_post::class);

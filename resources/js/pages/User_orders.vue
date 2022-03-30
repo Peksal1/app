@@ -5,12 +5,13 @@
     <div class="d-flex justify-content-center flex-wrap my-5">
       <h1>UNPAID ORDERS</h1>
       <v-card
-        v-for="order in orders"
-        v-bind:key="order.id"
+        v-for="(order, index) in orders"
+            :key="index"
         class="mx-auto my-3"
         max-width="15rem"
         min-width="15rem"
       >
+      
         <v-img
           class="white--text align-end"
           height="10rem"
@@ -23,8 +24,8 @@
 
         <v-card-subtitle class="pb-0">
           <div>
-            size:
-            {{ order.type }}
+            Orientation: {{ order.orientation }}
+           
           </div>
         </v-card-subtitle>
 
@@ -32,7 +33,7 @@
           <div>paint: {{ order.paint }}</div>
         </v-card-text>
         <v-card-text class="text--primary">
-          <div>canvas: {{ order.canvas }}</div>
+          <div>Total price: {{ order.price }} EUR</div>
         </v-card-text>
         <hr />
         <div @click="makePayment(order)" class="btn btn-sm btn-danger">
@@ -64,17 +65,17 @@
             >
               <span aria-hidden="true">&times;</span>
             </button>
-          </div>
-          <div
+                 <div
             class="modal-body"
-            v-for="order_message in order_messages"
-            :key="order_message.id"
+            v-for="(order_message, index) in order_messages"
+            :key="index"
           >
-            <form @submit.prevent="submitOrderMessageForm">
+          {{order_message.message}}
+            <form @submit.prevent="postOrderMessage(index)">
               <div class="form-group">
                 <label for="">message</label>
                 <input
-                  v-model="OrderMessageForm.message"
+                  v-model="formData.message"
                   type="text"
                   class="form-control"
                 />
@@ -88,13 +89,15 @@
               </div>
             </form>
           </div>
+          </div>
+     
         </div>
       </div>
     </div>
     <h1>PAID ORDERS</h1>
     <v-card
-      v-for="paid_order in paid_orders"
-      v-bind:key="paid_order.id"
+    v-for="(paid_order, index) in paid_orders"
+            :key="index"
       class="mx-auto my-3"
       max-width="15rem"
       min-width="15rem"
@@ -111,8 +114,8 @@
 
       <v-card-subtitle class="pb-0">
         <div>
-          size:
-          {{ paid_order.type }}
+          Orientation:
+          {{ paid_order.orientation }}
         </div>
       </v-card-subtitle>
 
@@ -120,10 +123,10 @@
         <div>paint: {{ paid_order.paint }}</div>
       </v-card-text>
       <v-card-text class="text--primary">
-        <div>canvas: {{ paid_order.canvas }}</div>
+        <div>Price: {{ paid_order.price }} EUR</div>
       </v-card-text>
       <hr />
-      <div class="btn btn-sm btn-primary" @click="openOrderMessageModal">
+      <div class="btn btn-sm btn-primary" @click="openOrderMessageModal(index)">
         Discuss the order
       </div>
     </v-card>
@@ -140,9 +143,10 @@ export default {
       orders: [],
       paid_orders: [],
       order_messages: [],
-      OrderMessageForm: {
-        type: "",
-        price_in_eur: "",
+      formData: {
+        message: "",
+        user_id: "",
+        order_id: "",
       },
       token: localStorage.getItem("token"),
       isLoggedIn: false,
@@ -163,7 +167,8 @@ export default {
         .then((response) => {
           this.isLoggedIn = false;
 
-          this.orders = response.data;
+          this.orders = response.data.data;
+          console.log(response);
         })
         .catch((error) => {
           console.log(error.message);
@@ -179,7 +184,7 @@ export default {
         .then((response) => {
           this.isLoggedIn = false;
 
-          this.paid_orders = response.data;
+          this.paid_orders = response.data.data;
         })
         .catch((error) => {
           console.log(error.message);
@@ -244,42 +249,51 @@ export default {
         });
       // this.loading = false
     },
-    openOrderMessageModal() {
+    openOrderMessageModal(index) {
       this.showOrderMessageModal = true;
+          this.getAllOrderMessages(index);
     },
     hideOrderMessageModal() {
       this.showOrderMessageModal = false;
     },
-    submitOrderMessageForm() {
+     postOrderMessage(index) {
+      const messageForm = new FormData();
+      messageForm.append("message", this.formData.message);
+      messageForm.append("order_id", this.paid_orders[index].id);
+      messageForm.append("user_id", this.currentUser.id);
       axios
-        .post("/api/order_messages", this.OrderMessageForm)
-        .then((res) => {
-          if (res.data.status == "success") {
-            this.order_messages.push(res.data.order_message);
-            // reset the form
-            this.OrderMessageForm = {
-              message: "",
-            };
-          } else {
-            alert("STOPPPPPPPPP");
-          }
+        .post("/api/order_messages", messageForm, {
+          headers: {
+            Authorization: "Bearer " + this.token,
+            "Content-Type": "multipart/form-data",
+            boundary: messageForm._boundary,
+          },
         })
-        .catch((err) => {
-          console.log(err);
+        .then((response) => {
+          alert("Message Sent!");
+          this.getAllOrderMessages(index);        
+                       
+        })
+        .catch((errors) => {
+          console.log("error");
         });
     },
-    getAllOrderMessages() {
+    getAllOrderMessages(index) {
       axios
-        .get("/api/order_messages")
+        .get("/api/order_messages/" + this.paid_orders[index].id, {
+          headers: {
+            Authorization: "Bearer " + this.token,
+          },
+        })
         .then((res) => {
-          this.order_messages = res.data.order_messages;
+          this.order_messages = res.data;
           console.log(this.order_messages);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    deleteSize(index) {
+    deleteMessage(index) {
       axios
         .delete("/api/order_messages/" + this.order_messages[index].id)
         .then((res) => {
@@ -297,7 +311,7 @@ export default {
     this.checkLoginStatus();
     this.loadUserPaidOrders();
     this.loadUserOrders();
-    this.getAllOrderMessages();
+
   },
 };
 </script>

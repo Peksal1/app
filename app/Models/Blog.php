@@ -14,9 +14,14 @@ class Blog extends Model
         'thumbnail',
         'image',
         'blog_category_id',
+        'user_id',
     ];
     public function blog_category()
     {
         return $this->belongsTo(Blog_category::class,'blog_category_id');
+    }
+    public function blog_comments()
+    {
+        return $this->hasMany(Blog_comment::class);
     }
 }

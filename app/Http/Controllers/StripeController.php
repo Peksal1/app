@@ -10,6 +10,7 @@ use Stripe\Price;
 use App\Models\Orders;
 use App\Models\Order_purchases;
 use App\Models\Digital_painting;
+use App\Models\Digital_purchase;
 use Stripe\Checkout\Session;
 
 
@@ -94,12 +95,12 @@ class StripeController extends Controller
 
     public function createDigitalPaintingPaymentSession(Request $request)
     {
-        $digital = Digital_painting::findOrFail($request->product);
+        $digital = Digital_painting::findOrFail($request->portfolio);
         // create a new Pruchase
         $purchase = Digital_purchase::create([
             'uuid' =>  time(),
             'user_id' => auth()->user()->id,
-            'digital_painting_id' => $request->product,
+            'digital_painting_id' => $request->portfolio,
             'status' => 'pending',
             'is_paid' => 0,
             'tnx_id' => '',
@@ -119,7 +120,7 @@ class StripeController extends Controller
             'unit_amount' =>  $digital->price * 100
         ]);
         $session = Session::create([
-            'success_url' => url('/success?stripe_id={CHECKOUT_SESSION_ID}&order_id=' . $purchase->uuid),
+            'success_url' => url('/digital/success?stripe_id={CHECKOUT_SESSION_ID}&digital_id=' . $purchase->uuid),
             'cancel_url' =>  url('/store'),
             'payment_method_types' => ['card'],
             'mode' => 'payment',
@@ -135,7 +136,7 @@ class StripeController extends Controller
 
     public function DigitalPaymentSuccess(Request $request)
     {
-            $digital = Digital_purchase::where('id',$request->digital_painting_id)->first();
+            $digital = Digital_purchase::where('uuid',$request->digital_id)->first();
 
 
         // check session from stripe
@@ -147,7 +148,7 @@ class StripeController extends Controller
             $digital->status = 'paid';
             $digital->is_paid = 1;
             $digital->save();
-            return redirect('/digital/thank-you?order=' . $digital->id);
+            return redirect('/digital/thank-you?digital=' . $digital->id);
         } else {
             return redirect('/');
         }
@@ -177,7 +178,7 @@ class StripeController extends Controller
     public function paymentSuccess(Request $request)
     {
         $purchase = Purchases::where('uuid', $request->order_id)->first();
-
+       
         // check session from stripe
         \Stripe\Stripe::setApiKey('sk_test_7NyImHAKY2arJv2aDu9jqJ1600TjVN3zFF');
         $session = Session::retrieve($request->stripe_id);

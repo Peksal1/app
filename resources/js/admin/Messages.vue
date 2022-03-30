@@ -39,7 +39,7 @@
                 type="checkbox"
                 id="0"
                 class="unread"
-                v-model="isread"
+                v-model="isunread"
                 :value="0"
               /><label :for="0" class="btn btn-sm border btn-block"
                 >UNREAD
@@ -159,7 +159,8 @@ export default {
     return {
       showMessageModal: false,
       messages: [],
-      isread: {},
+      isread: 0,
+      isunread: 0,
       specific_message: [],
       pagination: {
         data: [],
@@ -212,7 +213,7 @@ export default {
     loadMessages() {
       axios
         .get(
-          `/api/messages?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}`,
+          `/api/messages?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}&isRead=${this.isread}&isUnread=${this.isunread}`,
           {
             headers: {
               Authorization: "Bearer " + this.adminToken,

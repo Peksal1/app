@@ -72,8 +72,9 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
 ///Owner, admin, user APIs
 Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
     Route::get('/purchases', [PurchasesController::class, 'user_purchases']);
+    Route::get('/purchases/digital', [PurchasesController::class, 'userDigitalPurchases']);
     Route::get('/purchases/{specific_purchase}', [PurchasesController::class, 'show']); /// User list
-    
+    Route::get('/purchases/digital/{specific_purchase}', [PurchasesController::class, 'showDigital']); /// User list
     Route::get('/blog/search/{title}', [BlogController::class, 'blog_search ']);
     Route::post('/topics', [QnAController::class, 'newtopic']); /// Store a new topic to the database
     Route::get('/topic/post/{id}', [QnAController::class, 'display']); /// Store a new topic to the database
@@ -81,22 +82,29 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
     Route::put('/topics/{id}', [QnAController::class, 'update_topic']); /// User editing
     Route::put('/posts/{id}', [QnAController::class, 'update_post']); /// User editing
     Route::post('/feedback', [FeedbackController::class, 'store']); /// New feedback
+    Route::get('/users_orders',[OrderController::class,'show'] );
+Route::get('/users_paid_orders', [OrderController::class, 'show_paid']);
+Route::get('/order_messages/{order_messages}', [OrderController::class, 'get_order_messages']);
+Route::post('/order_messages', [OrderController::class, 'post_order_messages']);
+Route::delete('/order_messages', [OrderController::class, 'delete_order_messages']);
+
     Route::get('/topics/search/{topic_title}', [QnAController::class, 'topic_search']); /// topic search
     Route::put('/user/{id}', [UserController::class, 'updateuser']); /// User editing
     Route::post('/create-payment-session', [StripeController::class, 'createPaymentSession']);
     Route::post('/order/create-payment-session', [StripeController::class, 'createOrderPaymentSession']);
     Route::post('/portfolio/create-payment-session', [StripeController::class, 'createDigitalPaintingPaymentSession']);
-    
+    Route::post('/comment/{id}', [BlogController::class, 'newComment']);
 });
 Route::get('/collection/portfolio/{id}', [PortfolioController::class, 'display']);
 Route::get('/portinfo', [PortfolioController::class, 'create']); /// Feedback list
 ///Everyones APIs
 Route::get('/portfolio/{id}', [PortfolioController::class, 'show']); /// User list
 Route::get('/blog/{id}', [BlogController::class, 'show']); /// User list
+Route::get('blog/comments/{id}', [BlogController::class, 'showComments']);
 Route::get('/blog_categories', [BlogController::class, 'blog_categories']);
 Route::post('/blog_categories', [BlogController::class, 'new_category']);
 Route::get('/portfolio/all', [PortfolioController::class, 'full_portfolio']);
-Route::get('/blog/comments/{id}', [BlogController::class, 'display']);
+
 Route::get('/canvases', [UtilityController::class, 'canvases']);
 Route::post('/canvases', [UtilityController::class, 'store_canvas']);
 Route::delete('/canvases/{canvas}', [UtilityController::class, 'delete_canvas']);
@@ -107,9 +115,6 @@ Route::delete('/paints/{paint}', [UtilityController::class, 'delete_paint']);
 Route::post('/blogs', [BlogController::class, 'store']);
 Route::delete('/blog_categories', [BlogController::class, 'delete_blog_categories']);
 
-Route::get('/order_messages', [OrderController::class, 'get_order_messages']);
-Route::post('/order_messages', [OrderController::class, 'post_order_messages']);
-Route::delete('/order_messages', [OrderController::class, 'delete_order_messages']);
 
 Route::get('/topic/{id}/post', [QnAController::class, 'topic_posts']); /// Returns a list of topics in a post
 Route::get('/topics', [QnAController::class, 'topiclist']); /// Returns the list of topics
@@ -126,8 +131,7 @@ Route::delete('/order/{id}', [OrderController::class, 'destroy']); /// Deleting 
 Route::put('/order/{id}', [OrderController::class, 'orderedit']); /// Editing orders
 Route::post('neworder', [OrderController::class, 'store']); /// New order
 
-Route::get('/users_orders',[OrderController::class,'show'] );
-Route::get('/users_paid_orders', [OrderController::class, 'show_paid']);
+
 Route::get('/users/{id}', [UserController::class, 'show']); /// User list
 Route::get('/user/{id}/orders', [OrderController::class, 'userorders']); /// Users feedback
 Route::post('/shipping', [ShopController::class, 'create_shipping']);

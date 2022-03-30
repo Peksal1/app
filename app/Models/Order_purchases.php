@@ -18,4 +18,5 @@ class Order_purchases extends Model
         'user_id',
         'tnx_id',
     ];
+    
 }

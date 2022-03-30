@@ -214,10 +214,16 @@
                 </div>
               </div>
             </div>
+            
           </div>
         </div>
       </div>
-      <!-- /container -->
+      <div v-for="(comment, index) in comments"
+            :key="index">
+            <div>
+            123{{comment.message}}
+            </div>
+            </div>
     </section>
   </div>
 </template>
@@ -229,7 +235,7 @@ export default {
   data: function () {
     return {
       blog: {},
-      comments: [],
+      comments: {},
       currentUser: {},
       isLoggedIn: false,
       token: localStorage.getItem("token"),
@@ -264,9 +270,32 @@ export default {
         });
       // this.loading = false
     },
-  },
-  mounted() {
+    loadBlogComments(){
+      axios
+        .get("/api/blog/comments/" + this.$route.params.id, {
+          headers: {
+            Authorization: "Bearer " + this.token,
+          },
+        })
+
+        .then((response) => {
+          console.log(response);
+          this.comments = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    postMessage(){
     axios
+    .post("/api/comment/" + this.$route.params.id, {
+      headers: {
+        Authorization: "Bearer" + this.token,
+      },
+    })
+    },
+    loadBlogInfo(){
+  axios
       .get("/api/blog/" + this.$route.params.id, {
         headers: {
           Authorization: "Bearer " + this.token,
@@ -295,6 +324,11 @@ export default {
       .catch((error) => {
         console.log(error.message);
       });
+    },
+  },
+  mounted() {
+  this.loadBlogInfo();
+  this.loadBlogComments();
   },
 };
 </script>

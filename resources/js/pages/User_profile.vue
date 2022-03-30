@@ -29,6 +29,13 @@
               }"
               >My purchases</router-link
             >
+             <router-link
+              class="list-group-item list-group-item-action"
+              :to="{
+                name: 'purchases/digital',
+              }"
+              >My digital purchases</router-link
+            >
           </div>
         </div>
         <div class="col-md-9">

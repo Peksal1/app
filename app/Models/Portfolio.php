@@ -35,4 +35,8 @@ class Portfolio extends Model
     {
         return $this->belongsTo(Canvas::class);
     }
+    public function digital_paintings()
+    {
+        return $this->hasMany(Digital_painting::class);
+    }
 }

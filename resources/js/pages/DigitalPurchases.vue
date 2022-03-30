@@ -1,96 +1,109 @@
-    <template>
+<template>
   <div>
     <Navbar />
+    <div class="container d-flex justify-content-center mt-5 p-4">
+      <div class="input-group mb-3">
+        <input v-model="searchKeyword" type="text" class="form-control" />
+        <div class="input-group-append">
+          <button @click="loadUserPurchases" class="btn btn-primary">
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
     <section class="section-products">
       <div class="container">
         <div class="row justify-content-center text-center">
           <div class="col-md-8 col-lg-6">
             <div class="header">
-              <h2>Collection - XXX</h2>
+              <h2>
+                {{ currentUser.name }} {{ currentUser.surname }} Digital Purchases:
+              </h2>
             </div>
           </div>
         </div>
         <div class="row">
-          <!-- Single Product -->
-          <div
-            class="col-md-6 col-lg-4 col-xl-3"
-            v-for="(portfolio, index) in portfolios"
+          <div class="col-md-3">
+            <!-- products -->
+          </div>
+          <div class="col-md-9">
+            <div class="row">
+              <!-- Single Product -->
+              <div
+                class="col-md-6"
+               v-for="(purchase, index) in purchases"
             :key="index"
-          >
-            <div id="product-1" class="single-product">
-              <div class="part-1">
-                <img
-                  :src="`/portfolio/${portfolio.file_path}`"
-                  alt="{portfolio.work_name}"
-                  style="cursor: pointer; max-width: 450px"
-                  @click="openPortfolioModal(index)"
-                />
-
-                <ul>
-                  <li>
-                    <a href="#"><i class="fas fa-expand"></i></a>
-                  </li>
-                </ul>
-              </div>
-              <div class="part-2">
-                <h3 class="product-title">
-                  <strong>{{ portfolio.work_name }}</strong>
-                </h3>
-                <div class="category">{{ portfolio.description }}</div>
-                <h4 class="product-price">
-                  {{ portfolio.category }}
-                </h4>
+              >
+                  
+                <div id="product-1" class="single-product">
+                  <div class="part-1">
+                    <img
+                      :src="`/sale/${purchase.painting.image}`"
+                      alt="{purchase.store,work_name}"
+                      style="cursor: pointer; max-width: 450px"
+                      @click="openPurchaseModal(index)"
+                    />
+                    <ul>
+                      <li>
+                        <a href="#"><i class="fas fa-expand"></i></a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="part-2">
+                    <h3 class="product-title">
+                    123
+                    </h3>
+                    <div class="category">RESOLUTION: {{purchase.painting.resolution}}</div>
+                    <h4 class="product-price">
+                   123
+                    </h4>
+                    <div class="buy-btn mt-3"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div
-        class="modal"
-        :class="{ show: showPortfolioModal }"
-        id="portfolioModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title text-dark" id="exampleModalLabel">
-                {{ portfolio.work_name }}
-              </h5>
-              <button
-                type="button"
-                class="close text-dark cursor: pointer"
-                data-dismiss="modal"
-                aria-label="Close"
-                @click="hidePortfolioModal"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <img
-                :src="`/portfolio/${portfolio.file_path}`"
-                style="max-width: 500px"
-              />
 
-              <br />
-              {{ portfolio.orientation }}
-              <br />
-              {{ portfolio.id }}
-              <br />
-           
-              <div v-for="(digital, portfolio) in digitals"
-            :key="portfolio" @click="buyDigital(portfolio)" class="btn btn-sm btn-danger" >
-                {{digital.resolution}} BUY IN DIGITAL
-             </div>
-            </div>
-          </div>
+        <div class="col-md-12 text-center center-pagination">
+          <Pagination
+            :pagination="pagination"
+            @perPage="getAllItems()"
+            @paginate="getAllItems()"
+            :offset="6"
+          >
+          </Pagination>
         </div>
       </div>
     </section>
+    <div
+      class="modal"
+      :class="{ show: showPurchaseModal }"
+      id="purchaseModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document" v-if="specific_purchase != null">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="exampleModalLabel">TEST</h5>
+            <button
+              type="button"
+              class="close text-dark cursor: pointer"
+              data-dismiss="modal"
+              aria-label="Close"
+              @click="hidePurchaseModal"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">{{specific_purchase.painting.resolution}}</div>
+          <div class="modal-body">123</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -100,13 +113,23 @@ import Navbar from "../components/Navbar.vue";
 export default {
   data: function () {
     return {
-      portfolios: [],
-      digitals: [],
-      portfolio: {},
-      showPortfolioModal: false,
-      currentUser: {},
-      isLoggedIn: false,
+      purchases: {},
+      store: [],
+      specific_purchase: null,
+      searchKeyword: "",
+      showPurchaseModal: false,
+      users: [],
+      pagination: {
+        data: [],
+        total: 0,
+        per_page: 2,
+        from: 1,
+        to: 0,
+        current_page: 1,
+      },
+      currentUser: [],
       token: localStorage.getItem("token"),
+      isLoggedIn: false,
     };
   },
   components: {
@@ -114,75 +137,44 @@ export default {
   },
 
   methods: {
-    loadSpecificPortfolio(index) {
-      axios
-        .get("/api/portfolio/" + this.portfolios[index].id, {})
-
-        .then((response) => {
-          this.portfolio = response.data;
-          this.digitals = response.data.digital_paintings;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    openPurchaseModal(index) {
+      this.showPurchaseModal = true;
+      this.loadSpecificPurchase(index);
     },
-    buyDigital(portfolio) {
-      this.isPaymentLoading = true;
-      axios
-        .post(
-          "/api/portfolio/create-payment-session",
-          {
-            portfolio: portfolio,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        )
-        .then((response) => {
-          this.redirectToStripe(response.data.session_id);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          this.isPaymentLoading = false;
-        });
+    hidePurchaseModal() {
+      this.showPurchaseModal = false;
+      
     },
-    redirectToStripe(sessionID) {
-      let stripe = Stripe("pk_test_d6aChIuFov53M3i5n00Fn1j200m37XdpTE");
-      stripe
-        .redirectToCheckout({
-          sessionId: sessionID,
-        })
-        .then((res) => {
-          console.log(res);
-        });
-    },
-    loadPortfolios() {
+    loadUserPurchases() {
       axios
-        .get("/api/collection/portfolio/" + this.$route.params.id, {
+        .get("/api/purchases/digital", {
           headers: {
             Authorization: "Bearer " + this.token,
           },
         })
         .then((response) => {
           this.isLoggedIn = false;
-          ///    this.appointments=response.data.data
-          this.portfolios = response.data;
-          console.log(response.data);
+          this.purchases = response.data.data;
+          console.log(purchases);
         })
         .catch((error) => {
           console.log(error.message);
         });
     },
-    openPortfolioModal(index) {
-      this.showPortfolioModal = true;
-      this.loadSpecificPortfolio(index);
-    },
-    hidePortfolioModal() {
-      this.showPortfolioModal = false;
+    loadSpecificPurchase(index) {
+      axios
+        .get("/api/purchases/digital" + this.purchases[index].id, {
+          headers: {
+            Authorization: "Bearer " + this.token,
+          },
+        })
+
+        .then((response) => {
+          this.specific_purchase = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     checkLoginStatus() {
       this.loading = true;
@@ -195,9 +187,7 @@ export default {
         })
         .then((response) => {
           this.currentUser = response.data;
-          console.log("LOGGED IN");
           this.isLoggedIn = true;
-          console.log(this.currentUser.name);
         })
         .catch((errors) => {
           console.log(errors);
@@ -210,15 +200,56 @@ export default {
     },
   },
   created() {},
-
   mounted() {
+    this.loadUserPurchases();
     this.checkLoginStatus();
-    this.loadPortfolios();
   },
 };
 </script>
 
- <style scoped>
+<style scoped>
+input.mycat,
+input.mypaint,
+input.mysize,
+input.mycanvas {
+  display: none;
+}
+
+input.mycat:checked + label,
+input.mypaint:checked + label,
+input.mysize:checked + label,
+input.mycanvas:checked + label {
+  background: green;
+  color: white;
+  box-shadow: 0px 1px 3px inset;
+}
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@500&display=swap");
+
+.form-control {
+  border-radius: 7px;
+  border: 1.5px solid #e3e6ed;
+}
+
+.product-image img {
+  max-width: 100%;
+  width: 100%;
+}
+
+input.form-control:focus {
+  box-shadow: none;
+  border: 1.5px solid #e3e6ed;
+  background-color: #f7f8fd;
+  letter-spacing: 1px;
+}
+
+.btn-primary {
+  background-color: #5878ff !important;
+  border-radius: 7px;
+}
+
+.btn-primary:focus {
+  box-shadow: none;
+}
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
 
 body {
@@ -361,7 +392,7 @@ a:hover {
 .section-products .single-product .part-2 h4 {
   display: inline-block;
   font-size: 1rem;
-  color: gray;
+  color: black;
 }
 
 .section-products .single-product .part-2 .product-old-price {
@@ -380,5 +411,13 @@ a:hover {
   height: 1px;
   background-color: #444444;
   transform: translateY(-50%);
+}
+.btn-block {
+  width: 100%;
+  text-align: left;
+}
+
+.mt-4 {
+  margin-top: 10px;
 }
 </style>

@@ -48,8 +48,18 @@ import AdminBlog from './admin/Admin_blog.vue'
 import AdminStore from './admin/AdminStore.vue'
 import AdminFAQ from './admin/Admin_FAQ.vue'
 import DigitalThankYou from './pages/DigitalThankYou.vue'
+import DigitalPurchases from './pages/DigitalPurchases.vue'
 
 const routes = [
+    
+    {
+        path: '/purchases/digital',
+        name: 'purchases/digital',
+        component: DigitalPurchases,
+        meta: {
+            requiresAuth: true,
+        },
+    },
     {
         path: '/admin_faq',
         name: 'admin_faq',

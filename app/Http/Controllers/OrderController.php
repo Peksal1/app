@@ -117,16 +117,31 @@ class OrderController extends Controller
     //     return response()->json($user_order, 200, [], JSON_PRETTY_PRINT);
       
     // }
-    public function get_order_messages()
+    public function get_order_messages($order_messages)
     {
+    // $order = Order::where('user_id',auth()->user()->id)->where('id',$order_message)->first();
+   
+    // if admin
 
+        $order_messages = Order_message::where('order_id', $order_messages)->with('user')->get();
+        return $order_messages;
+   
+    
+    // if not admin
+    
+        // $order_messages = Order_message::where('order_id', $order_messages)->with('user')->get();
+        // return $order_messages;
     }
+    
+ 
     public function post_order_messages(Request $request)
     {
        
         $order_message = new Order_message;
         $order_message->message = $request->message;
-        $canvas->save();
+        $order_message->user_id = auth()->user()->id;
+        $order_message->order_id = $request->order_id;
+        $order_message->save();
            $res['order_message'] = $order_message;
            $res['status'] = 'success';
 

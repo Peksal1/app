@@ -100,7 +100,16 @@ class BlogController extends Controller
         $blog = Blog::where('id',$blog)->first();
         return response()->json($blog);
     }
-
+    public function newComment($blog)
+    {
+        
+    }
+    public function showComments($blog)
+    {
+   
+        $blog = Blog_comment::where('blog_id',$blog)->first();
+        return response()->json($blog);
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -122,7 +131,7 @@ class BlogController extends Controller
     public function display( $id)
 
 {
-    $blog_comment = Blog_comment::with(['userComment'])->where('blog_id', $id)->latest()->get();
+    $blog_comment = Blog_comment::with(['blog_comments'])->where('blog_id', $id)->latest()->get();
     return $blog_comment;
 }
 
