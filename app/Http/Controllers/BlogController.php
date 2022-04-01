@@ -100,15 +100,25 @@ class BlogController extends Controller
         $blog = Blog::where('id',$blog)->first();
         return response()->json($blog);
     }
-    public function newComment($blog)
+    public function newComment(Request $request)
     {
-        
+       
+        $blog_comment = new Blog_comment;
+        $blog_comment->message = $request->message;
+        $blog_comment->user_id = auth()->user()->id;
+        $blog_comment->blog_id = $request->blog_id;
+        $blog_comment->save();
+           $res['blog_comment'] = $blog_comment;
+           $res['status'] = 'success';
+
+        return response()->json($res);
+      
     }
-    public function showComments($blog)
+    public function showComments($id)
     {
    
-        $blog = Blog_comment::where('blog_id',$blog)->first();
-        return response()->json($blog);
+        $id = Blog_comment::where('blog_id',$id)->with('user')->get();
+        return response()->json($id);
     }
     /**
      * Show the form for editing the specified resource.

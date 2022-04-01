@@ -70,6 +70,7 @@
             v-for="(order_message, index) in order_messages"
             :key="index"
           >
+         <strong> {{order_message.user.name}} </strong> <br />
           {{order_message.message}}
             <form @submit.prevent="postOrderMessage(index)">
               <div class="form-group">
