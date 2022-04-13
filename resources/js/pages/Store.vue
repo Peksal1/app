@@ -30,12 +30,12 @@
               <div>
                 <input
                   type="checkbox"
-                  :id="painting_category.id"
+                  :id="`category_${painting_category.id}`"
                   class="mycat"
                   v-model="cat"
                   :value="painting_category.id"
                 /><label
-                  :for="painting_category.id"
+                  :for="`category_${painting_category.id}`"
                   class="btn btn-sm border btn-block"
                   >{{ painting_category.category }}</label
                 >
@@ -47,11 +47,11 @@
               <div>
                 <input
                   type="checkbox"
-                  :id="size.type"
+                  :id="`size_${size.id}`"
                   class="mysize"
                   v-model="sizefilter"
                   :value="size.id"
-                /><label :for="size.type" class="btn btn-sm border btn-block">{{
+                /><label :for="`size_${size.id}`" class="btn btn-sm border btn-block">{{
                   size.type
                 }}</label>
               </div>
@@ -61,11 +61,11 @@
             <div v-for="(paint, index) in paints" :key="index" class="m-1">
               <input
                 type="checkbox"
-                :id="paint.type"
+                :id="`paint_${paint.id}`"
                 class="mypaint"
                 v-model="paintfilter"
                 :value="paint.id"
-              /><label :for="paint.type" class="btn btn-sm border btn-block">{{
+              /><label :for="`paint_${paint.id}`" class="btn btn-sm border btn-block">{{
                 paint.type
               }}</label>
             </div>
@@ -77,12 +77,12 @@
               <div>
                 <input
                   type="checkbox"
-                  :id="canvas.type"
+                  :id="`canvas_${canvas.id}`"
                   class="mycanvas"
                   v-model="canvasfilter"
                   :value="canvas.id"
                 /><label
-                  :for="canvas.type"
+                  :for="`canvas_${canvas.id}`"
                   class="btn btn-sm border btn-block"
                   >{{ canvas.type }}</label
                 >

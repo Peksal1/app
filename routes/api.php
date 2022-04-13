@@ -59,10 +59,14 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
     Route::post('/painting_categories', [UtilityController::class, 'store_painting_category']);
     Route::delete('/painting_categories/{category}', [UtilityController::class, 'delete_painting_category']);
     Route::delete('/shops/{shop}', [ShopController::class, 'destroy']);
+    
+    Route::post('/shops/{shop}/update', [ShopController::class, 'update']);
     Route::post('/users', [UserController::class, 'store']); /// New user
     Route::get('/users', [UserController::class, 'index']); /// User list
     Route::delete('/users/{id}', [UserController::class, 'destroy']); /// User deleting
+
     Route::put('/users/{id}', [UserController::class, 'update']); /// User editing
+    
     Route::get('/user/{id}/feedback', [UserController::class, 'userfeedback']); /// Users feedback
     Route::get('/user/{id}/posts', [UserController::class, 'userposts']); /// Users posts
     Route::get('/user/search/{name}', [UserController::class, 'user_search']); /// Search user by name

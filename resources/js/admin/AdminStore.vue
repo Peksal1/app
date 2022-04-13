@@ -42,6 +42,7 @@
                 </h3>
                 <div class="category">{{ shop.category_id }}</div>
                 <h4 class="product-price">{{ shop.price_in_eur }} EUR</h4>
+                <h4 class="product-price">{{ shop.description }} EUR</h4>
                 <div class="buy-btn mt-3">
                   <div
                     @click="buyProduct(shop.id)"
@@ -51,6 +52,9 @@
                   </div>
                   <div @click="deleteShop(index)" class="btn btn-sm btn-danger">
                     Delete
+                  </div>
+                  <div @click="callEditModal(index)" class="btn btn-sm btn-danger">
+                    update
                   </div>
                 </div>
               </div>
@@ -73,6 +77,75 @@
         </div>
       </div>
     </section>
+
+
+     <div
+      class="modal"
+      :class="{ show: shoUpadteModal }"
+      id="storeModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="exampleModalLabel">
+              Add a new item to the store
+            </h5>
+            <button
+              type="button"
+              class="close text-dark"
+              data-dismiss="modal"
+              aria-label="Close"
+              @click="hideUpdateModal"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="updateProduct">
+        
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                  <label
+                    for="attachment"
+                    class="leading-7 text-sm text-gray-600"
+                    >Attachments</label
+                  ><br />
+
+                  <input
+                    type="file"
+                    accept="image/*"
+                    @change="uploadImage($event)"
+                    id="file-input"
+                    required
+                  />
+                </div>
+              </div>
+               <div class="form-group">
+                <label for="">Description</label>
+                <input
+                  v-model="updateForm.description"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="submit"
+                  value="Submit"
+                  class="btn btn-primary btn-block"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -87,6 +160,12 @@ export default {
       searchKeyword: "",
       adminToken: localStorage.getItem("adminToken"),
       isPaymentLoading: false,
+      shoUpadteModal:false,
+      updateForm:{
+        id: null,
+        file_path:'',
+        description: '',
+      },
       pagination: {
         data: [],
         total: 0,
@@ -103,6 +182,63 @@ export default {
     NewStore,
   },
   methods: {
+  updateProduct(){
+     let formData = new FormData();
+      // formData.append("work_name", this.storeForm.work_name);
+      formData.append("file_path", this.updateForm.file_path);
+      formData.append("description", this.updateForm.description);
+      // formData.append("category_id", this.storeForm.category_id);
+      // formData.append("orientation", this.storeForm.orientation);
+      // formData.append("price_in_eur", this.storeForm.price_in_eur);
+      // formData.append("size_id", this.storeForm.size_id);
+      // formData.append("canvas_id", this.storeForm.canvas_id);
+      // formData.append("paint_id", this.storeForm.paint_id);
+
+      axios
+        .post(`/api/shops/${this.updateForm.id}/update`, formData, {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          if (res.data.success) {
+           let shopIndex =  this.shops.findIndex(item=>item.id == this.updateForm.id);
+           this.shops[shopIndex] = res.data.shop;
+            // reset the form
+            this.storeForm = {
+              work_name: "",
+              file_path: "",
+              description: "",
+              orientation: "",
+              category_id: "",
+              price_in_eur: "",
+              size_id: "",
+              canvas_id: "",
+              paint_id: "",
+            };
+            // hide the modal
+            this.hideUpdateModal();
+            alert("The item was successfully added to the shop!");
+          } else {
+            alert("STOPPPPPPPPP");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  },
+  callEditModal(index){
+    this.updateForm = this.shops[index];
+  this.shoUpadteModal = true;
+  },
+   uploadImage(event) {
+      const file = event.target.files[0];
+      this.updateForm.file_path = file;
+    },
+    hideUpdateModal(){
+    this.shoUpadteModal = false;
+    },
     deleteShop(index) {
       axios
         .delete("/api/shops/" + this.shops[index].id, {
@@ -360,5 +496,13 @@ a:hover {
   height: 1px;
   background-color: #444444;
   transform: translateY(-50%);
+}
+
+.part-1{
+width: 250px;
+height:250px;
+object-fit:contain;
+border: 1px solid #ccc;
+width:100%;
 }
 </style>

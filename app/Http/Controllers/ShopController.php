@@ -75,6 +75,40 @@ class ShopController extends Controller
       return response()->json($shops,204);
   
   }
+  public function update($shop, Request $request)
+  {
+   
+    $shop = Shop::find($shop);
+   $shopData =   $request->all();
+
+        if ($request->hasFile('file_path')) {
+            // get image from request
+            $image = $request->file('file_path');
+            // get image name
+            $imageName = $image->getClientOriginalName();
+            // move image to public/images
+            $image->move(public_path('sale'), $imageName);
+            // save image name to database
+            $shopData['file_path'] = $imageName;
+
+        
+        }else{
+             $shopData['file_path'] = $shop->file_path;
+        }
+
+
+        if (  $shop->update($shopData)) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Shop item has been updated successfully',
+                'shop' => $shop
+            ], 200);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Shop item not created'], 400);
+        }
+
+
+}
 
    
     public function shopedit(Request $request, $shop)
