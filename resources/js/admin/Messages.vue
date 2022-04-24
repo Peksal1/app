@@ -34,14 +34,14 @@
 
             <!-- canvas filtering -->
 
-            <div>
+               <div>
               <input
                 type="checkbox"
-                id="0"
-                class="unread"
-                v-model="isunread"
-                :value="0"
-              /><label :for="0" class="btn btn-sm border btn-block"
+                :id="'isunread'"
+                class="read"
+                v-model="isread"
+                value="0"
+              /><label :for="'isunread'" class="btn btn-sm border btn-block"
                 >UNREAD
               </label>
             </div>
@@ -49,14 +49,15 @@
             <div>
               <input
                 type="checkbox"
-                id="1"
+                :id="'isread'"
                 class="read"
                 v-model="isread"
-                :value="1"
-              /><label :for="1" class="btn btn-sm border btn-block"
+                value="1"
+              /><label :for="'isread'" class="btn btn-sm border btn-block"
                 >READ
               </label>
             </div>
+
 
             <!-- products -->
           </div>
@@ -73,10 +74,13 @@
                   class="single-product"
                   @click="openMessageModal(index)"
                 >
+             
                   <div class="part-2">
                     <h3 class="product-title">
                       Subject: <strong>{{ message.subject }}</strong>
                     </h3>
+                    Read:
+                    <div class="isread">{{ message.isread }}</div>
                     Sent by:
                     <div class="category">{{ message.name }}</div>
                     On: {{ message.created_at }}
@@ -89,6 +93,13 @@
                 >
                   Delete
                 </div>
+                 <div
+                  @click="messageIsRead(index)"
+                  class="btn btn-sm btn-danger"
+                >
+                  Read
+                </div>
+                
               </div>
             </div>
           </div>
@@ -159,8 +170,7 @@ export default {
     return {
       showMessageModal: false,
       messages: [],
-      isread: 0,
-      isunread: 0,
+      isread: [],
       specific_message: [],
       pagination: {
         data: [],
@@ -186,6 +196,7 @@ export default {
           Authorization: "Bearer " + this.adminToken,
         },
       });
+      this.loadMessages();
     },
     loadSpecificMessage(index) {
       axios
@@ -213,7 +224,7 @@ export default {
     loadMessages() {
       axios
         .get(
-          `/api/messages?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}&isRead=${this.isread}&isUnread=${this.isunread}`,
+          `/api/messages?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}&isRead=${this.isread}`,
           {
             headers: {
               Authorization: "Bearer " + this.adminToken,

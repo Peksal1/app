@@ -14,6 +14,10 @@ class ContactsController extends Controller
     if (!empty($request->searchKeyword)) {
         $query->where('subject', 'LIKE', "%{$request->searchKeyword}%");
     }
+    if (!empty($request->isRead)) {
+        $query->where('isread', explode(',', $request->isRead));
+    }
+    
     return $query->paginate(8);
 }
   
