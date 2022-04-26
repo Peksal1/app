@@ -49,9 +49,17 @@ import AdminStore from './admin/AdminStore.vue'
 import AdminFAQ from './admin/Admin_FAQ.vue'
 import DigitalThankYou from './pages/DigitalThankYou.vue'
 import DigitalPurchases from './pages/DigitalPurchases.vue'
+import AdminPaintings from './admin/Admin_paintings.vue'
 
 const routes = [
-    
+    {
+        path: '/portfolio/admin',
+        name: 'portfolio/admin',
+        component: AdminPaintings,
+        meta: {
+            requiresAdminAuth: true,
+        },
+    },
     {
         path: '/purchases/digital',
         name: 'purchases/digital',

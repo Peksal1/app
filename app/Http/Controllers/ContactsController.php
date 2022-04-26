@@ -14,7 +14,10 @@ class ContactsController extends Controller
     if (!empty($request->searchKeyword)) {
         $query->where('subject', 'LIKE', "%{$request->searchKeyword}%");
     }
-    if (!empty($request->isRead)) {
+
+ 
+    if ($request->isRead  != '') {
+
         $query->where('isread', explode(',', $request->isRead));
     }
     
@@ -23,8 +26,12 @@ class ContactsController extends Controller
   
     public function isRead(Request $request, $message)
     {
-        $messages=Messages::find($message) ->update(['isread' => 1]);;
- 
+        $message=Messages::find($message)->update(['isread' => 1]);
+
+        return response()->json([
+            'success'=>true,
+         ]);
+   
     }
 
     public function show($specific_message)
@@ -60,6 +67,5 @@ class ContactsController extends Controller
     $messages=Messages::destroy($message);
 
     return response()->json($messages,204);
-
 }
 }

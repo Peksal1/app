@@ -18,23 +18,23 @@ class PortfolioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
-    $portfolios=Portfolio::with(['portfolio_collection'])->paginate(20);
-
+    $portfolios=Portfolio::query()->with(['portfolio_collection'])->paginate(20);
+    if (!empty($request->searchKeyword)) {
+        $portfolios->where('work_name', 'LIKE', "%{$request->searchKeyword}%");
+    }
     return $portfolios;
     }
 
     public function full_portfolio(Request $request)
     {
-        $portfolioQuery = Portfolio::query();
-         if($request->searchKeyword != null){
-            $portfolioQuery->where('work_name','LIKE',"%{$request->searchKeyword}%");
-        }
-         $portfolios = $portfolioQuery->paginate(4);
-        return PortfolioResource::collection( $portfolios);
-    }
+        $query= Portfolio::query();
+  
+   
+    return $query->paginate(4);
+}
 
     public function collections()
     {

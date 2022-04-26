@@ -39,13 +39,14 @@
                   <div class="part-1">
                     <img
                       :src="`/sale/${purchase.painting.image}`"
-                      alt="{purchase.store,work_name}"
+                      :alt="`${purchase.painting.image}`"
                       style="cursor: pointer; max-width: 450px"
                       @click="openPurchaseModal(index)"
                     />
                     <ul>
                       <li>
-                        <a href="#"><i class="fas fa-expand"></i></a>
+                        <a href="#" ><i class="fas fa-expand"></i></a>
+                        <a :href="`/sale/${purchase.painting.image}`" download>Download</a>
                       </li>
                     </ul>
                   </div>

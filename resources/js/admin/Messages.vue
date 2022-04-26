@@ -190,13 +190,20 @@ export default {
     Pagination,
   },
   methods: {
-    messageIsRead(message) {
-      axios.put("/api/messages/" + message, {
+
+    messageIsRead(index) {
+    
+      axios.put("/api/messages/" + this.messages[index].id, {
         headers: {
           Authorization: "Bearer " + this.adminToken,
         },
-      });
-      this.loadMessages();
+      }).then(res=>{
+          if(res.data.success){
+           this.messages[index].isread = 1;
+           
+          }
+      })
+
     },
     loadSpecificMessage(index) {
       axios
