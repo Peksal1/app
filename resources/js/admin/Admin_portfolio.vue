@@ -84,6 +84,7 @@
               <div @click="buyDigital(portfolio)" class="btn btn-sm btn-danger">
                 Buy in digital
               </div>
+              
             </div>
           </div>
         </div>

@@ -1,10 +1,14 @@
     <template>
   <div>
     <AdminNavbar />
+    <router-link class="btn btn-sm btn-danger" :to="{ name: 'portfolio/admin' }"
+              >Manage the portfolio</router-link
+            >
     <Utility />
     <NewCollection />
     <NewPortfolio />
     <NewPaintingCategory />
+    
     <section class="section-products">
       <div class="container">
         <div class="row justify-content-center text-center">

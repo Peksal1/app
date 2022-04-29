@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="/utility/favicon.png" />
-    <title>Aleksandras Laurs</title>
+    <title>Ilja Laurs BFP</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">

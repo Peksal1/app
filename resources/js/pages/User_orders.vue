@@ -54,8 +54,9 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">
-              Add Size
+              Add a message
             </h5>
+            <br />
             <button
               type="button"
               class="close text-dark"
@@ -72,7 +73,12 @@
           >
          <strong> {{order_message.user.name}} </strong> <br />
           {{order_message.message}}
-            <form @submit.prevent="postOrderMessage(index)">
+          <br />
+        
+          </div>
+
+          </div>
+         <form @submit.prevent="postOrderMessage(currentOrder)">
               <div class="form-group">
                 <label for="">message</label>
                 <input
@@ -89,9 +95,6 @@
                 />
               </div>
             </form>
-          </div>
-          </div>
-     
         </div>
       </div>
     </div>
@@ -127,7 +130,7 @@
         <div>Price: {{ paid_order.price }} EUR</div>
       </v-card-text>
       <hr />
-      <div class="btn btn-sm btn-primary" @click="openOrderMessageModal(index)">
+      <div class="btn btn-sm btn-primary" @click="openOrderMessageModal(paid_order.id)">
         Discuss the order
       </div>
     </v-card>
@@ -144,6 +147,7 @@ export default {
       orders: [],
       paid_orders: [],
       order_messages: [],
+      currentorder: "",
       formData: {
         message: "",
         user_id: "",
@@ -252,18 +256,20 @@ export default {
     },
     openOrderMessageModal(index) {
       this.showOrderMessageModal = true;
-          this.getAllOrderMessages(index);
+      this.currentOrder = index;
+      this.getAllOrderMessages(currentOrder);
+          
     },
     hideOrderMessageModal() {
       this.showOrderMessageModal = false;
     },
-     postOrderMessage(index) {
+     postOrderMessage(currentOrder) {
       const messageForm = new FormData();
       messageForm.append("message", this.formData.message);
-      messageForm.append("order_id", this.paid_orders[index].id);
+      messageForm.append("order_id", this.currentOrder);
       messageForm.append("user_id", this.currentUser.id);
       axios
-        .post("/api/order_messages", messageForm, {
+        .post("/api/order_messages/" + this.currentOrder, messageForm, {
           headers: {
             Authorization: "Bearer " + this.token,
             "Content-Type": "multipart/form-data",
@@ -272,16 +278,16 @@ export default {
         })
         .then((response) => {
           alert("Message Sent!");
-          this.getAllOrderMessages(index);        
+          this.getAllOrderMessages(currentOrder);        
                        
         })
         .catch((errors) => {
           console.log("error");
         });
     },
-    getAllOrderMessages(index) {
+    getAllOrderMessages(currentOrder) {
       axios
-        .get("/api/order_messages/" + this.paid_orders[index].id, {
+        .get("/api/order_messages/" + this.currentOrder, {
           headers: {
             Authorization: "Bearer " + this.token,
           },

@@ -83,7 +83,7 @@
               <br />
            
               <div v-for="(digital, portfolio) in digitals"
-            :key="portfolio" @click="buyDigital(portfolio)" class="btn btn-sm btn-danger" >
+            :key="portfolio" @click="buyDigital(digital.id)" class="btn btn-sm btn-danger" >
                 {{digital.resolution}} BUY IN DIGITAL
              </div>
             </div>

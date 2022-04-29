@@ -2,13 +2,7 @@
   <div class="container-fuiled">
     <Navbar />
 
-    <section class="banner-section">
-      <img
-        class="d-block img-fluid"
-        :src="`/blog/${blog.image}`"
-        alt="First slide"
-      />
-    </section>
+  
     <section class="post-content-section">
       <div class="container">
         <div class="row">

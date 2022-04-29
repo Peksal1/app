@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Portfolio;
 use App\Models\Collection;
 use App\Http\Resources\PortfolioResource;
+use App\Models\Digital_painting;
 
 use Image;
 use Auth;
@@ -76,6 +77,35 @@ class PortfolioController extends Controller
             ], 200);
         } else {
             return response()->json(['success' => false, 'message' => 'Order not created'], 400);
+        }
+    }
+    public function newDigital(Request $request)
+    {
+        $digitalData =   $request->all();
+        // check if request has image
+
+        if ($request->hasFile('image')) {
+            // get image from request
+            $image = $request->file('image');
+            // get image name
+            $imageName = $image->getClientOriginalName();
+            // move image to public/images
+            $image->move(public_path('digital'), $imageName);
+            // save image name to database
+            $digitalData['image'] = $imageName;
+        }
+
+        $digital = Digital_painting::create($digitalData);
+
+
+        if ($digital) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Digital painting was added successfully',
+                'digital' => $digital
+            ], 200);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Digital painting was not added'], 400);
         }
     }
     public function destroy($portfolio)

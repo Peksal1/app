@@ -73,13 +73,90 @@
               {{ portfolio.id }}
               <br />
            
-              <div @click="addDigital(this.portfolio.id)" class="btn btn-sm btn-danger">
+              <div @click="openDigitalModal(portfolio.id)" class="btn btn-sm btn-danger">
                 Add a digital version
               </div>
             </div>
+          
+
           </div>
         </div>
       </div>
+            <!-- new digital modal vindow -->
+          <div
+      class="modal"
+      :class="{ show: showDigitalModal }"
+      id="portfolioModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="exampleModalLabel">
+              Add a new item to the portfolio {{currentPortfolio}}
+            </h5>
+            <button
+              type="button"
+              class="close text-dark"
+              data-dismiss="modal"
+              aria-label="Close"
+              @click="hideDigitalModal"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="submitDigitalForm(currentPortfolio)">
+              <div class="form-group">
+                <label for="">Resolution</label>
+                <input
+                  v-model="digitalForm.resolution"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+                <div class="form-group">
+                <label for="">Price (in EUR)</label>
+                <input
+                  v-model="digitalForm.price"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="p-2 w-full">
+                <div class="relative">
+                  <label
+                    for="attachment"
+                    class="leading-7 text-sm text-gray-600"
+                    >Attachments</label
+                  ><br />
+
+                  <input
+                    type="file"
+                    accept="image/*"
+                    @change="uploadImage($event)"
+                    id="file-input"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <input
+                  type="submit"
+                  value="Submit"
+                  class="btn btn-primary btn-block"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </template>
@@ -92,6 +169,14 @@ export default {
     return {
       portfolios: [],
       searchKeyword: "",
+      showDigitalModal: "",
+        digitalForm: {
+        image: "",
+        price: "",
+        resolution: "",
+        portfolio_id: "",
+      },
+      currentPortfolio: "",
       portfolio: [],
       showAdminPortfolioModal: false,
       pagination: {
@@ -103,7 +188,7 @@ export default {
         current_page: 1,
       },
       isLoggedIn: false,
-      token: localStorage.getItem("token"),
+      adminToken: localStorage.getItem("adminToken"),
     };
   },
   components: {
@@ -111,14 +196,49 @@ export default {
     Pagination,
   },
   methods: {
+submitDigitalForm(currentPortfolio) {
+  this.checkLoginStatus();
+      let formData = new FormData();
+      formData.append("resolution", this.digitalForm.resolution);
+      formData.append("price", this.digitalForm.price);
+      formData.append("image", this.digitalForm.image);
+      formData.append("portfolio_id", this.currentPortfolio);
+      axios
+        .post("/api/portfolio/digital/" + this.currentPortfolio, formData, {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
 
-    addDigital({this.digital.id}) {
-
-
+          },
+        })
+        .then((res) => {
+          if (res.data.success) {
+            this.portfolios.push(res.data.portfolio);
+            // reset the form
+            this.digitalForm = {
+              resolution: "",
+              price: "",
+            };
+            // hide the modal
+            this.hidePortfolioModal();
+            alert("The item was successfully added to the portfolio!");
+          } else {
+            alert("STOPPPPPPPPP");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    openDigitalModal(index) {
+   this.showDigitalModal = true;
+this.currentPortfolio = index;
+    },
+     hideDigitalModal() {
+      this.showDigitalModal = false;
     },
     uploadImage(event) {
       const file = event.target.files[0];
-      this.collectionForm.image = file;
+      this.digitalForm.image = file;
     },
     openAdminPortfolioModal(index) {
       this.showAdminPortfolioModal = true;
@@ -145,7 +265,7 @@ export default {
       axios
         .get("/api/user", {
           headers: {
-            Authorization: "Bearer " + this.token,
+            Authorization: "Bearer " + this.adminToken,
           },
         })
         .then((response) => {
@@ -169,7 +289,7 @@ export default {
           `/api/portfolio?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}`,
           {
             headers: {
-              Authorization: "Bearer " + this.token,
+              Authorization: "Bearer " + this.adminToken,
             },
           }
         )

@@ -66,7 +66,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
     Route::delete('/users/{id}', [UserController::class, 'destroy']); /// User deleting
 
     Route::put('/users/{id}', [UserController::class, 'update']); /// User editing
-    
+    Route::post('/portfolio/digital/{currentPortfolio}', [PortfolioController::class, "newDigital"]);
     Route::get('/user/{id}/feedback', [UserController::class, 'userfeedback']); /// Users feedback
     Route::get('/user/{id}/posts', [UserController::class, 'userposts']); /// Users posts
     Route::get('/user/search/{name}', [UserController::class, 'user_search']); /// Search user by name
@@ -89,7 +89,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
     Route::get('/users_orders',[OrderController::class,'show'] );
 Route::get('/users_paid_orders', [OrderController::class, 'show_paid']);
 Route::get('/order_messages/{order_messages}', [OrderController::class, 'get_order_messages']);
-Route::post('/order_messages', [OrderController::class, 'post_order_messages']);
+Route::post('/order_messages/{currentorder}', [OrderController::class, 'post_order_messages']);
 Route::delete('/order_messages', [OrderController::class, 'delete_order_messages']);
 
     Route::get('/topics/search/{topic_title}', [QnAController::class, 'topic_search']); /// topic search
@@ -98,6 +98,7 @@ Route::delete('/order_messages', [OrderController::class, 'delete_order_messages
     Route::post('/order/create-payment-session', [StripeController::class, 'createOrderPaymentSession']);
     Route::post('/portfolio/create-payment-session', [StripeController::class, 'createDigitalPaintingPaymentSession']);
     Route::post('/comment/{id}', [BlogController::class, 'newComment']);
+
 });
 Route::get('/collection/portfolio/{id}', [PortfolioController::class, 'display']);
 Route::get('/portinfo', [PortfolioController::class, 'create']); /// Feedback list
