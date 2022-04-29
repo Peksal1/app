@@ -38,7 +38,7 @@
                 <div id="product-1" class="single-product">
                   <div class="part-1">
                     <img
-                      :src="`/sale/${purchase.painting.image}`"
+                      :src="`/digital/${purchase.painting.image}`"
                       :alt="`${purchase.painting.image}`"
                       style="cursor: pointer; max-width: 450px"
                       @click="openPurchaseModal(index)"
@@ -46,7 +46,7 @@
                     <ul>
                       <li>
                         <a href="#" ><i class="fas fa-expand"></i></a>
-                        <a :href="`/sale/${purchase.painting.image}`" download>Download</a>
+                        <a :href="`/digital/${purchase.painting.image}`" download>Download</a>
                       </li>
                     </ul>
                   </div>
