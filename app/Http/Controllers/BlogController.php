@@ -130,7 +130,40 @@ class BlogController extends Controller
     {
         //
     }
-
+    public function update($blog, Request $request)
+    {
+     
+      $blog = Blog::find($blog);
+     $blogData =   $request->all();
+  
+          if ($request->hasFile('image')) {
+              // get image from request
+              $image = $request->file('image');
+              // get image name
+              $imageName = $image->getClientOriginalName();
+              // move image to public/images
+              $image->move(public_path('blog'), $imageName);
+              // save image name to database
+              $blogData['image'] = $imageName;
+  
+          
+          }else{
+               $blogData['image'] = $blog->image;
+          }
+  
+  
+          if (  $blog->update($blogData)) {
+              return response()->json([
+                  'success' => true,
+                  'message' => 'Blog item has been updated successfully',
+                  'blog' => $blog
+              ], 200);
+          } else {
+              return response()->json(['success' => false, 'message' => 'Blog item not updated'], 400);
+          }
+  
+  
+  }
     /**
      * Update the specified resource in storage.
      *

@@ -116,13 +116,40 @@ class PortfolioController extends Controller
     
     }
 
-    public function update(Request $request, $portfolio)
+    public function update($portfolio, Request $request)
     {
+     
+      $portfolio = Portfolio::find($portfolio);
+     $portfolioData =   $request->all();
+  
+          if ($request->hasFile('file_path')) {
+              // get image from request
+              $image = $request->file('file_path');
+              // get image name
+              $imageName = $image->getClientOriginalName();
+              // move image to public/images
+              $image->move(public_path('portfolio'), $imageName);
+              // save image name to database
+              $portfolioData['file_path'] = $imageName;
+  
           
-        $portfolios= Portfolio::find($portfolio);
-            $portfolios->update($request->all());
-            return  $portfolios;
-    }
+          }else{
+               $portfolioData['file_path'] = $portfolio->file_path;
+          }
+  
+  
+          if (  $portfolio->update($portfolioData)) {
+              return response()->json([
+                  'success' => true,
+                  'message' => 'Portfolio item has been updated successfully',
+                  'portfolio' => $portfolio
+              ], 200);
+          } else {
+              return response()->json(['success' => false, 'message' => 'portfolio item not updated'], 400);
+          }
+  
+  
+  }
     public function portfolio_search(Request $request, $work_name)
     {
         $result = Portfolio::where('work_name', 'LIKE', '%'. $work_name. '%')->get();

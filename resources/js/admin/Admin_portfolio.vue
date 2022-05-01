@@ -90,6 +90,7 @@
         </div>
       </div>
     </section>
+    
   </div>
 </template>
 
@@ -101,6 +102,7 @@ export default {
     return {
       portfolios: {},
       portfolio: {},
+   
       showPortfolioModal: false,
       currentUser: {},
       isLoggedIn: false,

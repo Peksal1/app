@@ -77,8 +77,6 @@
         </div>
       </div>
     </section>
-
-
      <div
       class="modal"
       :class="{ show: shoUpadteModal }"
@@ -125,10 +123,38 @@
                   />
                 </div>
               </div>
+                <div class="form-group">
+                <label for="">Work name</label>
+                <input
+                  v-model="updateForm.work_name "
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+              
                <div class="form-group">
                 <label for="">Description</label>
                 <input
                   v-model="updateForm.description"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+                <div class="form-group">
+                <label for="">Orientation</label>
+                <input
+                  v-model="updateForm.orientation"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+               <div class="form-group">
+                <label for="">Price (EUR)</label>
+                <input
+                  v-model="updateForm.price_in_eur"
                   type="text"
                   class="form-control"
                   required
@@ -165,6 +191,9 @@ export default {
         id: null,
         file_path:'',
         description: '',
+        orientation: '',
+        price_in_eur: '',
+        work_name: '',
       },
       pagination: {
         data: [],
@@ -184,15 +213,15 @@ export default {
   methods: {
   updateProduct(){
      let formData = new FormData();
-      // formData.append("work_name", this.storeForm.work_name);
+       formData.append("work_name", this.updateForm.work_name);
       formData.append("file_path", this.updateForm.file_path);
       formData.append("description", this.updateForm.description);
-      // formData.append("category_id", this.storeForm.category_id);
-      // formData.append("orientation", this.storeForm.orientation);
-      // formData.append("price_in_eur", this.storeForm.price_in_eur);
-      // formData.append("size_id", this.storeForm.size_id);
-      // formData.append("canvas_id", this.storeForm.canvas_id);
-      // formData.append("paint_id", this.storeForm.paint_id);
+    //   formData.append("category_id", this.updateForm.category_id);
+       formData.append("orientation", this.updateForm.orientation);
+       formData.append("price_in_eur", this.updateForm.price_in_eur);
+     //  formData.append("size_id", this.updateForm.size_id);
+     //  formData.append("canvas_id", this.updateForm.canvas_id);
+       //formData.append("paint_id", this.updateForm.paint_id);
 
       axios
         .post(`/api/shops/${this.updateForm.id}/update`, formData, {
@@ -206,7 +235,7 @@ export default {
            let shopIndex =  this.shops.findIndex(item=>item.id == this.updateForm.id);
            this.shops[shopIndex] = res.data.shop;
             // reset the form
-            this.storeForm = {
+            this.updateForm = {
               work_name: "",
               file_path: "",
               description: "",

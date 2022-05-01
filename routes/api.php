@@ -38,7 +38,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1']], function () {
     Route::post('/collection', [PortfolioController::class, 'new_collection']);
     Route::get('/collections', [PortfolioController::class, 'collections']);
     Route::delete('/messages/{id}', [ContactsController::class, 'destroy']); /// Deleting a message
-    Route::delete('/portfolio/{id}', [PortfolioController::class, 'destroy']); /// Information about a specific portfolio item
+     /// Information about a specific portfolio item
     Route::put('/portfolio/{id}', [PortfolioController::class, 'update']); /// User editing
     Route::get('/message/{specific_message}', [ContactsController::class, 'show']); /// Deleting a message
 });
@@ -61,10 +61,12 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
     Route::delete('/shops/{shop}', [ShopController::class, 'destroy']);
     
     Route::post('/shops/{shop}/update', [ShopController::class, 'update']);
+    Route::post('/portfolios/{portfolio}/update', [PortfolioController::class, 'update']);
+    Route::post('/blogs/{blog}/update', [BlogController::class, 'update']);
     Route::post('/users', [UserController::class, 'store']); /// New user
     Route::get('/users', [UserController::class, 'index']); /// User list
     Route::delete('/users/{id}', [UserController::class, 'destroy']); /// User deleting
-
+    Route::delete('/portfolio/{id}', [PortfolioController::class, 'destroy']);
     Route::put('/users/{id}', [UserController::class, 'update']); /// User editing
     Route::post('/portfolio/digital/{currentPortfolio}', [PortfolioController::class, "newDigital"]);
     Route::get('/user/{id}/feedback', [UserController::class, 'userfeedback']); /// Users feedback

@@ -54,9 +54,15 @@
                   </li>
                 </ul>
               </div>
+               <div @click="callEditModal(index)" class="btn btn-sm btn-danger">
+                    Update
+                  </div>
+                  <br />
               <div @click="deleteBlog(index)" class="btn btn-sm btn-danger">
                 Delete
               </div>
+              
+                 
             </div>
             <ul class="pagination pagination-primary">
               <Pagination
@@ -248,6 +254,92 @@
         </div>
       </div>
     </div>
+       <div
+      class="modal"
+      :class="{ show: showUpdateModal }"
+      id="storeModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="exampleModalLabel">
+              Add a new item to the store
+            </h5>
+            <button
+              type="button"
+              class="close text-dark"
+              data-dismiss="modal"
+              aria-label="Close"
+              @click="hideUpdateModal"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="updateBlog">
+        
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                  <label
+                    for="attachment"
+                    class="leading-7 text-sm text-gray-600"
+                    >Attachments</label
+                  ><br />
+
+                  <input
+                    type="file"
+                    accept="image/*"
+                    @change="uploadImage($event)"
+                    id="file-input"
+                    required
+                  />
+                </div>
+              </div>
+                <div class="form-group">
+                <label for="">Title</label>
+                <input
+                  v-model="updateForm.title"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+              
+               <div class="form-group">
+                <label for="">Description</label>
+                <input
+                  v-model="updateForm.description"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+                <div class="form-group">
+                <label for="">Thumbnail</label>
+                <input
+                  v-model="updateForm.thumbnail"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="submit"
+                  value="Submit"
+                  class="btn btn-primary btn-block"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -261,7 +353,15 @@ export default {
       blogs: {},
       cat: [],
       blog_categories: [],
+      showUpdateModal:false,
       searchKeyword: "",
+         updateForm:{
+        id: null,
+        title:'',
+        description: '',
+        thumbnail: '',
+        image: '',
+      },
       pagination: {
         data: [],
         total: 0,
@@ -279,6 +379,52 @@ export default {
     Pagination,
   },
   methods: {
+    updateBlog(){
+     let formData = new FormData();
+       formData.append("title", this.updateForm.title);
+      formData.append("image", this.updateForm.image);
+      formData.append("description", this.updateForm.description);
+       formData.append("thumbnail", this.updateForm.thumbnail);;
+      axios
+        .post(`/api/blogs/${this.updateForm.id}/update`, formData, {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          if (res.data.success) {
+           let blogIndex =  this.blogs.findIndex(item=>item.id == this.updateForm.id);
+           this.blogs[blogIndex] = res.data.blog;
+            // reset the form
+            this.updateForm = {
+  title:'',
+        description: '',
+        thumbnail: '',
+        image: '',
+            };
+            // hide the modal
+            this.hideUpdateModal();
+            alert("The item was successfully added to the shop!");
+          } else {
+            alert("STOPPPPPPPPP");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  },
+      callEditModal(index){
+    this.updateForm = this.blogs[index];
+  this.showUpdateModal = true;
+  },
+   uploadImage(event) {
+      const file = event.target.files[0];
+      this.updateForm.image = file;
+    },
+    hideUpdateModal(){
+    this.showUpdateModal = false;
+    },
     getAllBlogs() {
       axios
         .get(
