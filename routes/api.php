@@ -110,7 +110,7 @@ Route::get('/blog/{id}', [BlogController::class, 'show']); /// User list
 Route::get('blog/comments/{id}', [BlogController::class, 'showComments']);
 Route::get('/blog_categories', [BlogController::class, 'blog_categories']);
 Route::post('/blog_categories', [BlogController::class, 'new_category']);
-Route::get('/portfolio/all', [PortfolioController::class, 'full_portfolio']);
+Route::get('/portfolios', [PortfolioController::class, 'full_portfolio']);
 
 Route::get('/canvases', [UtilityController::class, 'canvases']);
 Route::post('/canvases', [UtilityController::class, 'store_canvas']);

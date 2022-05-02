@@ -32,10 +32,24 @@ class PortfolioController extends Controller
     public function full_portfolio(Request $request)
     {
         $query= Portfolio::query();
-  
-   
+    if (!empty($request->cat)) {
+        $query->whereIn('category_id', explode(',', $request->cat));
+    }
+    if (!empty($request->sizefilter)) {
+        $query->whereIn('size_id', explode(',', $request->sizefilter));
+    }
+    if (!empty($request->canvasfilter)) {
+        $query->whereIn('canvas_id', explode(',', $request->canvasfilter));
+    }
+    if (!empty($request->paintfilter)) {    
+        $query->whereIn('paint_id', explode(',', $request->paintfilter));
+    }
+    if (!empty($request->searchKeyword)) {
+        $query->where('work_name', 'LIKE', "%{$request->searchKeyword}%");
+    }
     return $query->paginate(4);
 }
+    
 
     public function collections()
     {

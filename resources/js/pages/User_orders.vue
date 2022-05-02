@@ -66,17 +66,19 @@
             >
               <span aria-hidden="true">&times;</span>
             </button>
+          
+
+          </div>
                  <div
             class="modal-body"
             v-for="(order_message, index) in order_messages"
             :key="index"
           >
+   
          <strong> {{order_message.user.name}} </strong> <br />
           {{order_message.message}}
           <br />
         
-          </div>
-
           </div>
          <form @submit.prevent="postOrderMessage(currentOrder)">
               <div class="form-group">
@@ -257,7 +259,7 @@ export default {
     openOrderMessageModal(index) {
       this.showOrderMessageModal = true;
       this.currentOrder = index;
-      this.getAllOrderMessages(currentOrder);
+      this.getAllOrderMessages(index);
           
     },
     hideOrderMessageModal() {

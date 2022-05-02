@@ -10,6 +10,39 @@
             </div>
           </div>
         </div>
+         
+          <!-- Single Product -->
+          <div
+            class="col-md-6 col-lg-4 col-xl-2"
+           
+          >
+            <div id="product-1" class="single-product">
+              <div class="part-1">
+                <router-link
+                  :to="{
+                    name: 'portfolio/all',
+                  }"
+                >
+                  <img :src="`/collection/all.png`" alt="" x
+                /></router-link>
+
+                <ul>
+                  <li>
+                    <a href="#"><i class="fas fa-expand"></i></a>
+                  </li>
+                </ul>
+              </div>
+              <div class="part-2">
+                <h3 class="product-title">
+                  <strong>Full portfolio</strong>
+                </h3>
+                <div class="category">123</div>
+                <h4 class="product-price">
+                  123
+                </h4>
+              </div>
+            </div>
+        </div>
         <div class="row">
           <!-- Single Product -->
           <div
