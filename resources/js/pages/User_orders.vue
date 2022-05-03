@@ -7,7 +7,7 @@
       <v-card
         v-for="(order, index) in orders"
             :key="index"
-        class="mx-auto my-3"
+        class="mx-auto my-3 col-md-8 col-lg-6"  
         max-width="15rem"
         min-width="15rem"
       >
@@ -15,7 +15,7 @@
         <v-img
           class="white--text align-end"
           height="10rem"
-          src="https://rb.gy/rnnzki"
+          :src="`/images/${order.file_path}`"
         >
           <v-card-title class="d-flex justify-center text-dark">{{
             order.id
@@ -104,14 +104,14 @@
     <v-card
     v-for="(paid_order, index) in paid_orders"
             :key="index"
-      class="mx-auto my-3"
+      class="mx-auto my-3 col-md-8 col-lg-6"
       max-width="15rem"
       min-width="15rem"
     >
       <v-img
         class="white--text align-end"
         height="10rem"
-        src="https://rb.gy/rnnzki"
+       :src="`/images/${paid_order.file_path}`"
       >
         <v-card-title class="d-flex justify-center text-dark">{{
           paid_order.id

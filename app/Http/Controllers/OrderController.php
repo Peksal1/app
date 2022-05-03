@@ -82,6 +82,40 @@ class OrderController extends Controller
         $orders->update($request->all());
         return  $orders;
     }
+    public function update($order, Request $request)
+  {
+   
+    $order = Orders::find($order);
+   $orderData =   $request->all();
+
+        if ($request->hasFile('file_path')) {
+            // get image from request
+            $image = $request->file('file_path');
+            // get image name
+            $imageName = $image->getClientOriginalName();
+            // move image to public/images
+            $image->move(public_path('images'), $imageName);
+            // save image name to database
+            $orderData['file_path'] = $imageName;
+
+        
+        }else{
+             $orderData['file_path'] = $order->file_path;
+        }
+
+
+        if (  $order->update($orderData)) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Order item has been updated successfully',
+                'order' => $order
+            ], 200);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Order item not updated'], 400);
+        }
+
+
+}
     public function order($order)
     {
         $orders = Orders::findOrFail($order);

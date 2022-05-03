@@ -90,7 +90,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">
-              Add a new item to the store
+              Update store item
             </h5>
             <button
               type="button"

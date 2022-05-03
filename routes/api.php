@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
     Route::post('/painting_categories', [UtilityController::class, 'store_painting_category']);
     Route::delete('/painting_categories/{category}', [UtilityController::class, 'delete_painting_category']);
     Route::delete('/shops/{shop}', [ShopController::class, 'destroy']);
-    
+    Route::post('/orders/{order}/update', [OrderController::class, 'update']);
     Route::post('/shops/{shop}/update', [ShopController::class, 'update']);
     Route::post('/portfolios/{portfolio}/update', [PortfolioController::class, 'update']);
     Route::post('/blogs/{blog}/update', [BlogController::class, 'update']);

@@ -11,7 +11,8 @@
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-md-3" v-for="order in orders" :key="order.id">
+        <div class="col-md-3" v-for="(order, index) in orders"
+            :key="index">
           <div class="card">
             <div class="card-body">
               <div class="product-image">
@@ -21,6 +22,9 @@
             </div>
             <div class="btn btn-sm btn-primary" @click="openOrderMessageModal(order.id)">
         Discuss the order
+      </div>
+      <div class="btn btn-sm btn-primary" @click="callEditModal(index)">
+        Update order status
       </div>
           </div>
             
@@ -96,6 +100,92 @@
         </div>
       </div>
     </div>
+      <div
+      class="modal"
+      :class="{ show: showUpdateModal }"
+      id="storeModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="exampleModalLabel">
+              Update order status
+            </h5>
+            <button
+              type="button"
+              class="close text-dark"
+              data-dismiss="modal"
+              aria-label="Close"
+              @click="hideUpdateModal"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="updateOrder">
+        
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                  <label
+                    for="attachment"
+                    class="leading-7 text-sm text-gray-600"
+                    >Attachments</label
+                  ><br />
+
+                  <input
+                    type="file"
+                    accept="image/*"
+                    @change="uploadImage($event)"
+                    id="file-input"
+                    required
+                  />
+                </div>
+              </div>
+                <div class="form-group">
+                <label for="">Completion</label>
+                <input
+                  v-model="updateForm.completion "
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+              
+               <div class="form-group">
+                <label for="">Accepted</label>
+                <input
+                  v-model="updateForm.accepted"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+                <div class="form-group">
+                <label for="">Price</label>
+                <input
+                  v-model="updateForm.price"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="submit"
+                  value="Submit"
+                  class="btn btn-primary btn-block"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -116,6 +206,14 @@ export default {
         to: 0,
         current_page: 1,
       },
+        updateForm:{
+        id: null,
+        file_path:'',
+        completion: '',
+        orientation: '',
+        accepted: '',
+        price: '',
+      },
       currentorder: "",
        formData: {
         message: "",
@@ -124,6 +222,7 @@ export default {
       },
         order_messages: [],
         showOrderMessageModal: false,
+        showUpdateModal: false,
     };
   },
   components: {
@@ -131,6 +230,54 @@ export default {
     Pagination,
   },
   methods: {
+     updateOrder(){
+     let formData = new FormData();
+       formData.append("work_name", this.updateForm.completion);
+      formData.append("file_path", this.updateForm.file_path);
+      formData.append("description", this.updateForm.accepted);
+       formData.append("orientation", this.updateForm.orientation);
+       formData.append("price_in_eur", this.updateForm.price);
+
+
+      axios
+        .post(`/api/orders/${this.updateForm.id}/update`, formData, {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          if (res.data.success) {
+           let orderIndex =  this.orders.findIndex(item=>item.id == this.updateForm.id);
+           this.orders[orderIndex] = res.data.order;
+            // reset the form
+            this.updateForm = {
+              work_name: "",
+              file_path: "",
+              description: "",
+            };
+            // hide the modal
+            this.hideUpdateModal();
+            alert("The order was successfully updated!");
+          } else {
+            alert("STOPPPPPPPPP");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  },
+  callEditModal(index){
+    this.updateForm = this.orders[index];
+  this.showUpdateModal = true;
+  },
+   uploadImage(event) {
+      const file = event.target.files[0];
+      this.updateForm.file_path = file;
+    },
+    hideUpdateModal(){
+    this.showUpdateModal = false;
+    },
        openOrderMessageModal(index) {
       this.showOrderMessageModal = true;
       this.currentOrder = index;
