@@ -93,7 +93,7 @@ Route::get('/users_paid_orders', [OrderController::class, 'show_paid']);
 Route::get('/order_messages/{order_messages}', [OrderController::class, 'get_order_messages']);
 Route::post('/order_messages/{currentorder}', [OrderController::class, 'post_order_messages']);
 Route::delete('/order_messages', [OrderController::class, 'delete_order_messages']);
-
+Route::get('order_messages/admin/{order_messages}', [OrderController::class, 'adminGetMessages']);
     Route::get('/topics/search/{topic_title}', [QnAController::class, 'topic_search']); /// topic search
     Route::put('/user/{id}', [UserController::class, 'updateuser']); /// User editing
     Route::post('/create-payment-session', [StripeController::class, 'createPaymentSession']);

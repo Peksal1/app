@@ -164,9 +164,9 @@ export default {
     },
       getAllOrderMessages(currentOrder) {
       axios
-        .get("/api/order_messages/" + this.currentOrder, {
+        .get("/api/order_messages/admin/" + this.currentOrder, {
           headers: {
-            Authorization: "Bearer " + this.token,
+            Authorization: "Bearer " + this.adminToken,
           },
         })
         .then((res) => {

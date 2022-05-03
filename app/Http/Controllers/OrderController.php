@@ -133,6 +133,12 @@ class OrderController extends Controller
         // return $order_messages;
     }
     
+    public function adminGetMessages($order_messages)
+
+    {
+         $order_messages = Order_message::where('order_id', $order_messages)->with('user')->get();
+         return $order_messages;
+    }
  
     public function post_order_messages(Request $request)
     {
