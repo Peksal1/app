@@ -129,7 +129,7 @@
         <div>paint: {{ paid_order.paint }}</div>
       </v-card-text>
       <v-card-text class="text--primary">
-        <div>Price: {{ paid_order.price }} EUR</div>
+        <div>Tracking number: <strong>{{ paid_order.tracking }}</strong></div>
       </v-card-text>
       <hr />
       <div class="btn btn-sm btn-primary" @click="openOrderMessageModal(paid_order.id)">

@@ -8,7 +8,6 @@ class orders extends Model
 {
     protected $fillable = [
         'completion',
-        'accepted',
         'file_path',
         'uuid',
         'text',
@@ -18,7 +17,8 @@ class orders extends Model
         'canvas_id',
         'price',
         'orientation',
-        'is_paid'
+        'is_paid',
+        'tracking',
     ];
 
     public function user()

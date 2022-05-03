@@ -166,9 +166,9 @@
                 />
               </div>
                 <div class="form-group">
-                <label for="">Price</label>
+                <label for="">Tracking number</label>
                 <input
-                  v-model="updateForm.price"
+                  v-model="updateForm.tracking"
                   type="text"
                   class="form-control"
                   required
@@ -212,7 +212,7 @@ export default {
         completion: '',
         orientation: '',
         accepted: '',
-        price: '',
+        tracking: '',
       },
       currentorder: "",
        formData: {
@@ -236,7 +236,7 @@ export default {
       formData.append("file_path", this.updateForm.file_path);
       formData.append("description", this.updateForm.accepted);
        formData.append("orientation", this.updateForm.orientation);
-       formData.append("price_in_eur", this.updateForm.price);
+       formData.append("tracking", this.updateForm.tracking);
 
 
       axios

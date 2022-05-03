@@ -18,7 +18,6 @@ class CreateOrdersTable extends Migration
             $table->timestamps();
             $table->string('uuid')->nullable();
             $table->boolean('completion')->default(0);
-            $table->boolean('accepted')->default(0);
             $table->string('file_path')->nullable();
             $table->string('orientation');
             $table->foreignId('size_id')->references('id')->on('sizes')->onDelete('cascade');
@@ -27,6 +26,7 @@ class CreateOrdersTable extends Migration
             $table->double('price')->default(0);
             $table->boolean('is_paid')->default(0);
             $table->longText('text');
+            $table->string('tracking')->default('Not sent');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             
         });
