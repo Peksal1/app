@@ -217,7 +217,7 @@ export default {
       formData.append("thumbnail", this.blogForm.thumbnail);
       formData.append("image", this.blogForm.image);
       formData.append("blog_category_id", this.blogForm.blog_category_id);
-      formData.append("user_id", this.blogForm.blog_category_id);
+      formData.append("user_id", this.currentUser.id);
 
       axios
         .post("/api/blogs", formData, {

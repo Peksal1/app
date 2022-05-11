@@ -146,7 +146,7 @@
                   <input
                     type="file"
                     accept="image/*"
-                    @change="uploadImage($event)"
+                    @change="uploadDigitalImage($event)"
                     id="file-input"
                     required
                   />
@@ -415,7 +415,7 @@ this.currentPortfolio = index;
      hideDigitalModal() {
       this.showDigitalModal = false;
     },
-    uploadImage(event) {
+    uploadDigitalImage(event) {
       const file = event.target.files[0];
       this.digitalForm.image = file;
     },

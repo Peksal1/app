@@ -97,7 +97,7 @@ class BlogController extends Controller
     public function show($blog)
     {
    
-        $blog = Blog::where('id',$blog)->first();
+        $blog = Blog::where('id',$blog)->with('user')->with('blog_category')->first();
         return response()->json($blog);
     }
     public function newComment(Request $request)

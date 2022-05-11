@@ -111,7 +111,7 @@ Route::get('blog/comments/{id}', [BlogController::class, 'showComments']);
 Route::get('/blog_categories', [BlogController::class, 'blog_categories']);
 Route::post('/blog_categories', [BlogController::class, 'new_category']);
 Route::get('/portfolios', [PortfolioController::class, 'full_portfolio']);
-
+Route::get('/collection/{id}', [PortfolioController::class, 'collection']);
 Route::get('/canvases', [UtilityController::class, 'canvases']);
 Route::post('/canvases', [UtilityController::class, 'store_canvas']);
 Route::delete('/canvases/{canvas}', [UtilityController::class, 'delete_canvas']);

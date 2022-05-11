@@ -24,4 +24,8 @@ class Blog extends Model
     {
         return $this->hasMany(Blog_comment::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
 }

@@ -53,8 +53,14 @@ class PortfolioController extends Controller
 
     public function collections()
     {
-        $collections=Collection::paginate(20);
+        $collections=Collection::paginate(4);
     return $collections;
+    }
+  
+    public function collection($collection)
+    {
+        $collection=Collection::where('id',$collection)->first();
+    return $collection;
     }
 
     public function show($portfolio)

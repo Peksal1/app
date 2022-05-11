@@ -1,7 +1,7 @@
     <template>
   <div>
     <Navbar />
-    <section class="section-products">
+    <section class="section-collections">
       <div class="container">
         <div class="row justify-content-center text-center">
           <div class="col-md-8 col-lg-6">
@@ -23,7 +23,7 @@
                     name: 'portfolio/all',
                   }"
                 >
-                  <img :src="`/collection/all.png`" alt="" x
+                  <img :src="`/collection/all.png`" style="max-width:290px; max-height:300px" alt="" x
                 /></router-link>
 
                 <ul>
@@ -36,9 +36,9 @@
                 <h3 class="product-title">
                   <strong>Full portfolio</strong>
                 </h3>
-                <div class="category">123</div>
+                <div class="category">All of my portfolio items</div>
                 <h4 class="product-price">
-                  123
+                  1999 - to this day
                 </h4>
               </div>
             </div>
@@ -58,7 +58,7 @@
                     params: { id: collection.id },
                   }"
                 >
-                  <img :src="`/collection/${collection.image}`" alt="" x
+                  <img :src="`/collection/${collection.image}`" alt="" style="max-width:300px"x
                 /></router-link>
 
                 <ul>
@@ -167,31 +167,31 @@ a:hover {
   color: inherit;
 }
 
-.section-products {
+.section-collections {
   padding: 80px 0 54px;
 }
 
-.section-products .header {
+.section-collections .header {
   margin-bottom: 50px;
 }
 
-.section-products .header h3 {
+.section-collections .header h3 {
   font-size: 1rem;
   color: #fe302f;
   font-weight: 500;
 }
 
-.section-products .header h2 {
+.section-collections .header h2 {
   font-size: 2.2rem;
   font-weight: 400;
   color: #444444;
 }
 
-.section-products .single-product {
+.section-collections .single-product {
   margin-bottom: 26px;
 }
 
-.section-products .single-product .part-1 {
+.section-collections .single-product .part-1 {
   position: relative;
   height: 290px;
   max-height: 290px;
@@ -199,7 +199,7 @@ a:hover {
   overflow: hidden;
 }
 
-.section-products .single-product .part-1::before {
+.section-collections .single-product .part-1::before {
   position: absolute;
   content: "";
   top: 0;
@@ -210,110 +210,27 @@ a:hover {
   transition: all 0.3s;
 }
 
-.section-products .single-product:hover .part-1::before {
+.section-collections .single-product:hover .part-1::before {
   transform: scale(1.2, 1.2) rotate(5deg);
 }
 
-.section-products #product-1 .part-1::before {
+.section-collections #product-1 .part-1::before {
   background: url("https://i.ibb.co/L8Nrb7p/1.jpg") no-repeat center;
   background-size: cover;
   transition: all 0.3s;
 }
 
-.section-products #product-2 .part-1::before {
-  background: url("https://i.ibb.co/cLnZjnS/2.jpg") no-repeat center;
-  background-size: cover;
-}
-
-.section-products #product-3 .part-1::before {
-  background: url("https://i.ibb.co/L8Nrb7p/1.jpg") no-repeat center;
-  background-size: cover;
-}
-
-.section-products #product-4 .part-1::before {
-  background: url("https://i.ibb.co/cLnZjnS/2.jpg") no-repeat center;
-  background-size: cover;
-}
-
-.section-products .single-product .part-1 .discount,
-.section-products .single-product .part-1 .new {
-  position: absolute;
-  top: 15px;
-  left: 20px;
-  color: #ffffff;
-  background-color: #fe302f;
-  padding: 2px 8px;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-}
-
-.section-products .single-product .part-1 .new {
-  left: 0;
-  background-color: #444444;
-}
-
-.section-products .single-product .part-1 ul {
-  position: absolute;
-  bottom: -41px;
-  left: 20px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  opacity: 0;
-  transition: bottom 0.5s, opacity 0.5s;
-}
-
-.section-products .single-product:hover .part-1 ul {
-  bottom: 30px;
-  opacity: 1;
-}
-
-.section-products .single-product .part-1 ul li {
-  display: inline-block;
-  margin-right: 4px;
-}
-
-.section-products .single-product .part-1 ul li a {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  background-color: #ffffff;
-  color: #444444;
-  text-align: center;
-  box-shadow: 0 2px 20px rgb(50 50 50 / 10%);
-  transition: color 0.2s;
-}
-
-.section-products .single-product .part-1 ul li a:hover {
+.section-collections .single-product .part-1 ul li a:hover {
   color: #fe302f;
 }
 
-.section-products .single-product .part-2 .product-title {
+.section-collections .single-product .part-2 .product-title {
   font-size: 1rem;
 }
 
-.section-products .single-product .part-2 h4 {
+.section-collections .single-product .part-2 h4 {
   display: inline-block;
   font-size: 1rem;
   color: gray;
-}
-
-.section-products .single-product .part-2 .product-old-price {
-  position: relative;
-  padding: 0 7px;
-  margin-right: 2px;
-  opacity: 0.6;
-}
-
-.section-products .single-product .part-2 .product-old-price::after {
-  position: absolute;
-  content: "";
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background-color: #444444;
-  transform: translateY(-50%);
 }
 </style>

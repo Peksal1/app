@@ -39,15 +39,7 @@
                     ></router-link
                   >
                 </div>
-                <ul class="stats">
-                  <li><a href="javascript:void(0);">General</a></li>
-                  <li>
-                    <a href="javascript:void(0);" class="fa fa-heart">28</a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);" class="fa fa-comment">128</a>
-                  </li>
-                </ul>
+             
               </div>
             </div>
             <ul class="pagination pagination-primary">
@@ -110,28 +102,28 @@
             </div>
             <div class="card">
               <div class="header">
-                <h2>Popular Posts</h2>
+                <h2>Instagram feed</h2>
               </div>
               <div class="body widget popular-post">
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="single_post">
-                      <p class="m-b-0">Apple Introduces Search Ads Basic</p>
-                      <span>jun 22, 2018</span>
+                      <p class="m-b-0">First post</p>
+                      <span>May 22, 2022</span>
                       <div class="img-post">
                         <img
                           src="https://via.placeholder.com/280x280/FFB6C1/000000"
-                          alt="Awesome Image"
+                          alt="Instagram post"
                         />
                       </div>
                     </div>
                     <div class="single_post">
-                      <p class="m-b-0">new rules, more cars, more races</p>
-                      <span>jun 8, 2018</span>
+                      <p class="m-b-0">Second post</p>
+                      <span>May 23, 2022</span>
                       <div class="img-post">
                         <img
                           src="https://via.placeholder.com/280x280/FFB6C1/000000"
-                          alt="Awesome Image"
+                          alt="Instagram post"
                         />
                       </div>
                     </div>
@@ -139,103 +131,8 @@
                 </div>
               </div>
             </div>
-            <div class="card">
-              <div class="header">
-                <h2>Instagram Post</h2>
-              </div>
-              <div class="body widget">
-                <ul class="list-unstyled instagram-plugin m-b-0">
-                  <li>
-                    <a href="javascript:void(0);"
-                      ><img
-                        src="https://via.placeholder.com/80x80/FFB6C1/000000"
-                        alt="image description"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);"
-                      ><img
-                        src="https://via.placeholder.com/80x80/FFB6C1/000000"
-                        alt="image description"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);"
-                      ><img
-                        src="https://via.placeholder.com/80x80/FFB6C1/000000"
-                        alt="image description"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);"
-                      ><img
-                        src="https://via.placeholder.com/80x80/FFB6C1/000000"
-                        alt="image description"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);"
-                      ><img
-                        src="https://via.placeholder.com/80x80/FFB6C1/000000"
-                        alt="image description"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);"
-                      ><img
-                        src="https://via.placeholder.com/80x80/FFB6C1/000000"
-                        alt="image description"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);"
-                      ><img
-                        src="https://via.placeholder.com/80x80/FFB6C1/000000"
-                        alt="image description"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);"
-                      ><img
-                        src="https://via.placeholder.com/80x80/FFB6C1/000000"
-                        alt="image description"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);"
-                      ><img
-                        src="https://via.placeholder.com/80x80/FFB6C1/000000"
-                        alt="image description"
-                    /></a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="card">
-              <div class="header">
-                <h2>
-                  Email Newsletter
-                  <small
-                    >Get our products/news earlier than others, let’s get in
-                    touch.</small
-                  >
-                </h2>
-              </div>
-              <div class="body widget newsletter">
-                <div class="input-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter Email"
-                  />
-                  <div class="input-group-append">
-                    <span class="input-group-text"
-                      ><i class="icon-paper-plane"></i
-                    ></span>
-                  </div>
-                </div>
-              </div>
-            </div>
+ 
+      
           </div>
         </div>
       </div>

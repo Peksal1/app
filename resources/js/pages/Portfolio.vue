@@ -6,7 +6,7 @@
         <div class="row justify-content-center text-center">
           <div class="col-md-8 col-lg-6">
             <div class="header">
-              <h2>Collection - XXX</h2>
+              <h2>Collection - {{collection.name}}</h2>
             </div>
           </div>
         </div>
@@ -103,6 +103,7 @@ export default {
       portfolios: [],
       digitals: [],
       portfolio: {},
+      collection: [],
       showPortfolioModal: false,
       currentUser: {},
       isLoggedIn: false,
@@ -160,6 +161,17 @@ export default {
           console.log(res);
         });
     },
+     loadCollection() {
+      axios
+        .get("/api/collection/" + this.$route.params.id, {})
+
+        .then((response) => {
+          this.collection = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     loadPortfolios() {
       axios
         .get("/api/collection/portfolio/" + this.$route.params.id, {
@@ -214,6 +226,7 @@ export default {
   mounted() {
     this.checkLoginStatus();
     this.loadPortfolios();
+    this.loadCollection();
   },
 };
 </script>
