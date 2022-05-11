@@ -29,7 +29,7 @@ class StripeController extends Controller
             'tnx_id' => '',
             'Price' => $shop->price_in_eur,
         ]);
-
+        
         \Stripe\Stripe::setApiKey('sk_test_7NyImHAKY2arJv2aDu9jqJ1600TjVN3zFF');
 
         // register the product in stipe
@@ -178,7 +178,7 @@ class StripeController extends Controller
     public function paymentSuccess(Request $request)
     {
         $purchase = Purchases::where('uuid', $request->order_id)->first();
-       
+        
         // check session from stripe
         \Stripe\Stripe::setApiKey('sk_test_7NyImHAKY2arJv2aDu9jqJ1600TjVN3zFF');
         $session = Session::retrieve($request->stripe_id);
@@ -188,9 +188,13 @@ class StripeController extends Controller
             $purchase->status = 'paid';
             $purchase->is_paid = 1;
             $purchase->save();
+            $shop = Shop::where('id',$purchase->product_id)->first();
+            $shop->is_bought = 1;
+            $shop->save();
             return redirect('/thank-you?order=' . $purchase->uuid);
         } else {
             return redirect('/store');
         }
+        
     }
 }
