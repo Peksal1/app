@@ -53,49 +53,15 @@
           </div>
         </div>
       </div>
-    </div>
+    
 
-    <!-- 
   
-    Show All Paints
-
-   -->
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-header">Paints</div>
-          <div class="card-body">
-            <ul>
-              <li
-                v-for="(paint, index) in paints"
-                :key="index"
-                class="
-                  list-item
-                  text-black
-                  d-flex
-                  justify-content-between
-                  align-items-center
-                "
-              >
-                <div>
-                  Paint: <strong>{{ paint.type }}</strong> | Price:
-                  {{ paint.price_in_eur }} EUR
-                </div>
-                <div @click="deletePaint(index)" class="btn btn-sm btn-danger">
-                  Delete
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
     <!-- 
   
     Show All Canvases
 
    -->
-    <div class="row">
+   
       <div class="col-md-4">
         <div class="card">
           <div class="card-header">Canvases</div>
@@ -117,6 +83,41 @@
                   {{ canvas.price_in_eur }} EUR
                 </div>
                 <div @click="deleteCanvas(index)" class="btn btn-sm btn-danger">
+                  Delete
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+    <!-- 
+  
+    Show All Paints
+
+   -->
+  
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">Paints</div>
+          <div class="card-body">
+            <ul>
+              <li
+                v-for="(paint, index) in paints"
+                :key="index"
+                class="
+                  list-item
+                  text-black
+                  d-flex
+                  justify-content-between
+                  align-items-center
+                "
+              >
+                <div>
+                  Paint: <strong>{{ paint.type }}</strong> | Price:
+                  {{ paint.price_in_eur }} EUR
+                </div>
+                <div @click="deletePaint(index)" class="btn btn-sm btn-danger">
                   Delete
                 </div>
               </li>
@@ -559,7 +560,11 @@ form {
 label {
   color: #000;
 }
-
+.card-body {
+  max-height:200px;
+  overflow:scroll;
+  overflow-x:hidden;
+}
 .text-black {
   color: #000;
 }

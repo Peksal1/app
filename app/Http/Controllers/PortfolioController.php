@@ -69,7 +69,13 @@ class PortfolioController extends Controller
         $portfolio = Portfolio::where('id',$portfolio)->with('digital_paintings')->first();
         return response()->json($portfolio);
     }
-
+    
+    public function specificCollection($collection)
+    {
+   
+        $collection = Collection::where('id',$collection)->first();
+        return response()->json($collection);
+    }
     public function store(Request $request)
     {
         $orderData =   $request->all();
@@ -135,7 +141,47 @@ class PortfolioController extends Controller
         return response()->json($portfolios,204);
     
     }
-
+    public function destroyCollection($collection)
+    {
+        $collections=Collection::destroy($collection);
+    
+        return response()->json($collections,204);
+    
+    }
+    public function updateCollection($collection, Request $request)
+    {
+     
+      $collection = Collection::find($collection);
+     $collectionData =   $request->all();
+  
+          if ($request->hasFile('image')) {
+              // get image from request
+              $image = $request->file('image');
+              // get image name
+              $imageName = $image->getClientOriginalName();
+              // move image to public/images
+              $image->move(public_path('collection'), $imageName);
+              // save image name to database
+              $collectionData['image'] = $imageName;
+  
+          
+          }else{
+               $collectionData['image'] = $collection->image;
+          }
+  
+  
+          if (  $collection->update($collectionData)) {
+              return response()->json([
+                  'success' => true,
+                  'message' => 'The collection item has been updated successfully',
+                  'collection' => $collection
+              ], 200);
+          } else {
+              return response()->json(['success' => false, 'message' => 'The collection item was not updated'], 400);
+          }
+  
+  
+  }
     public function update($portfolio, Request $request)
     {
      

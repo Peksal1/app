@@ -44,7 +44,7 @@
     <div
       class="modal"
       :class="{ show: showOrderMessageModal }"
-      id="sizeModal"
+      id="orderMessageModal"
       tabindex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"

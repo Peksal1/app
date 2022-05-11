@@ -161,7 +161,7 @@
             <div class="modal-body">
               <img
                 :src="`/portfolio/${portfolio.file_path}`"
-                style="max-width: 500px"
+                style="max-width: 470px"
               />
 
               <br />
@@ -309,16 +309,24 @@ export default {
   },
   watch: {
     cat(after, before) {
+           this.pagination.current_page = 1;
       this.getAllItems();
+ 
     },
     sizefilter(after, before) {
+          this.pagination.current_page = 1;
       this.getAllItems();
+  
     },
     canvasfilter(after, before) {
+        this.pagination.current_page = 1;
       this.getAllItems();
+    
     },
     paintfilter(after, before) {
+      this.pagination.current_page = 1;
       this.getAllItems();
+  
     },
   },
 };

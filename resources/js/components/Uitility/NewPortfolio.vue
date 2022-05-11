@@ -236,6 +236,10 @@ export default {
     },
     openPortfolioModal() {
       this.showPortfolioModal = true;
+        this.loadSizes();
+    this.loadPaints();
+    this.getAllPaintingCategories();
+    this.loadCanvases();
     },
     hidePortfolioModal() {
       this.showPortfolioModal = false;
@@ -345,10 +349,7 @@ export default {
   mounted() {
     this.loadCollections();
     this.checkLoginStatus();
-    this.loadSizes();
-    this.loadPaints();
-    this.getAllPaintingCategories();
-    this.loadCanvases();
+  
   },
 };
 </script>

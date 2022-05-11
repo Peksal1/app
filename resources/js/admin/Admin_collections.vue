@@ -22,19 +22,15 @@
           <!-- Single Product -->
           <div
             class="col-md-6 col-lg-4 col-xl-3"
-            v-for="collection in collections"
-            :key="collection.id"
+            v-for="(collection, index) in collections"
+            :key="index"
           >
+      
             <div id="product-1" class="single-product">
               <div class="part-1">
-                <router-link
-                  :to="{
-                    name: 'portfolio',
-                    params: { id: collection.id },
-                  }"
-                >
-                  <img :src="`/collection/${collection.image}`" alt="" x
-                /></router-link>
+             
+                  <img :src="`/collection/${collection.image}`" alt="" @click="openAdminCollectionModal(index)"
+                />
 
                 <ul>
                   <li>
@@ -57,14 +53,160 @@
         <div class="col-md-12 text-center center-pagination">
           <Pagination
             :pagination="pagination"
-            @perPage="getAllItems()"
-            @paginate="getAllItems()"
+            @perPage="getAllCollections()"
+            @paginate="getAllCollections()"
             :offset="6"
           >
           </Pagination>
         </div>
       </div>
     </section>
+    <!-- collection modal vindow -->
+             <div
+        class="modal"
+        :class="{ show: showAdminCollectionModal }"
+        id="adminCollectionModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-dark" id="exampleModalLabel">
+                {{ collection.name }}
+              </h5>
+              <button
+                type="button"
+                class="close text-dark cursor: pointer"
+                data-dismiss="modal"
+                aria-label="Close"
+                @click="hideAdminCollectionModal()"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <img
+                :src="`/collection/${collection.image}`"
+                style="max-width: 470px; max-height: 470px"
+              />
+
+              <br />
+              {{collection.description}}
+               <br />
+              {{ collection.start_date }} - {{ collection.end_date }}
+            
+              <br />
+            <div @click="callEditModal(collection.id)" class="btn btn-sm btn-primary">
+                    Update
+                  </div>
+            <div @click="deleteCollection(collection.id)" class="btn btn-sm btn-danger">
+                    Delete
+                  </div>
+            </div>
+          
+
+          </div>
+        </div>
+      </div>
+       <!-- Edit collection modal vindow -->
+            <div
+      class="modal"
+      :class="{ show: showEditModal }"
+      id="editCollectionModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="exampleModalLabel">
+              Edit the collection
+            </h5>
+            <button
+              type="button"
+              class="close text-dark"
+              data-dismiss="modal"
+              aria-label="Close"
+              @click="hideEditModal"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="updateCollection">
+        
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                  <label
+                    for="attachment"
+                    class="leading-7 text-sm text-gray-600"
+                    >Attachments</label
+                  ><br />
+
+                  <input
+                    type="file"
+                    accept="image/*"
+                    @change="uploadImage($event)"
+                    id="file-input"
+                    required
+                  />
+                </div>
+              </div>
+                <div class="form-group">
+                <label for="">Name</label>
+                <input
+                  v-model="updateForm.name"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+              
+               <div class="form-group">
+                <label for="">Description</label>
+                <input
+                  v-model="updateForm.description"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+                <div class="form-group">
+                <label for="">Start date:</label>
+                <input
+                  v-model="updateForm.start_date"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+                <div class="form-group">
+                <label for="">End date:</label>
+                <input
+                  v-model="updateForm.end_date"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="submit"
+                  value="Submit"
+                  class="btn btn-primary btn-block"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -79,6 +221,17 @@ export default {
   data() {
     return {
       collections: [],
+      showAdminCollectionModal:false,
+      showEditModal:false,
+      collection: [],
+      updateForm: {
+        id: null,
+        name: "",
+        description: "",
+        image: "",
+        start_date: "",
+        end_date: "",
+      },
       pagination: {
         data: [],
         total: 0,
@@ -87,7 +240,7 @@ export default {
         to: 0,
         current_page: 1,
       },
-      token: localStorage.getItem("token"),
+      adminToken: localStorage.getItem("adminToken"),
     };
   },
   components: {
@@ -100,18 +253,103 @@ export default {
   },
   methods: {
     getAllCollections() {
-      axios.get("/api/collections").then((res) => {
+      axios.get(`/api/collections?page=${this.pagination.current_page}`).then((res) => {
         this.collections = res.data.data;
         this.pagination = res.data;
       });
     },
+     callEditModal(index) {
+      this.showEditModal = true;
+      this.updateForm = this.collection;
+    },
+    hideEditModal() {
+      this.showEditModal = false;
+    },
+     uploadImage(event) {
+      const file = event.target.files[0];
+      this.updateForm.image = file;
+    },
+     updateCollection(){
+     let formData = new FormData();
+       formData.append("name", this.updateForm.name);
+      formData.append("image", this.updateForm.image);
+      formData.append("description", this.updateForm.description);
+      formData.append("start_date", this.updateForm.start_date);
+       formData.append("end_date", this.updateForm.end_date);
+
+      axios
+        .post(`/api/collections/${this.updateForm.id}/update`, formData, {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          if (res.data.success) {
+           let collectionIndex =  this.collections.findIndex(item=>item.id == this.updateForm.id);
+           this.collections[collectionIndex] = res.data.collection;
+            // reset the form
+            this.updateForm = {
+              name: "",
+              image: "",
+              description: "",
+              start_date: "",
+              end_date: "",
+            };
+            // hide the modal
+            this.hideEditModal();
+            alert("The collection was successfully edited!");
+            
+          } else {
+            alert("STOPPPPPPPPP");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   },
+  deleteCollection(index) {
+      axios
+        .delete("/api/collection/" + this.collection.id, {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+          },
+        })
+        .then((res) => {
+          this.getAllCollections();
+          this.hideAdminCollectionModal();
+          if (res.data.status == "success") {
+            this.collections.splice(index, 1);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    openAdminCollectionModal(index) {
+      this.showAdminCollectionModal = true;
+      this.loadSpecificCollection(index);
+    },
+    hideAdminCollectionModal() {
+      this.showAdminCollectionModal = false;
+    },
+     loadSpecificCollection(index) {
+      axios
+        .get("/api/collection/" + this.collections[index].id, {})
+
+        .then((response) => {
+          this.collection = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   checkLoginStatus() {
     this.loading = true;
     axios
       .get("/api/user", {
         headers: {
-          Authorization: "Bearer " + this.token,
+          Authorization: "Bearer " + this.adminToken,
         },
       })
       .then((response) => {
@@ -129,6 +367,7 @@ export default {
       });
     // this.loading = false
   },
+    },
   created() {
     this.getAllCollections();
   },
@@ -143,7 +382,10 @@ body {
   font-family: "Poppins", sans-serif;
   color: #444444;
 }
-
+.modal {
+  overflow-x:hidden;
+  
+}
 a,
 a:hover {
   text-decoration: none;

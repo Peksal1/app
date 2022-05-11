@@ -63,10 +63,12 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
     Route::post('/shops/{shop}/update', [ShopController::class, 'update']);
     Route::post('/portfolios/{portfolio}/update', [PortfolioController::class, 'update']);
     Route::post('/blogs/{blog}/update', [BlogController::class, 'update']);
+    Route::post('/collections/{collection}/update', [PortfolioController::class, 'updateCollection']);
     Route::post('/users', [UserController::class, 'store']); /// New user
     Route::get('/users', [UserController::class, 'index']); /// User list
     Route::delete('/users/{id}', [UserController::class, 'destroy']); /// User deleting
     Route::delete('/portfolio/{id}', [PortfolioController::class, 'destroy']);
+    Route::delete('/collection/{id}', [PortfolioController::class, 'destroyCollection']);
     Route::put('/users/{id}', [UserController::class, 'update']); /// User editing
     Route::post('/portfolio/digital/{currentPortfolio}', [PortfolioController::class, "newDigital"]);
     Route::get('/user/{id}/feedback', [UserController::class, 'userfeedback']); /// Users feedback
@@ -106,6 +108,7 @@ Route::get('/collection/portfolio/{id}', [PortfolioController::class, 'display']
 Route::get('/portinfo', [PortfolioController::class, 'create']); /// Feedback list
 ///Everyones APIs
 Route::get('/portfolio/{id}', [PortfolioController::class, 'show']); /// User list
+Route::get('/collection/{id}', [PortfolioController::class, 'specificCollection']); /// User list
 Route::get('/blog/{id}', [BlogController::class, 'show']); /// User list
 Route::get('blog/comments/{id}', [BlogController::class, 'showComments']);
 Route::get('/blog_categories', [BlogController::class, 'blog_categories']);

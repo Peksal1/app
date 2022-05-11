@@ -82,8 +82,8 @@
         <div class="col-md-12 text-center center-pagination">
           <Pagination
             :pagination="pagination"
-            @perPage="getAllItems()"
-            @paginate="getAllItems()"
+            @perPage="getAllCollections()"
+            @paginate="getAllCollections()"
             :offset="6"
           >
           </Pagination>
@@ -117,12 +117,13 @@ export default {
   },
   methods: {
     getAllCollections() {
-      axios.get("/api/collections").then((res) => {
+      axios.get(`/api/collections?page=${this.pagination.current_page}`).then((res) => {
         this.collections = res.data.data;
         this.pagination = res.data;
       });
     },
   },
+
   checkLoginStatus() {
     this.loading = true;
     axios
