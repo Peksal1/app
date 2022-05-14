@@ -100,18 +100,14 @@
               >
                 <div id="product-1" class="single-product">
                   <div class="part-1">
-                    <img :src="`/portfolio/${portfolio.file_path}`" alt="" @click="openPortfolioModal(index)"/>
-                    <ul>
-                      <li>
-                        <a href="#"><i class="fas fa-expand"></i></a>
-                      </li>
-                    </ul>
+                    <img  :src="`/portfolio/${portfolio.file_path}`" alt=""  @click="openPortfolioModal(index)" style="max-width:500px;"/>
+                    
                   </div>
                   <div class="part-2">
                     <h3 class="product-title">
                       <strong>{{ portfolio.work_name }}</strong>
                     </h3>
-                    <div class="category">{{ portfolio.category_id }}</div>
+                    <div class="category">{{ portfolio.description }}</div>
             
                     
                   </div>
@@ -142,11 +138,11 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog" role="document" v-if="specificPortfolio != null">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title text-dark" id="exampleModalLabel">
-                {{ portfolio.work_name }}
+              <h5 class="modal-title text-dark" id="portfolioModal">
+              <strong>  {{ specificPortfolio.work_name }} </strong>
               </h5>
               <button
                 type="button"
@@ -158,23 +154,37 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" >
               <img
-                :src="`/portfolio/${portfolio.file_path}`"
+                :src="`/portfolio/${specificPortfolio.file_path}`"
                 style="max-width: 470px"
               />
 
               <br />
-              {{ portfolio.orientation }}
               <br />
-              {{ portfolio.id }}
+              <strong> Collection: </strong> {{specificPortfolio.portfolio_collection.name}}
+              <br />
+               <strong> Description: </strong> {{specificPortfolio.description}}
+              <br />
+              <strong> Category: </strong> {{ specificPortfolio.portfolio_category.category }}
+              <br />
+             <strong> Orientation: </strong> {{ specificPortfolio.orientation }}
+              <br />
+           <strong> Size: </strong> {{ specificPortfolio.portfolio_size.type }}
+              <br />
+              <strong> Paint: </strong> {{ specificPortfolio.portfolio_paint.type }}
+              <br />
+              <strong> Canvas: </strong> {{ specificPortfolio.portfolio_canvas.type }}
               <br />
            
-              <div v-for="(digital, portfolio) in digitals"
-            :key="portfolio" @click="buyDigital(digital.id)" class="btn btn-sm btn-danger" >
-                {{digital.resolution}} BUY IN DIGITAL
-             </div>
+              <div v-for="(digital, specificPortfolio) in digitals" class="buyDigital" 
+            :key="specificPortfolio"> <btn class="btn btn-sm btn-info" style="margin-top:10px" @click="buyDigital(digital.id)"> 
+             {{digital.resolution}} BUY IN DIGITAL    </btn> 
+     
+          </div>
+          
             </div>
+             
           </div>
         </div>
       </div>
@@ -190,13 +200,13 @@ export default {
       portfolios: [],
       cat: [],
       sizefilter: [],
+      specificPortfolio: null,
       canvasfilter: [],
       paintfilter: [],
       sizes: "",
       canvases: "",
       paints: "",
         digitals: [],
-      portfolio: {},
       showPortfolioModal: false,
       searchKeyword: "",
       painting_categories: "",
@@ -228,7 +238,7 @@ export default {
         .get("/api/portfolio/" + this.portfolios[index].id, {})
 
         .then((response) => {
-          this.portfolio = response.data;
+          this.specificPortfolio = response.data;
           this.digitals = response.data.digital_paintings;
         })
         .catch((error) => {
@@ -333,6 +343,10 @@ export default {
 </script>
 
 <style scoped>
+
+.part-1 {
+  cursor: pointer;
+}
 input.mycat,
 input.mypaint,
 input.mysize,

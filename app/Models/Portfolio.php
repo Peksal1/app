@@ -21,19 +21,23 @@ class Portfolio extends Model
 
     public function portfolio_collection()
     {
-        return $this->belongsTo(Collection::class);
+        return $this->belongsTo(Collection::class, 'collection_id');
+    }
+    public function portfolio_category()
+    {
+        return $this->belongsTo(Painting_category::class, 'category_id');
     }
     public function portfolio_size()
     {
-        return $this->belongsTo(Size::class);
+        return $this->belongsTo(Size::class, 'size_id');
     }
     public function portfolio_paint()
     {
-        return $this->belongsTo(Paint::class);
+        return $this->belongsTo(Paint::class, 'paint_id');
     }
     public function portfolio_canvas()
     {
-        return $this->belongsTo(Canvas::class);
+        return $this->belongsTo(Canvas::class, 'canvas_id');
     }
     public function digital_paintings()
     {

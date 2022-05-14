@@ -83,7 +83,7 @@
 
                     <div class="form-group row">
                       <label for="email" class="col-4 col-form-label"
-                        >Email*</label
+                        >Email</label
                       >
                       <div class="col-8">
                         <input
@@ -106,7 +106,7 @@
                           id="name"
                           name="name"
                           placeholder="Phone number"
-                          v-model="name"
+                          v-model="phone_number"
                           class="form-control here"
                           type="text"
                         />
@@ -137,13 +137,14 @@
                         >
                           Update My Profile
                         </button>
-                        <div class="col-md-6">
                           <b-button
                             id="show-btn"
-                            class="btn btn-danger"
+                            class="btn btn-danger" style="margin-left:30px"
                             @click="$bvModal.show('bv-modal-example')"
                             >Delete</b-button
                           >
+                        <div class="col-md-6">
+                        
 
                           <b-modal id="bv-modal-example" hide-footer>
                             <template #modal-title> Delete account </template>
@@ -158,6 +159,7 @@
                             >
                             <b-button
                               class="btn btn-danger mt-3"
+                              
                               block
                               @click="deleteUser($route.params.id)"
                               >delete</b-button
@@ -187,6 +189,7 @@ export default {
       name: "",
       surname: "",
       email: "",
+      phone_number:"",
       password: "",
       id: "",
       token: localStorage.getItem("token"),
@@ -204,6 +207,7 @@ export default {
             name: this.name,
             surname: this.surname,
             email: this.email,
+            phone_number: this.phone_number,
           },
           {
             headers: {
@@ -230,7 +234,7 @@ export default {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Your Account have been deleted",
+            title: "Your Account has been deleted",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -254,6 +258,7 @@ export default {
         this.surname = user.surname;
         this.currentUser = response.data;
         this.email = user.email;
+        this.phone_number = user.phone_number;
         console.log(user.email);
       })
       .catch((error) => {
@@ -264,6 +269,9 @@ export default {
 </script>
 
 <style scoped>
+.btn {
+  color:white;
+}
 .user-row {
   margin-bottom: 14px;
 }

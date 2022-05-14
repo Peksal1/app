@@ -16,61 +16,49 @@
         <div class="row justify-content-center text-center">
           <div class="col-md-8 col-lg-6">
             <div class="header">
-              <h2>
-                {{ currentUser.name }} {{ currentUser.surname }} Digital Purchases:
-              </h2>
+              <h2>My digital purchases</h2>
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-3">
-            <!-- products -->
-          </div>
-          <div class="col-md-9">
-            <div class="row">
-              <!-- Single Product -->
-              <div
-                class="col-md-6"
-               v-for="(purchase, index) in purchases"
+          <!-- Single Product -->
+          <div
+            class="col-md-6 col-lg-3 col-xl-3"
+         v-for="(purchase, index) in purchases"
             :key="index"
-              >
-                  
-                <div id="product-1" class="single-product">
-                  <div class="part-1">
-                    <img
-                      :src="`/digital/${purchase.painting.image}`"
-                      :alt="`${purchase.painting.image}`"
-                      style="cursor: pointer; max-width: 450px"
+          >
+            <div id="product-1" class="single-product">
+              <div class="part-1">
+                <img
+                  :src="`/digital/${purchase.painting.image}`"
+                  :alt="`${purchase.painting.image}`"
+                  style="cursor: pointer; max-width: 350px"
                       @click="openPurchaseModal(index)"
-                    />
-                    <ul>
-                      <li>
-                        <a href="#" ><i class="fas fa-expand"></i></a>
-                        <a :href="`/digital/${purchase.painting.image}`" download>Download</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="part-2">
-                    <h3 class="product-title">
-                    123
-                    </h3>
-                    <div class="category">RESOLUTION: {{purchase.painting.resolution}}</div>
-                    <h4 class="product-price">
-                   123
-                    </h4>
-                    <div class="buy-btn mt-3"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+                />
 
-        <div class="col-md-12 text-center center-pagination">
+                <ul>
+                  <li>
+                    <a :href="`/digital/${purchase.painting.image}`" download>Download</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="part-2">
+                <h3 class="product-title">
+                  <strong>{{purchase.painting.resolution}}</strong>
+                </h3>
+               
+              </div>
+              
+            </div>
+            
+          </div>
+          
+        </div>
+         <div class="col-md-12 text-center center-pagination">
           <Pagination
             :pagination="pagination"
-            @perPage="getAllItems()"
-            @paginate="getAllItems()"
+            @perPage="loadUserPurchases()"
+            @paginate="loadUserPurchases()"
             :offset="6"
           >
           </Pagination>
@@ -105,12 +93,14 @@
         </div>
       </div>
     </div>
+      
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import Navbar from "../components/Navbar.vue";
+import Pagination from "../components/Pagination.vue";
 export default {
   data: function () {
     return {
@@ -123,7 +113,7 @@ export default {
       pagination: {
         data: [],
         total: 0,
-        per_page: 2,
+        per_page: 4,
         from: 1,
         to: 0,
         current_page: 1,
@@ -135,6 +125,7 @@ export default {
   },
   components: {
     Navbar,
+    Pagination,
   },
 
   methods: {
@@ -148,7 +139,7 @@ export default {
     },
     loadUserPurchases() {
       axios
-        .get("/api/purchases/digital", {
+        .get(`/api/purchases/digital?page=${this.pagination.current_page}`, {
           headers: {
             Authorization: "Bearer " + this.token,
           },
@@ -172,6 +163,7 @@ export default {
 
         .then((response) => {
           this.specific_purchase = response.data;
+          this.pagination = res.data;
         })
         .catch((error) => {
           console.log(error);
@@ -372,18 +364,16 @@ a:hover {
 
 .section-products .single-product .part-1 ul li a {
   display: inline-block;
-  width: 40px;
-  height: 40px;
   line-height: 40px;
   background-color: #ffffff;
-  color: #444444;
+  color: black;
   text-align: center;
   box-shadow: 0 2px 20px rgb(50 50 50 / 10%);
   transition: color 0.2s;
 }
 
 .section-products .single-product .part-1 ul li a:hover {
-  color: #fe302f;
+  color: #f6993f;
 }
 
 .section-products .single-product .part-2 .product-title {

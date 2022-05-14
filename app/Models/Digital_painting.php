@@ -14,7 +14,7 @@ class Digital_painting extends Model
     ];
     public function digitalPortfolio()
     {
-        return $this->belongsTo(Portfolio::class);
+        return $this->belongsTo(Portfolio::class, 'portfolio_id');
     }
  
 }

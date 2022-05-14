@@ -66,7 +66,7 @@ class PortfolioController extends Controller
     public function show($portfolio)
     {
    
-        $portfolio = Portfolio::where('id',$portfolio)->with('digital_paintings')->first();
+        $portfolio = Portfolio::where('id',$portfolio)->with('digital_paintings', 'portfolio_collection', 'portfolio_category', 'portfolio_size', 'portfolio_canvas', 'portfolio_paint')->first();
         return response()->json($portfolio);
     }
     

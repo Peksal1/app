@@ -12,13 +12,13 @@ class PurchasesController extends Controller
 {
     public function user_purchases(Request $request){
         
-        $purchases = auth()->user()->purchases()->where('is_paid', 1)->with('store')->paginate(5);
+        $purchases = auth()->user()->purchases()->where('is_paid', 1)->with('store')->paginate(4);
         return $purchases;  
   
     }
     public function userDigitalPurchases(Request $request) {
 
-        $digitalpurchases = auth()->user()->digitalPurchases()->where('is_paid', 1)->with('painting')->paginate(5);
+        $digitalpurchases = auth()->user()->digitalPurchases()->where('is_paid', 1)->with('painting')->paginate(4);
         return $digitalpurchases;
     }
     public function index(Request $request)
