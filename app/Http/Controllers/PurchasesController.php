@@ -45,7 +45,7 @@ class PurchasesController extends Controller
     public function showDigital($specific_purchase)
     {
    
-        $specific_purchase = Digital_purchase::where('id',$specific_purchase)->with('painting')->with('user')->first();
+        $specific_purchase = auth()->user()->digitalPurchases()->where('id',$specific_purchase)->with('painting')->first();
         return response()->json($specific_purchase);
     }
 }

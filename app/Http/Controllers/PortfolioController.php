@@ -8,6 +8,7 @@ use App\Models\Portfolio;
 use App\Models\Collection;
 use App\Http\Resources\PortfolioResource;
 use App\Models\Digital_painting;
+use App\Models\Digital_purchase;
 
 use Image;
 use Auth;
@@ -267,4 +268,17 @@ class PortfolioController extends Controller
     $portfolio = Portfolio::with(['portfolio_collection'])->where('collection_id', $id)->latest()->get();
     return $portfolio;
 }
+public function checkDigitalPurchase($digital){
+    
+    $digital = Digital_purchase::where('uuid', $digital)->first();
+    if( $digital){
+         $res['success'] = true;
+         $res['digital'] = $digital;
+         return response()->json($res, 200);
+     }else{
+         $res['success'] = false;
+         $res['message'] = 'Digital purchase not found';
+         return response()->json($res, 200);
+     }
+ }
 }

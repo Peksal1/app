@@ -8,7 +8,7 @@
         v-if="!isLoading && hasError != true"
       >
         <div class="text-center">
-          <h2>Congrats! Your order #{{ orderId }} is successfully paid.</h2>
+          <h2>Congrats! the </h2>
           <p class="m-0">
             You can check your order details in your account dashboard.
           </p>

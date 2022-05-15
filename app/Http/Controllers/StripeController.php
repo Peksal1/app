@@ -148,7 +148,7 @@ class StripeController extends Controller
             $digital->status = 'paid';
             $digital->is_paid = 1;
             $digital->save();
-            return redirect('/digital/thank-you?digital=' . $digital->id);
+            return redirect('/digital/thank-you?digital=' . $digital->uuid);
         } else {
             return redirect('/');
         }

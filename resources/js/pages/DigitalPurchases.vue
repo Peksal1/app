@@ -77,7 +77,7 @@
       <div class="modal-dialog" role="document" v-if="specific_purchase != null">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title text-dark" id="exampleModalLabel">TEST</h5>
+            <h5 class="modal-title text-dark" id="exampleModalLabel"><strong>{{specific_purchase.painting.resolution}}</strong></h5>
             <button
               type="button"
               class="close text-dark cursor: pointer"
@@ -88,8 +88,16 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">{{specific_purchase.painting.resolution}}</div>
-          <div class="modal-body">123</div>
+          <div class="modal-body"> <img
+                  :src="`/digital/${specific_purchase.painting.image}`"
+                  :alt="`${specific_purchase.painting.image}`"
+                  style="cursor: pointer; max-width: 465px"
+                      
+                /></div>
+                <div class="modal-body"><strong>Purchased for: </strong>{{specific_purchase.painting.price}} EUR </br>
+              <strong>  On: </strong>{{specific_purchase.created_at}} </br>
+       <strong>   Purchase ID:</strong> {{specific_purchase.uuid}} </div>
+
         </div>
       </div>
     </div>
@@ -155,7 +163,7 @@ export default {
     },
     loadSpecificPurchase(index) {
       axios
-        .get("/api/purchases/digital" + this.purchases[index].id, {
+        .get("/api/purchases/digital/" + this.purchases[index].id, {
           headers: {
             Authorization: "Bearer " + this.token,
           },
@@ -163,7 +171,7 @@ export default {
 
         .then((response) => {
           this.specific_purchase = response.data;
-          this.pagination = res.data;
+          this.pagination = response.data;
         })
         .catch((error) => {
           console.log(error);

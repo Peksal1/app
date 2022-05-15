@@ -147,6 +147,7 @@ Route::get('/user/{id}/orders', [OrderController::class, 'userorders']); /// Use
 Route::post('/shipping', [ShopController::class, 'create_shipping']);
 Route::get('/check/purchase/{purchase}/status', [ShopController::class, 'checkPurchase']);
 Route::get('/check/order/{order}/status', [OrderController::class, 'checkOrderPurchase']);
+Route::get('/check/digital/{digital}/status', [PortfolioController::class, 'checkDigitalPurchase']);
 Route::post('/store', [ShopController::class, 'store']); /// New order
 Route::get('/store', [ShopController::class, 'index']); /// Order list
 Route::put('/store/{id}', [ShopController::class, 'storeedit']); /// Editing orders

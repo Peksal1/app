@@ -101,7 +101,7 @@
               >
                 <div id="product-1" class="single-product">
                   <div class="part-1">
-                    <img :src="`/sale/${shop.file_path}`" alt="" />
+                    <img :src="`/sale/${shop.file_path}`" alt="" style="max-width:500px"/>
                     <ul>
                       <li>
                         <a href="#"><i class="fas fa-expand"></i></a>
@@ -112,12 +112,12 @@
                     <h3 class="product-title">
                       <strong>{{ shop.work_name }}</strong>
                     </h3>
-                    <div class="category">{{ shop.category_id }}</div>
-                    <h4 class="product-price">{{ shop.price_in_eur }} EUR</h4>
+                    <div class="category">{{ shop.description }}</div> <br/>
+                    <h4 class="product-price"><strong>Price:</strong> {{ shop.price_in_eur }} EUR</h4>
                     <div class="buy-btn mt-3">
                       <div
                         @click="buyProduct(shop.id)"
-                        class="btn btn-block btn-primary"
+                        class="btn btn-block btn-primary" style="max-width:90px"
                       >
                         Buy Now
                       </div>
@@ -254,15 +254,19 @@ export default {
   },
   watch: {
     cat(after, before) {
+      this.pagination.current_page = 1;
       this.getAllItems();
     },
     sizefilter(after, before) {
+      this.pagination.current_page = 1;
       this.getAllItems();
     },
     canvasfilter(after, before) {
+      this.pagination.current_page = 1;
       this.getAllItems();
     },
     paintfilter(after, before) {
+      this.pagination.current_page = 1;
       this.getAllItems();
     },
   },
