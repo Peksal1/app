@@ -91,22 +91,23 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
     Route::put('/posts/{id}', [QnAController::class, 'update_post']); /// User editing
     Route::post('/feedback', [FeedbackController::class, 'store']); /// New feedback
     Route::get('/users_orders',[OrderController::class,'show'] );
-Route::get('/users_paid_orders', [OrderController::class, 'show_paid']);
-Route::get('/order_messages/{order_messages}', [OrderController::class, 'get_order_messages']);
-Route::post('/order_messages/{currentorder}', [OrderController::class, 'post_order_messages']);
-Route::delete('/order_messages', [OrderController::class, 'delete_order_messages']);
-Route::get('order_messages/admin/{order_messages}', [OrderController::class, 'adminGetMessages']);
+    Route::get('/users_paid_orders', [OrderController::class, 'show_paid']);
+    Route::get('/order_messages/{order_messages}', [OrderController::class, 'get_order_messages']);
+    Route::post('/order_messages/{currentorder}', [OrderController::class, 'post_order_messages']);
+    Route::delete('/order_messages', [OrderController::class, 'delete_order_messages']);
+    Route::get('order_messages/admin/{order_messages}', [OrderController::class, 'adminGetMessages']);
     Route::get('/topics/search/{topic_title}', [QnAController::class, 'topic_search']); /// topic search
     Route::put('/user/{id}', [UserController::class, 'updateuser']); /// User editing
     Route::post('/create-payment-session', [StripeController::class, 'createPaymentSession']);
     Route::post('/order/create-payment-session', [StripeController::class, 'createOrderPaymentSession']);
     Route::post('/portfolio/create-payment-session', [StripeController::class, 'createDigitalPaintingPaymentSession']);
     Route::post('/comment/{id}', [BlogController::class, 'newComment']);
+}); 
 
-});
 Route::get('/collection/portfolio/{id}', [PortfolioController::class, 'display']);
 Route::get('/portinfo', [PortfolioController::class, 'create']); /// Feedback list
 ///Everyones APIs
+Route::get('/store/{id}', [ShopController::class, 'show']);
 Route::get('/portfolio/{id}', [PortfolioController::class, 'show']); /// User list
 Route::get('/collection/{id}', [PortfolioController::class, 'specificCollection']); /// User list
 Route::get('/blog/{id}', [BlogController::class, 'show']); /// User list

@@ -17,8 +17,13 @@ use Stripe\Checkout\Session;
 class StripeController extends Controller
 {
     public function createPaymentSession(Request $request)
-    {
+    {   
         $shop = Shop::findOrFail($request->product);
+       if($shop->is_bought != 0){
+            return response()->json([
+                'error' => 'Product is not available',
+            ], 400);
+       }
         // create a new Pruchase
         $purchase = Purchases::create([
             'uuid' =>  time(),

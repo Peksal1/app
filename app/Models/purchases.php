@@ -17,6 +17,7 @@ class Purchases extends Model
         'is_paid',
         'user_id',
         'tnx_id',
+        'tracking_number',
     ];
     public function user()
     {
@@ -25,5 +26,9 @@ class Purchases extends Model
     public function store()
     {
         return $this->belongsTo(Shop::class, 'product_id');
+    }
+    public function shipping()
+    {
+        return $this->hasOne(Shipping::class,'purchase_id','uuid');
     }
 }

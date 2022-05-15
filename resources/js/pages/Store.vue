@@ -101,7 +101,8 @@
               >
                 <div id="product-1" class="single-product">
                   <div class="part-1">
-                    <img :src="`/sale/${shop.file_path}`" alt="" style="max-width:500px"/>
+                    <img :src="`/sale/${shop.file_path}`" alt=""   style="cursor: pointer; max-width: 500px"
+                  @click="openShopModal(index)"/>
                     <ul>
                       <li>
                         <a href="#"><i class="fas fa-expand"></i></a>
@@ -145,6 +146,56 @@
         </div>
       </div>
     </section>
+         <div
+        class="modal"
+        :class="{ show: showShopModal }"
+        id="shopModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document" v-if="shop != null">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-dark" id="exampleModalLabel">
+            <strong>    {{ shop.work_name }} </strong>
+              </h5>
+              <button
+                type="button"
+                class="close text-dark cursor: pointer"
+                data-dismiss="modal"
+                aria-label="Close"
+                @click="hideShopModal"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <img
+                :src="`/sale/${shop.file_path}`"
+                style="max-width: 465px"
+              />
+
+              <br />
+              <br />
+         <strong>   Description:  </strong>{{ shop.description }}
+              <br />
+             
+           <strong>Orientation: </strong> {{shop.orientation}}
+           <br />
+              <strong>Size: </strong> {{shop.size.type}}
+           <br />
+              <strong>Paint: </strong> {{shop.paint.type}}
+           <br />
+              <strong>Canvas: </strong> {{shop.canvas.type}}
+           <br />
+               <strong>Price: </strong> {{shop.price_in_eur}} EUR
+           <br />
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 </template>
 <script>
@@ -162,6 +213,8 @@ export default {
       sizes: "",
       canvases: "",
       paints: "",
+      shop: null,
+      showShopModal: false,
       searchKeyword: "",
       painting_categories: "",
       isPaymentLoading: false,
@@ -180,6 +233,24 @@ export default {
     Pagination,
   },
   methods: {
+    loadSpecificShopItem(index) {
+      axios
+        .get("/api/store/" + this.shops[index].id, {})
+
+        .then((response) => {
+          this.shop = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+      openShopModal(index) {
+      this.showShopModal = true;
+      this.loadSpecificShopItem(index);
+    },
+    hideShopModal() {
+      this.showShopModal = false;
+    },
     buyProduct(id) {
       this.isPaymentLoading = true;
       axios

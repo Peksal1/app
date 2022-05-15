@@ -23,7 +23,7 @@ class PurchasesController extends Controller
     }
     public function index(Request $request)
     {
-        $query= Purchases::query()->with('store')->with('user');
+        $query= Purchases::query()->with('store')->with('user')->with('shipping');
     if (!empty($request->searchKeyword)) {
         $query->where('uuid', 'LIKE', "%{$request->searchKeyword}%");
     }
@@ -39,7 +39,7 @@ class PurchasesController extends Controller
     public function show($specific_purchase)
     {
    
-        $specific_purchase = Purchases::where('id',$specific_purchase)->with('store')->with('user')->first();
+        $specific_purchase = Purchases::where('id',$specific_purchase)->with('store')->with('user')->with('shipping')->first();
         return response()->json($specific_purchase);
     }
     public function showDigital($specific_purchase)
@@ -48,4 +48,17 @@ class PurchasesController extends Controller
         $specific_purchase = auth()->user()->digitalPurchases()->where('id',$specific_purchase)->with('painting')->first();
         return response()->json($specific_purchase);
     }
+
+    public function downloadDigital($id){
+        // if(!auth()->user()) 
+        //     return abort(401);
+
+        // $purchase = Purchases::where('id',$id)->first();
+
+        // if(auth()->user()->id != $purchase->user_id)
+        //     return abort(401);
+        
+
+        return 'you can download the file';
+     }
 }

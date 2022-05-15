@@ -48,7 +48,7 @@
                   </div>
                   <div class="part-2">
                     <h3 class="product-title">
-                      <strong>{{ purchase.store.work_name }}</strong>
+                      <strong>{{ purchase }}</strong>
                     </h3>
                     <div class="category">{{ purchase.category_id }}</div>
                     <h4 class="product-price">
@@ -97,7 +97,11 @@
             </button>
           </div>
 
-          <div class="modal-body">{{ specific_purchase.store }}</div>
+          <div class="modal-body">
+             <div v-if="specific_purchase.shipping">
+                {{ specific_purchase.shipping.adress1 }}
+              </div>    
+            </div>
         </div>
       </div>
     </div>

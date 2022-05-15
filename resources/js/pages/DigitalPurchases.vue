@@ -38,7 +38,7 @@
 
                 <ul>
                   <li>
-                    <a :href="`/digital/${purchase.painting.image}`" download>Download</a>
+                    <div class="btn btn-danger " @click="downloadImage(purchase.painting.image)">Download</div>
                   </li>
                 </ul>
               </div>
@@ -109,6 +109,21 @@
 import axios from "axios";
 import Navbar from "../components/Navbar.vue";
 import Pagination from "../components/Pagination.vue";
+
+   function toDataUrl(url, callback) {
+      var xhr = new XMLHttpRequest();
+      xhr.onload = function() {
+          var reader = new FileReader();
+          reader.onloadend = function() {
+              callback(reader.result);
+          }
+          reader.readAsDataURL(xhr.response);
+      };
+      xhr.open('GET', url);
+      xhr.responseType = 'blob';
+      xhr.send();
+  }
+
 export default {
   data: function () {
     return {
@@ -137,6 +152,15 @@ export default {
   },
 
   methods: {
+    downloadImage(imageName){
+      const imagePath = `http://127.0.0.1:8000/digital/${imageName}`;
+        toDataUrl(imagePath, function(myBase64) {
+              var a = document.createElement("a");  
+              a.href =   myBase64;  
+              a.download = "Image.png";  
+              a.click(); 
+        });
+    },
     openPurchaseModal(index) {
       this.showPurchaseModal = true;
       this.loadSpecificPurchase(index);

@@ -1,4 +1,4 @@
-<template>
+    <template>
   <div>
     <Navbar />
     <div class="container d-flex justify-content-center mt-5 p-4">
@@ -16,100 +16,107 @@
         <div class="row justify-content-center text-center">
           <div class="col-md-8 col-lg-6">
             <div class="header">
-              <h2>
-                {{ currentUser.name }} {{ currentUser.surname }} Purchases:
-              </h2>
+              <h2>My purchases</h2>
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-3">
-            <!-- products -->
-          </div>
-          <div class="col-md-9">
-            <div class="row">
-              <!-- Single Product -->
-              <div
-                class="col-md-6"
-               v-for="(purchase, index) in purchases"
+          <!-- Single Purchase -->
+          <div
+            class="col-md-6 col-lg-4 col-xl-3"
+            v-for="(purchase, index) in purchases"
             :key="index"
-              >
-                  
-                <div id="product-1" class="single-product">
-                  <div class="part-1">
-                    <img
-                      :src="`/sale/${purchase.store.file_path}`"
-                      alt="{purchase.store,work_name}"
-                      style="cursor: pointer; max-width: 450px"
-                      @click="openPurchaseModal(index)"
-                    />
-                    <ul>
-                      <li>
-                        <a href="#"><i class="fas fa-expand"></i></a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="part-2">
-                    <h3 class="product-title">
-                      <strong>{{ purchase.store.work_name }}</strong>
-                    </h3>
-                    <div class="category">{{ purchase.category_id }}</div>
-                    <h4 class="product-price">
-                      {{ purchase.store.price_in_eur }} EUR
-                    </h4>
-                    <div class="buy-btn mt-3"></div>
-                  </div>
-                </div>
+          >
+            <div id="product-1" class="single-product">
+              <div class="part-1">
+                <img
+                  :src="`/sale/${purchase.store.file_path}`"
+                  alt="{purchase.store,work_name}"
+                  style="cursor: pointer; max-width: 450px"
+                  @click="openPurchaseModal(index)"
+                />
+
+              
+              </div>
+              <div class="part-2">
+                <h3 class="product-title">
+                  <strong>{{ purchase.store.work_name }}</strong>
+                </h3>
+                <div class="category">{{ purchase.category_id }}</div>
+                <h4 class="product-price">
+                 <strong>Description: </strong>  {{ purchase.store.description }} <br/>
+            <strong>     Price: </strong> {{ purchase.store.price_in_eur }} EUR <br/>
+            <strong> Tracking number: </strong> {{purchase.tracking_number}} <br />
+          
+             
+                </h4>
               </div>
             </div>
           </div>
         </div>
-
-        <div class="col-md-12 text-center center-pagination">
+           <div class="col-md-12 text-center center-pagination">
           <Pagination
             :pagination="pagination"
-            @perPage="getAllItems()"
-            @paginate="getAllItems()"
+            @perPage="loadUserPurchases()"
+            @paginate="loadUserPurchases()"
             :offset="6"
           >
           </Pagination>
         </div>
       </div>
-    </section>
-    <div
-      class="modal"
-      :class="{ show: showPurchaseModal }"
-      id="purchaseModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document" v-if="specific_purchase != null">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title text-dark" id="exampleModalLabel">TEST</h5>
-            <button
-              type="button"
-              class="close text-dark cursor: pointer"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hidePurchaseModal"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
+      <div
+        class="modal"
+        :class="{ show: showPurchaseModal }"
+        id="portfolioModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document" v-if="specific_purchase != null">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-dark" id="exampleModalLabel">
+                <strong>  {{ specific_purchase.store.work_name }} </strong>
+              </h5>
+              <button
+                type="button"
+                class="close text-dark cursor: pointer"
+                data-dismiss="modal"
+                aria-label="Close"
+                @click="hidePurchaseModal"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <img
+                :src="`/sale/${specific_purchase.store.file_path}`"
+                style="max-width: 465px"
+              />
+
+              <br />
+              <br/>
+            <strong>Price: </strong>  {{ specific_purchase.Price }} EUR
+              <br />
+            <strong> Purchase ID: </strong> {{specific_purchase.uuid}}
+              <br />
+           <strong> Purchased on: </strong> {{specific_purchase.created_at}}
+              <br />
+            
+            </div>
           </div>
-          <div class="modal-body">{{ specific_purchase.Price }}</div>
-          <div class="modal-body">{{ specific_purchase.store.work_name }}</div>
         </div>
       </div>
-    </div>
+    </section>
   </div>
 </template>
+
 
 <script>
 import axios from "axios";
 import Navbar from "../components/Navbar.vue";
+import Pagination from "../components/Pagination.vue";
 export default {
   data: function () {
     return {
@@ -134,6 +141,7 @@ export default {
   },
   components: {
     Navbar,
+    Pagination,
   },
 
   methods: {
@@ -147,7 +155,7 @@ export default {
     },
     loadUserPurchases() {
       axios
-        .get("/api/purchases", {
+        .get(`/api/purchases?page=${this.pagination.current_page}`, {
           headers: {
             Authorization: "Bearer " + this.token,
           },
@@ -163,7 +171,7 @@ export default {
     },
     loadSpecificPurchase(index) {
       axios
-        .get("/api/purchases/" + this.purchases[index].id, {
+        .get(`/api/purchases/` + this.purchases[index].id, {
           headers: {
             Authorization: "Bearer " + this.token,
           },

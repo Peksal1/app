@@ -36,7 +36,12 @@ class ShopController extends Controller
     }
     return $query->paginate(4);
 }
-    
+public function show($shop)
+{
+
+    $shop = Shop::where('id',$shop)->with('category', 'size', 'paint', 'canvas')->first();
+    return response()->json($shop);
+}
     public function store(Request $request)
     {
         $shopData =   $request->all();

@@ -21,18 +21,18 @@ class Shop extends Model
     ];
     public function category()
     {
-        return $this->belongsTo(Painting_category::class);
+        return $this->belongsTo(Painting_category::class, 'category_id');
     }
     public function size()
     {
-        return $this->belongsTo(Size::class);
+        return $this->belongsTo(Size::class, 'size_id');
     }
     public function canvas()
     {
-        return $this->belongsTo(Canvas::class);
+        return $this->belongsTo(Canvas::class, 'canvas_id');
     }
     public function paint()
     {
-        return $this->belongsTo(Paint::class);
+        return $this->belongsTo(Paint::class, 'paint_id');
     }
 }
