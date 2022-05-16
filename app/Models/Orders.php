@@ -33,4 +33,16 @@ class orders extends Model
     {
         return $this->hasMany(Order_message::class);
     }
+    public function canvas()
+    {
+        return $this->belongsTo(Canvas::class,'canvas_id');
+    }
+    public function paint()
+    {
+        return $this->belongsTo(Paint::class,'paint_id');
+    }
+    public function size()
+    {
+        return $this->belongsTo(Size::class,'size_id');
+    }
 }

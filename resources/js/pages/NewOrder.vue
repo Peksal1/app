@@ -1,87 +1,110 @@
 <template>
-  <div class="container-fuiled">
-    <Navbar />
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-            New Order! From user {{ currentUser.name }}
-            <br />
-            <h2 style="color: #000">Price: {{ customPrice }} EURO</h2>
-          </div>
-          <div class="card-body">
-            <form class="form" action="#" @submit.prevent="createOrder">
-              <div class="form-group">
-                <textarea
-                  type="text"
-                  class="form-control"
-                  name="text"
-                  placeholder="Description"
-                  v-model="formData.text"
-                />
-                <p class="text-danger" v-text="errors.text"></p>
-              </div>
-              <!-- SIZE -->
-              <select
-                name="size"
-                v-model="formData.size_id"
-                style="width: 15rem"
-              >
-                <option value="">Choose</option>
-                <option
+<div>
+     <Navbar />
+
+ <div class="container">
+
+        <div class=" text-center mt-5 ">
+
+            <h1 >New order by {{currentUser.name}} {{currentUser.surname}}</h1> 
+            <h2>Total price: {{ customPrice }} EURO</h2>
+                <br/>
+            
+        </div>
+
+    
+    <div class="row ">
+      <div class="col-lg-7 mx-auto">
+        <div class="card mt-2 mx-auto p-4 bg-light">
+            <div class="card-body bg-light">
+       
+            <div class = "container">
+                             <form id="order-form" role="form" @submit.prevent="createOrder">
+
+            
+
+            <div class="controls">
+
+                <div class="row">
+              
+                        <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="form_need">Size</label>
+                            <select id="form_need" name="size" class="form-control" required="required" data-error="Please specify your need."
+                v-model="formData.size_id">
+                                <option value="" selected disabled>Select the size</option>
+                              <option
                   v-for="size in sizes"
                   v-bind:key="size.id"
                   :value="size.id"
                 >
                   {{ size.type }}
                 </option>
-              </select>
-              <!-- PAINT -->
-              <select
-                name="paint"
-                v-model="formData.paint_id"
-                style="width: 15rem"
-              >
-                <option value="">Choose</option>
-                <option
+                            </select>
+                            
+                        </div>
+                    </div>
+                        <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="form_need">Paint</label>
+                            <select id="form_need" name="paint"
+                v-model="formData.paint_id" class="form-control" required="required" data-error="Please specify your need."
+       >
+                                <option value="" selected disabled>Select the paint</option>
+                       <option
                   v-for="paint in paints"
                   v-bind:key="paint.id"
                   :value="paint.id"
                 >
                   {{ paint.type }}
                 </option>
-              </select>
-              <!--  CANVAS -->
-              <select
-                name="canvas"
-                v-model="formData.canvas_id"
-                style="width: 15rem"
-              >
-                <option value="">Choose</option>
-                <option
+                            </select>
+                            
+                        </div>
+                    </div>
+                </div>
+                   <div class="row">
+                         <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="form_need">Canvas</label>
+                            <select id="form_need"  name="canvas"
+                v-model="formData.canvas_id" class="form-control" required="required" data-error="Please specify your need."
+       >
+                                <option value="" selected disabled>Select the canvas</option>
+                       <option
                   v-for="canvas in canvases"
                   v-bind:key="canvas.id"
                   :value="canvas.id"
                 >
                   {{ canvas.type }}
                 </option>
-              </select>
-              <!-- ORIENTATION -->
-              <select
-                name="orientation"
-                v-model="formData.orientation"
-                style="width: 15rem"
-              >
-                <option value="">Choose</option>
-                <option value="horizontal">horizontal</option>
-                <option value="vertical">vertical</option>
-              </select>
-              <div class="p-2 w-full">
+                            </select>
+                            
+                        </div>
+                    </div>
+                         <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="form_need">Orientation</label>
+                            <select id="form_need"  name="orientation"
+                v-model="formData.orientation" class="form-control" required="required" data-error="Please specify your need."
+       >
+                                <option value="" selected disabled>Select the orientation</option>
+                     <option value="horizontal">Horizontal</option>
+                <option value="vertical">Vertical</option>
+                            </select>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <div class="col-md-6">
+                         <div class="p-2 w-full">
                 <div class="relative">
                   <label
                     for="attachment"
                     class="leading-7 text-sm text-gray-600"
-                    >Attachments</label
+                    >Example</label
                   ><br />
                   <input
                     type="file"
@@ -91,22 +114,44 @@
                   />
                 </div>
               </div>
-              <v-select
-                label="canvas"
-                :options="['Canada', 'United States']"
-                v-model="formData.canvas"
-              ></v-select>
-              <div class="row">
-                <div class="col-md-6">
-                  <button type="submit" class="btn btn-primary">Send</button>
+                    </div>
                 </div>
-              </div>
-            </form>
-          </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="form_text">Write a description of the painting</label>
+                            <textarea id="form_text" name="text" class="form-control" placeholder="Description" rows="4" required="required" v-model="formData.text"></textarea
+                                >
+                            </div>
+
+                        </div>
+
+
+                    <div class="col-md-12">
+                        
+                        
+                  <button type="submit" class="btn btn-primary" style="color:white;background:green">Post the order!</button>
+              
+                </div>
+          
+                </div>
+
+
         </div>
-      </div>
+         </form>
+        </div>
+            </div>
+
+
     </div>
-  </div>
+        <!-- /.8 -->
+
+    </div>
+    <!-- /.row-->
+
+</div>
+</div>
+</div>
 </template>
 
 <script>
@@ -271,26 +316,33 @@ export default {
 </script>
 
 <style scoped>
-.login {
-  margin-left: 25rem;
+body {
+    font-family: 'Lato', sans-serif;
 }
-.card-header {
-  color: black;
+
+h1 {
+    margin-bottom: 40px;
 }
-.vue-select {
-  color: black;
+
+label {
+    color: #333;
 }
-.card-body {
-  background: black;
-  width: 400px;
+
+.btn-send {
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    width: 80%;
+    margin-left: 3px;
+    }
+.help-block.with-errors {
+    color: #ff5050;
+    margin-top: 5px;
+
 }
-.card {
-  background: white;
-  width: 400px;
-  margin-bottom: 70px;
-  margin-top: 70px;
-}
-.form {
-  color: white;
+
+.card{
+	margin-left: 10px;
+	margin-right: 10px;
 }
 </style>

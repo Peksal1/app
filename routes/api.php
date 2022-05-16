@@ -102,6 +102,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
     Route::post('/order/create-payment-session', [StripeController::class, 'createOrderPaymentSession']);
     Route::post('/portfolio/create-payment-session', [StripeController::class, 'createDigitalPaintingPaymentSession']);
     Route::post('/comment/{id}', [BlogController::class, 'newComment']);
+    Route::get('/user/order/{id}', [OrderController::class, 'showOrder']); /// Order list
 }); 
 
 Route::get('/collection/portfolio/{id}', [PortfolioController::class, 'display']);

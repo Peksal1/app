@@ -1,88 +1,131 @@
-<template>
+    <template>
   <div>
     <Navbar />
-
-    <div class="d-flex justify-content-center flex-wrap my-5">
-      <h1>UNPAID ORDERS</h1>
-      <v-card
-        v-for="(order, index) in orders"
-            :key="index"
-        class="mx-auto my-3 col-md-8 col-lg-6"  
-        max-width="15rem"
-        min-width="15rem"
-      >
-      
-        <v-img
-          class="white--text align-end"
-          height="10rem"
-          :src="`/images/${order.file_path}`"
-        >
-          <v-card-title class="d-flex justify-center text-dark">{{
-            order.id
-          }}</v-card-title>
-        </v-img>
-
-        <v-card-subtitle class="pb-0">
-          <div>
-            Orientation: {{ order.orientation }}
-           
+    <section class="section-products">
+      <div class="container">
+        <div class="row justify-content-center text-center">
+          <div class="col-md-8 col-lg-6">
+            <div class="header">
+              <h2>Unpaid orders:</h2>
+            </div>
           </div>
-        </v-card-subtitle>
-
-        <v-card-text class="text--primary">
-          <div>paint: {{ order.paint }}</div>
-        </v-card-text>
-        <v-card-text class="text--primary">
-          <div>Total price: {{ order.price }} EUR</div>
-        </v-card-text>
-        <hr />
-        <div @click="makePayment(order)" class="btn btn-sm btn-danger">
-          Pay now
         </div>
-      </v-card>
-    </div>
-    <div
-      class="modal"
-      :class="{ show: showOrderMessageModal }"
-      id="orderMessageModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title text-dark" id="exampleModalLabel">
-              Add a message
-            </h5>
-            <br />
-            <button
-              type="button"
-              class="close text-dark"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hideOrderMessageModal"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          
-
-          </div>
-                 <div
-            class="modal-body"
-            v-for="(order_message, index) in order_messages"
+        <div class="row">
+          <!-- Single Product -->
+          <div
+            class="col-md-6 col-lg-4 col-xl-3"
+             v-for="(order, index) in orders"
             :key="index"
           >
-   
-         <strong> {{order_message.user.name}} </strong> <br />
-          {{order_message.message}}
-          <br />
-        
+            <div id="product-1" class="single-product">
+              <div class="part-1">
+                <img
+                  :src="`/images/${order.file_path}`"
+                  alt="{order.text}"
+                  style="cursor: pointer; max-width: 450px"
+                />
+
+              
+              </div>
+              <div class="part-2">
+           
+                  <strong>Price: </strong> {{ order.price }} EUR <br/>
+              
+                <strong>Size: </strong> {{ order.size.type }}<br/>
+                <strong>Paint: </strong> {{ order.paint.type }}<br/>
+                <strong>Canvas: </strong> {{ order.canvas.type }}<br/>
+                <div class="category">{{ order.text }}</div>
+                <div @click="makePayment(order)" class="btn btn-sm btn-danger">
+          Pay now
+        </div>
+              </div>
+            </div>
           </div>
-         <form @submit.prevent="postOrderMessage(currentOrder)">
+        </div>
+        <div class="row justify-content-center text-center">
+          <div class="col-md-8 col-lg-6">
+            <div class="header">
+              <h2>Paid orders:</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- Single Product -->
+          <div
+            class="col-md-6 col-lg-4 col-xl-3"
+            v-for="(paid_order, index) in paid_orders"
+            :key="index"
+          >
+            <div id="product-1" class="single-product">
+              <div class="part-1">
+                <img
+                  :src="`/images/${paid_order.file_path}`"
+                  alt="{order.text}"
+                  style="cursor: pointer; max-width: 450px"
+                 
+                />
+
+              </div>
+              <div class="part-2">
+                <h3 class="product-title">
+                  <strong>{{ paid_order.paint }}</strong>
+                </h3>
+                <div class="category"><strong>Tracking number: </strong>{{ paid_order.tracking }}</div>
+                <div class="btn btn-sm btn-primary" @click="openOrderMessageModal(paid_order.id)">
+        Discuss the order
+      </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div
+        class="modal"
+        :class="{ show: showOrderMessageModal  }"
+        id="orderMessageModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-dark" id="exampleModalLabel">
+                Add a message
+              </h5>
+              <button
+                type="button"
+                class="close text-dark cursor: pointer"
+                data-dismiss="modal"
+                aria-label="Close"
+                @click="hideOrderMessageModal"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <img
+                :src="`/images/${specificOrder.file_path}`"
+                style="max-width: 465px"
+              />
+            <div class="messages" style="overflow:scroll;overflow-x:hidden;max-height:250px;margin-top:10px">
+                 <div
+            v-for="(order_message, index) in order_messages"
+            :key="index" 
+          >
+          <br/>
+          <div class="message" >
+         <strong> {{order_message.user.name}} {{order_message.user.surname}} </strong> <br />
+          {{order_message.message}}
+          </div>
+          <br />
+        </div>
+          </div>
+            <form @submit.prevent="postOrderMessage(currentOrder)">
               <div class="form-group">
-                <label for="">message</label>
+                <label for="">New message</label>
                 <input
                   v-model="formData.message"
                   type="text"
@@ -97,45 +140,12 @@
                 />
               </div>
             </form>
+           
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <h1>PAID ORDERS</h1>
-    <v-card
-    v-for="(paid_order, index) in paid_orders"
-            :key="index"
-      class="mx-auto my-3 col-md-8 col-lg-6"
-      max-width="15rem"
-      min-width="15rem"
-    >
-      <v-img
-        class="white--text align-end"
-        height="10rem"
-       :src="`/images/${paid_order.file_path}`"
-      >
-        <v-card-title class="d-flex justify-center text-dark">{{
-          paid_order.id
-        }}</v-card-title>
-      </v-img>
-
-      <v-card-subtitle class="pb-0">
-        <div>
-          Orientation:
-          {{ paid_order.orientation }}
-        </div>
-      </v-card-subtitle>
-
-      <v-card-text class="text--primary">
-        <div>paint: {{ paid_order.paint }}</div>
-      </v-card-text>
-      <v-card-text class="text--primary">
-        <div>Tracking number: <strong>{{ paid_order.tracking }}</strong></div>
-      </v-card-text>
-      <hr />
-      <div class="btn btn-sm btn-primary" @click="openOrderMessageModal(paid_order.id)">
-        Discuss the order
-      </div>
-    </v-card>
+    </section>
   </div>
 </template>
 
@@ -149,6 +159,7 @@ export default {
       orders: [],
       paid_orders: [],
       order_messages: [],
+      specificOrder: [],
       currentorder: "",
       formData: {
         message: "",
@@ -260,6 +271,7 @@ export default {
       this.showOrderMessageModal = true;
       this.currentOrder = index;
       this.getAllOrderMessages(index);
+      this.loadSpecificOrder(index);
           
     },
     hideOrderMessageModal() {
@@ -285,6 +297,22 @@ export default {
         })
         .catch((errors) => {
           console.log("error");
+        });
+    },
+
+      loadSpecificOrder(currentOrder) {
+      axios
+        .get("/api/user/order/" + this.currentOrder, {
+          headers: {
+            Authorization: "Bearer " + this.token,
+          },
+        })
+
+        .then((response) => {
+          this.specificOrder = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
         });
     },
     getAllOrderMessages(currentOrder) {
@@ -326,4 +354,166 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: #444444;
+}
+
+a,
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.section-products {
+  padding: 80px 0 54px;
+}
+
+.section-products .header {
+  margin-bottom: 50px;
+}
+
+.section-products .header h3 {
+  font-size: 1rem;
+  color: #fe302f;
+  font-weight: 500;
+}
+
+.section-products .header h2 {
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: #444444;
+}
+
+.section-products .single-product {
+  margin-bottom: 26px;
+}
+
+.section-products .single-product .part-1 {
+  position: relative;
+  height: 290px;
+  max-height: 290px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.section-products .single-product .part-1::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  transition: all 0.3s;
+}
+
+.section-products .single-product:hover .part-1::before {
+  transform: scale(1.2, 1.2) rotate(5deg);
+}
+
+.section-products #product-1 .part-1::before {
+  background: url("https://i.ibb.co/L8Nrb7p/1.jpg") no-repeat center;
+  background-size: cover;
+  transition: all 0.3s;
+}
+
+.section-products #product-2 .part-1::before {
+  background: url("https://i.ibb.co/cLnZjnS/2.jpg") no-repeat center;
+  background-size: cover;
+}
+
+.section-products #product-3 .part-1::before {
+  background: url("https://i.ibb.co/L8Nrb7p/1.jpg") no-repeat center;
+  background-size: cover;
+}
+
+.section-products #product-4 .part-1::before {
+  background: url("https://i.ibb.co/cLnZjnS/2.jpg") no-repeat center;
+  background-size: cover;
+}
+
+.section-products .single-product .part-1 .discount,
+.section-products .single-product .part-1 .new {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  color: #ffffff;
+  background-color: #fe302f;
+  padding: 2px 8px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.section-products .single-product .part-1 .new {
+  left: 0;
+  background-color: #444444;
+}
+
+.section-products .single-product .part-1 ul {
+  position: absolute;
+  bottom: -41px;
+  left: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  opacity: 0;
+  transition: bottom 0.5s, opacity 0.5s;
+}
+
+.section-products .single-product:hover .part-1 ul {
+  bottom: 30px;
+  opacity: 1;
+}
+
+.section-products .single-product .part-1 ul li {
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.section-products .single-product .part-1 ul li a {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #ffffff;
+  color: #444444;
+  text-align: center;
+  box-shadow: 0 2px 20px rgb(50 50 50 / 10%);
+  transition: color 0.2s;
+}
+
+.section-products .single-product .part-1 ul li a:hover {
+  color: #fe302f;
+}
+
+.section-products .single-product .part-2 .product-title {
+  font-size: 1rem;
+}
+
+.section-products .single-product .part-2 h4 {
+  display: inline-block;
+  font-size: 1rem;
+  color: gray;
+}
+
+.section-products .single-product .part-2 .product-old-price {
+  position: relative;
+  padding: 0 7px;
+  margin-right: 2px;
+  opacity: 0.6;
+}
+
+.section-products .single-product .part-2 .product-old-price::after {
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #444444;
+  transform: translateY(-50%);
+}
 </style>

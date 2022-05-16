@@ -121,36 +121,25 @@ class OrderController extends Controller
         $orders = Orders::findOrFail($order);
         return $orders;
     }
-    // public function show($id )
-    // {
-    //     $user = User::where('id', $id)->firstOrFail();
-
-    //     $user_order = $user->user_orders->where('is_paid', '0');
-     
-    //     return response()->json($user_order, 200, [], JSON_PRETTY_PRINT);
-      
-    // }
+    public function showOrder($specificOrder)
+    {
+   
+        $specificOrder = auth()->user()->user_orders()->where('id',$specificOrder)->first();
+        return response()->json($specificOrder);
+    }
     public function show(Request $request){
         
-        $orders = auth()->user()->user_orders()->where('is_paid', '0')->paginate(5);
+        $orders = auth()->user()->user_orders()->where('is_paid', '0')->with('size', 'paint', 'canvas')->paginate(5);
         return $orders;  
   
     }
     public function show_paid(Request $request){
         
-        $orders = auth()->user()->user_orders()->where('is_paid', '1')->paginate(5);
+        $orders = auth()->user()->user_orders()->where('is_paid', '1')->with('size', 'paint', 'canvas')->paginate(5);
         return $orders;  
   
     }
-    // public function show_paid($id)
-    // {
-    //     $user = User::where('id', $id)->firstOrFail();
-
-    //     $user_order = $user->user_orders->where('is_paid', '1');
-     
-    //     return response()->json($user_order, 200, [], JSON_PRETTY_PRINT);
-      
-    // }
+ 
     public function get_order_messages($order_messages)
     {
     // $order = Order::where('user_id',auth()->user()->id)->where('id',$order_message)->first();
