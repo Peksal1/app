@@ -1,41 +1,27 @@
 <template>
   <div class="container">
-    <div
-      class="
+    <div class="
         new-stores-option
         d-flex
         justify-content-between
         align-items-center
-      "
-    >
+      ">
       <div class="btn btn-sm btn-primary" @click="openPortfolioModal">
         Add New portfolio Item
       </div>
     </div>
 
     <!-- modal vindow -->
-    <div
-      class="modal"
-      :class="{ show: showPortfolioModal }"
-      id="portfolioModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal" :class="{ show: showPortfolioModal }" id="portfolioModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">
-              Add a new item to the portfolio
+              <strong>New portfolio item</strong>
             </h5>
-            <button
-              type="button"
-              class="close text-dark"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hidePortfolioModal"
-            >
+            <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close"
+              @click="hidePortfolioModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -43,146 +29,71 @@
             <form @submit.prevent="submitPortfolioForm">
               <div class="form-group">
                 <label for="">Title</label>
-                <input
-                  v-model="portfolioForm.work_name"
-                  type="text"
-                  class="form-control"
-                  required
-                />
+                <input v-model="portfolioForm.work_name" type="text" class="form-control" required />
               </div>
               <div class="form-group">
                 <label for="">Description</label>
-                <input
-                  v-model="portfolioForm.description"
-                  type="text"
-                  class="form-control"
-                  required
-                />
+                <input v-model="portfolioForm.description" type="text" class="form-control" required />
               </div>
               <label for="collection">Collection:</label>
-              <select
-                class="options"
-                name="collection"
-                v-model="portfolioForm.collection_id"
-                style="width: 15rem"
-                required
-              >
-                <option class="options" value="">Choose</option>
-                <option
-                  v-for="collection in collections"
-                  v-bind:key="collection.id"
-                  :value="collection.id"
-                >
+              <select class="options" name="collection" v-model="portfolioForm.collection_id" style="width: 15rem"
+                required>
+                <option value="" selected disabled>Select the collection</option>
+                <option v-for="collection in collections" v-bind:key="collection.id" :value="collection.id">
                   {{ collection.name }}
                 </option>
               </select>
               <br />
               <label for="size">Size:</label>
-              <select
-                class="options"
-                name="size"
-                v-model="portfolioForm.size_id"
-                style="width: 15rem"
-                required
-              >
-                <option class="options" value="">Choose</option>
-                <option
-                  v-for="size in sizes"
-                  v-bind:key="size.id"
-                  :value="size.id"
-                >
+              <select class="options" name="size" v-model="portfolioForm.size_id" style="width: 15rem" required>
+                <option value="" selected disabled>Select the size</option>
+                <option v-for="size in sizes" v-bind:key="size.id" :value="size.id">
                   {{ size.type }}
                 </option>
               </select>
               <br />
               <label for="canvas">Canvas:</label>
-              <select
-                class="options"
-                name="canvas"
-                v-model="portfolioForm.canvas_id"
-                style="width: 15rem"
-                required
-              >
-                <option value="">Choose</option>
-                <option
-                  v-for="canvas in canvases"
-                  v-bind:key="canvas.id"
-                  :value="canvas.id"
-                >
+              <select class="options" name="canvas" v-model="portfolioForm.canvas_id" style="width: 15rem" required>
+                <option value="" selected disabled>Select the canvas</option>
+                <option v-for="canvas in canvases" v-bind:key="canvas.id" :value="canvas.id">
                   {{ canvas.type }}
                 </option>
               </select>
               <br />
               <label for="paint">Paint:</label>
-              <select
-                name="paint"
-                v-model="portfolioForm.paint_id"
-                style="width: 15rem"
-                class="options"
-                required
-              >
-                <option value="">Choose</option>
-                <option
-                  v-for="paint in paints"
-                  v-bind:key="paint.id"
-                  :value="paint.id"
-                >
+              <select name="paint" v-model="portfolioForm.paint_id" style="width: 15rem" class="options" required>
+                <option value="" selected disabled>Select the paint</option>
+                <option v-for="paint in paints" v-bind:key="paint.id" :value="paint.id">
                   {{ paint.type }}
                 </option>
               </select>
               <br />
               <label for="orientation">Orientation:</label>
-              <select
-                name="orientation"
-                v-model="portfolioForm.orientation"
-                style="width: 15rem"
-                class="options"
-                required
-              >
+              <select name="orientation" v-model="portfolioForm.orientation" style="width: 15rem" class="options"
+                required>
+                <option value="" selected disabled>Select the orientation</option>
                 <option value="vertical">Vertical</option>
                 <option value="horizontal">Horizontal</option>
               </select>
               <br />
               <label for="category">Category:</label>
-              <select
-                name="category"
-                v-model="portfolioForm.category_id"
-                style="width: 15rem"
-                class="options"
-                required
-              >
-                <option value="">Choose</option>
-                <option
-                  v-for="painting_category in painting_categories"
-                  v-bind:key="painting_category.id"
-                  :value="painting_category.id"
-                >
+              <select name="category" v-model="portfolioForm.category_id" style="width: 15rem" class="options" required>
+                <option value="" selected disabled>Select the category</option>
+                <option v-for="painting_category in painting_categories" v-bind:key="painting_category.id"
+                  :value="painting_category.id">
                   {{ painting_category.category }}
                 </option>
               </select>
               <div class="p-2 w-full">
                 <div class="relative">
-                  <label
-                    for="attachment"
-                    class="leading-7 text-sm text-gray-600"
-                    >Attachments</label
-                  ><br />
+                  <label for="attachment" class="leading-7 text-sm text-gray-600">Attachments</label><br />
 
-                  <input
-                    type="file"
-                    accept="image/*"
-                    @change="uploadImage($event)"
-                    id="file-input"
-                    required
-                  />
+                  <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input" required />
                 </div>
               </div>
               <div class="form-group">
-                <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-primary btn-block"
-                />
+                <input type="submit" value="Submit" class="btn btn-primary btn-block"
+                  style="max-width:100px;color:white" />
               </div>
             </form>
           </div>
@@ -236,10 +147,10 @@ export default {
     },
     openPortfolioModal() {
       this.showPortfolioModal = true;
-        this.loadSizes();
-    this.loadPaints();
-    this.getAllPaintingCategories();
-    this.loadCanvases();
+      this.loadSizes();
+      this.loadPaints();
+      this.getAllPaintingCategories();
+      this.loadCanvases();
     },
     hidePortfolioModal() {
       this.showPortfolioModal = false;
@@ -349,7 +260,7 @@ export default {
   mounted() {
     this.loadCollections();
     this.checkLoginStatus();
-  
+
   },
 };
 </script>
@@ -370,6 +281,7 @@ form {
   border-radius: 5px;
   border: 0px;
 }
+
 label {
   color: #000;
 }
@@ -382,6 +294,7 @@ li {
   list-style: none;
   padding: 10px;
 }
+
 ul {
   padding: 0px;
   margin: 0px;

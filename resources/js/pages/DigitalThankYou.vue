@@ -3,10 +3,7 @@
     <AdminNavbar />
 
     <div class="container mt-4">
-      <div
-        class="col-10 m-auto text-black mt-4"
-        v-if="!isLoading && hasError != true"
-      >
+      <div class="col-10 m-auto text-black mt-4" v-if="!isLoading && hasError != true">
         <div class="text-center">
           <h2>Congrats! Your purchase #{{ digitalId }} was successfully paid.</h2>
           <p class="m-0">

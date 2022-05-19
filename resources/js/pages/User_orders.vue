@@ -12,32 +12,24 @@
         </div>
         <div class="row">
           <!-- Single Product -->
-          <div
-            class="col-md-6 col-lg-4 col-xl-3"
-             v-for="(order, index) in orders"
-            :key="index"
-          >
+          <div class="col-md-6 col-lg-4 col-xl-3" v-for="(order, index) in orders" :key="index">
             <div id="product-1" class="single-product">
               <div class="part-1">
-                <img
-                  :src="`/images/${order.file_path}`"
-                  alt="{order.text}"
-                  style="cursor: pointer; max-width: 450px"
-                />
+                <img :src="`/images/${order.file_path}`" alt="{order.text}" style="max-width: 450px" />
 
-              
+
               </div>
               <div class="part-2">
-           
-                  <strong>Price: </strong> {{ order.price }} EUR <br/>
-              
-                <strong>Size: </strong> {{ order.size.type }}<br/>
-                <strong>Paint: </strong> {{ order.paint.type }}<br/>
-                <strong>Canvas: </strong> {{ order.canvas.type }}<br/>
+
+                <strong>Price: </strong> {{ order.price }} EUR <br />
+
+                <strong>Size: </strong> {{ order.size.type }}<br />
+                <strong>Paint: </strong> {{ order.paint.type }}<br />
+                <strong>Canvas: </strong> {{ order.canvas.type }}<br />
                 <div class="category">{{ order.text }}</div>
                 <div @click="makePayment(order)" class="btn btn-sm btn-danger">
-          Pay now
-        </div>
+                  Pay now
+                </div>
               </div>
             </div>
           </div>
@@ -51,96 +43,65 @@
         </div>
         <div class="row">
           <!-- Single Product -->
-          <div
-            class="col-md-6 col-lg-4 col-xl-3"
-            v-for="(paid_order, index) in paid_orders"
-            :key="index"
-          >
+          <div class="col-md-6 col-lg-4 col-xl-3" v-for="(paid_order, index) in paid_orders" :key="index">
             <div id="product-1" class="single-product">
               <div class="part-1">
-                <img
-                  :src="`/images/${paid_order.file_path}`"
-                  alt="{order.text}"
-                  style="cursor: pointer; max-width: 450px"
-                 
-                />
+                <img :src="`/images/${paid_order.file_path}`" alt="{order.text}" style="max-width: 450px" />
 
               </div>
               <div class="part-2">
                 <h3 class="product-title">
-                  <strong>{{ paid_order.paint }}</strong>
+                  <strong>Order number: </strong>{{ paid_order.uuid }}
                 </h3>
+                <div class="category"><strong>Purchased on: </strong>{{ paid_order.created_at }}</div>
+                <div class="category"><strong>Price: </strong>{{ paid_order.price }} EUR</div>
                 <div class="category"><strong>Tracking number: </strong>{{ paid_order.tracking }}</div>
                 <div class="btn btn-sm btn-primary" @click="openOrderMessageModal(paid_order.id)">
-        Discuss the order
-      </div>
+                  Discuss the order
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
-      <div
-        class="modal"
-        :class="{ show: showOrderMessageModal  }"
-        id="orderMessageModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
+
+      <div class="modal" :class="{ show: showOrderMessageModal }" id="orderMessageModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title text-dark" id="exampleModalLabel">
-                Add a message
+                <strong> Order number: </strong> {{ specificOrder.uuid }}
               </h5>
-              <button
-                type="button"
-                class="close text-dark cursor: pointer"
-                data-dismiss="modal"
-                aria-label="Close"
-                @click="hideOrderMessageModal"
-              >
+              <button type="button" class="close text-dark cursor: pointer" data-dismiss="modal" aria-label="Close"
+                @click="hideOrderMessageModal">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <img
-                :src="`/images/${specificOrder.file_path}`"
-                style="max-width: 465px"
-              />
-            <div class="messages" style="overflow:scroll;overflow-x:hidden;max-height:250px;margin-top:10px">
-                 <div
-            v-for="(order_message, index) in order_messages"
-            :key="index" 
-          >
-          <br/>
-          <div class="message" >
-         <strong> {{order_message.user.name}} {{order_message.user.surname}} </strong> <br />
-          {{order_message.message}}
-          </div>
-          <br />
-        </div>
-          </div>
-            <form @submit.prevent="postOrderMessage(currentOrder)">
-              <div class="form-group">
-                <label for="">New message</label>
-                <input
-                  v-model="formData.message"
-                  type="text"
-                  class="form-control"
-                />
+
+              <img :src="`/images/${specificOrder.file_path}`" style="max-width: 465px" />
+              <div class="messages" style="overflow:scroll;overflow-x:hidden;max-height:250px;margin-top:10px">
+                <div v-for="(order_message, index) in order_messages" :key="index">
+                  <br />
+                  <div class="message">
+                    <strong> {{ order_message.user.name }} {{ order_message.user.surname }} </strong> <br />
+                    {{ order_message.message }}
+                  </div>
+                  <br />
+                </div>
               </div>
-              <div class="form-group">
-                <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-primary btn-block"
-                />
-              </div>
-            </form>
-           
+              <form @submit.prevent="postOrderMessage(currentOrder)">
+                <div class="form-group">
+                  <label for="">New message</label>
+                  <input v-model="formData.message" type="text" class="form-control" />
+                </div>
+                <div class="form-group">
+                  <input type="submit" value="Submit" class="btn btn-primary btn-block"
+                    style="max-width:100px;color:white" />
+                </div>
+              </form>
+
             </div>
           </div>
         </div>
@@ -272,12 +233,12 @@ export default {
       this.currentOrder = index;
       this.getAllOrderMessages(index);
       this.loadSpecificOrder(index);
-          
+
     },
     hideOrderMessageModal() {
       this.showOrderMessageModal = false;
     },
-     postOrderMessage(currentOrder) {
+    postOrderMessage(currentOrder) {
       const messageForm = new FormData();
       messageForm.append("message", this.formData.message);
       messageForm.append("order_id", this.currentOrder);
@@ -292,15 +253,15 @@ export default {
         })
         .then((response) => {
           alert("Message Sent!");
-          this.getAllOrderMessages(currentOrder);        
-                       
+          this.getAllOrderMessages(currentOrder);
+
         })
         .catch((errors) => {
           console.log("error");
         });
     },
 
-      loadSpecificOrder(currentOrder) {
+    loadSpecificOrder(currentOrder) {
       axios
         .get("/api/user/order/" + this.currentOrder, {
           headers: {
@@ -343,7 +304,7 @@ export default {
         });
     },
   },
-  created() {},
+  created() { },
   mounted() {
     this.checkLoginStatus();
     this.loadUserPaidOrders();

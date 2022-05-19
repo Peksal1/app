@@ -22,21 +22,13 @@
         </div>
         <div class="row">
           <!-- Single Purchase -->
-          <div
-            class="col-md-6 col-lg-4 col-xl-3"
-            v-for="(purchase, index) in purchases"
-            :key="index"
-          >
+          <div class="col-md-6 col-lg-4 col-xl-3" v-for="(purchase, index) in purchases" :key="index">
             <div id="product-1" class="single-product">
               <div class="part-1">
-                <img
-                  :src="`/sale/${purchase.store.file_path}`"
-                  alt="{purchase.store,work_name}"
-                  style="cursor: pointer; max-width: 450px"
-                  @click="openPurchaseModal(index)"
-                />
+                <img :src="`/sale/${purchase.store.file_path}`" alt="{purchase.store,work_name}"
+                  style="cursor: pointer; max-width: 450px" @click="openPurchaseModal(index)" />
 
-              
+
               </div>
               <div class="part-2">
                 <h3 class="product-title">
@@ -44,66 +36,47 @@
                 </h3>
                 <div class="category">{{ purchase.category_id }}</div>
                 <h4 class="product-price">
-                 <strong>Description: </strong>  {{ purchase.store.description }} <br/>
-            <strong>     Price: </strong> {{ purchase.store.price_in_eur }} EUR <br/>
-            <strong> Tracking number: </strong> {{purchase.tracking_number}} <br />
-          
-             
+                  <strong>Description: </strong> {{ purchase.store.description }} <br />
+                  <strong> Price: </strong> {{ purchase.store.price_in_eur }} EUR <br />
+                  <strong> Tracking number: </strong> {{ purchase.tracking_number }} <br />
+
+
                 </h4>
               </div>
             </div>
           </div>
         </div>
-           <div class="col-md-12 text-center center-pagination">
-          <Pagination
-            :pagination="pagination"
-            @perPage="loadUserPurchases()"
-            @paginate="loadUserPurchases()"
-            :offset="6"
-          >
+        <div class="col-md-12 text-center center-pagination">
+          <Pagination :pagination="pagination" @perPage="loadUserPurchases()" @paginate="loadUserPurchases()"
+            :offset="6">
           </Pagination>
         </div>
       </div>
-      <div
-        class="modal"
-        :class="{ show: showPurchaseModal }"
-        id="portfolioModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
+      <div class="modal" :class="{ show: showPurchaseModal }" id="portfolioModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document" v-if="specific_purchase != null">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title text-dark" id="exampleModalLabel">
-                <strong>  {{ specific_purchase.store.work_name }} </strong>
+                <strong> {{ specific_purchase.store.work_name }} </strong>
               </h5>
-              <button
-                type="button"
-                class="close text-dark cursor: pointer"
-                data-dismiss="modal"
-                aria-label="Close"
-                @click="hidePurchaseModal"
-              >
+              <button type="button" class="close text-dark cursor: pointer" data-dismiss="modal" aria-label="Close"
+                @click="hidePurchaseModal">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <img
-                :src="`/sale/${specific_purchase.store.file_path}`"
-                style="max-width: 465px"
-              />
+              <img :src="`/sale/${specific_purchase.store.file_path}`" style="max-width: 465px" />
 
               <br />
-              <br/>
-            <strong>Price: </strong>  {{ specific_purchase.Price }} EUR
               <br />
-            <strong> Purchase ID: </strong> {{specific_purchase.uuid}}
+              <strong>Price: </strong> {{ specific_purchase.Price }} EUR
               <br />
-           <strong> Purchased on: </strong> {{specific_purchase.created_at}}
+              <strong> Purchase ID: </strong> {{ specific_purchase.uuid }}
               <br />
-            
+              <strong> Purchased on: </strong> {{ specific_purchase.created_at }}
+              <br />
+
             </div>
           </div>
         </div>
@@ -151,7 +124,7 @@ export default {
     },
     hidePurchaseModal() {
       this.showPurchaseModal = false;
-      
+
     },
     loadUserPurchases() {
       axios
@@ -207,7 +180,7 @@ export default {
       // this.loading = false
     },
   },
-  created() {},
+  created() { },
   mounted() {
     this.loadUserPurchases();
     this.checkLoginStatus();
@@ -223,14 +196,15 @@ input.mycanvas {
   display: none;
 }
 
-input.mycat:checked + label,
-input.mypaint:checked + label,
-input.mysize:checked + label,
-input.mycanvas:checked + label {
+input.mycat:checked+label,
+input.mypaint:checked+label,
+input.mysize:checked+label,
+input.mycanvas:checked+label {
   background: green;
   color: white;
   box-shadow: 0px 1px 3px inset;
 }
+
 @import url("https://fonts.googleapis.com/css2?family=Heebo:wght@500&display=swap");
 
 .form-control {
@@ -258,6 +232,7 @@ input.form-control:focus {
 .btn-primary:focus {
   box-shadow: none;
 }
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
 
 body {
@@ -420,6 +395,7 @@ a:hover {
   background-color: #444444;
   transform: translateY(-50%);
 }
+
 .btn-block {
   width: 100%;
   text-align: left;

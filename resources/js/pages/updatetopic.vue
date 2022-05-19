@@ -9,21 +9,11 @@
             <form action="#" @submit.prevent="updatetopic">
               <div class="form-group">
                 <label for="">Topic title</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="topic_title"
-                  v-model="topic_title"
-                />
+                <input type="text" class="form-control" name="topic_title" v-model="topic_title" />
               </div>
               <div class="form-group">
                 <label for="">Topic description</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="topic_description"
-                  v-model="topic_description"
-                />
+                <input type="text" class="form-control" name="topic_description" v-model="topic_description" />
               </div>
               <div class="row">
                 <div class="col-md-6">

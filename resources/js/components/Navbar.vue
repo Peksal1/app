@@ -7,35 +7,27 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item class="item"
-            ><router-link class="col" :to="{ name: 'home' }">Home</router-link>
+          <b-nav-item class="item"></b-nav-item>
+          <router-link class="col" :to="{ name: 'home' }">Home</router-link>
           </b-nav-item>
 
-          <b-nav-item class="item"
-            ><router-link class="col" :to="{ name: 'collections' }"
-              >Portfolio</router-link
-            >
+          <b-nav-item class="item">
+            <router-link class="col" :to="{ name: 'collections' }">Portfolio</router-link>
           </b-nav-item>
-          <b-nav-item class="item"
-            ><router-link class="col" :to="{ name: 'blog' }">Blog</router-link>
+          <b-nav-item class="item">
+            <router-link class="col" :to="{ name: 'blog' }">Blog</router-link>
           </b-nav-item>
-          <b-nav-item class="item"
-            ><router-link class="col" :to="{ name: 'biography' }"
-              >About me</router-link
-            >
+          <b-nav-item class="item">
+            <router-link class="col" :to="{ name: 'biography' }">About me</router-link>
           </b-nav-item>
-          <b-nav-item class="item"
-            ><router-link class="col" :to="{ name: 'store' }"
-              >For sale!</router-link
-            >
+          <b-nav-item class="item">
+            <router-link class="col" :to="{ name: 'store' }">For sale!</router-link>
           </b-nav-item>
-          <b-nav-item class="item"
-            ><router-link class="col" :to="{ name: 'contact' }"
-              >Contacts</router-link
-            >
+          <b-nav-item class="item">
+            <router-link class="col" :to="{ name: 'contact' }">Contacts</router-link>
           </b-nav-item>
-          <b-nav-item class="item"
-            ><router-link class="col" :to="{ name: 'faq' }">FAQ</router-link>
+          <b-nav-item class="item">
+            <router-link class="col" :to="{ name: 'faq' }">FAQ</router-link>
           </b-nav-item>
         </b-navbar-nav>
 
@@ -44,35 +36,23 @@
           <!-- Using 'button-content' slot -->
 
           <b-navbar-nav v-if="!isLoggedIn && !loading">
-            <b-nav-item class="item"
-              ><router-link class="col" :to="{ name: 'register' }"
-                >Register</router-link
-              >
+            <b-nav-item class="item">
+              <router-link class="col" :to="{ name: 'register' }">Register</router-link>
             </b-nav-item>
-            <b-nav-item class="item"
-              ><router-link class="col" :to="{ name: 'login' }"
-                >Login</router-link
-              >
+            <b-nav-item class="item">
+              <router-link class="col" :to="{ name: 'login' }">Login</router-link>
             </b-nav-item>
           </b-navbar-nav>
 
-          <b-nav-item-dropdown
-            class="profileMenu"
-            :text="currentUser.name"
-            right
-            v-if="isLoggedIn && !loading"
-          >
+          <b-nav-item-dropdown class="profileMenu" :text="currentUser.name" right v-if="isLoggedIn && !loading">
             <b-dropdown-item>
-              <router-link
-                class="item"
-                :to="{
-                  name: 'userprofile',
-                  params: { id: currentUser.id },
-                }"
-                ><v-icon large text color="teal darken-2">
-                  mdi-account-circle </v-icon
-                >Account</router-link
-              >
+              <router-link class="item" :to="{
+                name: 'userprofile',
+                params: { id: currentUser.id },
+              }">
+                <v-icon large text color="teal darken-2">
+                  mdi-account-circle </v-icon>Account
+              </router-link>
               <br />
               <br />
               <button class="btn btn-danger" @click="logout">Logout</button>
@@ -163,6 +143,7 @@ export default {
 .logoimage {
   margin-left: 4rem;
 }
+
 .nav-link {
   color: white !important;
   font-size: 1.4rem;
@@ -170,10 +151,12 @@ export default {
   font-style: italic;
   font-weight: 600;
 }
+
 .col {
   color: white !important;
   text-decoration: none !important;
 }
+
 .col:hover {
   color: #fca504 !important;
 }
@@ -181,9 +164,11 @@ export default {
 .pages {
   margin-left: 70%;
 }
+
 .nav {
   border-color: coral;
 }
+
 .v-tab {
   text-transform: none;
 }

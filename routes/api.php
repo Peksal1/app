@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
     Route::post('/shops/{shop}/update', [ShopController::class, 'update']);
     Route::post('/portfolios/{portfolio}/update', [PortfolioController::class, 'update']);
     Route::post('/blogs/{blog}/update', [BlogController::class, 'update']);
+    Route::post('/purchases/{purchase}/update', [PurchasesController::class, 'update']);
     Route::post('/collections/{collection}/update', [PortfolioController::class, 'updateCollection']);
     Route::post('/users', [UserController::class, 'store']); /// New user
     Route::get('/users', [UserController::class, 'index']); /// User list
@@ -74,6 +75,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
     Route::get('/user/{id}/feedback', [UserController::class, 'userfeedback']); /// Users feedback
     Route::get('/user/{id}/posts', [UserController::class, 'userposts']); /// Users posts
     Route::get('/user/search/{name}', [UserController::class, 'user_search']); /// Search user by name
+    Route::get('/admin/order/{id}', [OrderController::class, 'showAdminOrder']); /// Order list
 });
 
 

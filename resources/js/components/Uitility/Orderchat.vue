@@ -1,13 +1,11 @@
 <template>
   <div class="container">
-    <div
-      class="
+    <div class="
         new-stores-option
         d-flex
         justify-content-between
         align-items-center
-      "
-    >
+      ">
       <div class="btn btn-sm btn-primary" @click="openSizeModal">
         Add New Size
       </div>
@@ -31,17 +29,13 @@
           <div class="card-header">Sizes</div>
           <div class="card-body">
             <ul>
-              <li
-                v-for="(size, index) in sizes"
-                :key="index"
-                class="
+              <li v-for="(size, index) in sizes" :key="index" class="
                   list-item
                   text-black
                   d-flex
                   justify-content-between
                   align-items-center
-                "
-              >
+                ">
                 <div>
                   Size: {{ size.type }} CM | Price: {{ size.price_in_eur }} EUR
                 </div>
@@ -66,17 +60,13 @@
           <div class="card-header">Paints</div>
           <div class="card-body">
             <ul>
-              <li
-                v-for="(paint, index) in paints"
-                :key="index"
-                class="
+              <li v-for="(paint, index) in paints" :key="index" class="
                   list-item
                   text-black
                   d-flex
                   justify-content-between
                   align-items-center
-                "
-              >
+                ">
                 <div>
                   Paint: <strong>{{ paint.type }}</strong> | Price:
                   {{ paint.price_in_eur }} EUR
@@ -101,17 +91,13 @@
           <div class="card-header">Canvases</div>
           <div class="card-body">
             <ul>
-              <li
-                v-for="(canvas, index) in canvases"
-                :key="index"
-                class="
+              <li v-for="(canvas, index) in canvases" :key="index" class="
                   list-item
                   text-black
                   d-flex
                   justify-content-between
                   align-items-center
-                "
-              >
+                ">
                 <div>
                   Canvas: <strong>{{ canvas.type }}</strong> | Price:
                   {{ canvas.price_in_eur }} EUR
@@ -126,28 +112,16 @@
       </div>
     </div>
     <!-- modal vindows -->
-    <div
-      class="modal"
-      :class="{ show: showSizeModal }"
-      id="sizeModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal" :class="{ show: showSizeModal }" id="sizeModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">
               Add Size
             </h5>
-            <button
-              type="button"
-              class="close text-dark"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hideSizeModal"
-            >
+            <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close"
+              @click="hideSizeModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -155,26 +129,14 @@
             <form @submit.prevent="submitSizeForm">
               <div class="form-group">
                 <label for="">Type</label>
-                <input
-                  v-model="sizeForm.type"
-                  type="text"
-                  class="form-control"
-                />
+                <input v-model="sizeForm.type" type="text" class="form-control" />
               </div>
               <div class="form-group">
                 <label for="">Price</label>
-                <input
-                  v-model="sizeForm.price_in_eur"
-                  type="text"
-                  class="form-control"
-                />
+                <input v-model="sizeForm.price_in_eur" type="text" class="form-control" />
               </div>
               <div class="form-group">
-                <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-primary btn-block"
-                />
+                <input type="submit" value="Submit" class="btn btn-primary btn-block" />
               </div>
             </form>
           </div>
@@ -182,28 +144,16 @@
       </div>
     </div>
 
-    <div
-      class="modal"
-      :class="{ show: showPaintModal }"
-      id="paintModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal" :class="{ show: showPaintModal }" id="paintModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">
               Add Paint
             </h5>
-            <button
-              type="button"
-              class="close text-dark"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hidePaintModal"
-            >
+            <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close"
+              @click="hidePaintModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -211,54 +161,30 @@
             <form @submit.prevent="submitPaintForm">
               <div class="form-group">
                 <label for="">Type</label>
-                <input
-                  v-model="paintForm.type"
-                  type="text"
-                  class="form-control"
-                />
+                <input v-model="paintForm.type" type="text" class="form-control" />
               </div>
               <div class="form-group">
                 <label for="">Price</label>
-                <input
-                  v-model="paintForm.price_in_eur"
-                  type="text"
-                  class="form-control"
-                />
+                <input v-model="paintForm.price_in_eur" type="text" class="form-control" />
               </div>
               <div class="form-group">
-                <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-primary btn-block"
-                />
+                <input type="submit" value="Submit" class="btn btn-primary btn-block" />
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>
-    <div
-      class="modal"
-      :class="{ show: showCanvasModal }"
-      id="canvasModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal" :class="{ show: showCanvasModal }" id="canvasModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">
               Add Canvas
             </h5>
-            <button
-              type="button"
-              class="close text-dark"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hideCanvasModal"
-            >
+            <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close"
+              @click="hideCanvasModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -266,26 +192,14 @@
             <form @submit.prevent="submitCanvasForm">
               <div class="form-group">
                 <label for="">Type</label>
-                <input
-                  v-model="canvasForm.type"
-                  type="text"
-                  class="form-control"
-                />
+                <input v-model="canvasForm.type" type="text" class="form-control" />
               </div>
               <div class="form-group">
                 <label for="">Price</label>
-                <input
-                  v-model="canvasForm.price_in_eur"
-                  type="text"
-                  class="form-control"
-                />
+                <input v-model="canvasForm.price_in_eur" type="text" class="form-control" />
               </div>
               <div class="form-group">
-                <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-primary btn-block"
-                />
+                <input type="submit" value="Submit" class="btn btn-primary btn-block" />
               </div>
             </form>
           </div>
@@ -376,6 +290,7 @@ form {
   border-radius: 5px;
   border: 0px;
 }
+
 label {
   color: #000;
 }
@@ -388,6 +303,7 @@ li {
   list-style: none;
   padding: 10px;
 }
+
 ul {
   padding: 0px;
   margin: 0px;

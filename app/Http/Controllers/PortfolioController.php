@@ -23,7 +23,7 @@ class PortfolioController extends Controller
     public function index(Request $request)
     {
 
-    $portfolios=Portfolio::query()->with(['portfolio_collection'])->paginate(20);
+    $portfolios=Portfolio::query()->with(['portfolio_collection','portfolio_category'])->paginate(4);
     if (!empty($request->searchKeyword)) {
         $portfolios->where('work_name', 'LIKE', "%{$request->searchKeyword}%");
     }

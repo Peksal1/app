@@ -7,33 +7,16 @@
           <div class="card-body">
             <form action="#" @submit.prevent="createmessage">
               <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="evaluation"
-                  placeholder="Evaluation"
-                  v-model="formData.evaluation"
-                />
+                <input type="text" class="form-control" name="evaluation" placeholder="Evaluation"
+                  v-model="formData.evaluation" />
                 <p class="text-danger" v-text="errors.evaluation"></p>
               </div>
               <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="pros"
-                  placeholder="Pros"
-                  v-model="formData.pros"
-                />
+                <input type="text" class="form-control" name="pros" placeholder="Pros" v-model="formData.pros" />
                 <p class="text-danger" v-text="errors.pros"></p>
               </div>
               <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="cons"
-                  placeholder="Cons"
-                  v-model="formData.cons"
-                />
+                <input type="text" class="form-control" name="cons" placeholder="Cons" v-model="formData.cons" />
                 <p class="text-danger" v-text="errors.cons"></p>
               </div>
               <div class="row">

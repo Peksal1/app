@@ -23,7 +23,7 @@ class orders extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
     public function userorders()
     {
@@ -44,5 +44,9 @@ class orders extends Model
     public function size()
     {
         return $this->belongsTo(Size::class,'size_id');
+    }
+    public function shipping()
+    {
+        return $this->hasOne(Shipping::class,'purchase_id','uuid');
     }
 }

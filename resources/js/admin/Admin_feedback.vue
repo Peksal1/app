@@ -1,24 +1,13 @@
 <template>
   <div class="container-fuiled">
     <AdminNavbar />
-    <router-link class="new_feedback" :to="{ name: 'newfeedback' }"
-      >New feedback!</router-link
-    >
+    <router-link class="new_feedback" :to="{ name: 'newfeedback' }">New feedback!</router-link>
 
     <h1>Comments</h1>
-    <div
-      class="col-sm-5 col-md-6 col-12 pb-4"
-      v-for="feedback in feedbacks"
-      v-bind:key="feedback.id"
-    >
+    <div class="col-sm-5 col-md-6 col-12 pb-4" v-for="feedback in feedbacks" v-bind:key="feedback.id">
       <div class="comment mt-4 text-justify float-left">
-        <img
-          src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
-          alt=""
-          class="rounded-circle"
-          width="40"
-          height="40"
-        />
+        <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" alt=""
+          class="rounded-circle" width="40" height="40" />
         <h4>{{ feedback.userfeedback.name }}</h4>
         <span>- {{ feedback.created_at }}</span> <br />
         <p>
@@ -31,12 +20,8 @@
         <p>{{ feedback.cons }}</p>
       </div>
       <button>
-        <router-link
-          class="item"
-          :to="{ name: 'updatefeedback', params: { id: feedback.id } }"
-        >
-          Update</router-link
-        >
+        <router-link class="item" :to="{ name: 'updatefeedback', params: { id: feedback.id } }">
+          Update</router-link>
       </button>
     </div>
   </div>
@@ -150,6 +135,7 @@ form {
   border-radius: 5px;
   padding: 20px;
 }
+
 .container-fuiled {
   background: #343a40;
   color: white;

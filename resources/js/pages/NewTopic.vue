@@ -3,40 +3,15 @@
     <Navbar />
     <form action="#" @submit.prevent="newpost">
       <strong>Topic Title:</strong><br />
-      <input
-        type="text"
-        name="title"
-        v-model="formData.title"
-        size="40"
-        maxlength="150"
-      /><br />
+      <input type="text" name="title" v-model="formData.title" size="40" maxlength="150" /><br />
       <strong>Topic description:</strong><br />
-      <input
-        type="text"
-        name="description"
-        v-model="formData.description"
-        size="40"
-        maxlength="150"
-      /><br />
+      <input type="text" name="description" v-model="formData.description" size="40" maxlength="150" /><br />
       <strong>Post thumbnail:</strong><br />
-      <textarea
-        name="thumbnail"
-        v-model="formData.thumbnail"
-        rows="8"
-        cols="40"
-        wrap="virtual"
-      ></textarea>
+      <textarea name="thumbnail" v-model="formData.thumbnail" rows="8" cols="40" wrap="virtual"></textarea>
       <div class="p-2 w-full">
         <div class="relative">
-          <label for="attachment" class="leading-7 text-sm text-gray-600"
-            >Attachments</label
-          ><br />
-          <input
-            type="file"
-            accept="image/*"
-            @change="uploadImage($event)"
-            id="file-input"
-          />
+          <label for="attachment" class="leading-7 text-sm text-gray-600">Attachments</label><br />
+          <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input" />
         </div>
       </div>
       <input type="submit" name="submit" value="Add Topic" />

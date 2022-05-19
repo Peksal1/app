@@ -10,108 +10,71 @@
       </div>
     </div>
     <div class="container">
-      <div
-            class="col-md-6 col-lg-4 col-xl-3"
-            v-for="(portfolio, index) in portfolios"
-            :key="index"
-          >
+      <div class="col-md-6 col-lg-4 col-xl-3" v-for="(portfolio, index) in portfolios" :key="index">
         <div class="card">
           <div class="card-body">
             <div class="product-image">
-              <img :src="`/portfolio/${portfolio.file_path}`" alt="" @click="openAdminPortfolioModal(index)"/>
+              <img :src="`/portfolio/${portfolio.file_path}`" alt="" @click="openAdminPortfolioModal(index)" />
             </div>
             <div class="title">Art name: {{ portfolio.work_name }}</div>
             <div class="title">Description: {{ portfolio.description }}</div>
-            <div class="title">Category: {{ portfolio.category }}</div>
-               <div @click="callEditModal(index)" class="btn btn-sm btn-danger">
-                    Update
-                  </div>
-                   <div @click="deletePortfolio(index)" class="btn btn-sm btn-danger">
-                    Delete
-                  </div>
+            <div class="title">Category: {{ portfolio.portfolio_category.category }}</div>
+            <div @click="callEditModal(index)" class="btn btn-sm btn-primary">
+              Update
+            </div>
+            <div @click="deletePortfolio(index)" class="btn btn-sm btn-danger">
+              Delete
+            </div>
           </div>
         </div>
       </div>
       <div class="col-md-12 text-center center-pagination">
-        <Pagination
-          :pagination="pagination"
-          @perPage="getAllItems()"
-          @paginate="getAllItems()"
-          :offset="6"
-        >
+        <Pagination :pagination="pagination" @perPage="getAllItems()" @paginate="getAllItems()" :offset="6">
         </Pagination>
       </div>
     </div>
-         <div
-        class="modal"
-        :class="{ show: showAdminPortfolioModal }"
-        id="portfolioModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title text-dark" id="exampleModalLabel">
-                {{ portfolio.work_name }}
-              </h5>
-              <button
-                type="button"
-                class="close text-dark cursor: pointer"
-                data-dismiss="modal"
-                aria-label="Close"
-                @click="hideAdminPortfolioModal"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <img
-                :src="`/portfolio/${portfolio.file_path}`"
-                style="max-width: 500px"
-              />
-
-              <br />
-              {{ portfolio.orientation }}
-              <br />
-              {{ portfolio.id }}
-              <br />
-           
-              <div @click="openDigitalModal(portfolio.id)" class="btn btn-sm btn-danger">
-                Add a digital version
-              </div> 
-           
-            </div>
-          
-
-          </div>
-        </div>
-      </div>
-            <!-- new digital modal vindow -->
-          <div
-      class="modal"
-      :class="{ show: showDigitalModal }"
-      id="portfolioModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal" :class="{ show: showAdminPortfolioModal }" id="portfolioModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">
-              Add a new item to the portfolio {{currentPortfolio}}
+              <strong>{{ portfolio.work_name }}</strong>
             </h5>
-            <button
-              type="button"
-              class="close text-dark"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hideDigitalModal"
-            >
+            <button type="button" class="close text-dark cursor: pointer" data-dismiss="modal" aria-label="Close"
+              @click="hideAdminPortfolioModal">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <img :src="`/portfolio/${portfolio.file_path}`" style="max-width: 465px" />
+
+            <br />
+            <strong>Description: </strong>{{ portfolio.description }}
+            <br />
+
+
+            <div @click="openDigitalModal(portfolio.id)" class="btn btn-sm btn-info">
+              Add a digital version
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    <!-- new digital modal vindow -->
+    <div class="modal" :class="{ show: showDigitalModal }" id="portfolioModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="exampleModalLabel">
+              <strong>Add a digital version</strong>
+            </h5>
+            <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close"
+              @click="hideDigitalModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -119,140 +82,65 @@
             <form @submit.prevent="submitDigitalForm(currentPortfolio)">
               <div class="form-group">
                 <label for="">Resolution</label>
-                <input
-                  v-model="digitalForm.resolution"
-                  type="text"
-                  class="form-control"
-                  required
-                />
-              </div>
-                <div class="form-group">
-                <label for="">Price (in EUR)</label>
-                <input
-                  v-model="digitalForm.price"
-                  type="text"
-                  class="form-control"
-                  required
-                />
-              </div>
-              <div class="p-2 w-full">
-                <div class="relative">
-                  <label
-                    for="attachment"
-                    class="leading-7 text-sm text-gray-600"
-                    >Attachments</label
-                  ><br />
-
-                  <input
-                    type="file"
-                    accept="image/*"
-                    @change="uploadDigitalImage($event)"
-                    id="file-input"
-                    required
-                  />
-                </div>
+                <input v-model="digitalForm.resolution" type="text" class="form-control" required />
               </div>
               <div class="form-group">
-                <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-primary btn-block"
-                />
+                <label for="">Price (in EUR)</label>
+                <input v-model="digitalForm.price" type="text" class="form-control" required />
+              </div>
+
+              <div class="relative">
+                <label for="attachment" class="leading-7 text-sm text-gray-600">Attachments</label><br />
+
+                <input type="file" accept="image/*" @change="uploadDigitalImage($event)" id="file-input" required />
+              </div>
+              <br />
+              <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary btn-block"
+                  style="color:white;max-width:100px" />
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>
-      <div
-      class="modal"
-      :class="{ show: showUpdateModal }"
-      id="storeModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal" :class="{ show: showUpdateModal }" id="storeModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">
-              Add a new item to the store
+              <strong>Update</strong>
             </h5>
-            <button
-              type="button"
-              class="close text-dark"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hideUpdateModal"
-            >
+            <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close"
+              @click="hideUpdateModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <form @submit.prevent="updatePortfolio">
-        
 
-              <div class="p-2 w-full">
-                <div class="relative">
-                  <label
-                    for="attachment"
-                    class="leading-7 text-sm text-gray-600"
-                    >Attachments</label
-                  ><br />
 
-                  <input
-                    type="file"
-                    accept="image/*"
-                    @change="uploadImage($event)"
-                    id="file-input"
-                    required
-                  />
-                </div>
-              </div>
-                <div class="form-group">
-                <label for="">Work name</label>
-                <input
-                  v-model="updateForm.work_name"
-                  type="text"
-                  class="form-control"
-                  required
-                />
-              </div>
-              
-               <div class="form-group">
-                <label for="">Description</label>
-                <input
-                  v-model="updateForm.description"
-                  type="text"
-                  class="form-control"
-                  required
-                />
-              </div>
-                <div class="form-group">
-                <label for="">Orientation</label>
-                <input
-                  v-model="updateForm.orientation"
-                  type="text"
-                  class="form-control"
-                  required
-                />
-              </div>
-               <div class="form-group">
-                <label for="">Price (EUR)</label>
-                <input
-                  v-model="updateForm.price_in_eur"
-                  type="text"
-                  class="form-control"
-                  required
-                />
-              </div>
+
               <div class="form-group">
-                <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-primary btn-block"
-                />
+                <label for="">Work name</label>
+                <input v-model="updateForm.work_name" type="text" class="form-control" required />
+              </div>
+
+              <div class="form-group">
+                <label for="">Description</label>
+                <input v-model="updateForm.description" type="text" class="form-control" required />
+              </div>
+
+              <div class="relative">
+                <label for="attachment" class="leading-7 text-sm text-gray-600">Attachments</label><br />
+
+                <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input" required />
+              </div>
+              <br />
+              <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary btn-block"
+                  style="color:white; max-width:100px" />
               </div>
             </form>
           </div>
@@ -272,16 +160,16 @@ export default {
       portfolios: [],
       searchKeyword: "",
       showDigitalModal: false,
-      showUpdateModal:false,
-          updateForm:{
+      showUpdateModal: false,
+      updateForm: {
         id: null,
-        file_path:'',
+        file_path: '',
         description: '',
         orientation: '',
         price_in_eur: '',
         work_name: '',
       },
-        digitalForm: {
+      digitalForm: {
         image: "",
         price: "",
         resolution: "",
@@ -324,27 +212,27 @@ export default {
           console.log(err);
         });
     },
-     callEditModal(index){
-    this.updateForm = this.portfolios[index];
-  this.showUpdateModal = true;
-  },
-   uploadImage(event) {
+    callEditModal(index) {
+      this.updateForm = this.portfolios[index];
+      this.showUpdateModal = true;
+    },
+    uploadImage(event) {
       const file = event.target.files[0];
       this.updateForm.file_path = file;
     },
-    hideUpdateModal(){
-    this.showUpdateModal = false;
+    hideUpdateModal() {
+      this.showUpdateModal = false;
     },
-     updatePortfolio(){
-     let formData = new FormData();
-       formData.append("work_name", this.updateForm.work_name);
+    updatePortfolio() {
+      let formData = new FormData();
+      formData.append("work_name", this.updateForm.work_name);
       formData.append("file_path", this.updateForm.file_path);
       formData.append("description", this.updateForm.description);
-    //   formData.append("category_id", this.updateForm.category_id);
-       formData.append("orientation", this.updateForm.orientation);
-     //  formData.append("size_id", this.updateForm.size_id);
-     //  formData.append("canvas_id", this.updateForm.canvas_id);
-       //formData.append("paint_id", this.updateForm.paint_id);
+      //   formData.append("category_id", this.updateForm.category_id);
+      formData.append("orientation", this.updateForm.orientation);
+      //  formData.append("size_id", this.updateForm.size_id);
+      //  formData.append("canvas_id", this.updateForm.canvas_id);
+      //formData.append("paint_id", this.updateForm.paint_id);
 
       axios
         .post(`/api/portfolios/${this.updateForm.id}/update`, formData, {
@@ -355,8 +243,8 @@ export default {
         })
         .then((res) => {
           if (res.data.success) {
-           let portfolioIndex =  this.portfolios.findIndex(item=>item.id == this.updateForm.id);
-           this.portfolios[portfolioIndex] = res.data.shop;
+            let portfolioIndex = this.portfolios.findIndex(item => item.id == this.updateForm.id);
+            this.portfolios[portfolioIndex] = res.data.shop;
             // reset the form
             this.updateForm = {
               work_name: "",
@@ -374,9 +262,9 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-  },
-submitDigitalForm(currentPortfolio) {
-  this.checkLoginStatus();
+    },
+    submitDigitalForm(currentPortfolio) {
+      this.checkLoginStatus();
       let formData = new FormData();
       formData.append("resolution", this.digitalForm.resolution);
       formData.append("price", this.digitalForm.price);
@@ -409,10 +297,10 @@ submitDigitalForm(currentPortfolio) {
         });
     },
     openDigitalModal(index) {
-   this.showDigitalModal = true;
-this.currentPortfolio = index;
+      this.showDigitalModal = true;
+      this.currentPortfolio = index;
     },
-     hideDigitalModal() {
+    hideDigitalModal() {
       this.showDigitalModal = false;
     },
     uploadDigitalImage(event) {
@@ -426,7 +314,7 @@ this.currentPortfolio = index;
     hideAdminPortfolioModal() {
       this.showAdminPortfolioModal = false;
     },
-       loadSpecificPortfolio(index) {
+    loadSpecificPortfolio(index) {
       axios
         .get("/api/portfolio/" + this.portfolios[index].id, {})
 
@@ -438,7 +326,7 @@ this.currentPortfolio = index;
           console.log(error);
         });
     },
-       checkLoginStatus() {
+    checkLoginStatus() {
       this.loading = true;
       // this.loading = true
       axios

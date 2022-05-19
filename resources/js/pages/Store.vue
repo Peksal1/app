@@ -22,52 +22,30 @@
           <div class="col-md-3">
             <p><strong>FILTER BY CATEGORY</strong></p>
             <!-- painting category filtering -->
-            <div
-              v-for="(painting_category, index) in painting_categories"
-              :key="index"
-              class="m-1"
-            >
+            <div v-for="(painting_category, index) in painting_categories" :key="index" class="m-1">
               <div>
-                <input
-                  type="checkbox"
-                  :id="`category_${painting_category.id}`"
-                  class="mycat"
-                  v-model="cat"
-                  :value="painting_category.id"
-                /><label
-                  :for="`category_${painting_category.id}`"
-                  class="btn btn-sm border btn-block"
-                  >{{ painting_category.category }}</label
-                >
+                <input type="checkbox" :id="`category_${painting_category.id}`" class="mycat" v-model="cat"
+                  :value="painting_category.id" /><label :for="`category_${painting_category.id}`"
+                  class="btn btn-sm border btn-block">{{ painting_category.category }}</label>
               </div>
             </div>
             <p class="mt-4"><strong>FILTER BY SIZE</strong></p>
             <!-- painting size filtering -->
             <div v-for="(size, index) in sizes" :key="index" class="m-2">
               <div>
-                <input
-                  type="checkbox"
-                  :id="`size_${size.id}`"
-                  class="mysize"
-                  v-model="sizefilter"
-                  :value="size.id"
-                /><label :for="`size_${size.id}`" class="btn btn-sm border btn-block">{{
-                  size.type
-                }}</label>
+                <input type="checkbox" :id="`size_${size.id}`" class="mysize" v-model="sizefilter"
+                  :value="size.id" /><label :for="`size_${size.id}`" class="btn btn-sm border btn-block">{{
+                      size.type
+                  }}</label>
               </div>
             </div>
             <p class="mt-4"><strong>FILTER BY PAINT</strong></p>
             <!-- paint filterting -->
             <div v-for="(paint, index) in paints" :key="index" class="m-1">
-              <input
-                type="checkbox"
-                :id="`paint_${paint.id}`"
-                class="mypaint"
-                v-model="paintfilter"
-                :value="paint.id"
-              /><label :for="`paint_${paint.id}`" class="btn btn-sm border btn-block">{{
-                paint.type
-              }}</label>
+              <input type="checkbox" :id="`paint_${paint.id}`" class="mypaint" v-model="paintfilter"
+                :value="paint.id" /><label :for="`paint_${paint.id}`" class="btn btn-sm border btn-block">{{
+                    paint.type
+                }}</label>
             </div>
 
             <p class="mt-4"><strong>FILTER BY CANVAS</strong></p>
@@ -75,17 +53,10 @@
             <!-- canvas filtering -->
             <div v-for="(canvas, index) in canvases" :key="index" class="m-1">
               <div>
-                <input
-                  type="checkbox"
-                  :id="`canvas_${canvas.id}`"
-                  class="mycanvas"
-                  v-model="canvasfilter"
-                  :value="canvas.id"
-                /><label
-                  :for="`canvas_${canvas.id}`"
-                  class="btn btn-sm border btn-block"
-                  >{{ canvas.type }}</label
-                >
+                <input type="checkbox" :id="`canvas_${canvas.id}`" class="mycanvas" v-model="canvasfilter"
+                  :value="canvas.id" /><label :for="`canvas_${canvas.id}`" class="btn btn-sm border btn-block">{{
+                      canvas.type
+                  }}</label>
               </div>
             </div>
             <!-- products -->
@@ -93,16 +64,11 @@
           <div class="col-md-9">
             <div class="row">
               <!-- Single Product -->
-              <div
-                class="col-md-6"
-                v-if="!isPaymentLoading"
-                v-for="(shop, index) in shops"
-                :key="index"
-              >
+              <div class="col-md-6" v-if="!isPaymentLoading" v-for="(shop, index) in shops" :key="index">
                 <div id="product-1" class="single-product">
                   <div class="part-1">
-                    <img :src="`/sale/${shop.file_path}`" alt=""   style="cursor: pointer; max-width: 500px"
-                  @click="openShopModal(index)"/>
+                    <img :src="`/sale/${shop.file_path}`" alt="" style="cursor: pointer; max-width: 500px"
+                      @click="openShopModal(index)" />
                     <ul>
                       <li>
                         <a href="#"><i class="fas fa-expand"></i></a>
@@ -113,13 +79,10 @@
                     <h3 class="product-title">
                       <strong>{{ shop.work_name }}</strong>
                     </h3>
-                    <div class="category">{{ shop.description }}</div> <br/>
+                    <div class="category">{{ shop.description }}</div> <br />
                     <h4 class="product-price"><strong>Price:</strong> {{ shop.price_in_eur }} EUR</h4>
                     <div class="buy-btn mt-3">
-                      <div
-                        @click="buyProduct(shop.id)"
-                        class="btn btn-block btn-primary" style="max-width:90px"
-                      >
+                      <div @click="buyProduct(shop.id)" class="btn btn-block btn-primary" style="max-width:90px">
                         Buy Now
                       </div>
                     </div>
@@ -136,66 +99,46 @@
         </div>
 
         <div class="col-md-12 text-center center-pagination">
-          <Pagination
-            :pagination="pagination"
-            @perPage="getAllItems()"
-            @paginate="getAllItems()"
-            :offset="6"
-          >
+          <Pagination :pagination="pagination" @perPage="getAllItems()" @paginate="getAllItems()" :offset="6">
           </Pagination>
         </div>
       </div>
     </section>
-         <div
-        class="modal"
-        :class="{ show: showShopModal }"
-        id="shopModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document" v-if="shop != null">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title text-dark" id="exampleModalLabel">
-            <strong>    {{ shop.work_name }} </strong>
-              </h5>
-              <button
-                type="button"
-                class="close text-dark cursor: pointer"
-                data-dismiss="modal"
-                aria-label="Close"
-                @click="hideShopModal"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <img
-                :src="`/sale/${shop.file_path}`"
-                style="max-width: 465px"
-              />
+    <div class="modal" :class="{ show: showShopModal }" id="shopModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document" v-if="shop != null">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="exampleModalLabel">
+              <strong> {{ shop.work_name }} </strong>
+            </h5>
+            <button type="button" class="close text-dark cursor: pointer" data-dismiss="modal" aria-label="Close"
+              @click="hideShopModal">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <img :src="`/sale/${shop.file_path}`" style="max-width: 465px" />
 
-              <br />
-              <br />
-         <strong>   Description:  </strong>{{ shop.description }}
-              <br />
-             
-           <strong>Orientation: </strong> {{shop.orientation}}
-           <br />
-              <strong>Size: </strong> {{shop.size.type}}
-           <br />
-              <strong>Paint: </strong> {{shop.paint.type}}
-           <br />
-              <strong>Canvas: </strong> {{shop.canvas.type}}
-           <br />
-               <strong>Price: </strong> {{shop.price_in_eur}} EUR
-           <br />
-            </div>
+            <br />
+            <br />
+            <strong> Description: </strong>{{ shop.description }}
+            <br />
+
+            <strong>Orientation: </strong> {{ shop.orientation }}
+            <br />
+            <strong>Size: </strong> {{ shop.size.type }}
+            <br />
+            <strong>Paint: </strong> {{ shop.paint.type }}
+            <br />
+            <strong>Canvas: </strong> {{ shop.canvas.type }}
+            <br />
+            <strong>Price: </strong> {{ shop.price_in_eur }} EUR
+            <br />
           </div>
         </div>
       </div>
+    </div>
   </div>
 </template>
 <script>
@@ -244,7 +187,7 @@ export default {
           console.log(error);
         });
     },
-      openShopModal(index) {
+    openShopModal(index) {
       this.showShopModal = true;
       this.loadSpecificShopItem(index);
     },
@@ -352,14 +295,15 @@ input.mycanvas {
   display: none;
 }
 
-input.mycat:checked + label,
-input.mypaint:checked + label,
-input.mysize:checked + label,
-input.mycanvas:checked + label {
+input.mycat:checked+label,
+input.mypaint:checked+label,
+input.mysize:checked+label,
+input.mycanvas:checked+label {
   background: green;
   color: white;
   box-shadow: 0px 1px 3px inset;
 }
+
 @import url("https://fonts.googleapis.com/css2?family=Heebo:wght@500&display=swap");
 
 .form-control {
@@ -387,6 +331,7 @@ input.form-control:focus {
 .btn-primary:focus {
   box-shadow: none;
 }
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
 
 body {
@@ -549,6 +494,7 @@ a:hover {
   background-color: #444444;
   transform: translateY(-50%);
 }
+
 .btn-block {
   width: 100%;
   text-align: left;

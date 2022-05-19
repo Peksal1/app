@@ -22,19 +22,11 @@
         </div>
         <div class="row">
           <!-- Single Product -->
-          <div
-            class="col-md-6 col-lg-3 col-xl-3"
-         v-for="(purchase, index) in purchases"
-            :key="index"
-          >
+          <div class="col-md-6 col-lg-3 col-xl-3" v-for="(purchase, index) in purchases" :key="index">
             <div id="product-1" class="single-product">
               <div class="part-1">
-                <img
-                  :src="`/digital/${purchase.painting.image}`"
-                  :alt="`${purchase.painting.image}`"
-                  style="cursor: pointer; max-width: 350px"
-                      @click="openPurchaseModal(index)"
-                />
+                <img :src="`/digital/${purchase.painting.image}`" :alt="`${purchase.painting.image}`"
+                  style="cursor: pointer; max-width: 350px" @click="openPurchaseModal(index)" />
 
                 <ul>
                   <li>
@@ -44,64 +36,46 @@
               </div>
               <div class="part-2">
                 <h3 class="product-title">
-                  <strong>{{purchase.painting.resolution}}</strong>
+                  <strong>{{ purchase.painting.resolution }}</strong>
                 </h3>
-               
+
               </div>
-              
+
             </div>
-            
+
           </div>
-          
+
         </div>
-         <div class="col-md-12 text-center center-pagination">
-          <Pagination
-            :pagination="pagination"
-            @perPage="loadUserPurchases()"
-            @paginate="loadUserPurchases()"
-            :offset="6"
-          >
+        <div class="col-md-12 text-center center-pagination">
+          <Pagination :pagination="pagination" @perPage="loadUserPurchases()" @paginate="loadUserPurchases()"
+            :offset="6">
           </Pagination>
         </div>
       </div>
     </section>
-    <div
-      class="modal"
-      :class="{ show: showPurchaseModal }"
-      id="purchaseModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal" :class="{ show: showPurchaseModal }" id="purchaseModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document" v-if="specific_purchase != null">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title text-dark" id="exampleModalLabel"><strong>{{specific_purchase.painting.resolution}}</strong></h5>
-            <button
-              type="button"
-              class="close text-dark cursor: pointer"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hidePurchaseModal"
-            >
+            <h5 class="modal-title text-dark" id="exampleModalLabel">
+              <strong>{{ specific_purchase.painting.resolution }}</strong></h5>
+            <button type="button" class="close text-dark cursor: pointer" data-dismiss="modal" aria-label="Close"
+              @click="hidePurchaseModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body"> <img
-                  :src="`/digital/${specific_purchase.painting.image}`"
-                  :alt="`${specific_purchase.painting.image}`"
-                  style="cursor: pointer; max-width: 465px"
-                      
-                /></div>
-                <div class="modal-body"><strong>Purchased for: </strong>{{specific_purchase.painting.price}} EUR </br>
-              <strong>  On: </strong>{{specific_purchase.created_at}} </br>
-       <strong>   Purchase ID:</strong> {{specific_purchase.uuid}} </div>
+          <div class="modal-body"> <img :src="`/digital/${specific_purchase.painting.image}`"
+              :alt="`${specific_purchase.painting.image}`" style="cursor: pointer; max-width: 465px" /></div>
+          <div class="modal-body"><strong>Purchased for: </strong>{{ specific_purchase.painting.price }} EUR <br/>
+            <strong> On: </strong>{{ specific_purchase.created_at }} <br/>
+            <strong> Purchase ID:</strong> {{ specific_purchase.uuid }}
+          </div>
 
         </div>
       </div>
     </div>
-      
+
   </div>
 </template>
 
@@ -110,19 +84,19 @@ import axios from "axios";
 import Navbar from "../components/Navbar.vue";
 import Pagination from "../components/Pagination.vue";
 
-   function toDataUrl(url, callback) {
-      var xhr = new XMLHttpRequest();
-      xhr.onload = function() {
-          var reader = new FileReader();
-          reader.onloadend = function() {
-              callback(reader.result);
-          }
-          reader.readAsDataURL(xhr.response);
-      };
-      xhr.open('GET', url);
-      xhr.responseType = 'blob';
-      xhr.send();
-  }
+function toDataUrl(url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function () {
+    var reader = new FileReader();
+    reader.onloadend = function () {
+      callback(reader.result);
+    }
+    reader.readAsDataURL(xhr.response);
+  };
+  xhr.open('GET', url);
+  xhr.responseType = 'blob';
+  xhr.send();
+}
 
 export default {
   data: function () {
@@ -152,14 +126,14 @@ export default {
   },
 
   methods: {
-    downloadImage(imageName){
+    downloadImage(imageName) {
       const imagePath = `http://127.0.0.1:8000/digital/${imageName}`;
-        toDataUrl(imagePath, function(myBase64) {
-              var a = document.createElement("a");  
-              a.href =   myBase64;  
-              a.download = "Image.png";  
-              a.click(); 
-        });
+      toDataUrl(imagePath, function (myBase64) {
+        var a = document.createElement("a");
+        a.href = myBase64;
+        a.download = "Image.png";
+        a.click();
+      });
     },
     openPurchaseModal(index) {
       this.showPurchaseModal = true;
@@ -167,7 +141,7 @@ export default {
     },
     hidePurchaseModal() {
       this.showPurchaseModal = false;
-      
+
     },
     loadUserPurchases() {
       axios
@@ -224,7 +198,7 @@ export default {
       // this.loading = false
     },
   },
-  created() {},
+  created() { },
   mounted() {
     this.loadUserPurchases();
     this.checkLoginStatus();
@@ -240,14 +214,15 @@ input.mycanvas {
   display: none;
 }
 
-input.mycat:checked + label,
-input.mypaint:checked + label,
-input.mysize:checked + label,
-input.mycanvas:checked + label {
+input.mycat:checked+label,
+input.mypaint:checked+label,
+input.mysize:checked+label,
+input.mycanvas:checked+label {
   background: green;
   color: white;
   box-shadow: 0px 1px 3px inset;
 }
+
 @import url("https://fonts.googleapis.com/css2?family=Heebo:wght@500&display=swap");
 
 .form-control {
@@ -275,6 +250,7 @@ input.form-control:focus {
 .btn-primary:focus {
   box-shadow: none;
 }
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
 
 body {
@@ -435,6 +411,7 @@ a:hover {
   background-color: #444444;
   transform: translateY(-50%);
 }
+
 .btn-block {
   width: 100%;
   text-align: left;

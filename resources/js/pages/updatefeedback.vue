@@ -8,30 +8,15 @@
             <form action="#" @submit.prevent="updateservice">
               <div class="form-group">
                 <label for="">evaluation</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="evaluation"
-                  v-model="evaluation"
-                />
+                <input type="text" class="form-control" name="evaluation" v-model="evaluation" />
               </div>
               <div class="form-group">
                 <label for="">pros</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="pros"
-                  v-model="pros"
-                />
+                <input type="text" class="form-control" name="pros" v-model="pros" />
               </div>
               <div class="form-group">
                 <label for="">cons</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="cons"
-                  v-model="cons"
-                />
+                <input type="text" class="form-control" name="cons" v-model="cons" />
               </div>
               <div class="row">
                 <div class="col-md-6">

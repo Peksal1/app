@@ -21,41 +21,31 @@
         </div>
         <div class="row">
           <!-- Single Product -->
-          <div
-            class="col-md-6 col-lg-4 col-xl-3"
-            v-if="!isPaymentLoading"
-            v-for="(shop, index) in shops"
-            :key="index"
-          >
+          <div class="col-md-6 col-lg-4 col-xl-3" v-if="!isPaymentLoading" v-for="(shop, index) in shops" :key="index">
             <div id="product-1" class="single-product">
               <div class="part-1">
-                <img :src="`/sale/${shop.file_path}`" alt="" />
-                <ul>
-                  <li>
-                    <a href="#"><i class="fas fa-expand"></i></a>
-                  </li>
-                </ul>
+                <img :src="`/sale/${shop.file_path}`" alt="" style="max-width:430px" />
+
               </div>
               <div class="part-2">
                 <h3 class="product-title">
                   <strong>{{ shop.work_name }}</strong>
                 </h3>
-                <div class="category">{{ shop.category_id }}</div>
-                <h4 class="product-price">{{ shop.price_in_eur }} EUR</h4>
-                <h4 class="product-price">{{ shop.description }} EUR</h4>
+                <h4 class="product-price">{{ shop.description }}</h4><br />
+                <h4 class="product-price">{{ shop.price_in_eur }} EUR</h4> <br />
+
                 <div class="buy-btn mt-3">
-                  <div
-                    @click="buyProduct(shop.id)"
-                    class="btn btn-block btn-primary"
-                  >
+                  <div @click="buyProduct(shop.id)" class="btn btn-block btn-primary">
                     Buy Now
+                  </div>
+                  <br />
+                  <div @click="callEditModal(index)" class="btn btn-sm btn-primary">
+                    Update
                   </div>
                   <div @click="deleteShop(index)" class="btn btn-sm btn-danger">
                     Delete
                   </div>
-                  <div @click="callEditModal(index)" class="btn btn-sm btn-danger">
-                    update
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -67,105 +57,52 @@
           </div>
         </div>
         <div class="col-md-12 text-center center-pagination">
-          <Pagination
-            :pagination="pagination"
-            @perPage="getAllItems()"
-            @paginate="getAllItems()"
-            :offset="6"
-          >
+          <Pagination :pagination="pagination" @perPage="getAllItems()" @paginate="getAllItems()" :offset="6">
           </Pagination>
         </div>
       </div>
     </section>
-     <div
-      class="modal"
-      :class="{ show: shoUpadteModal }"
-      id="storeModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal" :class="{ show: shoUpadteModal }" id="storeModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">
-              Update store item
+              <strong>Update</strong>
             </h5>
-            <button
-              type="button"
-              class="close text-dark"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hideUpdateModal"
-            >
+            <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close"
+              @click="hideUpdateModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <form @submit.prevent="updateProduct">
-        
 
-              <div class="p-2 w-full">
-                <div class="relative">
-                  <label
-                    for="attachment"
-                    class="leading-7 text-sm text-gray-600"
-                    >Attachments</label
-                  ><br />
 
-                  <input
-                    type="file"
-                    accept="image/*"
-                    @change="uploadImage($event)"
-                    id="file-input"
-                    required
-                  />
-                </div>
-              </div>
-                <div class="form-group">
-                <label for="">Work name</label>
-                <input
-                  v-model="updateForm.work_name "
-                  type="text"
-                  class="form-control"
-                  required
-                />
-              </div>
-              
-               <div class="form-group">
-                <label for="">Description</label>
-                <input
-                  v-model="updateForm.description"
-                  type="text"
-                  class="form-control"
-                  required
-                />
-              </div>
-                <div class="form-group">
-                <label for="">Orientation</label>
-                <input
-                  v-model="updateForm.orientation"
-                  type="text"
-                  class="form-control"
-                  required
-                />
-              </div>
-               <div class="form-group">
-                <label for="">Price (EUR)</label>
-                <input
-                  v-model="updateForm.price_in_eur"
-                  type="text"
-                  class="form-control"
-                  required
-                />
-              </div>
+
               <div class="form-group">
-                <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-primary btn-block"
-                />
+                <label for="">Work name</label>
+                <input v-model="updateForm.work_name" type="text" class="form-control" required />
+              </div>
+
+              <div class="form-group">
+                <label for="">Description</label>
+                <input v-model="updateForm.description" type="text" class="form-control" required />
+              </div>
+
+              <div class="form-group">
+                <label for="">Price (EUR)</label>
+                <input v-model="updateForm.price_in_eur" type="text" class="form-control" required />
+              </div>
+              <div class="relative">
+                <label for="attachment" class="leading-7 text-sm text-gray-600">Attachments</label><br />
+
+                <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input" required />
+              </div>
+              <br />
+              <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary btn-block"
+                  style="max-width:100px;color:white" />
               </div>
             </form>
           </div>
@@ -186,10 +123,10 @@ export default {
       searchKeyword: "",
       adminToken: localStorage.getItem("adminToken"),
       isPaymentLoading: false,
-      shoUpadteModal:false,
-      updateForm:{
+      shoUpadteModal: false,
+      updateForm: {
         id: null,
-        file_path:'',
+        file_path: '',
         description: '',
         orientation: '',
         price_in_eur: '',
@@ -211,17 +148,17 @@ export default {
     NewStore,
   },
   methods: {
-  updateProduct(){
-     let formData = new FormData();
-       formData.append("work_name", this.updateForm.work_name);
+    updateProduct() {
+      let formData = new FormData();
+      formData.append("work_name", this.updateForm.work_name);
       formData.append("file_path", this.updateForm.file_path);
       formData.append("description", this.updateForm.description);
-    //   formData.append("category_id", this.updateForm.category_id);
-       formData.append("orientation", this.updateForm.orientation);
-       formData.append("price_in_eur", this.updateForm.price_in_eur);
-     //  formData.append("size_id", this.updateForm.size_id);
-     //  formData.append("canvas_id", this.updateForm.canvas_id);
-       //formData.append("paint_id", this.updateForm.paint_id);
+      //   formData.append("category_id", this.updateForm.category_id);
+      formData.append("orientation", this.updateForm.orientation);
+      formData.append("price_in_eur", this.updateForm.price_in_eur);
+      //  formData.append("size_id", this.updateForm.size_id);
+      //  formData.append("canvas_id", this.updateForm.canvas_id);
+      //formData.append("paint_id", this.updateForm.paint_id);
 
       axios
         .post(`/api/shops/${this.updateForm.id}/update`, formData, {
@@ -232,8 +169,8 @@ export default {
         })
         .then((res) => {
           if (res.data.success) {
-           let shopIndex =  this.shops.findIndex(item=>item.id == this.updateForm.id);
-           this.shops[shopIndex] = res.data.shop;
+            let shopIndex = this.shops.findIndex(item => item.id == this.updateForm.id);
+            this.shops[shopIndex] = res.data.shop;
             // reset the form
             this.updateForm = {
               work_name: "",
@@ -256,17 +193,17 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-  },
-  callEditModal(index){
-    this.updateForm = this.shops[index];
-  this.shoUpadteModal = true;
-  },
-   uploadImage(event) {
+    },
+    callEditModal(index) {
+      this.updateForm = this.shops[index];
+      this.shoUpadteModal = true;
+    },
+    uploadImage(event) {
       const file = event.target.files[0];
       this.updateForm.file_path = file;
     },
-    hideUpdateModal(){
-    this.shoUpadteModal = false;
+    hideUpdateModal() {
+      this.shoUpadteModal = false;
     },
     deleteShop(index) {
       axios
@@ -364,6 +301,7 @@ input.form-control:focus {
 .btn-primary:focus {
   box-shadow: none;
 }
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
 
 body {
@@ -527,11 +465,11 @@ a:hover {
   transform: translateY(-50%);
 }
 
-.part-1{
-width: 250px;
-height:250px;
-object-fit:contain;
-border: 1px solid #ccc;
-width:100%;
+.part-1 {
+  width: 250px;
+  height: 250px;
+  object-fit: contain;
+  border: 1px solid #ccc;
+  width: 100%;
 }
 </style>

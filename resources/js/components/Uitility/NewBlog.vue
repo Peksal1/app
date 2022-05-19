@@ -1,13 +1,11 @@
 <template>
   <div class="container">
-    <div
-      class="
+    <div class="
         new-stores-option
         d-flex
         justify-content-between
         align-items-center
-      "
-    >
+      ">
       <div class="btn btn-sm btn-primary" @click="openBlogModal">
         Add New Post
       </div>
@@ -17,28 +15,16 @@
     </div>
 
     <!-- modal vindows -->
-    <div
-      class="modal"
-      :class="{ show: showBlogModal }"
-      id="blogModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal" :class="{ show: showBlogModal }" id="blogModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">
-              Add a post
+              <strong>New blog post</strong>
             </h5>
-            <button
-              type="button"
-              class="close text-dark"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hideBlogModal"
-            >
+            <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close"
+              @click="hideBlogModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -46,69 +32,36 @@
             <form @submit.prevent="submitBlogForm">
               <div class="form-group">
                 <label for="">Title</label>
-                <input
-                  v-model="blogForm.title"
-                  type="text"
-                  class="form-control"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="">Description</label>
-                <input
-                  v-model="blogForm.description"
-                  type="text"
-                  class="form-control"
-                  required
-                />
+                <input v-model="blogForm.title" type="text" class="form-control" required />
               </div>
               <div class="form-group">
                 <label for="">Thumbnail</label>
-                <input
-                  v-model="blogForm.thumbnail"
-                  type="text"
-                  class="form-control"
-                  required
-                />
+                <input v-model="blogForm.thumbnail" type="text" class="form-control" required />
               </div>
-              <select
-                name="paint"
-                v-model="blogForm.blog_category_id"
-                style="width: 15rem"
-                required
-              >
-                <option value="">Choose</option>
-                <option
-                  v-for="blog_category in blog_categories"
-                  v-bind:key="blog_category.id"
-                  :value="blog_category.id"
-                >
+              <div class="form-group">
+                <label for="">Description</label>
+                <input v-model="blogForm.description" type="text" class="form-control" required />
+              </div>
+
+              <label for="">Blog category</label>
+              <select id="form_need" name="blogCategory" v-model="blogForm.blog_category_id" class="form-control"
+                required="required" data-error="Please specify your need.">
+                <option value="" selected disabled>Select the category</option>
+                <option v-for="blog_category in blog_categories" v-bind:key="blog_category.id"
+                  :value="blog_category.id">
                   {{ blog_category.category }}
                 </option>
               </select>
               <div class="p-2 w-full">
                 <div class="relative">
-                  <label
-                    for="attachment"
-                    class="leading-7 text-sm text-gray-600"
-                    >Attachments</label
-                  ><br />
+                  <label for="attachment" class="leading-7 text-sm text-gray-600">Attachments</label><br />
 
-                  <input
-                    type="file"
-                    accept="image/*"
-                    @change="uploadImage($event)"
-                    id="file-input"
-                    required
-                  />
+                  <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input" required />
                 </div>
               </div>
               <div class="form-group">
-                <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-primary btn-block"
-                />
+                <input type="submit" value="Submit" style="max-width:100px;color:white"
+                  class="btn btn-primary btn-block" />
               </div>
             </form>
           </div>
@@ -116,28 +69,16 @@
       </div>
     </div>
 
-    <div
-      class="modal"
-      :class="{ show: showBlogCategoryModal }"
-      id="blogCategoryModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal" :class="{ show: showBlogCategoryModal }" id="blogCategoryModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">
-              Add a blog category
+              <strong>New blog category</strong>
             </h5>
-            <button
-              type="button"
-              class="close text-dark"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hideBlogCategoryModal"
-            >
+            <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close"
+              @click="hideBlogCategoryModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -145,18 +86,11 @@
             <form @submit.prevent="submitBlogCategoryForm">
               <div class="form-group">
                 <label for="">Category</label>
-                <input
-                  v-model="BlogCategoryForm.category"
-                  type="text"
-                  class="form-control"
-                />
+                <input v-model="BlogCategoryForm.category" type="text" class="form-control" />
               </div>
               <div class="form-group">
-                <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-primary btn-block"
-                />
+                <input type="submit" value="Submit" style="max-width:100px;color:white"
+                  class="btn btn-primary btn-block" />
               </div>
             </form>
           </div>
@@ -322,6 +256,7 @@ form {
   border-radius: 5px;
   border: 0px;
 }
+
 label {
   color: #000;
 }
@@ -334,6 +269,7 @@ li {
   list-style: none;
   padding: 10px;
 }
+
 ul {
   padding: 0px;
   margin: 0px;

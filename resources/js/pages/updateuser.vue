@@ -8,39 +8,19 @@
             <form action="#" @submit.prevent="updateuser">
               <div class="form-group">
                 <label for="">name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="name"
-                  v-model="name"
-                />
+                <input type="text" class="form-control" name="name" v-model="name" />
               </div>
               <div class="form-group">
                 <label for="">email</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="email"
-                  v-model="email"
-                />
+                <input type="text" class="form-control" name="email" v-model="email" />
               </div>
               <div class="form-group">
                 <label for="">role</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="role"
-                  v-model="role"
-                />
+                <input type="text" class="form-control" name="role" v-model="role" />
               </div>
               <div class="form-group">
                 <label for="">password</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="password"
-                  v-model="password"
-                />
+                <input type="text" class="form-control" name="password" v-model="password" />
               </div>
               <div class="row">
                 <div class="col-md-6">

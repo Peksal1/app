@@ -1,14 +1,12 @@
     <template>
   <div>
     <AdminNavbar />
-    <router-link class="btn btn-sm btn-danger" :to="{ name: 'portfolio/admin' }"
-              >Manage the portfolio</router-link
-            >
+
     <Utility />
     <NewCollection />
     <NewPortfolio />
     <NewPaintingCategory />
-    
+
     <section class="section-products">
       <div class="container">
         <div class="row justify-content-center text-center">
@@ -20,17 +18,13 @@
         </div>
         <div class="row">
           <!-- Single Product -->
-          <div
-            class="col-md-6 col-lg-4 col-xl-3"
-            v-for="(collection, index) in collections"
-            :key="index"
-          >
-      
+          <div class="col-md-6 col-lg-4 col-xl-3" v-for="(collection, index) in collections" :key="index">
+
             <div id="product-1" class="single-product">
               <div class="part-1">
-             
-                  <img :src="`/collection/${collection.image}`" alt="" @click="openAdminCollectionModal(index)"
-                />
+
+                <img :src="`/collection/${collection.image}`" alt="" @click="openAdminCollectionModal(index)"
+                  style="cursor: pointer; max-width: 350px" />
 
                 <ul>
                   <li>
@@ -51,156 +45,93 @@
           </div>
         </div>
         <div class="col-md-12 text-center center-pagination">
-          <Pagination
-            :pagination="pagination"
-            @perPage="getAllCollections()"
-            @paginate="getAllCollections()"
-            :offset="6"
-          >
+          <Pagination :pagination="pagination" @perPage="getAllCollections()" @paginate="getAllCollections()"
+            :offset="6">
           </Pagination>
         </div>
       </div>
     </section>
     <!-- collection modal vindow -->
-             <div
-        class="modal"
-        :class="{ show: showAdminCollectionModal }"
-        id="adminCollectionModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title text-dark" id="exampleModalLabel">
-                {{ collection.name }}
-              </h5>
-              <button
-                type="button"
-                class="close text-dark cursor: pointer"
-                data-dismiss="modal"
-                aria-label="Close"
-                @click="hideAdminCollectionModal()"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <img
-                :src="`/collection/${collection.image}`"
-                style="max-width: 470px; max-height: 470px"
-              />
-
-              <br />
-              {{collection.description}}
-               <br />
-              {{ collection.start_date }} - {{ collection.end_date }}
-            
-              <br />
-            <div @click="callEditModal(collection.id)" class="btn btn-sm btn-primary">
-                    Update
-                  </div>
-            <div @click="deleteCollection(collection.id)" class="btn btn-sm btn-danger">
-                    Delete
-                  </div>
-            </div>
-          
-
-          </div>
-        </div>
-      </div>
-       <!-- Edit collection modal vindow -->
-            <div
-      class="modal"
-      :class="{ show: showEditModal }"
-      id="editCollectionModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal" :class="{ show: showAdminCollectionModal }" id="adminCollectionModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">
-              Edit the collection
+              <strong>{{ collection.name }}</strong>
             </h5>
-            <button
-              type="button"
-              class="close text-dark"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hideEditModal"
-            >
+            <button type="button" class="close text-dark cursor: pointer" data-dismiss="modal" aria-label="Close"
+              @click="hideAdminCollectionModal()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <img :src="`/collection/${collection.image}`" style="max-width: 470px; max-height: 470px" />
+
+            <br />
+            {{ collection.description }}
+            <br />
+            {{ collection.start_date }} - {{ collection.end_date }}
+
+            <br />
+            <div @click="callEditModal(collection.id)" class="btn btn-sm btn-primary">
+              Update
+            </div>
+            <div @click="deleteCollection(collection.id)" class="btn btn-sm btn-danger">
+              Delete
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    <!-- Edit collection modal vindow -->
+    <div class="modal" :class="{ show: showEditModal }" id="editCollectionModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="exampleModalLabel">
+              <strong>Update</strong>
+            </h5>
+            <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close"
+              @click="hideEditModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <form @submit.prevent="updateCollection">
-        
 
-              <div class="p-2 w-full">
-                <div class="relative">
-                  <label
-                    for="attachment"
-                    class="leading-7 text-sm text-gray-600"
-                    >Attachments</label
-                  ><br />
 
-                  <input
-                    type="file"
-                    accept="image/*"
-                    @change="uploadImage($event)"
-                    id="file-input"
-                    required
-                  />
-                </div>
-              </div>
-                <div class="form-group">
+
+              <div class="form-group">
                 <label for="">Name</label>
-                <input
-                  v-model="updateForm.name"
-                  type="text"
-                  class="form-control"
-                  required
-                />
+                <input v-model="updateForm.name" type="text" class="form-control" required />
               </div>
-              
-               <div class="form-group">
+
+              <div class="form-group">
                 <label for="">Description</label>
-                <input
-                  v-model="updateForm.description"
-                  type="text"
-                  class="form-control"
-                  required
-                />
-              </div>
-                <div class="form-group">
-                <label for="">Start date:</label>
-                <input
-                  v-model="updateForm.start_date"
-                  type="text"
-                  class="form-control"
-                  required
-                />
-              </div>
-                <div class="form-group">
-                <label for="">End date:</label>
-                <input
-                  v-model="updateForm.end_date"
-                  type="text"
-                  class="form-control"
-                  required
-                />
+                <input v-model="updateForm.description" type="text" class="form-control" required />
               </div>
               <div class="form-group">
-                <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-primary btn-block"
-                />
+                <label for="">Start date:</label>
+                <input v-model="updateForm.start_date" type="text" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label for="">End date:</label>
+                <input v-model="updateForm.end_date" type="text" class="form-control" required />
+              </div>
+
+              <div class="relative">
+                <label for="attachment" class="leading-7 text-sm text-gray-600">Attachments</label><br />
+
+                <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input" required />
+              </div>
+              <br />
+              <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary btn-block"
+                  style="max-width:100px;color:white" />
               </div>
             </form>
           </div>
@@ -221,8 +152,8 @@ export default {
   data() {
     return {
       collections: [],
-      showAdminCollectionModal:false,
-      showEditModal:false,
+      showAdminCollectionModal: false,
+      showEditModal: false,
       collection: [],
       updateForm: {
         id: null,
@@ -258,24 +189,24 @@ export default {
         this.pagination = res.data;
       });
     },
-     callEditModal(index) {
+    callEditModal(index) {
       this.showEditModal = true;
       this.updateForm = this.collection;
     },
     hideEditModal() {
       this.showEditModal = false;
     },
-     uploadImage(event) {
+    uploadImage(event) {
       const file = event.target.files[0];
       this.updateForm.image = file;
     },
-     updateCollection(){
-     let formData = new FormData();
-       formData.append("name", this.updateForm.name);
+    updateCollection() {
+      let formData = new FormData();
+      formData.append("name", this.updateForm.name);
       formData.append("image", this.updateForm.image);
       formData.append("description", this.updateForm.description);
       formData.append("start_date", this.updateForm.start_date);
-       formData.append("end_date", this.updateForm.end_date);
+      formData.append("end_date", this.updateForm.end_date);
 
       axios
         .post(`/api/collections/${this.updateForm.id}/update`, formData, {
@@ -286,8 +217,8 @@ export default {
         })
         .then((res) => {
           if (res.data.success) {
-           let collectionIndex =  this.collections.findIndex(item=>item.id == this.updateForm.id);
-           this.collections[collectionIndex] = res.data.collection;
+            let collectionIndex = this.collections.findIndex(item => item.id == this.updateForm.id);
+            this.collections[collectionIndex] = res.data.collection;
             // reset the form
             this.updateForm = {
               name: "",
@@ -299,7 +230,7 @@ export default {
             // hide the modal
             this.hideEditModal();
             alert("The collection was successfully edited!");
-            
+
           } else {
             alert("STOPPPPPPPPP");
           }
@@ -307,8 +238,8 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-  },
-  deleteCollection(index) {
+    },
+    deleteCollection(index) {
       axios
         .delete("/api/collection/" + this.collection.id, {
           headers: {
@@ -333,7 +264,7 @@ export default {
     hideAdminCollectionModal() {
       this.showAdminCollectionModal = false;
     },
-     loadSpecificCollection(index) {
+    loadSpecificCollection(index) {
       axios
         .get("/api/collection/" + this.collections[index].id, {})
 
@@ -344,30 +275,30 @@ export default {
           console.log(error);
         });
     },
-  checkLoginStatus() {
-    this.loading = true;
-    axios
-      .get("/api/user", {
-        headers: {
-          Authorization: "Bearer " + this.adminToken,
-        },
-      })
-      .then((response) => {
-        this.currentUser = response.data;
-        console.log("LOGGED IN");
-        this.isLoggedIn = true;
-        console.log(this.currentUser.name);
-      })
-      .catch((errors) => {
-        console.log(errors);
-        this.isLoggedIn = false;
-      })
-      .finally(() => {
-        this.loading = false;
-      });
-    // this.loading = false
-  },
+    checkLoginStatus() {
+      this.loading = true;
+      axios
+        .get("/api/user", {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+          },
+        })
+        .then((response) => {
+          this.currentUser = response.data;
+          console.log("LOGGED IN");
+          this.isLoggedIn = true;
+          console.log(this.currentUser.name);
+        })
+        .catch((errors) => {
+          console.log(errors);
+          this.isLoggedIn = false;
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+      // this.loading = false
     },
+  },
   created() {
     this.getAllCollections();
   },
@@ -382,10 +313,12 @@ body {
   font-family: "Poppins", sans-serif;
   color: #444444;
 }
+
 .modal {
-  overflow-x:hidden;
-  
+  overflow-x: hidden;
+
 }
+
 a,
 a:hover {
   text-decoration: none;

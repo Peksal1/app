@@ -5,37 +5,20 @@
       <div class="row">
         <div class="col-md-3">
           <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action active"
-              >Dashboard</a
-            >
-            <router-link
-              class="list-group-item list-group-item-action"
-              :to="{ name: 'neworder' }"
-              >New Order!</router-link
-            >
-            <router-link
-              class="list-group-item list-group-item-action"
-              :to="{
-                name: 'orders',
-              }"
-              >My orders</router-link
-            >
-            <router-link
-              class="list-group-item list-group-item-action"
-              :to="{
-                name: 'purchases',
-
-                params: { id: currentUser.id },
-              }"
-              >My purchases</router-link
-            >
-             <router-link
-              class="list-group-item list-group-item-action"
-              :to="{
-                name: 'purchases/digital',
-              }"
-              >My digital purchases</router-link
-            >
+            <a href="#" class="list-group-item list-group-item-action active">Dashboard</a>
+            <router-link class="list-group-item list-group-item-action" :to="{ name: 'neworder' }">New Order!
+            </router-link>
+            <router-link class="list-group-item list-group-item-action" :to="{
+              name: 'orders',
+            }">My orders</router-link>
+            <router-link class="list-group-item list-group-item-action" :to="{
+              name: 'purchases',
+            
+              params: { id: currentUser.id },
+            }">My purchases</router-link>
+            <router-link class="list-group-item list-group-item-action" :to="{
+              name: 'purchases/digital',
+            }">My digital purchases</router-link>
           </div>
         </div>
         <div class="col-md-9">
@@ -51,119 +34,61 @@
                 <div class="col-md-12">
                   <form action="#" @submit.prevent="updateUser">
                     <div class="form-group row">
-                      <label for="name" class="col-4 col-form-label"
-                        >First Name</label
-                      >
+                      <label for="name" class="col-4 col-form-label">First Name</label>
                       <div class="col-8">
-                        <input
-                          id="name"
-                          name="name"
-                          placeholder="name"
-                          v-model="name"
-                          class="form-control here"
-                          type="text"
-                        />
+                        <input id="name" name="name" placeholder="name" v-model="name" class="form-control here"
+                          type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="lastname" class="col-4 col-form-label"
-                        >Last Name</label
-                      >
+                      <label for="lastname" class="col-4 col-form-label">Last Name</label>
                       <div class="col-8">
-                        <input
-                          id="lastname"
-                          name="lastname"
-                          v-model="surname"
-                          placeholder="Last Name"
-                          class="form-control here"
-                          type="text"
-                        />
+                        <input id="lastname" name="lastname" v-model="surname" placeholder="Last Name"
+                          class="form-control here" type="text" />
                       </div>
                     </div>
 
                     <div class="form-group row">
-                      <label for="email" class="col-4 col-form-label"
-                        >Email</label
-                      >
+                      <label for="email" class="col-4 col-form-label">Email</label>
                       <div class="col-8">
-                        <input
-                          id="email"
-                          name="email"
-                          placeholder="Email"
-                          class="form-control here"
-                          required="required"
-                          type="text"
-                          v-model="email"
-                        />
+                        <input id="email" name="email" placeholder="Email" class="form-control here" required="required"
+                          type="text" v-model="email" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="name" class="col-4 col-form-label"
-                        >Phone number</label
-                      >
+                      <label for="name" class="col-4 col-form-label">Phone number</label>
                       <div class="col-8">
-                        <input
-                          id="name"
-                          name="name"
-                          placeholder="Phone number"
-                          v-model="phone_number"
-                          class="form-control here"
-                          type="text"
-                        />
+                        <input id="name" name="name" placeholder="Phone number" v-model="phone_number"
+                          class="form-control here" type="text" />
                       </div>
                     </div>
 
                     <div class="form-group row">
-                      <label for="newpass" class="col-4 col-form-label"
-                        >New Password</label
-                      >
+                      <label for="newpass" class="col-4 col-form-label">New Password</label>
                       <div class="col-8">
-                        <input
-                          id="newpass"
-                          name="newpass"
-                          placeholder="New Password"
-                          class="form-control here"
-                          type="text"
-                        />
+                        <input id="newpass" name="newpass" placeholder="New Password" class="form-control here"
+                          type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="offset-4 col-8">
-                        <button
-                          name="submit"
-                          type="submit"
-                          id="show-btn"
-                          class="btn btn-primary"
-                        >
+                        <button name="submit" type="submit" id="show-btn" class="btn btn-primary">
                           Update My Profile
                         </button>
-                          <b-button
-                            id="show-btn"
-                            class="btn btn-danger" style="margin-left:30px"
-                            @click="$bvModal.show('bv-modal-example')"
-                            >Delete</b-button
-                          >
+                        <b-button id="show-btn" class="btn btn-danger" style="margin-left:30px"
+                          @click="$bvModal.show('bv-modal-example')">Delete</b-button>
                         <div class="col-md-6">
-                        
+
 
                           <b-modal id="bv-modal-example" hide-footer>
                             <template #modal-title> Delete account </template>
                             <div class="d-block text-center">
                               <h3>Do you want to delete your account</h3>
                             </div>
-                            <b-button
-                              class="btn btn-primary mt-3"
-                              block
-                              @click="$bvModal.hide('bv-modal-example')"
-                              >Cancel</b-button
-                            >
-                            <b-button
-                              class="btn btn-danger mt-3"
-                              
-                              block
-                              @click="deleteUser($route.params.id)"
-                              >delete</b-button
-                            >
+                            <b-button class="btn btn-primary mt-3" block @click="$bvModal.hide('bv-modal-example')">
+                              Cancel</b-button>
+                            <b-button class="btn btn-danger mt-3" block @click="deleteUser($route.params.id)">delete
+                            </b-button>
                           </b-modal>
                         </div>
                       </div>
@@ -189,7 +114,7 @@ export default {
       name: "",
       surname: "",
       email: "",
-      phone_number:"",
+      phone_number: "",
       password: "",
       id: "",
       token: localStorage.getItem("token"),
@@ -270,8 +195,9 @@ export default {
 
 <style scoped>
 .btn {
-  color:white;
+  color: white;
 }
+
 .user-row {
   margin-bottom: 14px;
 }
@@ -290,17 +216,18 @@ export default {
   cursor: pointer;
 }
 
-.table-user-information > tbody > tr {
+.table-user-information>tbody>tr {
   border-top: 1px solid rgb(221, 221, 221);
 }
 
-.table-user-information > tbody > tr:first-child {
+.table-user-information>tbody>tr:first-child {
   border-top: 0;
 }
 
-.table-user-information > tbody > tr > td {
+.table-user-information>tbody>tr>td {
   border-top: 0;
 }
+
 .toppad {
   margin-top: 20px;
 }

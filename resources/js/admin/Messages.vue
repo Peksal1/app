@@ -9,12 +9,7 @@
     <section class="section-products">
       <div class="container">
         <div class="input-group mb-3">
-          <input
-            v-model="searchKeyword"
-            type="text"
-            class="form-control"
-            placeholder="Search by subject..."
-          />
+          <input v-model="searchKeyword" type="text" class="form-control" placeholder="Search by subject..." />
           <div class="input-group-append">
             <button @click="loadMessages" class="btn btn-primary">
               Search
@@ -34,27 +29,15 @@
 
             <!-- canvas filtering -->
 
-               <div>
-              <input
-                type="checkbox"
-                :id="'isunread'"
-                class="read"
-                v-model="isread"
-                value="0"
-              /><label :for="'isunread'" class="btn btn-sm border btn-block"
-                >UNREAD
+            <div>
+              <input type="checkbox" :id="'isunread'" class="read" v-model="isread" value="0" /><label :for="'isunread'"
+                class="btn btn-sm border btn-block">UNREAD
               </label>
             </div>
             <br />
             <div>
-              <input
-                type="checkbox"
-                :id="'isread'"
-                class="read"
-                v-model="isread"
-                value="1"
-              /><label :for="'isread'" class="btn btn-sm border btn-block"
-                >READ
+              <input type="checkbox" :id="'isread'" class="read" v-model="isread" value="1" /><label :for="'isread'"
+                class="btn btn-sm border btn-block">READ
               </label>
             </div>
 
@@ -64,17 +47,9 @@
           <div class="col-md-9">
             <div class="row">
               <!-- Single Product -->
-              <div
-                class="col-md-6"
-                v-for="(message, index) in messages"
-                :key="index"
-              >
-                <div
-                  id="product-1"
-                  class="single-product"
-                  @click="openMessageModal(index)"
-                >
-             
+              <div class="col-md-6" v-for="(message, index) in messages" :key="index">
+                <div id="product-1" class="single-product" @click="openMessageModal(index)">
+
                   <div class="part-2">
                     <h3 class="product-title">
                       Subject: <strong>{{ message.subject }}</strong>
@@ -87,56 +62,33 @@
                     <div class="buy-btn mt-3"></div>
                   </div>
                 </div>
-                <div
-                  @click="deleteMessage(index)"
-                  class="btn btn-sm btn-danger"
-                >
+                <div @click="deleteMessage(index)" class="btn btn-sm btn-danger">
                   Delete
                 </div>
-                 <div
-                  @click="messageIsRead(index)"
-                  class="btn btn-sm btn-danger"
-                >
+                <div @click="messageIsRead(index)" class="btn btn-sm btn-danger">
                   Read
                 </div>
-                
+
               </div>
             </div>
           </div>
         </div>
 
         <div class="col-md-12 text-center center-pagination">
-          <Pagination
-            :pagination="pagination"
-            @perPage="loadMessages()"
-            @paginate="loadMessages()"
-            :offset="6"
-          >
+          <Pagination :pagination="pagination" @perPage="loadMessages()" @paginate="loadMessages()" :offset="6">
           </Pagination>
         </div>
       </div>
-      <div
-        class="modal"
-        :class="{ show: showMessageModal }"
-        id="messageModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
+      <div class="modal" :class="{ show: showMessageModal }" id="messageModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title text-dark" id="exampleModalLabel">
                 Message sent by: {{ specific_message.name }}
               </h5>
-              <button
-                type="button"
-                class="close text-dark cursor: pointer"
-                data-dismiss="modal"
-                aria-label="Close"
-                @click="hideMessageModal"
-              >
+              <button type="button" class="close text-dark cursor: pointer" data-dismiss="modal" aria-label="Close"
+                @click="hideMessageModal">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -192,16 +144,16 @@ export default {
   methods: {
 
     messageIsRead(index) {
-    
+
       axios.put("/api/messages/" + this.messages[index].id, {
         headers: {
           Authorization: "Bearer " + this.adminToken,
         },
-      }).then(res=>{
-          if(res.data.success){
-           this.messages[index].isread = 1;
-           
-          }
+      }).then(res => {
+        if (res.data.success) {
+          this.messages[index].isread = 1;
+
+        }
       })
 
     },
@@ -309,8 +261,8 @@ input.unread {
   display: none;
 }
 
-input.read:checked + label,
-input.unread:checked + label {
+input.read:checked+label,
+input.unread:checked+label {
   background: green;
   color: white;
   box-shadow: 0px 1px 3px inset;

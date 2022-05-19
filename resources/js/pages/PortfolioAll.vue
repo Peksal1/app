@@ -22,52 +22,30 @@
           <div class="col-md-3">
             <p><strong>FILTER BY CATEGORY</strong></p>
             <!-- painting category filtering -->
-            <div
-              v-for="(painting_category, index) in painting_categories"
-              :key="index"
-              class="m-1"
-            >
+            <div v-for="(painting_category, index) in painting_categories" :key="index" class="m-1">
               <div>
-                <input
-                  type="checkbox"
-                  :id="`category_${painting_category.id}`"
-                  class="mycat"
-                  v-model="cat"
-                  :value="painting_category.id"
-                /><label
-                  :for="`category_${painting_category.id}`"
-                  class="btn btn-sm border btn-block"
-                  >{{ painting_category.category }}</label
-                >
+                <input type="checkbox" :id="`category_${painting_category.id}`" class="mycat" v-model="cat"
+                  :value="painting_category.id" /><label :for="`category_${painting_category.id}`"
+                  class="btn btn-sm border btn-block">{{ painting_category.category }}</label>
               </div>
             </div>
             <p class="mt-4"><strong>FILTER BY SIZE</strong></p>
             <!-- painting size filtering -->
             <div v-for="(size, index) in sizes" :key="index" class="m-2">
               <div>
-                <input
-                  type="checkbox"
-                  :id="`size_${size.id}`"
-                  class="mysize"
-                  v-model="sizefilter"
-                  :value="size.id"
-                /><label :for="`size_${size.id}`" class="btn btn-sm border btn-block">{{
-                  size.type
-                }}</label>
+                <input type="checkbox" :id="`size_${size.id}`" class="mysize" v-model="sizefilter"
+                  :value="size.id" /><label :for="`size_${size.id}`" class="btn btn-sm border btn-block">{{
+                      size.type
+                  }}</label>
               </div>
             </div>
             <p class="mt-4"><strong>FILTER BY PAINT</strong></p>
             <!-- paint filterting -->
             <div v-for="(paint, index) in paints" :key="index" class="m-1">
-              <input
-                type="checkbox"
-                :id="`paint_${paint.id}`"
-                class="mypaint"
-                v-model="paintfilter"
-                :value="paint.id"
-              /><label :for="`paint_${paint.id}`" class="btn btn-sm border btn-block">{{
-                paint.type
-              }}</label>
+              <input type="checkbox" :id="`paint_${paint.id}`" class="mypaint" v-model="paintfilter"
+                :value="paint.id" /><label :for="`paint_${paint.id}`" class="btn btn-sm border btn-block">{{
+                    paint.type
+                }}</label>
             </div>
 
             <p class="mt-4"><strong>FILTER BY CANVAS</strong></p>
@@ -75,17 +53,10 @@
             <!-- canvas filtering -->
             <div v-for="(canvas, index) in canvases" :key="index" class="m-1">
               <div>
-                <input
-                  type="checkbox"
-                  :id="`canvas_${canvas.id}`"
-                  class="mycanvas"
-                  v-model="canvasfilter"
-                  :value="canvas.id"
-                /><label
-                  :for="`canvas_${canvas.id}`"
-                  class="btn btn-sm border btn-block"
-                  >{{ canvas.type }}</label
-                >
+                <input type="checkbox" :id="`canvas_${canvas.id}`" class="mycanvas" v-model="canvasfilter"
+                  :value="canvas.id" /><label :for="`canvas_${canvas.id}`" class="btn btn-sm border btn-block">{{
+                      canvas.type
+                  }}</label>
               </div>
             </div>
             <!-- products -->
@@ -93,101 +64,78 @@
           <div class="col-md-9">
             <div class="row">
               <!-- Single Product -->
-              <div
-                class="col-md-6"
-                v-for="(portfolio, index) in portfolios"
-                :key="index"
-              >
+              <div class="col-md-6" v-for="(portfolio, index) in portfolios" :key="index">
                 <div id="product-1" class="single-product">
                   <div class="part-1">
-                    <img  :src="`/portfolio/${portfolio.file_path}`" alt=""  @click="openPortfolioModal(index)" style="max-width:500px;"/>
-                    
+                    <img :src="`/portfolio/${portfolio.file_path}`" alt="" @click="openPortfolioModal(index)"
+                      style="max-width:500px;" />
+
                   </div>
                   <div class="part-2">
                     <h3 class="product-title">
                       <strong>{{ portfolio.work_name }}</strong>
                     </h3>
                     <div class="category">{{ portfolio.description }}</div>
-            
-                    
+
+
                   </div>
                 </div>
               </div>
-              
+
             </div>
           </div>
         </div>
 
         <div class="col-md-12 text-center center-pagination">
-          <Pagination
-            :pagination="pagination"
-            @perPage="getAllItems()"
-            @paginate="getAllItems()"
-            :offset="6"
-          >
+          <Pagination :pagination="pagination" @perPage="getAllItems()" @paginate="getAllItems()" :offset="6">
           </Pagination>
         </div>
       </div>
     </section>
-         <div
-        class="modal"
-        :class="{ show: showPortfolioModal }"
-        id="portfolioModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document" v-if="specificPortfolio != null">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title text-dark" id="portfolioModal">
-              <strong>  {{ specificPortfolio.work_name }} </strong>
-              </h5>
-              <button
-                type="button"
-                class="close text-dark cursor: pointer"
-                data-dismiss="modal"
-                aria-label="Close"
-                @click="hidePortfolioModal"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body" >
-              <img
-                :src="`/portfolio/${specificPortfolio.file_path}`"
-                style="max-width: 470px"
-              />
+    <div class="modal" :class="{ show: showPortfolioModal }" id="portfolioModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document" v-if="specificPortfolio != null">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="portfolioModal">
+              <strong> {{ specificPortfolio.work_name }} </strong>
+            </h5>
+            <button type="button" class="close text-dark cursor: pointer" data-dismiss="modal" aria-label="Close"
+              @click="hidePortfolioModal">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <img :src="`/portfolio/${specificPortfolio.file_path}`" style="max-width: 470px" />
 
-              <br />
-              <br />
-              <strong> Collection: </strong> {{specificPortfolio.portfolio_collection.name}}
-              <br />
-               <strong> Description: </strong> {{specificPortfolio.description}}
-              <br />
-              <strong> Category: </strong> {{ specificPortfolio.portfolio_category.category }}
-              <br />
-             <strong> Orientation: </strong> {{ specificPortfolio.orientation }}
-              <br />
-           <strong> Size: </strong> {{ specificPortfolio.portfolio_size.type }}
-              <br />
-              <strong> Paint: </strong> {{ specificPortfolio.portfolio_paint.type }}
-              <br />
-              <strong> Canvas: </strong> {{ specificPortfolio.portfolio_canvas.type }}
-              <br />
-           
-              <div v-for="(digital, specificPortfolio) in digitals" class="buyDigital" 
-            :key="specificPortfolio"> <btn class="btn btn-sm btn-info" style="margin-top:10px" @click="buyDigital(digital.id)"> 
-             {{digital.resolution}} BUY IN DIGITAL    </btn> 
-     
-          </div>
-          
+            <br />
+            <br />
+            <strong> Collection: </strong> {{ specificPortfolio.portfolio_collection.name }}
+            <br />
+            <strong> Description: </strong> {{ specificPortfolio.description }}
+            <br />
+            <strong> Category: </strong> {{ specificPortfolio.portfolio_category.category }}
+            <br />
+            <strong> Orientation: </strong> {{ specificPortfolio.orientation }}
+            <br />
+            <strong> Size: </strong> {{ specificPortfolio.portfolio_size.type }}
+            <br />
+            <strong> Paint: </strong> {{ specificPortfolio.portfolio_paint.type }}
+            <br />
+            <strong> Canvas: </strong> {{ specificPortfolio.portfolio_canvas.type }}
+            <br />
+
+            <div v-for="(digital, specificPortfolio) in digitals" class="buyDigital" :key="specificPortfolio">
+              <btn class="btn btn-sm btn-info" style="margin-top:10px" @click="buyDigital(digital.id)">
+                {{ digital.resolution }} BUY IN DIGITAL </btn>
+
             </div>
-             
+
           </div>
+
         </div>
       </div>
+    </div>
   </div>
 </template>
 <script>
@@ -206,7 +154,7 @@ export default {
       sizes: "",
       canvases: "",
       paints: "",
-        digitals: [],
+      digitals: [],
       showPortfolioModal: false,
       searchKeyword: "",
       painting_categories: "",
@@ -226,14 +174,14 @@ export default {
     Pagination,
   },
   methods: {
-     openPortfolioModal(index) {
+    openPortfolioModal(index) {
       this.showPortfolioModal = true;
       this.loadSpecificPortfolio(index);
     },
     hidePortfolioModal() {
       this.showPortfolioModal = false;
     },
-        loadSpecificPortfolio(index) {
+    loadSpecificPortfolio(index) {
       axios
         .get("/api/portfolio/" + this.portfolios[index].id, {})
 
@@ -319,34 +267,34 @@ export default {
   },
   watch: {
     cat(after, before) {
-           this.pagination.current_page = 1;
+      this.pagination.current_page = 1;
       this.getAllItems();
- 
+
     },
     sizefilter(after, before) {
-          this.pagination.current_page = 1;
+      this.pagination.current_page = 1;
       this.getAllItems();
-  
+
     },
     canvasfilter(after, before) {
-        this.pagination.current_page = 1;
+      this.pagination.current_page = 1;
       this.getAllItems();
-    
+
     },
     paintfilter(after, before) {
       this.pagination.current_page = 1;
       this.getAllItems();
-  
+
     },
   },
 };
 </script>
 
 <style scoped>
-
 .part-1 {
   cursor: pointer;
 }
+
 input.mycat,
 input.mypaint,
 input.mysize,
@@ -354,14 +302,15 @@ input.mycanvas {
   display: none;
 }
 
-input.mycat:checked + label,
-input.mypaint:checked + label,
-input.mysize:checked + label,
-input.mycanvas:checked + label {
+input.mycat:checked+label,
+input.mypaint:checked+label,
+input.mysize:checked+label,
+input.mycanvas:checked+label {
   background: green;
   color: white;
   box-shadow: 0px 1px 3px inset;
 }
+
 @import url("https://fonts.googleapis.com/css2?family=Heebo:wght@500&display=swap");
 
 .form-control {
@@ -389,6 +338,7 @@ input.form-control:focus {
 .btn-primary:focus {
   box-shadow: none;
 }
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
 
 body {
@@ -551,6 +501,7 @@ a:hover {
   background-color: #444444;
   transform: translateY(-50%);
 }
+
 .btn-block {
   width: 100%;
   text-align: left;

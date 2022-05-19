@@ -4,21 +4,10 @@
     <form action="#" @submit.prevent="newpost">
       <p>
         <strong>Topic Title:</strong><br />
-        <input
-          type="text"
-          name="topic_title"
-          v-model="formData.topic_title"
-          size="40"
-          maxlength="150"
-        /><br />
+        <input type="text" name="topic_title" v-model="formData.topic_title" size="40" maxlength="150" /><br />
         <strong>Post Text:</strong><br />
-        <textarea
-          name="topic_description"
-          v-model="formData.topic_description"
-          rows="8"
-          cols="40"
-          wrap="virtual"
-        ></textarea>
+        <textarea name="topic_description" v-model="formData.topic_description" rows="8" cols="40"
+          wrap="virtual"></textarea>
         <input type="submit" name="submit" value="Add Topic" />
       </p>
     </form>

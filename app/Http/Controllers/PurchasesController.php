@@ -23,11 +23,15 @@ class PurchasesController extends Controller
     }
     public function index(Request $request)
     {
-        $query= Purchases::query()->with('store')->with('user')->with('shipping');
+        $query= Purchases::query()->where('is_paid',1)->with('store')->with('user')->with('shipping');
+        if (!empty($request->trackingFilter)) {    
+            $query->where('tracking_number', $request->trackingFilter);
+        }
     if (!empty($request->searchKeyword)) {
         $query->where('uuid', 'LIKE', "%{$request->searchKeyword}%");
     }
-    return $query->paginate(8);
+    
+    return $query->paginate(4);
 }
     // public function show($portfolio)
     // {
@@ -35,7 +39,25 @@ class PurchasesController extends Controller
     //     $portfolio = Portfolio::where('id',$portfolio)->first();
     //     return response()->json($portfolio);
     // }
-   
+    public function update($purchase, Request $request)
+    {
+     
+      $purchase = Purchases::find($purchase);
+     $purchaseData =   $request->all();
+
+  
+          if (  $purchase->update($purchaseData)) {
+              return response()->json([
+                  'success' => true,
+                  'message' => 'The tracking info has been updated successfully',
+                  'purchase' => $purchase
+              ], 200);
+          } else {
+              return response()->json(['success' => false, 'message' => 'Tracking not updated'], 400);
+          }
+  
+  
+  }
     public function show($specific_purchase)
     {
    

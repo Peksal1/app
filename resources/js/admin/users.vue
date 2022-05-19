@@ -18,11 +18,7 @@
           </div>
         </div>
         <div class="searchable-container">
-          <div
-            class="items col-xs-12 col-sm-6 col-md-6 col-lg-6 clearfix"
-            v-for="user in users"
-            v-bind:key="user.id"
-          >
+          <div class="items col-xs-12 col-sm-6 col-md-6 col-lg-6 clearfix" v-for="user in users" v-bind:key="user.id">
             <div class="info-block block-info clearfix">
               <div class="square-box pull-left">
                 <span class="glyphicon glyphicon-user glyphicon-lg"></span>
@@ -40,37 +36,20 @@
         </div>
       </div>
       <div class="col-md-12 text-center center-pagination">
-        <Pagination
-          :pagination="pagination"
-          @perPage="loadUsers()"
-          @paginate="loadUsers()"
-          :offset="6"
-        >
+        <Pagination :pagination="pagination" @perPage="loadUsers()" @paginate="loadUsers()" :offset="6">
         </Pagination>
       </div>
     </div>
-    <div
-      class="modal"
-      :class="{ show: showUserModal }"
-      id="userModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal" :class="{ show: showUserModal }" id="userModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">
               Register a new user:
             </h5>
-            <button
-              type="button"
-              class="close text-dark"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hideUserModal"
-            >
+            <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close"
+              @click="hideUserModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -78,83 +57,38 @@
             <form @submit.prevent="registerUser">
               <div class="form-group">
                 <label for="">Name</label>
-                <input
-                  v-model="userForm.name"
-                  type="text"
-                  class="form-control"
-                  required
-                />
+                <input v-model="userForm.name" type="text" class="form-control" required />
               </div>
               <div class="form-group">
                 <label for="">Surname</label>
-                <input
-                  v-model="userForm.surname"
-                  type="text"
-                  class="form-control"
-                  required
-                />
+                <input v-model="userForm.surname" type="text" class="form-control" required />
               </div>
               <div class="form-group">
                 <label for="">Display name: </label>
-                <input
-                  v-model="userForm.display_name"
-                  type="text"
-                  class="form-control"
-                  required
-                />
+                <input v-model="userForm.display_name" type="text" class="form-control" required />
               </div>
               <div class="form-group">
                 <label for="">Phone number:</label>
-                <input
-                  v-model="userForm.phone_number"
-                  type="text"
-                  class="form-control"
-                  required
-                />
+                <input v-model="userForm.phone_number" type="text" class="form-control" required />
               </div>
               <div class="form-group">
                 <label for="">Email:</label>
-                <input
-                  v-model="userForm.email"
-                  type="text"
-                  class="form-control"
-                  required
-                />
+                <input v-model="userForm.email" type="text" class="form-control" required />
               </div>
               <div class="form-group">
                 <label for="">Role:</label>
-                <input
-                  v-model="userForm.role"
-                  :options="options"
-                  type="text"
-                  required
-                  class="form-control"
-                />
+                <input v-model="userForm.role" :options="options" type="text" required class="form-control" />
               </div>
               <div class="form-group">
                 <label for="">Password:</label>
-                <input
-                  v-model="userForm.password"
-                  type="text"
-                  class="form-control"
-                  required
-                />
+                <input v-model="userForm.password" type="text" class="form-control" required />
               </div>
               <div class="form-group">
                 <label for="">Conform the password:</label>
-                <input
-                  v-model="userForm.password_confirmation"
-                  type="text"
-                  class="form-control"
-                  required
-                />
+                <input v-model="userForm.password_confirmation" type="text" class="form-control" required />
               </div>
               <div class="form-group">
-                <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-primary btn-block"
-                />
+                <input type="submit" value="Submit" class="btn btn-primary btn-block" />
               </div>
             </form>
           </div>
@@ -307,10 +241,12 @@ export default {
 .glyphicon-lg {
   font-size: 4em;
 }
+
 .info-block {
   border-right: 5px solid #e6e6e6;
   margin-bottom: 25px;
 }
+
 .info-block .square-box {
   width: 100px;
   min-height: 110px;
@@ -319,9 +255,11 @@ export default {
   background-color: #676767;
   padding: 20px 0;
 }
+
 .info-block.block-info {
   border-color: #20819e;
 }
+
 .info-block.block-info .square-box {
   background-color: #20819e;
   color: #fff;

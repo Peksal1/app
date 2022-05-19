@@ -10,56 +10,45 @@
             </div>
           </div>
         </div>
-         
-          <!-- Single Product -->
-          <div
-            class="col-md-6 col-lg-4 col-xl-2"
-           
-          >
-            <div id="product-1" class="single-product">
-              <div class="part-1">
-                <router-link
-                  :to="{
-                    name: 'portfolio/all',
-                  }"
-                >
-                  <img :src="`/collection/all.png`" style="max-width:290px; max-height:300px" alt="" x
-                /></router-link>
 
-                <ul>
-                  <li>
-                    <a href="#"><i class="fas fa-expand"></i></a>
-                  </li>
-                </ul>
-              </div>
-              <div class="part-2">
-                <h3 class="product-title">
-                  <strong>Full portfolio</strong>
-                </h3>
-                <div class="category">All of my portfolio items</div>
-                <h4 class="product-price">
-                  1999 - to this day
-                </h4>
-              </div>
+        <!-- Single Product -->
+        <div class="col-md-6 col-lg-4 col-xl-2">
+          <div id="product-1" class="single-product">
+            <div class="part-1">
+              <router-link :to="{
+                name: 'portfolio/all',
+              }">
+                <img :src="`/collection/all.png`" style="max-width:290px; max-height:300px" alt="" x />
+              </router-link>
+
+              <ul>
+                <li>
+                  <a href="#"><i class="fas fa-expand"></i></a>
+                </li>
+              </ul>
             </div>
+            <div class="part-2">
+              <h3 class="product-title">
+                <strong>Full portfolio</strong>
+              </h3>
+              <div class="category">All of my portfolio items</div>
+              <h4 class="product-price">
+                1999 - to this day
+              </h4>
+            </div>
+          </div>
         </div>
         <div class="row">
           <!-- Single Product -->
-          <div
-            class="col-md-6 col-lg-4 col-xl-3"
-            v-for="collection in collections"
-            :key="collection.id"
-          >
+          <div class="col-md-6 col-lg-4 col-xl-3" v-for="collection in collections" :key="collection.id">
             <div id="product-1" class="single-product">
               <div class="part-1">
-                <router-link
-                  :to="{
-                    name: 'portfolio',
-                    params: { id: collection.id },
-                  }"
-                >
-                  <img :src="`/collection/${collection.image}`" alt="" style="max-width:300px"x
-                /></router-link>
+                <router-link :to="{
+                  name: 'portfolio',
+                  params: { id: collection.id },
+                }">
+                  <img :src="`/collection/${collection.image}`" alt="" style="max-width:300px" x />
+                </router-link>
 
                 <ul>
                   <li>
@@ -80,12 +69,8 @@
           </div>
         </div>
         <div class="col-md-12 text-center center-pagination">
-          <Pagination
-            :pagination="pagination"
-            @perPage="getAllCollections()"
-            @paginate="getAllCollections()"
-            :offset="6"
-          >
+          <Pagination :pagination="pagination" @perPage="getAllCollections()" @paginate="getAllCollections()"
+            :offset="6">
           </Pagination>
         </div>
       </div>

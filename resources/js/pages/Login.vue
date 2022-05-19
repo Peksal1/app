@@ -8,21 +8,11 @@
             <div class="form-login">
               <h4>Secure Login</h4>
               <form action="#" @submit.prevent="login">
-                <input
-                  type="text"
-                  id="email"
-                  class="form-control input-sm chat-input"
-                  placeholder="email"
-                  v-model="formData.email"
-                />
+                <input type="text" id="email" class="form-control input-sm chat-input" placeholder="email"
+                  v-model="formData.email" />
 
-                <input
-                  type="password"
-                  id="userPassword"
-                  class="form-control input-sm chat-input"
-                  placeholder="password"
-                  v-model="formData.password"
-                />
+                <input type="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password"
+                  v-model="formData.password" />
                 <div class="wrapper">
                   <div class="col-md-6">
                     <button type="submit" class="btn btn-primary">login</button>
@@ -104,12 +94,15 @@ export default {
 .container {
   padding: 110px;
 }
+
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #ffffff !important;
-  opacity: 1; /* Firefox */
+  opacity: 1;
+  /* Firefox */
   font-size: 18px !important;
 }
+
 .form-login {
   background-color: rgba(0, 0, 0, 0.55);
   padding-top: 10px;
@@ -122,14 +115,17 @@ export default {
   color: white;
   box-shadow: 0 1px 0 #cfcfcf;
 }
+
 .form-control {
   background: transparent !important;
   color: white !important;
   font-size: 18px !important;
 }
+
 h1 {
   color: white !important;
 }
+
 h4 {
   border: 0 solid #fff;
   border-bottom-width: 1px;
@@ -140,12 +136,15 @@ h4 {
 .form-control {
   border-radius: 10px;
 }
+
 .text-white {
   color: white !important;
 }
+
 .wrapper {
   text-align: center;
 }
+
 .footer p {
   font-size: 18px;
 }

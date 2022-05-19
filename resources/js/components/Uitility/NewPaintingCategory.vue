@@ -1,13 +1,11 @@
 <template>
   <div class="container">
-    <div
-      class="
+    <div class="
         new-stores-option
         d-flex
         justify-content-between
         align-items-center
-      "
-    >
+      ">
       <div class="btn btn-sm btn-primary" @click="openPaintingCategoryModal">
         Add New Category
       </div>
@@ -19,22 +17,15 @@
           <div class="card-header">Categories</div>
           <div class="card-body">
             <ul>
-              <li
-                v-for="(painting_category, index) in painting_categories"
-                :key="index"
-                class="
+              <li v-for="(painting_category, index) in painting_categories" :key="index" class="
                   list-item
                   text-black
                   d-flex
                   justify-content-between
                   align-items-center
-                "
-              >
+                ">
                 <div>Category: {{ painting_category.category }}</div>
-                <div
-                  @click="deletePaintingCategory(index)"
-                  class="btn btn-sm btn-danger"
-                >
+                <div @click="deletePaintingCategory(index)" class="btn btn-sm btn-danger">
                   Delete
                 </div>
               </li>
@@ -43,28 +34,16 @@
         </div>
       </div>
     </div>
-    <div
-      class="modal"
-      :class="{ show: showPaintingCategoryModal }"
-      id="paintingCategoryModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal" :class="{ show: showPaintingCategoryModal }" id="paintingCategoryModal" tabindex="-1"
+      role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">
               Add Painting Category
             </h5>
-            <button
-              type="button"
-              class="close text-dark"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hidePaintingCategoryModal"
-            >
+            <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close"
+              @click="hidePaintingCategoryModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -72,18 +51,10 @@
             <form @submit.prevent="submitPaintingCategoryForm">
               <div class="form-group">
                 <label for="">Category</label>
-                <input
-                  v-model="paintingCategoryForm.category"
-                  type="text"
-                  class="form-control"
-                />
+                <input v-model="paintingCategoryForm.category" type="text" class="form-control" />
               </div>
               <div class="form-group">
-                <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-primary btn-block"
-                />
+                <input type="submit" value="Submit" class="btn btn-primary btn-block" />
               </div>
             </form>
           </div>
@@ -218,6 +189,7 @@ form {
   border-radius: 5px;
   border: 0px;
 }
+
 label {
   color: #000;
 }
@@ -230,6 +202,7 @@ li {
   list-style: none;
   padding: 10px;
 }
+
 ul {
   padding: 0px;
   margin: 0px;

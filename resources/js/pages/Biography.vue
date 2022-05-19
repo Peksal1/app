@@ -153,6 +153,7 @@ export default {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
 /*-- aboutus Image --*/
 .aboutus-image {
   margin: 0px;
@@ -166,12 +167,14 @@ export default {
     width: 345px;
   }
 }
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .aboutus-image {
     margin-bottom: 30px;
     float: none;
   }
 }
+
 @media only screen and (max-width: 767px) {
   .aboutus-image {
     margin-bottom: 30px;
@@ -179,12 +182,14 @@ export default {
     float: none;
     width: auto;
   }
+
   .hidden-sm {
     display: block !important;
     width: 340px;
     height: 85%;
   }
 }
+
 .aboutus-image img {
   height: 100%;
   width: 100%;
@@ -197,12 +202,14 @@ export default {
   line-height: 40px;
   margin-bottom: 2px;
 }
+
 @media only screen and (max-width: 479px) {
   .aboutus-content h2 {
     font-size: 30px;
     line-height: 30px;
   }
 }
+
 .aboutus-content h2 span {
   color: #71b100;
 }
@@ -226,19 +233,22 @@ export default {
   float: left;
   width: 100%;
 }
+
 .single-counter {
   float: left;
   width: 25%;
   padding: 28px 15px 28px;
 }
+
 @media only screen and (max-width: 767px) {
   .counter .single-counter {
     width: 50%;
   }
 
-  .counter .single-counter + .single-counter {
+  .counter .single-counter+.single-counter {
     border-left: none;
   }
+
   .counter .single-counter h2 {
     font-size: 30px;
     color: #71b100;
@@ -246,6 +256,7 @@ export default {
     font-family: "Open Sans", sans-serif;
     margin-bottom: 8px;
   }
+
   .counter .single-counter p {
     font-size: 16px;
     font-weight: 600;

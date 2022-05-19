@@ -71,11 +71,11 @@ class StripeController extends Controller
 
         \Stripe\Stripe::setApiKey('sk_test_7NyImHAKY2arJv2aDu9jqJ1600TjVN3zFF');
 
-        // register the product in stipe
+        // register the product in stripe
         $product = Product::create([
             'name' => $order->id,
         ]);
-
+    
         $price = Price::create([
             'currency' => 'eur',
             'product' => $product['id'],
@@ -172,8 +172,10 @@ class StripeController extends Controller
             // $order->tnx_id = $request->stripe_id;
             // $order->status = 'paid';
             $order->is_paid = 1;
+            $order->uuid=time();
             $order->save();
-            return redirect('/order/thank-you?order=' . $order->id);
+            
+            return redirect('/order/thank-you?order=' . $order->uuid);
         } else {
             return redirect('/orders');
         }

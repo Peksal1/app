@@ -12,19 +12,11 @@
         </div>
         <div class="row">
           <!-- Single Product -->
-          <div
-            class="col-md-6 col-lg-4 col-xl-3"
-            v-for="portfolio in portfolios"
-            :key="portfolio.id"
-          >
+          <div class="col-md-6 col-lg-4 col-xl-3" v-for="portfolio in portfolios" :key="portfolio.id">
             <div id="product-1" class="single-product">
               <div class="part-1">
-                <img
-                  :src="`/portfolio/${portfolio.file_path}`"
-                  alt="{portfolio.work_name}"
-                  style="cursor: pointer; max-width: 450px"
-                  @click="openPortfolioModal"
-                />
+                <img :src="`/portfolio/${portfolio.file_path}`" alt="{portfolio.work_name}"
+                  style="cursor: pointer; max-width: 450px" @click="openPortfolioModal" />
 
                 <ul>
                   <li>
@@ -45,36 +37,21 @@
           </div>
         </div>
       </div>
-      <div
-        class="modal"
-        :class="{ show: showPortfolioModal }"
-        id="portfolioModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
+      <div class="modal" :class="{ show: showPortfolioModal }" id="portfolioModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title text-dark" id="exampleModalLabel">
                 {{ portfolio.work_name }}
               </h5>
-              <button
-                type="button"
-                class="close text-dark cursor: pointer"
-                data-dismiss="modal"
-                aria-label="Close"
-                @click="hidePortfolioModal"
-              >
+              <button type="button" class="close text-dark cursor: pointer" data-dismiss="modal" aria-label="Close"
+                @click="hidePortfolioModal">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <img
-                :src="`/portfolio/${portfolio.file_path}`"
-                style="max-width: 500px"
-              />
+              <img :src="`/portfolio/${portfolio.file_path}`" style="max-width: 500px" />
 
               <br />
               {{ portfolio.orientation }}
@@ -84,13 +61,13 @@
               <div @click="buyDigital(portfolio)" class="btn btn-sm btn-danger">
                 Buy in digital
               </div>
-              
+
             </div>
           </div>
         </div>
       </div>
     </section>
-    
+
   </div>
 </template>
 
@@ -102,7 +79,7 @@ export default {
     return {
       portfolios: {},
       portfolio: {},
-   
+
       showPortfolioModal: false,
       currentUser: {},
       isLoggedIn: false,
@@ -208,7 +185,7 @@ export default {
       // this.loading = false
     },
   },
-  created() {},
+  created() { },
 
   mounted() {
     this.checkLoginStatus();

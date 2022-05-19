@@ -9,30 +9,15 @@
             <form action="#" @submit.prevent="updateportfolio">
               <div class="form-group">
                 <label for="">work_name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="work_name"
-                  v-model="work_name"
-                />
+                <input type="text" class="form-control" name="work_name" v-model="work_name" />
               </div>
               <div class="form-group">
                 <label for="">file_path</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="file_path"
-                  v-model="file_path"
-                />
+                <input type="text" class="form-control" name="file_path" v-model="file_path" />
               </div>
               <div class="form-group">
                 <label for="">description</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="description"
-                  v-model="description"
-                />
+                <input type="text" class="form-control" name="description" v-model="description" />
               </div>
               <div class="row">
                 <div class="col-md-6">

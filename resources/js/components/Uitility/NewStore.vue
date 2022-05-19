@@ -1,41 +1,27 @@
 <template>
   <div class="container">
-    <div
-      class="
+    <div class="
         new-stores-option
         d-flex
         justify-content-between
         align-items-center
-      "
-    >
+      ">
       <div class="btn btn-sm btn-primary" @click="openStoreModal">
         Add New Store Item
       </div>
     </div>
 
     <!-- modal vindow -->
-    <div
-      class="modal"
-      :class="{ show: showStoreModal }"
-      id="storeModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal" :class="{ show: showStoreModal }" id="storeModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">
-              Add a new item to the store
+              <strong>New shop item</strong>
             </h5>
-            <button
-              type="button"
-              class="close text-dark"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hideStoreModal"
-            >
+            <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close"
+              @click="hideStoreModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -43,138 +29,68 @@
             <form @submit.prevent="submitStoreForm">
               <div class="form-group">
                 <label for="">Title</label>
-                <input
-                  v-model="storeForm.work_name"
-                  type="text"
-                  class="form-control"
-                  required
-                />
+                <input v-model="storeForm.work_name" type="text" class="form-control" required />
               </div>
               <div class="form-group">
                 <label for="">Description</label>
-                <input
-                  v-model="storeForm.description"
-                  type="text"
-                  class="form-control"
-                  required
-                />
+                <input v-model="storeForm.description" type="text" class="form-control" required />
               </div>
 
               <div class="form-group">
                 <label for="">Price (EUR)</label>
-                <input
-                  v-model="storeForm.price_in_eur"
-                  type="number"
-                  class="form-control"
-                  required
-                />
+                <input v-model="storeForm.price_in_eur" type="number" class="form-control" required />
               </div>
               <label for="size">Size:</label>
-              <select
-                class="options"
-                name="size"
-                v-model="storeForm.size_id"
-                style="width: 15rem"
-                required
-              >
-                <option class="options" value="">Choose</option>
-                <option
-                  v-for="size in sizes"
-                  v-bind:key="size.id"
-                  :value="size.id"
-                >
+              <select class="options" name="size" v-model="storeForm.size_id" style="width: 15rem" required>
+                <option value="" selected disabled>Select the size</option>
+                <option v-for="size in sizes" v-bind:key="size.id" :value="size.id">
                   {{ size.type }}
                 </option>
               </select>
               <br />
               <label for="canvas">Canvas:</label>
-              <select
-                class="options"
-                name="canvas"
-                v-model="storeForm.canvas_id"
-                style="width: 15rem"
-                required
-              >
-                <option value="">Choose</option>
-                <option
-                  v-for="canvas in canvases"
-                  v-bind:key="canvas.id"
-                  :value="canvas.id"
-                >
+              <select class="options" name="canvas" v-model="storeForm.canvas_id" style="width: 15rem" required>
+                <option value="" selected disabled>Select the canvas</option>
+                <option v-for="canvas in canvases" v-bind:key="canvas.id" :value="canvas.id">
                   {{ canvas.type }}
                 </option>
               </select>
               <br />
               <label for="category">Category:</label>
-              <select
-                class="options"
-                name="category"
-                v-model="storeForm.category_id"
-                style="width: 15rem"
-                required
-              >
-                <option value="">Choose</option>
-                <option
-                  v-for="painting_category in painting_categories"
-                  v-bind:key="painting_category.id"
-                  :value="painting_category.id"
-                >
+              <select class="options" name="category" v-model="storeForm.category_id" style="width: 15rem" required>
+                <option value="" selected disabled>Select the category</option>
+                <option v-for="painting_category in painting_categories" v-bind:key="painting_category.id"
+                  :value="painting_category.id">
                   {{ painting_category.category }}
                 </option>
               </select>
               <br />
+
+              <label for="paint">Paint:</label>
+              <select name="paint" v-model="storeForm.paint_id" style="width: 15rem" class="options" required>
+                <option value="" selected disabled>Select the paint</option>
+                <option v-for="paint in paints" v-bind:key="paint.id" :value="paint.id">
+                  {{ paint.type }}
+                </option>
+              </select>
+              <br />
               <label for="orientation">Orientation:</label>
-              <select
-                class="options"
-                name="orientation"
-                v-model="storeForm.orientation"
-                style="width: 15rem"
-                required
-              >
+              <select class="options" name="orientation" v-model="storeForm.orientation" style="width: 15rem" required>
+                <option value="" selected disabled>Select the orientation</option>
                 <option value="horizontal">Horizontal</option>
                 <option value="vertical">Vertical</option>
               </select>
               <br />
-              <label for="paint">Paint:</label>
-              <select
-                name="paint"
-                v-model="storeForm.paint_id"
-                style="width: 15rem"
-                class="options"
-                required
-              >
-                <option value="">Choose</option>
-                <option
-                  v-for="paint in paints"
-                  v-bind:key="paint.id"
-                  :value="paint.id"
-                >
-                  {{ paint.type }}
-                </option>
-              </select>
-              <div class="p-2 w-full">
-                <div class="relative">
-                  <label
-                    for="attachment"
-                    class="leading-7 text-sm text-gray-600"
-                    >Attachments</label
-                  ><br />
 
-                  <input
-                    type="file"
-                    accept="image/*"
-                    @change="uploadImage($event)"
-                    id="file-input"
-                    required
-                  />
-                </div>
+              <div class="relative">
+                <label for="attachment" class="leading-7 text-sm text-gray-600">Attachments</label><br />
+
+                <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input" required />
               </div>
+              <br />
               <div class="form-group">
-                <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-primary btn-block"
-                />
+                <input type="submit" value="Submit" class="btn btn-primary btn-block"
+                  style="max-width:100px;color:white" />
               </div>
             </form>
           </div>
@@ -350,6 +266,7 @@ form {
   border-radius: 5px;
   border: 0px;
 }
+
 label {
   color: #000;
 }
@@ -362,6 +279,7 @@ li {
   list-style: none;
   padding: 10px;
 }
+
 ul {
   padding: 0px;
   margin: 0px;

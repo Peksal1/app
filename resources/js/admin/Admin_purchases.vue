@@ -5,9 +5,7 @@
       <div class="input-group mb-3">
         <input v-model="searchKeyword" type="text" class="form-control" />
         <div class="input-group-append">
-          <button @click="loadAllPurchases" class="btn btn-primary">
-            Search
-          </button>
+          <button @click="loadAllPurchases" class="btn btn-primary">Search</button>
         </div>
       </div>
     </div>
@@ -16,92 +14,119 @@
         <div class="row justify-content-center text-center">
           <div class="col-md-8 col-lg-6">
             <div class="header">
-              <h2>All purchases:</h2>
+              <h2>User purchases</h2>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-3">
-            <!-- products -->
+            <p><strong>Filter by status</strong></p>
+            <!-- status filtering -->
+            <div class="m-1">
+              <div>
+                <input type="checkbox" :id="1" class="mycat" v-model="trackingFilter" :value="'Not yet available'"
+                  checked /><label :for="1" class="btn btn-sm border btn-block">Display all purchases</label>
+              </div>
+            </div>
+            <!-- purchases -->
           </div>
           <div class="col-md-9">
             <div class="row">
-              <!-- Single Product -->
-              <div
-                class="col-md-6"
-                v-for="(purchase, index) in purchases"
-                :key="index"
-              >
+              <!-- Single purchase -->
+              <div class="col-md-6" v-for="(purchase, index) in purchases" :key="index">
                 <div id="product-1" class="single-product">
                   <div class="part-1">
-                    <img
-                      :src="`/sale/${purchase.store.file_path}`"
-                      alt="{purchase.store,work_name}"
-                      style="cursor: pointer; max-width: 450px"
-                      @click="openPurchaseModal(index)"
-                    />
-                    <ul>
-                      <li>
-                        <a href="#"><i class="fas fa-expand"></i></a>
-                      </li>
-                    </ul>
+                    <img :src="`/sale/${purchase.store.file_path}`" alt="{purchase.store,work_name}"
+                      style="cursor: pointer; max-width: 450px" @click="openPurchaseModal(index)" />
+
                   </div>
                   <div class="part-2">
                     <h3 class="product-title">
-                      <strong>{{ purchase }}</strong>
+                      <strong>{{ purchase.store.work_name }}</strong>
                     </h3>
-                    <div class="category">{{ purchase.category_id }}</div>
-                    <h4 class="product-price">
-                      {{ purchase.store.price_in_eur }} EUR
-                    </h4>
-                    <div class="buy-btn mt-3"></div>
+                    <div class="category"> {{ purchase.store.price_in_eur }} EUR</div>
+
+
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
 
         <div class="col-md-12 text-center center-pagination">
-          <Pagination
-            :pagination="pagination"
-            @perPage="loadAllPurchases()"
-            @paginate="loadAllPurchases()"
-            :offset="6"
-          >
+          <Pagination :pagination="pagination" @perPage="loadAllPurchases()" @paginate="loadAllPurchases()" :offset="6">
           </Pagination>
         </div>
       </div>
     </section>
-    <div
-      class="modal"
-      :class="{ show: showPurchaseModal }"
-      id="purchaseModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
+    <div class="modal" :class="{ show: showPurchaseModal }" id="purchaseModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document" v-if="specific_purchase != null">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title text-dark" id="exampleModalLabel">TEST</h5>
-            <button
-              type="button"
-              class="close text-dark cursor: pointer"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hidePurchaseModal"
-            >
+            <h5 class="modal-title text-dark" id="exampleModalLabel">
+              <strong>{{ specific_purchase.store.work_name }}</strong></h5>
+            <button type="button" class="close text-dark cursor: pointer" data-dismiss="modal" aria-label="Close"
+              @click="hidePurchaseModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
 
           <div class="modal-body">
-             <div v-if="specific_purchase.shipping">
-                {{ specific_purchase.shipping.adress1 }}
-              </div>    
+            <img :src="`/sale/${specific_purchase.store.file_path}`" alt="{specific_purchase.store,work_name}"
+              style=" max-width: 465px" />
+            <br />
+            <strong>Purchased by: </strong>{{ specific_purchase.user.name }} {{ specific_purchase.user.surname }} <br />
+            <strong>Purchased on: </strong>{{ specific_purchase.created_at }} <br />
+            <strong>Purchase ID: </strong> {{ specific_purchase.uuid }} <br />
+            <strong>Price: </strong> {{ specific_purchase.store.price_in_eur }} EUR <br />
+            <strong>Ship to: </strong> <br />
+            <div v-if="specific_purchase.shipping">
+              {{ specific_purchase.shipping.name }} {{ specific_purchase.shipping.surname }}, <br />
+              {{ specific_purchase.shipping.country }}, {{ specific_purchase.shipping.city }}, <br />
+              {{ specific_purchase.shipping.adress1 }}, {{ specific_purchase.shipping.adress2 }}, {{
+                  specific_purchase.shipping.postal_code
+              }} <br />
+              <strong>E-mail: </strong>{{ specific_purchase.shipping.email }} <br />
+              <strong>Phone number: </strong> {{ specific_purchase.shipping.phone_number }} <br />
+              <strong>Tracking number: </strong> {{ specific_purchase.tracking_number }} <br />
+              <div @click="openTrackingModal(specific_purchase.id)" class="btn btn-sm btn-primary">
+                Add tracking
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" :class="{ show: showTrackingModal }" id="trackingModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="exampleModalLabel">
+              <strong>Add tracking for: {{ trackingForm.uuid }}</strong>
+            </h5>
+            <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close"
+              @click="hideTrackingModal">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="updateTracking">
+
+
+              <div class="form-group">
+                <label for="">Tracking number</label>
+                <input v-model="trackingForm.tracking_number" type="text" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary btn-block"
+                  style="color:white; max-width:80px" />
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -117,10 +142,17 @@ export default {
     return {
       purchases: [],
       store: [],
-      specific_purchase: [],
+      specific_purchase: null,
       searchKeyword: "",
+      trackingFilter: [],
       showPurchaseModal: false,
+      showTrackingModal: false,
       users: [],
+      trackingForm: {
+        id: null,
+        uuid: '',
+        tracking_number: '',
+      },
       pagination: {
         data: [],
         total: 0,
@@ -140,6 +172,40 @@ export default {
   },
 
   methods: {
+    updateTracking() {
+      let formData = new FormData();
+      formData.append("tracking_number", this.trackingForm.tracking_number);
+
+      axios
+        .post(`/api/purchases/${this.trackingForm.id}/update`, formData, {
+          headers: {
+            Authorization: "Bearer " + this.adminToken,
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          if (res.data.success) {
+            let purchaseIndex = this.purchases.findIndex(item => item.id == this.trackingForm.id);
+            this.purchases[purchaseIndex] = res.data.purchase;
+
+            // hide the modal
+            this.hideTrackingModal();
+            alert("The tracking info was updated!");
+          } else {
+            alert("STOPPPPPPPPP");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    openTrackingModal(index) {
+      this.trackingForm = this.specific_purchase;
+      this.showTrackingModal = true;
+    },
+    hideTrackingModal() {
+      this.showTrackingModal = false;
+    },
     openPurchaseModal(index) {
       this.showPurchaseModal = true;
       this.loadSpecificPurchase(index);
@@ -150,7 +216,7 @@ export default {
     loadAllPurchases() {
       axios
         .get(
-          `/api/purchases/all?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}`,
+          `/api/purchases/all?page=${this.pagination.current_page}&searchKeyword=${this.searchKeyword}&trackingFilter=${this.trackingFilter}`,
           {
             headers: {
               Authorization: "Bearer " + this.adminToken,
@@ -204,10 +270,17 @@ export default {
       // this.loading = false
     },
   },
-  created() {},
+  created() { },
   mounted() {
     this.loadAllPurchases();
     this.checkLoginStatus();
+  },
+  watch: {
+    trackingFilter(after, before) {
+      this.pagination.current_page = 1;
+      this.loadAllPurchases();
+
+    },
   },
 };
 </script>
@@ -220,14 +293,15 @@ input.mycanvas {
   display: none;
 }
 
-input.mycat:checked + label,
-input.mypaint:checked + label,
-input.mysize:checked + label,
-input.mycanvas:checked + label {
+input.mycat:checked+label,
+input.mypaint:checked+label,
+input.mysize:checked+label,
+input.mycanvas:checked+label {
   background: green;
   color: white;
   box-shadow: 0px 1px 3px inset;
 }
+
 @import url("https://fonts.googleapis.com/css2?family=Heebo:wght@500&display=swap");
 
 .form-control {
@@ -255,6 +329,7 @@ input.form-control:focus {
 .btn-primary:focus {
   box-shadow: none;
 }
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
 
 body {
@@ -417,6 +492,7 @@ a:hover {
   background-color: #444444;
   transform: translateY(-50%);
 }
+
 .btn-block {
   width: 100%;
   text-align: left;

@@ -6,25 +6,17 @@
         <div class="row justify-content-center text-center">
           <div class="col-md-8 col-lg-6">
             <div class="header">
-              <h2>Collection - {{collection.name}}</h2>
+              <h2>Collection - {{ collection.name }}</h2>
             </div>
           </div>
         </div>
         <div class="row">
           <!-- Single Product -->
-          <div
-            class="col-md-6 col-lg-4 col-xl-3"
-            v-for="(portfolio, index) in portfolios"
-            :key="index"
-          >
+          <div class="col-md-6 col-lg-4 col-xl-3" v-for="(portfolio, index) in portfolios" :key="index">
             <div id="product-1" class="single-product">
               <div class="part-1">
-                <img
-                  :src="`/portfolio/${portfolio.file_path}`"
-                  alt="{portfolio.work_name}"
-                  style="cursor: pointer; max-width: 450px"
-                  @click="openPortfolioModal(index)"
-                />
+                <img :src="`/portfolio/${portfolio.file_path}`" alt="{portfolio.work_name}"
+                  style="cursor: pointer; max-width: 450px" @click="openPortfolioModal(index)" />
 
                 <ul>
                   <li>
@@ -45,47 +37,32 @@
           </div>
         </div>
       </div>
-      <div
-        class="modal"
-        :class="{ show: showPortfolioModal }"
-        id="portfolioModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
+      <div class="modal" :class="{ show: showPortfolioModal }" id="portfolioModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title text-dark" id="exampleModalLabel">
                 {{ portfolio.work_name }}
               </h5>
-              <button
-                type="button"
-                class="close text-dark cursor: pointer"
-                data-dismiss="modal"
-                aria-label="Close"
-                @click="hidePortfolioModal"
-              >
+              <button type="button" class="close text-dark cursor: pointer" data-dismiss="modal" aria-label="Close"
+                @click="hidePortfolioModal">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <img
-                :src="`/portfolio/${portfolio.file_path}`"
-                style="max-width: 500px"
-              />
+              <img :src="`/portfolio/${portfolio.file_path}`" style="max-width: 500px" />
 
               <br />
               {{ portfolio.orientation }}
               <br />
               {{ portfolio.id }}
               <br />
-           
-              <div v-for="(digital, portfolio) in digitals"
-            :key="portfolio" @click="buyDigital(digital.id)" class="btn btn-sm btn-danger" >
-                {{digital.resolution}} BUY IN DIGITAL
-             </div>
+
+              <div v-for="(digital, portfolio) in digitals" :key="portfolio" @click="buyDigital(digital.id)"
+                class="btn btn-sm btn-danger">
+                {{ digital.resolution }} BUY IN DIGITAL
+              </div>
             </div>
           </div>
         </div>
@@ -161,7 +138,7 @@ export default {
           console.log(res);
         });
     },
-     loadCollection() {
+    loadCollection() {
       axios
         .get("/api/collection/" + this.$route.params.id, {})
 
@@ -221,7 +198,7 @@ export default {
       // this.loading = false
     },
   },
-  created() {},
+  created() { },
 
   mounted() {
     this.checkLoginStatus();

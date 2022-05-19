@@ -1,10 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <link
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
     <div id="main-content" class="blog-page">
       <div class="container">
@@ -13,11 +10,7 @@
             <div class="card single_post" v-for="blog in blogs" :key="blog.id">
               <div class="body">
                 <div class="img-post">
-                  <img
-                    class="d-block img-fluid"
-                    :src="`/blog/${blog.image}`"
-                    alt="First slide"
-                  />
+                  <img class="d-block img-fluid" :src="`/blog/${blog.image}`" alt="First slide" />
                 </div>
                 <h3>
                   <strong> {{ blog.title }} </strong>
@@ -28,27 +21,18 @@
               </div>
               <div class="footer">
                 <div class="actions">
-                  <router-link
-                    :to="{
-                      name: 'Bloginfo',
-                      params: { id: blog.id },
-                    }"
-                  >
-                    <a class="btn btn-outline-secondary"
-                      >Continue Reading</a
-                    ></router-link
-                  >
+                  <router-link :to="{
+                    name: 'Bloginfo',
+                    params: { id: blog.id },
+                  }">
+                    <a class="btn btn-outline-secondary">Continue Reading</a>
+                  </router-link>
                 </div>
-             
+
               </div>
             </div>
             <ul class="pagination pagination-primary">
-              <Pagination
-                :pagination="pagination"
-                @perPage="getAllBlogs()"
-                @paginate="getAllBlogs()"
-                :offset="6"
-              >
+              <Pagination :pagination="pagination" @perPage="getAllBlogs()" @paginate="getAllBlogs()" :offset="6">
               </Pagination>
             </ul>
           </div>
@@ -58,17 +42,10 @@
                 <div class="input-group m-b-0">
                   <div class="input-group-prepend">
                     <button @click="getAllBlogs">
-                      <span class="input-group-text"
-                        ><i class="fa fa-search"></i
-                      ></span>
+                      <span class="input-group-text"><i class="fa fa-search"></i></span>
                     </button>
                   </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Search..."
-                    v-model="searchKeyword"
-                  />
+                  <input type="text" class="form-control" placeholder="Search..." v-model="searchKeyword" />
                 </div>
               </div>
             </div>
@@ -78,23 +55,12 @@
               </div>
               <div class="body widget">
                 <ul class="list-unstyled categories-clouds m-b-0">
-                  <div
-                    v-for="blog_category in blog_categories"
-                    :key="blog_category.id"
-                    class="m-1"
-                  >
+                  <div v-for="blog_category in blog_categories" :key="blog_category.id" class="m-1">
                     <li>
-                      <input
-                        type="checkbox"
-                        :id="blog_category.id"
-                        class="mycat"
-                        v-model="cat"
-                        :value="blog_category.id"
-                      /><label
-                        :for="blog_category.id"
-                        class="btn btn-sm border"
-                        >{{ blog_category.category }}</label
-                      >
+                      <input type="checkbox" :id="blog_category.id" class="mycat" v-model="cat"
+                        :value="blog_category.id" /><label :for="blog_category.id" class="btn btn-sm border">{{
+                            blog_category.category
+                        }}</label>
                     </li>
                   </div>
                 </ul>
@@ -111,28 +77,22 @@
                       <p class="m-b-0">First post</p>
                       <span>May 22, 2022</span>
                       <div class="img-post">
-                        <img
-                          src="https://via.placeholder.com/280x280/FFB6C1/000000"
-                          alt="Instagram post"
-                        />
+                        <img src="https://via.placeholder.com/280x280/FFB6C1/000000" alt="Instagram post" />
                       </div>
                     </div>
                     <div class="single_post">
                       <p class="m-b-0">Second post</p>
                       <span>May 23, 2022</span>
                       <div class="img-post">
-                        <img
-                          src="https://via.placeholder.com/280x280/FFB6C1/000000"
-                          alt="Instagram post"
-                        />
+                        <img src="https://via.placeholder.com/280x280/FFB6C1/000000" alt="Instagram post" />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
- 
-      
+
+
           </div>
         </div>
       </div>
@@ -224,15 +184,17 @@ input.mycat {
   display: none;
 }
 
-input.mycat:checked + label {
+input.mycat:checked+label {
   background: green;
   color: white;
   box-shadow: 0px 1px 3px inset;
 }
+
 body {
   background-color: #f4f7f6;
   margin-top: 20px;
 }
+
 .card {
   background: #fff;
   transition: 0.5s;
@@ -243,17 +205,20 @@ body {
   width: 100%;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
 }
+
 .card .body {
   color: #444;
   padding: 20px;
   font-weight: 400;
 }
+
 .card .header {
   color: #444;
   padding: 20px;
   position: relative;
   box-shadow: none;
 }
+
 .single_post {
   -webkit-transition: all 0.4s ease;
   transition: all 0.4s ease;
@@ -270,7 +235,7 @@ body {
   margin-bottom: 30px;
 }
 
-.single_post .img-post > img {
+.single_post .img-post>img {
   -webkit-transform: scale(1);
   -ms-transform: scale(1);
   transform: scale(1);
@@ -468,21 +433,25 @@ body {
 }
 
 @media (max-width: 640px) {
-  .blog-page .left-box .single-comment-box > ul > li {
+  .blog-page .left-box .single-comment-box>ul>li {
     padding: 25px 0;
   }
+
   .blog-page .left-box .single-comment-box ul li .icon-box {
     display: inline-block;
   }
+
   .blog-page .left-box .single-comment-box ul li .text-box {
     display: block;
     padding-left: 0;
     margin-top: 10px;
   }
+
   .blog-page .single_post .footer .stats {
     float: none;
     margin-top: 10px;
   }
+
   .blog-page .single_post .body,
   .blog-page .single_post .footer {
     padding: 30px;

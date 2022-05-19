@@ -3,19 +3,14 @@
     <Navbar />
 
     <div>
-      <router-link
-        class="addtopic"
-        :to="{ name: 'createuserpost', params: { id: this.$route.params.id } }"
-        >Post your message here!</router-link
-      >
+      <router-link class="addtopic" :to="{ name: 'createuserpost', params: { id: this.$route.params.id } }">Post your
+        message here!</router-link>
     </div>
 
     <div class="subforum-row" v-for="post in posts" v-bind:key="post.id">
       <div class="subforum-icon subforum-column center">
-        <img
-          src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
-          style="width: 45px; height: 45px; margin-right: 25px"
-        />
+        <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+          style="width: 45px; height: 45px; margin-right: 25px" />
       </div>
       <div class="subforum-description subforum-column">
         <p>{{ post.post_text }}</p>
@@ -92,7 +87,7 @@ export default {
       // this.loading = false
     },
   },
-  created() {},
+  created() { },
 
   mounted() {
     this.checkLoginStatus();
@@ -105,25 +100,30 @@ export default {
 * {
   box-sizing: border-box;
 }
+
 .search {
   text-align: right;
 }
+
 .bland {
   font-size: 60px;
   color: #ffa309;
   font-family: "Queen of Camelot" !important;
   margin-left: 40px;
 }
+
 .home {
   font-size: 30px;
   font-family: "Queen of Camelot" !important;
   text-align: center;
 }
+
 .addtopic {
   color: #ffa309;
   text-align: right;
   font-size: 24px;
 }
+
 html {
   font-size: 14px;
   font-family: "Titillium Web", sans-serif;

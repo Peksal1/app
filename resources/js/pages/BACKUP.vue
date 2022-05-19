@@ -2,12 +2,7 @@
   <div class="container-fuiled">
     <Navbar />
     <div class="row">
-      <div
-        v-if="!isPaymentLoading"
-        class="col-md-3"
-        v-for="shop in shops"
-        :key="shop.id"
-      >
+      <div v-if="!isPaymentLoading" class="col-md-3" v-for="shop in shops" :key="shop.id">
         <div class="card">
           <div class="card-body">
             <div class="product-image">
@@ -19,10 +14,7 @@
             <div class="title">Price: {{ shop.price_in_eur }} EUR</div>
 
             <div class="buy-btn mt-3">
-              <div
-                @click="buyProduct(shop.id)"
-                class="btn btn-block btn-primary"
-              >
+              <div @click="buyProduct(shop.id)" class="btn btn-block btn-primary">
                 Buy Now
               </div>
             </div>
@@ -36,12 +28,7 @@
       </div>
     </div>
     <div class="col-md-12 text-center center-pagination">
-      <Pagination
-        :pagination="pagination"
-        @perPage="getAllItems()"
-        @paginate="getAllItems()"
-        :offset="6"
-      >
+      <Pagination :pagination="pagination" @perPage="getAllItems()" @paginate="getAllItems()" :offset="6">
       </Pagination>
     </div>
   </div>
@@ -102,25 +89,30 @@ export default {
 * {
   box-sizing: border-box;
 }
+
 .search {
   text-align: right;
 }
+
 .bland {
   font-size: 60px;
   color: #ffa309;
   font-family: "Queen of Camelot" !important;
   margin-left: 40px;
 }
+
 .home {
   font-size: 30px;
   font-family: "Queen of Camelot" !important;
   text-align: center;
 }
+
 .addtopic {
   color: #ffa309;
   text-align: right;
   font-size: 24px;
 }
+
 html {
   font-size: 14px;
   font-family: "Titillium Web", sans-serif;

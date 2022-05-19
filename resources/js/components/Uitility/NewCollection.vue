@@ -1,41 +1,30 @@
 <template>
   <div class="container">
-    <div
-      class="
+    <div class="
         new-stores-option
         d-flex
         justify-content-between
         align-items-center
-      "
-    >
+      ">
       <div class="btn btn-sm btn-primary" @click="openCollectionModal">
         New collection
       </div>
-    </div>
 
+    </div>
+    <br />
+    <router-link class="btn btn-sm btn-primary" style="color:white" :to="{ name: 'portfolio/admin' }">Manage the
+      portfolio</router-link>
     <!-- modal vindow -->
-    <div
-      class="modal"
-      :class="{ show: showCollectionModal }"
-      id="collectionModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal" :class="{ show: showCollectionModal }" id="collectionModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">
-              New collection
+              <strong>New collection</strong>
             </h5>
-            <button
-              type="button"
-              class="close text-dark"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hideCollectionModal"
-            >
+            <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close"
+              @click="hideCollectionModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -43,63 +32,30 @@
             <form @submit.prevent="submitCollectionForm">
               <div class="form-group">
                 <label for="">Title</label>
-                <input
-                  v-model="collectionForm.name"
-                  type="text"
-                  class="form-control"
-                  required
-                />
+                <input v-model="collectionForm.name" type="text" class="form-control" required />
               </div>
               <div class="form-group">
                 <label for="">Description</label>
-                <input
-                  v-model="collectionForm.description"
-                  type="text"
-                  class="form-control"
-                  required
-                />
+                <input v-model="collectionForm.description" type="text" class="form-control" required />
               </div>
               <div class="form-group">
                 <label for="">Start date: </label>
-                <input
-                  v-model="collectionForm.start_date"
-                  type="month"
-                  class="form-control"
-                  required
-                />
+                <input v-model="collectionForm.start_date" type="month" class="form-control" required />
               </div>
               <div class="form-group">
                 <label for="">End date:</label>
-                <input
-                  v-model="collectionForm.end_date"
-                  type="month"
-                  class="form-control"
-                  required
-                />
+                <input v-model="collectionForm.end_date" type="month" class="form-control" required />
               </div>
               <div class="p-2 w-full">
                 <div class="relative">
-                  <label
-                    for="attachment"
-                    class="leading-7 text-sm text-gray-600"
-                    >Attachments</label
-                  ><br />
+                  <label for="attachment" class="leading-7 text-sm text-gray-600">Attachments</label><br />
 
-                  <input
-                    type="file"
-                    accept="image/*"
-                    @change="uploadImage($event)"
-                    id="file-input"
-                    required
-                  />
+                  <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input" required />
                 </div>
               </div>
               <div class="form-group">
-                <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-primary btn-block"
-                />
+                <input type="submit" value="Submit" style="max-width:100px;color:white"
+                  class="btn btn-primary btn-block" />
               </div>
             </form>
           </div>
@@ -218,6 +174,7 @@ form {
   border-radius: 5px;
   border: 0px;
 }
+
 label {
   color: #000;
 }
@@ -230,6 +187,7 @@ li {
   list-style: none;
   padding: 10px;
 }
+
 ul {
   padding: 0px;
   margin: 0px;

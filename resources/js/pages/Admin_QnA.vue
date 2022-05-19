@@ -3,31 +3,20 @@
     <AdminNavbar />
     <div class="addtopic">
       <i class="fa fa-tachometer-alt"></i>
-      <router-link class="new_feedback" :to="{ name: '/adminnewtopic' }"
-        >Create a new topic!</router-link
-      >
+      <router-link class="new_feedback" :to="{ name: '/adminnewtopic' }">Create a new topic!</router-link>
     </div>
 
-    <div
-      class="subforum-row"
-      v-for="qna_topic in qna_topics"
-      v-bind:key="qna_topic.id"
-    >
+    <div class="subforum-row" v-for="qna_topic in qna_topics" v-bind:key="qna_topic.id">
       <div class="subforum-icon subforum-column center">
-        <img
-          src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
-          style="width: 45px; height: 45px; margin-right: 25px"
-        />
+        <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+          style="width: 45px; height: 45px; margin-right: 25px" />
       </div>
       <div class="subforum-description subforum-column">
         <a href="#" name="topic">
-          <router-link
-            :to="{
-              name: 'admintopicsposts',
-              params: { id: qna_topic.id },
-            }"
-            >{{ qna_topic.topic_title }}</router-link
-          >
+          <router-link :to="{
+            name: 'admintopicsposts',
+            params: { id: qna_topic.id },
+          }">{{ qna_topic.topic_title }}</router-link>
         </a>
         <p>{{ qna_topic.topic_description }}</p>
       </div>
@@ -41,19 +30,14 @@
         on <small>{{ qna_topic.created_at }} </small>
       </div>
       <button>
-        <router-link
-          class="item"
-          :to="{ name: 'updatetopic', params: { id: qna_topic.id } }"
-        >
-          Update</router-link
-        >
+        <router-link class="item" :to="{ name: 'updatetopic', params: { id: qna_topic.id } }">
+          Update</router-link>
       </button>
       <div>
-        <b-button class="mod" @click="$bvModal.show('bv-modal-example')"
-          >Delete<v-icon large color="teal darken-2">
+        <b-button class="mod" @click="$bvModal.show('bv-modal-example')">Delete<v-icon large color="teal darken-2">
             mdi-delete
-          </v-icon></b-button
-        >
+          </v-icon>
+        </b-button>
         <b-modal id="bv-modal-example" hide-footer>
           <template #modal-title> Delete topic </template>
           <div class="d-block text-center">
@@ -61,18 +45,8 @@
               Do you want to delete this {{ qna_topic.topic_title }} topic?
             </h3>
           </div>
-          <b-button
-            class="btn btn-primary mt-3"
-            block
-            @click="$bvModal.hide('bv-modal-example')"
-            >Cancel</b-button
-          >
-          <b-button
-            class="btn btn-danger mt-3"
-            block
-            @click="deleteTopic(qna_topic.id)"
-            >delete</b-button
-          >
+          <b-button class="btn btn-primary mt-3" block @click="$bvModal.hide('bv-modal-example')">Cancel</b-button>
+          <b-button class="btn btn-danger mt-3" block @click="deleteTopic(qna_topic.id)">delete</b-button>
         </b-modal>
       </div>
     </div>
@@ -158,25 +132,30 @@ export default {
 * {
   box-sizing: border-box;
 }
+
 .search {
   text-align: right;
 }
+
 .bland {
   font-size: 60px;
   color: #ffa309;
   font-family: "Queen of Camelot" !important;
   margin-left: 40px;
 }
+
 .home {
   font-size: 30px;
   font-family: "Queen of Camelot" !important;
   text-align: center;
 }
+
 .addtopic {
   color: #ffa309;
   text-align: right;
   font-size: 24px;
 }
+
 html {
   font-size: 14px;
   font-family: "Titillium Web", sans-serif;

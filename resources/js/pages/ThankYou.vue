@@ -3,10 +3,7 @@
     <AdminNavbar />
 
     <div class="container mt-4">
-      <div
-        class="col-10 m-auto text-black mt-4"
-        v-if="!isLoading && hasError != true"
-      >
+      <div class="col-10 m-auto text-black mt-4" v-if="!isLoading && hasError != true">
         <div class="text-center">
           <h2>Congrats! the </h2>
           <p class="m-0">
@@ -23,92 +20,55 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="name">Name</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="name"
-                      v-model="formData.name"
-                    />
+                    <input type="text" class="form-control" name="name" v-model="formData.name" />
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="name">Surname</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="formData.surname"
-                    />
+                    <input type="text" class="form-control" v-model="formData.surname" />
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="name">Email</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="formData.email"
-                    />
+                    <input type="text" class="form-control" v-model="formData.email" />
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="name">Phone</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="formData.phone_number"
-                    />
+                    <input type="text" class="form-control" v-model="formData.phone_number" />
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="name">Country</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="formData.country"
-                    />
+                    <input type="text" class="form-control" v-model="formData.country" />
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="name">City</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="formData.city"
-                    />
+                    <input type="text" class="form-control" v-model="formData.city" />
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="name">Address 1</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="formData.adress1"
-                    />
+                    <input type="text" class="form-control" v-model="formData.adress1" />
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="name">Address 2</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="formData.adress2"
-                    />
+                    <input type="text" class="form-control" v-model="formData.adress2" />
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="name">Postal Code</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="formData.postal_code"
-                    />
+                    <input type="text" class="form-control" v-model="formData.postal_code" />
                   </div>
                 </div>
                 <div class="col-md-12 mt-4">

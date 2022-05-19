@@ -1,28 +1,17 @@
 <template>
   <div>
     <AdminNavbar />
-    <link
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
     <div id="main-content" class="blog-page">
       <AdminBlog />
       <div class="container">
         <div class="row clearfix">
           <div class="col-lg-8 col-md-12 left-box">
-            <div
-              class="card single_post"
-              v-for="(blog, index) in blogs"
-              :key="index"
-            >
+            <div class="card single_post" v-for="(blog, index) in blogs" :key="index">
               <div class="body">
                 <div class="img-post">
-                  <img
-                    class="d-block img-fluid"
-                    :src="`/blog/${blog.image}`"
-                    alt="First slide"
-                  />
+                  <img class="d-block img-fluid" :src="`/blog/${blog.image}`" alt="First slide" />
                 </div>
                 <h3>
                   <strong> {{ blog.title }} </strong>
@@ -33,44 +22,27 @@
               </div>
               <div class="footer">
                 <div class="actions">
-                  <router-link
-                    :to="{
-                      name: 'Bloginfo',
-                      params: { id: blog.id },
-                    }"
-                  >
-                    <a class="btn btn-outline-secondary"
-                      >Continue Reading</a
-                    ></router-link
-                  >
+                  <router-link :to="{
+                    name: 'Bloginfo',
+                    params: { id: blog.id },
+                  }">
+                    <a class="btn btn-outline-secondary">Continue Reading</a>
+                  </router-link>
                 </div>
-                <ul class="stats">
-                  <li><a href="javascript:void(0);">General</a></li>
-                  <li>
-                    <a href="javascript:void(0);" class="fa fa-heart">28</a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);" class="fa fa-comment">128</a>
-                  </li>
-                </ul>
+
               </div>
-               <div @click="callEditModal(index)" class="btn btn-sm btn-danger">
-                    Update
-                  </div>
-                  <br />
-              <div @click="deleteBlog(index)" class="btn btn-sm btn-danger">
+              <div @click="callEditModal(index)" class="btn btn-sm btn-primary" style="max-width:100px">
+                Update
+              </div>
+              <br />
+              <div @click="deleteBlog(index)" class="btn btn-sm btn-danger" style="max-width:100px">
                 Delete
               </div>
-              
-                 
+
+
             </div>
             <ul class="pagination pagination-primary">
-              <Pagination
-                :pagination="pagination"
-                @perPage="getAllBlogs()"
-                @paginate="getAllBlogs()"
-                :offset="6"
-              >
+              <Pagination :pagination="pagination" @perPage="getAllBlogs()" @paginate="getAllBlogs()" :offset="6">
               </Pagination>
             </ul>
           </div>
@@ -80,17 +52,10 @@
                 <div class="input-group m-b-0">
                   <div class="input-group-prepend">
                     <button @click="getAllBlogs">
-                      <span class="input-group-text"
-                        ><i class="fa fa-search"></i
-                      ></span>
+                      <span class="input-group-text"><i class="fa fa-search"></i></span>
                     </button>
                   </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Search..."
-                    v-model="searchKeyword"
-                  />
+                  <input type="text" class="form-control" placeholder="Search..." v-model="searchKeyword" />
                 </div>
               </div>
             </div>
@@ -100,240 +65,88 @@
               </div>
               <div class="body widget">
                 <ul class="list-unstyled categories-clouds m-b-0">
-                  <div
-                    v-for="blog_category in blog_categories"
-                    :key="blog_category.id"
-                    class="m-1"
-                  >
+                  <div v-for="blog_category in blog_categories" :key="blog_category.id" class="m-1">
                     <li>
-                      <input
-                        type="checkbox"
-                        :id="blog_category.id"
-                        class="mycat"
-                        v-model="cat"
-                        :value="blog_category.id"
-                      /><label
-                        :for="blog_category.id"
-                        class="btn btn-sm border"
-                        >{{ blog_category.category }}</label
-                      >
+                      <input type="checkbox" :id="blog_category.id" class="mycat" v-model="cat"
+                        :value="blog_category.id" /><label :for="blog_category.id" class="btn btn-sm border">{{
+                            blog_category.category
+                        }}</label>
                     </li>
                   </div>
                 </ul>
               </div>
             </div>
+
             <div class="card">
               <div class="header">
-                <h2>Popular Posts</h2>
+                <h2>Instagram feed</h2>
               </div>
               <div class="body widget popular-post">
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="single_post">
-                      <p class="m-b-0">Apple Introduces Search Ads Basic</p>
-                      <span>jun 22, 2018</span>
+                      <p class="m-b-0">First post</p>
+                      <span>May 22, 2022</span>
                       <div class="img-post">
-                        <img
-                          src="https://via.placeholder.com/280x280/FFB6C1/000000"
-                          alt="Awesome Image"
-                        />
+                        <img src="https://via.placeholder.com/280x280/FFB6C1/000000" alt="Instagram post" />
                       </div>
                     </div>
                     <div class="single_post">
-                      <p class="m-b-0">new rules, more cars, more races</p>
-                      <span>jun 8, 2018</span>
+                      <p class="m-b-0">Second post</p>
+                      <span>May 23, 2022</span>
                       <div class="img-post">
-                        <img
-                          src="https://via.placeholder.com/280x280/FFB6C1/000000"
-                          alt="Awesome Image"
-                        />
+                        <img src="https://via.placeholder.com/280x280/FFB6C1/000000" alt="Instagram post" />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="card">
-              <div class="header">
-                <h2>Instagram Post</h2>
-              </div>
-              <div class="body widget">
-                <ul class="list-unstyled instagram-plugin m-b-0">
-                  <li>
-                    <a href="javascript:void(0);"
-                      ><img
-                        src="https://via.placeholder.com/80x80/FFB6C1/000000"
-                        alt="image description"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);"
-                      ><img
-                        src="https://via.placeholder.com/80x80/FFB6C1/000000"
-                        alt="image description"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);"
-                      ><img
-                        src="https://via.placeholder.com/80x80/FFB6C1/000000"
-                        alt="image description"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);"
-                      ><img
-                        src="https://via.placeholder.com/80x80/FFB6C1/000000"
-                        alt="image description"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);"
-                      ><img
-                        src="https://via.placeholder.com/80x80/FFB6C1/000000"
-                        alt="image description"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);"
-                      ><img
-                        src="https://via.placeholder.com/80x80/FFB6C1/000000"
-                        alt="image description"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);"
-                      ><img
-                        src="https://via.placeholder.com/80x80/FFB6C1/000000"
-                        alt="image description"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);"
-                      ><img
-                        src="https://via.placeholder.com/80x80/FFB6C1/000000"
-                        alt="image description"
-                    /></a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0);"
-                      ><img
-                        src="https://via.placeholder.com/80x80/FFB6C1/000000"
-                        alt="image description"
-                    /></a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="card">
-              <div class="header">
-                <h2>
-                  Email Newsletter
-                  <small
-                    >Get our products/news earlier than others, let’s get in
-                    touch.</small
-                  >
-                </h2>
-              </div>
-              <div class="body widget newsletter">
-                <div class="input-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter Email"
-                  />
-                  <div class="input-group-append">
-                    <span class="input-group-text"
-                      ><i class="icon-paper-plane"></i
-                    ></span>
-                  </div>
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>
     </div>
-       <div
-      class="modal"
-      :class="{ show: showUpdateModal }"
-      id="storeModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal" :class="{ show: showUpdateModal }" id="storeModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark" id="exampleModalLabel">
-              Add a new item to the store
+              <strong>Update</strong>
             </h5>
-            <button
-              type="button"
-              class="close text-dark"
-              data-dismiss="modal"
-              aria-label="Close"
-              @click="hideUpdateModal"
-            >
+            <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close"
+              @click="hideUpdateModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <form @submit.prevent="updateBlog">
-        
 
-              <div class="p-2 w-full">
-                <div class="relative">
-                  <label
-                    for="attachment"
-                    class="leading-7 text-sm text-gray-600"
-                    >Attachments</label
-                  ><br />
 
-                  <input
-                    type="file"
-                    accept="image/*"
-                    @change="uploadImage($event)"
-                    id="file-input"
-                    required
-                  />
-                </div>
-              </div>
-                <div class="form-group">
+
+              <div class="form-group">
                 <label for="">Title</label>
-                <input
-                  v-model="updateForm.title"
-                  type="text"
-                  class="form-control"
-                  required
-                />
-              </div>
-              
-               <div class="form-group">
-                <label for="">Description</label>
-                <input
-                  v-model="updateForm.description"
-                  type="text"
-                  class="form-control"
-                  required
-                />
-              </div>
-                <div class="form-group">
-                <label for="">Thumbnail</label>
-                <input
-                  v-model="updateForm.thumbnail"
-                  type="text"
-                  class="form-control"
-                  required
-                />
+                <input v-model="updateForm.title" type="text" class="form-control" required />
               </div>
               <div class="form-group">
-                <input
-                  type="submit"
-                  value="Submit"
-                  class="btn btn-primary btn-block"
-                />
+                <label for="">Thumbnail</label>
+                <input v-model="updateForm.thumbnail" type="text" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label for="">Description</label>
+                <input v-model="updateForm.description" type="text" class="form-control" required />
+              </div>
+
+              <div class="relative">
+                <label for="attachment" class="leading-7 text-sm text-gray-600">Attachments</label><br />
+
+                <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input" required />
+              </div>
+              <br />
+              <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary btn-block"
+                  style="max-width:100px;color:white" />
               </div>
             </form>
           </div>
@@ -353,11 +166,11 @@ export default {
       blogs: {},
       cat: [],
       blog_categories: [],
-      showUpdateModal:false,
+      showUpdateModal: false,
       searchKeyword: "",
-         updateForm:{
+      updateForm: {
         id: null,
-        title:'',
+        title: '',
         description: '',
         thumbnail: '',
         image: '',
@@ -379,12 +192,12 @@ export default {
     Pagination,
   },
   methods: {
-    updateBlog(){
-     let formData = new FormData();
-       formData.append("title", this.updateForm.title);
+    updateBlog() {
+      let formData = new FormData();
+      formData.append("title", this.updateForm.title);
       formData.append("image", this.updateForm.image);
       formData.append("description", this.updateForm.description);
-       formData.append("thumbnail", this.updateForm.thumbnail);;
+      formData.append("thumbnail", this.updateForm.thumbnail);;
       axios
         .post(`/api/blogs/${this.updateForm.id}/update`, formData, {
           headers: {
@@ -394,14 +207,14 @@ export default {
         })
         .then((res) => {
           if (res.data.success) {
-           let blogIndex =  this.blogs.findIndex(item=>item.id == this.updateForm.id);
-           this.blogs[blogIndex] = res.data.blog;
+            let blogIndex = this.blogs.findIndex(item => item.id == this.updateForm.id);
+            this.blogs[blogIndex] = res.data.blog;
             // reset the form
             this.updateForm = {
-  title:'',
-        description: '',
-        thumbnail: '',
-        image: '',
+              title: '',
+              description: '',
+              thumbnail: '',
+              image: '',
             };
             // hide the modal
             this.hideUpdateModal();
@@ -413,17 +226,17 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-  },
-      callEditModal(index){
-    this.updateForm = this.blogs[index];
-  this.showUpdateModal = true;
-  },
-   uploadImage(event) {
+    },
+    callEditModal(index) {
+      this.updateForm = this.blogs[index];
+      this.showUpdateModal = true;
+    },
+    uploadImage(event) {
       const file = event.target.files[0];
       this.updateForm.image = file;
     },
-    hideUpdateModal(){
-    this.showUpdateModal = false;
+    hideUpdateModal() {
+      this.showUpdateModal = false;
     },
     getAllBlogs() {
       axios
@@ -500,15 +313,17 @@ input.mycat {
   display: none;
 }
 
-input.mycat:checked + label {
+input.mycat:checked+label {
   background: green;
   color: white;
   box-shadow: 0px 1px 3px inset;
 }
+
 body {
   background-color: #f4f7f6;
   margin-top: 20px;
 }
+
 .card {
   background: #fff;
   transition: 0.5s;
@@ -519,17 +334,20 @@ body {
   width: 100%;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
 }
+
 .card .body {
   color: #444;
   padding: 20px;
   font-weight: 400;
 }
+
 .card .header {
   color: #444;
   padding: 20px;
   position: relative;
   box-shadow: none;
 }
+
 .single_post {
   -webkit-transition: all 0.4s ease;
   transition: all 0.4s ease;
@@ -546,7 +364,7 @@ body {
   margin-bottom: 30px;
 }
 
-.single_post .img-post > img {
+.single_post .img-post>img {
   -webkit-transform: scale(1);
   -ms-transform: scale(1);
   transform: scale(1);
@@ -744,21 +562,25 @@ body {
 }
 
 @media (max-width: 640px) {
-  .blog-page .left-box .single-comment-box > ul > li {
+  .blog-page .left-box .single-comment-box>ul>li {
     padding: 25px 0;
   }
+
   .blog-page .left-box .single-comment-box ul li .icon-box {
     display: inline-block;
   }
+
   .blog-page .left-box .single-comment-box ul li .text-box {
     display: block;
     padding-left: 0;
     margin-top: 10px;
   }
+
   .blog-page .single_post .footer .stats {
     float: none;
     margin-top: 10px;
   }
+
   .blog-page .single_post .body,
   .blog-page .single_post .footer {
     padding: 30px;

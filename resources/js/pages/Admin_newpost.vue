@@ -2,30 +2,17 @@
   <div class="container-fuiled">
     <AdminNavbar />
     <div id="contact_form">
-      <div
-        class="
+      <div class="
           col-lg-4 col-md-5 col-sm-4
           offset-md-1 offset-sm-1
           col-12
           mt-4
           contact_form
-        "
-      >
-        <form
-          id="algin-form"
-          style="background-color: #343a40"
-          action="#"
-          @submit.prevent="createmessage"
-        >
+        ">
+        <form id="algin-form" style="background-color: #343a40" action="#" @submit.prevent="createmessage">
           <div class="form-group">
             <label for="name">post_text</label>
-            <input
-              type="text"
-              name="post_text"
-              id="post_text"
-              class="form-control"
-              v-model="formData.post_text"
-            />
+            <input type="text" name="post_text" id="post_text" class="form-control" v-model="formData.post_text" />
           </div>
 
           <div class="form-group">
@@ -103,7 +90,7 @@ export default {
       // this.loading = false
     },
   },
-  created() {},
+  created() { },
 
   mounted() {
     this.checkLoginStatus();
@@ -116,6 +103,7 @@ export default {
 .login {
   margin-left: 25rem;
 }
+
 .contact_form {
   float: right;
 }

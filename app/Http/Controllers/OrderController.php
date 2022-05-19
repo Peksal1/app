@@ -18,7 +18,7 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-        $orderQuery = Orders::where('is_paid', '1')->where('completion', '0');
+        $orderQuery = Orders::where('is_paid', '1')->with('size', 'canvas', 'paint');
          if($request->searchKeyword != null){
             $orderQuery->where('text','LIKE',"%{$request->searchKeyword}%");
         }
@@ -127,6 +127,12 @@ class OrderController extends Controller
         $specificOrder = auth()->user()->user_orders()->where('id',$specificOrder)->first();
         return response()->json($specificOrder);
     }
+    public function showAdminOrder($specificOrder)
+    {
+   
+        $specificOrder = Orders::where('id',$specificOrder)->with('user', 'shipping', 'paint', 'canvas', 'size')->first();
+        return response()->json($specificOrder);
+    }
     public function show(Request $request){
         
         $orders = auth()->user()->user_orders()->where('is_paid', '0')->with('size', 'paint', 'canvas')->paginate(5);
@@ -191,8 +197,8 @@ class OrderController extends Controller
 
  public function checkOrderPurchase($pruchaseId){
     
-    $order = Orders::where('id', $pruchaseId)->first();
-     $shippingInfo = Shipping::where('purchase_id', $order->id)->first();
+    $order = Orders::where('uuid', $pruchaseId)->first();
+     $shippingInfo = Shipping::where('purchase_id', $order->uuid)->first();
     if( $order){
          $res['success'] = true;
          $res['order'] = $order;

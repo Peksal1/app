@@ -8,118 +8,52 @@
           <div class="card-body">
             <form action="#" @submit.prevent="createItem">
               <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="work_name"
-                  placeholder="Work Name"
-                  v-model="formData.work_name"
-                />
+                <input type="text" class="form-control" name="work_name" placeholder="Work Name"
+                  v-model="formData.work_name" />
               </div>
               <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="description"
-                  placeholder="description"
-                  v-model="formData.description"
-                />
+                <input type="text" class="form-control" name="description" placeholder="description"
+                  v-model="formData.description" />
               </div>
               <div class="form-group">
                 Category:
                 <br />
-                <input
-                  type="radio"
-                  id="Portrait"
-                  name="category"
-                  value="Portrait"
-                  v-model="formData.category"
-                />
+                <input type="radio" id="Portrait" name="category" value="Portrait" v-model="formData.category" />
                 <label for="Portrait">Portrait</label><br />
-                <input
-                  type="radio"
-                  id="Landscape"
-                  name="category"
-                  value="Landscape"
-                  v-model="formData.category"
-                />
+                <input type="radio" id="Landscape" name="category" value="Landscape" v-model="formData.category" />
                 <label for="Landscape">Landscape</label><br />
-                <input
-                  type="radio"
-                  id="Random"
-                  name="category"
-                  value="Random"
-                  v-model="formData.category"
-                />
+                <input type="radio" id="Random" name="category" value="Random" v-model="formData.category" />
                 <label for="Random">Random</label>
               </div>
               <div class="form-group">
-                <input
-                  type="number"
-                  class="form-control"
-                  name="price_in_eur"
-                  placeholder="price_in_eur"
-                  v-model="formData.price_in_eur"
-                />
+                <input type="number" class="form-control" name="price_in_eur" placeholder="price_in_eur"
+                  v-model="formData.price_in_eur" />
               </div>
               <!-- SIZE -->
-              <select
-                name="size"
-                v-model="formData.size_id"
-                style="width: 15rem"
-              >
+              <select name="size" v-model="formData.size_id" style="width: 15rem">
                 <option value="">Choose</option>
-                <option
-                  v-for="size in sizes"
-                  v-bind:key="size.id"
-                  :value="size.id"
-                >
+                <option v-for="size in sizes" v-bind:key="size.id" :value="size.id">
                   {{ size.type }}
                 </option>
               </select>
               <!-- PAINT -->
-              <select
-                name="paint"
-                v-model="formData.paint_id"
-                style="width: 15rem"
-              >
+              <select name="paint" v-model="formData.paint_id" style="width: 15rem">
                 <option value="">Choose</option>
-                <option
-                  v-for="paint in paints"
-                  v-bind:key="paint.id"
-                  :value="paint.id"
-                >
+                <option v-for="paint in paints" v-bind:key="paint.id" :value="paint.id">
                   {{ paint.type }}
                 </option>
               </select>
               <!--  CANVAS -->
-              <select
-                name="canvas"
-                v-model="formData.canvas_id"
-                style="width: 15rem"
-              >
+              <select name="canvas" v-model="formData.canvas_id" style="width: 15rem">
                 <option value="">Choose</option>
-                <option
-                  v-for="canvas in canvases"
-                  v-bind:key="canvas.id"
-                  :value="canvas.id"
-                >
+                <option v-for="canvas in canvases" v-bind:key="canvas.id" :value="canvas.id">
                   {{ canvas.type }}
                 </option>
               </select>
               <div class="p-2 w-full">
                 <div class="relative">
-                  <label
-                    for="attachment"
-                    class="leading-7 text-sm text-gray-600"
-                    >Attachments</label
-                  ><br />
-                  <input
-                    type="file"
-                    accept="image/*"
-                    @change="uploadImage($event)"
-                    id="file-input"
-                  />
+                  <label for="attachment" class="leading-7 text-sm text-gray-600">Attachments</label><br />
+                  <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input" />
                 </div>
               </div>
               <div class="row">
@@ -269,19 +203,23 @@ export default {
 .login {
   margin-left: 25rem;
 }
+
 .card-header {
   color: black;
 }
+
 .card-body {
   color: white !important;
   background: white !important;
 }
+
 .card {
   color: black;
   background: black;
 }
+
 .form {
-  color: black !important ;
+  color: black !important;
   background: black !important;
 }
 </style>
