@@ -35,7 +35,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['auth:sanctum', 'role:1']], function () {
     Route::post('/portfolio', [PortfolioController::class, 'store']); /// Store a new item to the portfolio
     Route::get('/messages', [ContactsController::class, 'index']); /// Message list
-    Route::post('/collection', [PortfolioController::class, 'new_collection']);
+    Route::post('/collection', [PortfolioController::class, 'newCollection']);
     Route::get('/collections', [PortfolioController::class, 'collections']);
     Route::delete('/messages/{id}', [ContactsController::class, 'destroy']); /// Deleting a message
      /// Information about a specific portfolio item
@@ -81,7 +81,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
 
 ///Owner, admin, user APIs
 Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
-    Route::get('/purchases', [PurchasesController::class, 'user_purchases']);
+    Route::get('/purchases', [PurchasesController::class, 'userPurchases']);
     Route::get('/purchases/digital', [PurchasesController::class, 'userDigitalPurchases']);
     Route::get('/purchases/{specific_purchase}', [PurchasesController::class, 'show']); /// User list
     Route::get('/purchases/digital/{specific_purchase}', [PurchasesController::class, 'showDigital']); /// User list
@@ -93,9 +93,9 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2|3']], function () {
     Route::put('/posts/{id}', [QnAController::class, 'update_post']); /// User editing
     Route::post('/feedback', [FeedbackController::class, 'store']); /// New feedback
     Route::get('/users_orders',[OrderController::class,'show'] );
-    Route::get('/users_paid_orders', [OrderController::class, 'show_paid']);
-    Route::get('/order_messages/{order_messages}', [OrderController::class, 'get_order_messages']);
-    Route::post('/order_messages/{currentorder}', [OrderController::class, 'post_order_messages']);
+    Route::get('/users_paid_orders', [OrderController::class, 'showPaid']);
+    Route::get('/order_messages/{order_messages}', [OrderController::class, 'getOrderMessages']);
+    Route::post('/order_messages/{currentorder}', [OrderController::class, 'postOrderMessages']);
     Route::delete('/order_messages', [OrderController::class, 'delete_order_messages']);
     Route::get('order_messages/admin/{order_messages}', [OrderController::class, 'adminGetMessages']);
     Route::get('/topics/search/{topic_title}', [QnAController::class, 'topic_search']); /// topic search
@@ -115,9 +115,9 @@ Route::get('/portfolio/{id}', [PortfolioController::class, 'show']); /// User li
 Route::get('/collection/{id}', [PortfolioController::class, 'specificCollection']); /// User list
 Route::get('/blog/{id}', [BlogController::class, 'show']); /// User list
 Route::get('blog/comments/{id}', [BlogController::class, 'showComments']);
-Route::get('/blog_categories', [BlogController::class, 'blog_categories']);
-Route::post('/blog_categories', [BlogController::class, 'new_category']);
-Route::get('/portfolios', [PortfolioController::class, 'full_portfolio']);
+Route::get('/blog_categories', [BlogController::class, 'blogCategories']);
+Route::post('/blog_categories', [BlogController::class, 'newCategory']);
+Route::get('/portfolios', [PortfolioController::class, 'fullPortfolio']);
 Route::get('/collection/{id}', [PortfolioController::class, 'collection']);
 Route::get('/canvases', [UtilityController::class, 'canvases']);
 Route::post('/canvases', [UtilityController::class, 'store_canvas']);
@@ -148,7 +148,7 @@ Route::post('neworder', [OrderController::class, 'store']); /// New order
 
 Route::get('/users/{id}', [UserController::class, 'show']); /// User list
 Route::get('/user/{id}/orders', [OrderController::class, 'userorders']); /// Users feedback
-Route::post('/shipping', [ShopController::class, 'create_shipping']);
+Route::post('/shipping', [ShopController::class, 'createShipping']);
 Route::get('/check/purchase/{purchase}/status', [ShopController::class, 'checkPurchase']);
 Route::get('/check/order/{order}/status', [OrderController::class, 'checkOrderPurchase']);
 Route::get('/check/digital/{digital}/status', [PortfolioController::class, 'checkDigitalPurchase']);

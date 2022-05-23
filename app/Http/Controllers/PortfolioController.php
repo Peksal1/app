@@ -30,7 +30,7 @@ class PortfolioController extends Controller
     return $portfolios;
     }
 
-    public function full_portfolio(Request $request)
+    public function fullPortfolio(Request $request)
     {
         $query= Portfolio::query();
     if (!empty($request->cat)) {
@@ -58,11 +58,11 @@ class PortfolioController extends Controller
     return $collections;
     }
   
-    public function collection($collection)
-    {
-        $collection=Collection::where('id',$collection)->first();
-    return $collection;
-    }
+    // public function collection($collection)
+    // {
+    //     $collection=Collection::where('id',$collection)->first();
+    // return $collection;
+    // }
 
     public function show($portfolio)
     {
@@ -217,23 +217,23 @@ class PortfolioController extends Controller
   
   
   }
-    public function portfolio_search(Request $request, $work_name)
-    {
-        $result = Portfolio::where('work_name', 'LIKE', '%'. $work_name. '%')->get();
-        if(count($result)){
-         return Response()->json($result);
-        }
-        else
-        {
-        return response()->json(['Result' => 'No works found'], 404);
-      }
-    }
+    // public function portfolio_search(Request $request, $work_name)
+    // {
+    //     $result = Portfolio::where('work_name', 'LIKE', '%'. $work_name. '%')->get();
+    //     if(count($result)){
+    //      return Response()->json($result);
+    //     }
+    //     else
+    //     {
+    //     return response()->json(['Result' => 'No works found'], 404);
+    //   }
+    // }
     public function portfolio($portfolio)
     {
         $portfolios=Portfolio::findOrFail($portfolio);
         return $portfolios;
     }
-    public function new_collection(Request $request)
+    public function newCollection(Request $request)
     {
         $collectionData =   $request->all();
         // check if request has image

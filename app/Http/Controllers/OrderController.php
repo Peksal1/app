@@ -139,14 +139,14 @@ class OrderController extends Controller
         return $orders;  
   
     }
-    public function show_paid(Request $request){
+    public function showPaid(Request $request){
         
         $orders = auth()->user()->user_orders()->where('is_paid', '1')->with('size', 'paint', 'canvas')->paginate(5);
         return $orders;  
   
     }
  
-    public function get_order_messages($order_messages)
+    public function getOrderMessages($order_messages)
     {
     // $order = Order::where('user_id',auth()->user()->id)->where('id',$order_message)->first();
    
@@ -169,7 +169,7 @@ class OrderController extends Controller
          return $order_messages;
     }
  
-    public function post_order_messages(Request $request)
+    public function postOrderMessages(Request $request)
     {
        
         $order_message = new Order_message;
@@ -183,17 +183,17 @@ class OrderController extends Controller
         return response()->json($res);
       
     }
-    public function delete_order_messages($order_message)
-    {
-    try{
-        $order_message = Order_message::find($order_message);
-        $order_message->delete();
-        $res['status'] = 'success';
-     }catch(Exception $e){
-        $res['status'] = 'error';
-     }
-     return response()->json($res);
- }
+//     public function delete_order_messages($order_message)
+//     {
+//     try{
+//         $order_message = Order_message::find($order_message);
+//         $order_message->delete();
+//         $res['status'] = 'success';
+//      }catch(Exception $e){
+//         $res['status'] = 'error';
+//      }
+//      return response()->json($res);
+//  }
 
  public function checkOrderPurchase($pruchaseId){
     

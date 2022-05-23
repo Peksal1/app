@@ -41,7 +41,7 @@ class BlogController extends Controller
     }
     
 
-    public function new_category(Request $request){
+    public function newCategory(Request $request){
        
         $blog_category = new Blog_category;
         $blog_category->category = $request->category;
@@ -216,7 +216,7 @@ public function delete_blog_categories(Request $request, $title)
 
 }
 
-public function blog_categories()
+public function blogCategories()
 {
      
     $blog_categories = Blog_category::all();

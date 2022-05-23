@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class PurchasesController extends Controller
 {
-    public function user_purchases(Request $request){
+    public function userPurchases(Request $request){
         
         $purchases = auth()->user()->purchases()->where('is_paid', 1)->with('store')->paginate(4);
         return $purchases;  

@@ -22,7 +22,7 @@ class UtilityController extends Controller
      }
 
 
-     public function store_size(Request $request){
+     public function storeSize(Request $request){
        
          $size = new Size;
          $size->type = $request->type;
@@ -35,7 +35,7 @@ class UtilityController extends Controller
        
      }
 
-     public function delete_size($size){
+     public function deleteSize($size){
          try{
             $size = Size::find($size);
             $size->delete();
@@ -58,7 +58,7 @@ class UtilityController extends Controller
      }
 
 
-     public function store_paint(Request $request){
+     public function storePaint(Request $request){
        
          $paint = new Paint;
          $paint->type = $request->type;
@@ -71,7 +71,7 @@ class UtilityController extends Controller
        
      }
 
-     public function delete_paint($paint){
+     public function deletePaint($paint){
          try{
             $paint = Paint::find($paint);
             $paint->delete();
@@ -94,7 +94,7 @@ class UtilityController extends Controller
      }
 
 
-     public function store_canvas(Request $request){
+     public function storeCanvas(Request $request){
        
          $canvas = new Canvas;
          $canvas->type = $request->type;
@@ -107,7 +107,7 @@ class UtilityController extends Controller
        
      }
 
-     public function delete_canvas($canvas){
+     public function deleteCanvas($canvas){
          try{
             $canvas = Canvas::find($canvas);
             $canvas->delete();
@@ -118,7 +118,7 @@ class UtilityController extends Controller
          return response()->json($res);
      }
 
-     public function all_paints(){
+     public function allPaints(){
      
       $paints = Paint::all();
       $res['paints'] = $paints;
@@ -126,7 +126,7 @@ class UtilityController extends Controller
       return response()->json($res);
    
    }
-   public function all_canvases(){
+   public function allCanvases(){
      
       $canvases = Canvas::all();
       $res['canvases'] = $canvases;
@@ -134,7 +134,7 @@ class UtilityController extends Controller
       return response()->json($res);
    
    }
-   public function all_sizes(){
+   public function allSizes(){
      
       $sizes = Size::all();
       $res['sizes'] = $sizes;
@@ -143,7 +143,7 @@ class UtilityController extends Controller
    
    }
 
-     public function painting_categories(){
+     public function paintingCategories(){
      
       $painting_categories = Painting_category::all();
       $res['painting_categories'] = $painting_categories;
@@ -157,7 +157,7 @@ class UtilityController extends Controller
        $painting_categories=Painting_category::paginate(20);
    return $painting_categories;
    }
-   public function store_painting_category(Request $request){
+   public function storePaintingCategory(Request $request){
      
        $painting_category = new Painting_category;
        $painting_category->category = $request->category;
@@ -169,7 +169,7 @@ class UtilityController extends Controller
      
    }
 
-   public function delete_painting_category($painting_category){
+   public function deletePaintingCategory($painting_category){
        try{
           $painting_category = Painting_category::find($painting_category);
           $painting_category->delete();

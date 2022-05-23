@@ -129,7 +129,7 @@ public function show($shop)
         $shops = Shop::findOrFail($shop);
         return $shops;
     }
-    public function create_shipping(Request $request)
+    public function createShipping(Request $request)
     {
          $shipping = Shipping::create($request->all());
         return response()->json(['success' => true, 'message' => 'Shipping added'],200);
