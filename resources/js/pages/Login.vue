@@ -82,7 +82,7 @@ export default {
 
 <style scoped>
 .body {
-  background-image: url("https://scontent-dub4-1.xx.fbcdn.net/v/t1.6435-9/139445257_101736648576494_1094957703595214905_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=e3f864&_nc_ohc=8Wn3FpWWo2cAX__vJ-o&_nc_ht=scontent-dub4-1.xx&oh=00_AT9l5iq1ld6_YHI1JZXddGbPwIPyeavodcFsglywoivh8w&oe=62537A45");
+  background-image: url("/utility/background.jpg");
   background-position: center;
   background-size: cover;
 
