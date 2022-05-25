@@ -58,11 +58,11 @@ class PortfolioController extends Controller
     return $collections;
     }
   
-    // public function collection($collection)
-    // {
-    //     $collection=Collection::where('id',$collection)->first();
-    // return $collection;
-    // }
+     public function collection($collection)
+    {
+         $collection=Collection::where('id',$collection)->first();
+     return $collection;
+     }
 
     public function show($portfolio)
     {

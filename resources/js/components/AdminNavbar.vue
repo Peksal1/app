@@ -7,10 +7,10 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item class="item"></b-nav-item>
-          <router-link class="col" :to="{ name: 'adminhome' }">Home</router-link>
-          </b-nav-item>
 
+          <b-nav-item class="item">
+            <router-link class="col" :to="{ name: 'adminhome' }">Home</router-link>
+          </b-nav-item>
           <b-nav-item class="item">
             <router-link class="col" :to="{ name: 'admincollections' }">Portfolio</router-link>
           </b-nav-item>

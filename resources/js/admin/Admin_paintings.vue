@@ -254,7 +254,7 @@ export default {
             };
             // hide the modal
             this.hideUpdateModal();
-            alert("The item was successfully added to the shop!");
+            alert("The portfolio item was updated successfully !");
           } else {
             alert("STOPPPPPPPPP");
           }

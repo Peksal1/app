@@ -35,7 +35,7 @@
               <div>
                 <input type="checkbox" :id="`size_${size.id}`" class="mysize" v-model="sizefilter"
                   :value="size.id" /><label :for="`size_${size.id}`" class="btn btn-sm border btn-block">{{
-                      size.type
+                  size.type
                   }}</label>
               </div>
             </div>
@@ -44,7 +44,7 @@
             <div v-for="(paint, index) in paints" :key="index" class="m-1">
               <input type="checkbox" :id="`paint_${paint.id}`" class="mypaint" v-model="paintfilter"
                 :value="paint.id" /><label :for="`paint_${paint.id}`" class="btn btn-sm border btn-block">{{
-                    paint.type
+                paint.type
                 }}</label>
             </div>
 
@@ -55,7 +55,7 @@
               <div>
                 <input type="checkbox" :id="`canvas_${canvas.id}`" class="mycanvas" v-model="canvasfilter"
                   :value="canvas.id" /><label :for="`canvas_${canvas.id}`" class="btn btn-sm border btn-block">{{
-                      canvas.type
+                  canvas.type
                   }}</label>
               </div>
             </div>
@@ -219,7 +219,7 @@ export default {
         });
     },
     redirectToStripe(sessionID) {
-      let stripe = Stripe("pk_test_d6aChIuFov53M3i5n00Fn1j200m37XdpTE");
+      let stripe = Stripe("pk_test_51HrQxvBs1Zza18elihlzjZJ6mZWcTnb6IVL8koLp8zgU4ohLCRAP50PL9KuAALZ9pPRAPTDebP3RrGJOreTQpVbb00K3Ngv7gO");
       stripe
         .redirectToCheckout({
           sessionId: sessionID,

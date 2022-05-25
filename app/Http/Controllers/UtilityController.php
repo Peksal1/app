@@ -152,7 +152,7 @@ class UtilityController extends Controller
    
    }
 
-   public function all_painting_categories()
+   public function allPaintingCategories()
    {
        $painting_categories=Painting_category::paginate(20);
    return $painting_categories;

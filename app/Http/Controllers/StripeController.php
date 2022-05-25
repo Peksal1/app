@@ -35,7 +35,7 @@ class StripeController extends Controller
             'Price' => $shop->price_in_eur,
         ]);
         
-        \Stripe\Stripe::setApiKey('sk_test_7NyImHAKY2arJv2aDu9jqJ1600TjVN3zFF');
+        \Stripe\Stripe::setApiKey('sk_test_51HrQxvBs1Zza18elTOuOrEnvnkctDpkQrKyo76DWudSSWuB5UmMKfdZXzk8mKvxUj6qMDND6fKNrHHkRbAV2oQwE00of2elreN');
 
         // register the product in stipe
         $product = Product::create([
@@ -69,7 +69,7 @@ class StripeController extends Controller
     
          
 
-        \Stripe\Stripe::setApiKey('sk_test_7NyImHAKY2arJv2aDu9jqJ1600TjVN3zFF');
+        \Stripe\Stripe::setApiKey('sk_test_51HrQxvBs1Zza18elTOuOrEnvnkctDpkQrKyo76DWudSSWuB5UmMKfdZXzk8mKvxUj6qMDND6fKNrHHkRbAV2oQwE00of2elreN');
 
         // register the product in stripe
         $product = Product::create([
@@ -112,7 +112,7 @@ class StripeController extends Controller
             'Price' => $digital->price,
         ]);
 
-        \Stripe\Stripe::setApiKey('sk_test_7NyImHAKY2arJv2aDu9jqJ1600TjVN3zFF');
+        \Stripe\Stripe::setApiKey('sk_test_51HrQxvBs1Zza18elTOuOrEnvnkctDpkQrKyo76DWudSSWuB5UmMKfdZXzk8mKvxUj6qMDND6fKNrHHkRbAV2oQwE00of2elreN');
 
         // register the product in stipe
         $product = Product::create([
@@ -145,7 +145,7 @@ class StripeController extends Controller
 
 
         // check session from stripe
-        \Stripe\Stripe::setApiKey('sk_test_7NyImHAKY2arJv2aDu9jqJ1600TjVN3zFF');
+        \Stripe\Stripe::setApiKey('sk_test_51HrQxvBs1Zza18elTOuOrEnvnkctDpkQrKyo76DWudSSWuB5UmMKfdZXzk8mKvxUj6qMDND6fKNrHHkRbAV2oQwE00of2elreN');
         $session = Session::retrieve($request->stripe_id);
 
         if ($session['payment_status'] == 'paid') {
@@ -165,7 +165,7 @@ class StripeController extends Controller
 
 
         // check session from stripe
-        \Stripe\Stripe::setApiKey('sk_test_7NyImHAKY2arJv2aDu9jqJ1600TjVN3zFF');
+        \Stripe\Stripe::setApiKey('sk_test_51HrQxvBs1Zza18elTOuOrEnvnkctDpkQrKyo76DWudSSWuB5UmMKfdZXzk8mKvxUj6qMDND6fKNrHHkRbAV2oQwE00of2elreN');
         $session = Session::retrieve($request->stripe_id);
 
         if ($session['payment_status'] == 'paid') {
@@ -187,7 +187,7 @@ class StripeController extends Controller
         $purchase = Purchases::where('uuid', $request->order_id)->first();
         
         // check session from stripe
-        \Stripe\Stripe::setApiKey('sk_test_7NyImHAKY2arJv2aDu9jqJ1600TjVN3zFF');
+        \Stripe\Stripe::setApiKey('sk_test_51HrQxvBs1Zza18elTOuOrEnvnkctDpkQrKyo76DWudSSWuB5UmMKfdZXzk8mKvxUj6qMDND6fKNrHHkRbAV2oQwE00of2elreN');
         $session = Session::retrieve($request->stripe_id);
 
         if ($session['payment_status'] == 'paid') {

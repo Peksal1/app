@@ -247,7 +247,7 @@ export default {
         });
     },
     redirectToStripe(sessionID) {
-      let stripe = Stripe("pk_test_d6aChIuFov53M3i5n00Fn1j200m37XdpTE");
+      let stripe = Stripe("pk_test_51HrQxvBs1Zza18elihlzjZJ6mZWcTnb6IVL8koLp8zgU4ohLCRAP50PL9KuAALZ9pPRAPTDebP3RrGJOreTQpVbb00K3Ngv7gO");
       stripe
         .redirectToCheckout({
           sessionId: sessionID,

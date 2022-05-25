@@ -43,7 +43,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1']], function () {
     Route::get('/message/{specific_message}', [ContactsController::class, 'show']); /// Deleting a message
 });
 Route::put('/messages/{id}', [ContactsController::class, 'isRead']);; /// New message
-Route::get('/painting_categories', [UtilityController::class, 'painting_categories']);
+Route::get('/painting_categories', [UtilityController::class, 'paintingCategories']);
 ///Owner and admin APIs
 Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
  Route::get('/purchases/all', [PurchasesController::class, 'index']);
@@ -52,12 +52,12 @@ Route::group(['middleware' => ['auth:sanctum', 'role:1|2']], function () {
     Route::delete('/feedback/{id}', [FeedbackController::class, 'destroy']); /// Deleting feedback
     Route::put('/feedback/{id}', [FeedbackController::class, 'feedbackedit']); /// Editing feedback
     Route::get('/sizes', [UtilityController::class, 'sizes']);
-    Route::post('/sizes', [UtilityController::class, 'store_size']);
-    Route::delete('/sizes/{size}', [UtilityController::class, 'delete_size']);
+    Route::post('/sizes', [UtilityController::class, 'storeSize']);
+    Route::delete('/sizes/{size}', [UtilityController::class, 'deleteSize']);
     Route::get('/orders', [OrderController::class, 'index']); /// Order list
     Route::delete('/blogs/{blog}', [BlogController::class, 'destroy']);
-    Route::post('/painting_categories', [UtilityController::class, 'store_painting_category']);
-    Route::delete('/painting_categories/{category}', [UtilityController::class, 'delete_painting_category']);
+    Route::post('/painting_categories', [UtilityController::class, 'storePaintingCategory']);
+    Route::delete('/painting_categories/{category}', [UtilityController::class, 'deletePaintingCategory']);
     Route::delete('/shops/{shop}', [ShopController::class, 'destroy']);
     Route::post('/orders/{order}/update', [OrderController::class, 'update']);
     Route::post('/shops/{shop}/update', [ShopController::class, 'update']);
@@ -120,11 +120,11 @@ Route::post('/blog_categories', [BlogController::class, 'newCategory']);
 Route::get('/portfolios', [PortfolioController::class, 'fullPortfolio']);
 Route::get('/collection/{id}', [PortfolioController::class, 'collection']);
 Route::get('/canvases', [UtilityController::class, 'canvases']);
-Route::post('/canvases', [UtilityController::class, 'store_canvas']);
-Route::delete('/canvases/{canvas}', [UtilityController::class, 'delete_canvas']);
+Route::post('/canvases', [UtilityController::class, 'storeCanvas']);
+Route::delete('/canvases/{canvas}', [UtilityController::class, 'deleteCanvas']);
 Route::get('/paints', [UtilityController::class, 'paints']);
-Route::post('/paints', [UtilityController::class, 'store_paint']);
-Route::delete('/paints/{paint}', [UtilityController::class, 'delete_paint']);
+Route::post('/paints', [UtilityController::class, 'storePaint']);
+Route::delete('/paints/{paint}', [UtilityController::class, 'deletePaint']);
 
 Route::post('/blogs', [BlogController::class, 'store']);
 Route::delete('/blog_categories', [BlogController::class, 'delete_blog_categories']);
@@ -156,10 +156,10 @@ Route::post('/store', [ShopController::class, 'store']); /// New order
 Route::get('/store', [ShopController::class, 'index']); /// Order list
 Route::put('/store/{id}', [ShopController::class, 'storeedit']); /// Editing orders
 Route::get('/collections', [PortfolioController::class, 'collections']);
-Route::get('/all_sizes', [UtilityController::class, 'all_sizes']);
-Route::get('/all_paints', [UtilityController::class, 'all_paints']);
-Route::get('/all_canvases', [UtilityController::class, 'all_canvases']);
-Route::get('/all_painting_categories', [UtilityController::class, 'all_painting_categories']);
+Route::get('/all_sizes', [UtilityController::class, 'allSizes']);
+Route::get('/all_paints', [UtilityController::class, 'allPaints']);
+Route::get('/all_canvases', [UtilityController::class, 'allCanvases']);
+Route::get('/all_painting_categories', [UtilityController::class, 'allPaintingCategories']);
 
 ///registration
 Route::post('/register', [AuthController::class, 'register']);
