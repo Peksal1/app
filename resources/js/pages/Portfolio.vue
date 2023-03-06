@@ -51,12 +51,12 @@
               </button>
             </div>
             <div class="modal-body">
-              <img :src="`/portfolio/${portfolio.file_path}`" style="max-width: 500px" />
+              <img :src="`/portfolio/${portfolio.file_path}`" style="max-width: 465px" />
 
               <br />
-              {{ portfolio.orientation }}
+              <strong>Orientation:</strong> {{ portfolio.orientation }}
               <br />
-              {{ portfolio.id }}
+              <strong>ID:</strong> {{ portfolio.id }}
               <br />
 
               <div v-for="(digital, portfolio) in digitals" :key="portfolio" @click="buyDigital(digital.id)"

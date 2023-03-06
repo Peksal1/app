@@ -47,7 +47,7 @@
                     v-model="formData.password_confirmation" />
                 </div>
                 <div class="form-group">
-                  <vue-recaptcha @verify="register" sitekey="6Lci1HQeAAAAANZzrDOXddaYziFVN3T8HhJftdW5"></vue-recaptcha>
+                  <vue-recaptcha @verify="register" sitekey="6LedTy4gAAAAAO-2TOsX2u2GMi3clHycrIBBt7_H"></vue-recaptcha>
                 </div>
               </div>
             </div>

@@ -50,8 +50,14 @@ import AdminFAQ from './admin/Admin_FAQ.vue'
 import DigitalThankYou from './pages/DigitalThankYou.vue'
 import DigitalPurchases from './pages/DigitalPurchases.vue'
 import AdminPaintings from './admin/Admin_paintings.vue'
+import Coins from './pages/coins.vue'
 
 const routes = [
+    {
+        path: '/coins',
+        name: 'coins',
+        component: Coins,
+    },
     {
         path: '/portfolio/admin',
         name: 'portfolio/admin',

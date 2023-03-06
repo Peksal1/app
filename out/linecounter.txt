@@ -2835,7 +2835,6 @@ vendor\laravel\sail\stubs\redis.stub, code is 12, comment is 0, blank is 0.
 vendor\laravel\sail\stubs\selenium.stub, code is 6, comment is 0, blank is 0.
 vendor\laravel\sanctum\composer.json, code is 52, comment is 0, blank is 1.
 vendor\laravel\sanctum\config\sanctum.php, code is 15, comment is 41, blank is 11.
-vendor\laravel\sanctum\database\migrations\2019_12_14_000001_create_personal_access_tokens_table.php, code is 23, comment is 10, blank is 3.
 vendor\laravel\sanctum\LICENSE.md, code is 17, comment is 0, blank is 4.
 vendor\laravel\sanctum\README.md, code is 19, comment is 4, blank is 13.
 vendor\laravel\sanctum\src\Contracts\HasAbilities.php, code is 7, comment is 12, blank is 3.
@@ -11076,7 +11075,6 @@ vendor\laravel\sail\stubs\redis.stub, code is 12, comment is 0, blank is 0.
 vendor\laravel\sail\stubs\selenium.stub, code is 6, comment is 0, blank is 0.
 vendor\laravel\sanctum\composer.json, code is 52, comment is 0, blank is 1.
 vendor\laravel\sanctum\config\sanctum.php, code is 15, comment is 41, blank is 11.
-vendor\laravel\sanctum\database\migrations\2019_12_14_000001_create_personal_access_tokens_table.php, code is 23, comment is 10, blank is 3.
 vendor\laravel\sanctum\LICENSE.md, code is 17, comment is 0, blank is 4.
 vendor\laravel\sanctum\README.md, code is 19, comment is 4, blank is 13.
 vendor\laravel\sanctum\src\Contracts\HasAbilities.php, code is 7, comment is 12, blank is 3.

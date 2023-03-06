@@ -1,0 +1,47 @@
+Date : 2022-05-29 03:39:09
+Directory : c:\xampp\htdocs\app\app\Http\Controllers
+Total : 22 files,  1488 codes, 298 comments, 490 blanks, all 2276 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| PHP      |         22 |      1,488 |        298 |        490 |      2,276 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                        | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                           |         22 |      1,488 |        298 |        490 |      2,276 |
+| Auth                                                                        |          6 |         95 |        117 |         41 |        253 |
++-----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                    | language | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\xampp\htdocs\app\app\Http\Controllers\AuthController.php                 | PHP      |         71 |          4 |         11 |         86 |
+| c:\xampp\htdocs\app\app\Http\Controllers\Auth\ConfirmPasswordController.php | PHP      |         14 |         20 |          7 |         41 |
+| c:\xampp\htdocs\app\app\Http\Controllers\Auth\ForgotPasswordController.php  | PHP      |          8 |         10 |          5 |         23 |
+| c:\xampp\htdocs\app\app\Http\Controllers\Auth\LoginController.php           | PHP      |         14 |         20 |          7 |         41 |
+| c:\xampp\htdocs\app\app\Http\Controllers\Auth\RegisterController.php        | PHP      |         33 |         32 |          9 |         74 |
+| c:\xampp\htdocs\app\app\Http\Controllers\Auth\ResetPasswordController.php   | PHP      |         10 |         15 |          6 |         31 |
+| c:\xampp\htdocs\app\app\Http\Controllers\Auth\VerificationController.php    | PHP      |         16 |         20 |          7 |         43 |
+| c:\xampp\htdocs\app\app\Http\Controllers\BlogController.php                 | PHP      |        139 |         52 |         38 |        229 |
+| c:\xampp\htdocs\app\app\Http\Controllers\CollectionController.php           | PHP      |         61 |         10 |         14 |         85 |
+| c:\xampp\htdocs\app\app\Http\Controllers\ContactsController.php             | PHP      |         46 |          0 |         26 |         72 |
+| c:\xampp\htdocs\app\app\Http\Controllers\Controller.php                     | PHP      |         10 |          0 |          4 |         14 |
+| c:\xampp\htdocs\app\app\Http\Controllers\FeedbackController.php             | PHP      |         38 |          0 |         16 |         54 |
+| c:\xampp\htdocs\app\app\Http\Controllers\HomeController.php                 | PHP      |         18 |         10 |          5 |         33 |
+| c:\xampp\htdocs\app\app\Http\Controllers\OrderController.php                | PHP      |        143 |         27 |         44 |        214 |
+| c:\xampp\htdocs\app\app\Http\Controllers\PortfolioController.php            | PHP      |        197 |         39 |         49 |        285 |
+| c:\xampp\htdocs\app\app\Http\Controllers\PurchasesController.php            | PHP      |         57 |         10 |         20 |         87 |
+| c:\xampp\htdocs\app\app\Http\Controllers\QnAController.php                  | PHP      |         79 |          5 |         44 |        128 |
+| c:\xampp\htdocs\app\app\Http\Controllers\ShopController.php                 | PHP      |        116 |          9 |         30 |        155 |
+| c:\xampp\htdocs\app\app\Http\Controllers\SpaController.php                  | PHP      |         10 |          0 |          4 |         14 |
+| c:\xampp\htdocs\app\app\Http\Controllers\StripeController.php               | PHP      |        160 |         11 |         37 |        208 |
+| c:\xampp\htdocs\app\app\Http\Controllers\UserController.php                 | PHP      |        123 |          1 |         52 |        176 |
+| c:\xampp\htdocs\app\app\Http\Controllers\UtilityController.php              | PHP      |        125 |          3 |         55 |        183 |
+| Total                                                                       |          |      1,488 |        298 |        490 |      2,276 |
++-----------------------------------------------------------------------------+----------+------------+------------+------------+------------+

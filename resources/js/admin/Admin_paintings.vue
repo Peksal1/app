@@ -287,7 +287,7 @@ export default {
             };
             // hide the modal
             this.hideAdminPortfolioModal();
-            alert("The item was successfully added to the portfolio!");
+            alert("The digital painting was added successfully!");
           } else {
             alert("STOPPPPPPPPP");
           }

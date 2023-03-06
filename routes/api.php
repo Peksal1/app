@@ -15,6 +15,8 @@ use App\Http\Controllers\StripeController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UtilityController;
 use App\Http\Controllers\PurchasesController;
+use App\Http\Controllers\CoinController;
+use App\Http\Controllers\PostGuzzleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -160,7 +162,8 @@ Route::get('/all_sizes', [UtilityController::class, 'allSizes']);
 Route::get('/all_paints', [UtilityController::class, 'allPaints']);
 Route::get('/all_canvases', [UtilityController::class, 'allCanvases']);
 Route::get('/all_painting_categories', [UtilityController::class, 'allPaintingCategories']);
-
+Route::get('/coins/all', [PostGuzzleController::class, 'index']);
+Route::post('/coins/store', [PostGuzzleController::class, 'storeCoin']);
 ///registration
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

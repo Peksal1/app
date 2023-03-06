@@ -3,6 +3,7 @@
 use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PurchasesController;
+use App\Http\Controllers\PostGuzzleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +15,9 @@ use App\Http\Controllers\PurchasesController;
 |
 */
 
+
+Route::get('posts',[PostGuzzleController::class,'index']);
+Route::get('posts/store', [PostGuzzleController::class, 'store' ]);
 Route::get('/success',  [StripeController::class, 'paymentSuccess']);
 Route::get('/order/success',  [StripeController::class, 'orderPaymentSuccess']);
 Route::get('digital/success', [StripeController::class, 'DigitalPaymentSuccess']);

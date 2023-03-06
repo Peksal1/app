@@ -218,7 +218,7 @@ export default {
             };
             // hide the modal
             this.hideUpdateModal();
-            alert("The item was successfully added to the shop!");
+            alert("The blog post was successfully added!");
           } else {
             alert("STOPPPPPPPPP");
           }

@@ -65,7 +65,7 @@ export default {
               } else {
                 localStorage.setItem("adminToken", token);
                 this.$router.push({
-                  path: "/admin",
+                  path: "/adminhome",
                   params: response.data,
                 });
               }

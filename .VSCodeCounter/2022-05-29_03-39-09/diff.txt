@@ -1,0 +1,128 @@
+Date : 2022-05-29 03:39:09
+Directory : c:\xampp\htdocs\app\app\Http\Controllers
+Total : 92 files,  -10344 codes, -3186 comments, -486 blanks, all -14016 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| PHP        |         22 |      1,488 |        298 |        490 |      2,276 |
+| JavaScript |          4 |       -465 |        -26 |        -31 |       -522 |
+| Vue.js     |         66 |    -11,367 |     -3,458 |       -945 |    -15,770 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                         | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                            |         92 |    -10,344 |     -3,186 |       -486 |    -14,016 |
+| ..                                                                           |         70 |    -11,832 |     -3,484 |       -976 |    -16,292 |
+| ..\..                                                                        |         70 |    -11,832 |     -3,484 |       -976 |    -16,292 |
+| ..\..\..                                                                     |         70 |    -11,832 |     -3,484 |       -976 |    -16,292 |
+| ..\..\..\resources                                                           |         70 |    -11,832 |     -3,484 |       -976 |    -16,292 |
+| ..\..\..\resources\js                                                        |         70 |    -11,832 |     -3,484 |       -976 |    -16,292 |
+| ..\..\..\resources\js\admin                                                  |         11 |     -2,017 |     -1,508 |       -182 |     -3,707 |
+| ..\..\..\resources\js\components                                             |         15 |     -1,861 |       -843 |        -96 |     -2,800 |
+| ..\..\..\resources\js\components\Uitility                                    |          7 |     -1,208 |       -819 |        -54 |     -2,081 |
+| ..\..\..\resources\js\pages                                                  |         40 |     -7,489 |     -1,107 |       -667 |     -9,263 |
+| Auth                                                                         |          6 |         95 |        117 |         41 |        253 |
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                     | language   | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\xampp\htdocs\app\app\Http\Controllers\AuthController.php                  | PHP        |         71 |          4 |         11 |         86 |
+| c:\xampp\htdocs\app\app\Http\Controllers\Auth\ConfirmPasswordController.php  | PHP        |         14 |         20 |          7 |         41 |
+| c:\xampp\htdocs\app\app\Http\Controllers\Auth\ForgotPasswordController.php   | PHP        |          8 |         10 |          5 |         23 |
+| c:\xampp\htdocs\app\app\Http\Controllers\Auth\LoginController.php            | PHP        |         14 |         20 |          7 |         41 |
+| c:\xampp\htdocs\app\app\Http\Controllers\Auth\RegisterController.php         | PHP        |         33 |         32 |          9 |         74 |
+| c:\xampp\htdocs\app\app\Http\Controllers\Auth\ResetPasswordController.php    | PHP        |         10 |         15 |          6 |         31 |
+| c:\xampp\htdocs\app\app\Http\Controllers\Auth\VerificationController.php     | PHP        |         16 |         20 |          7 |         43 |
+| c:\xampp\htdocs\app\app\Http\Controllers\BlogController.php                  | PHP        |        139 |         52 |         38 |        229 |
+| c:\xampp\htdocs\app\app\Http\Controllers\CollectionController.php            | PHP        |         61 |         10 |         14 |         85 |
+| c:\xampp\htdocs\app\app\Http\Controllers\ContactsController.php              | PHP        |         46 |          0 |         26 |         72 |
+| c:\xampp\htdocs\app\app\Http\Controllers\Controller.php                      | PHP        |         10 |          0 |          4 |         14 |
+| c:\xampp\htdocs\app\app\Http\Controllers\FeedbackController.php              | PHP        |         38 |          0 |         16 |         54 |
+| c:\xampp\htdocs\app\app\Http\Controllers\HomeController.php                  | PHP        |         18 |         10 |          5 |         33 |
+| c:\xampp\htdocs\app\app\Http\Controllers\OrderController.php                 | PHP        |        143 |         27 |         44 |        214 |
+| c:\xampp\htdocs\app\app\Http\Controllers\PortfolioController.php             | PHP        |        197 |         39 |         49 |        285 |
+| c:\xampp\htdocs\app\app\Http\Controllers\PurchasesController.php             | PHP        |         57 |         10 |         20 |         87 |
+| c:\xampp\htdocs\app\app\Http\Controllers\QnAController.php                   | PHP        |         79 |          5 |         44 |        128 |
+| c:\xampp\htdocs\app\app\Http\Controllers\ShopController.php                  | PHP        |        116 |          9 |         30 |        155 |
+| c:\xampp\htdocs\app\app\Http\Controllers\SpaController.php                   | PHP        |         10 |          0 |          4 |         14 |
+| c:\xampp\htdocs\app\app\Http\Controllers\StripeController.php                | PHP        |        160 |         11 |         37 |        208 |
+| c:\xampp\htdocs\app\app\Http\Controllers\UserController.php                  | PHP        |        123 |          1 |         52 |        176 |
+| c:\xampp\htdocs\app\app\Http\Controllers\UtilityController.php               | PHP        |        125 |          3 |         55 |        183 |
+| c:\xampp\htdocs\app\resources\js\admin\AdminStore.vue                        | Vue.js     |        -90 |       -376 |         -9 |       -475 |
+| c:\xampp\htdocs\app\resources\js\admin\Admin_FAQ.vue                         | Vue.js     |        -45 |          0 |         -2 |        -47 |
+| c:\xampp\htdocs\app\resources\js\admin\Admin_blog.vue                        | Vue.js     |       -133 |       -445 |        -11 |       -589 |
+| c:\xampp\htdocs\app\resources\js\admin\Admin_collections.vue                 | Vue.js     |       -111 |       -351 |        -15 |       -477 |
+| c:\xampp\htdocs\app\resources\js\admin\Admin_feedback.vue                    | Vue.js     |       -128 |         -2 |        -13 |       -143 |
+| c:\xampp\htdocs\app\resources\js\admin\Admin_home.vue                        | Vue.js     |       -153 |         -3 |        -12 |       -168 |
+| c:\xampp\htdocs\app\resources\js\admin\Admin_paintings.vue                   | Vue.js     |        -86 |       -313 |         -8 |       -407 |
+| c:\xampp\htdocs\app\resources\js\admin\Admin_portfolio.vue                   | Vue.js     |       -321 |         -4 |        -35 |       -360 |
+| c:\xampp\htdocs\app\resources\js\admin\Admin_purchases.vue                   | Vue.js     |       -448 |         -6 |        -50 |       -504 |
+| c:\xampp\htdocs\app\resources\js\admin\Messages.vue                          | Vue.js     |       -247 |         -6 |        -17 |       -270 |
+| c:\xampp\htdocs\app\resources\js\admin\users.vue                             | Vue.js     |       -255 |         -2 |        -10 |       -267 |
+| c:\xampp\htdocs\app\resources\js\app.js                                      | JavaScript |        -24 |         -2 |         -4 |        -30 |
+| c:\xampp\htdocs\app\resources\js\bootstrap.js                                | JavaScript |         -8 |        -23 |        -11 |        -42 |
+| c:\xampp\htdocs\app\resources\js\components\Admin.vue                        | Vue.js     |        -26 |          0 |         -3 |        -29 |
+| c:\xampp\htdocs\app\resources\js\components\AdminNavbar.vue                  | Vue.js     |       -163 |         -5 |        -14 |       -182 |
+| c:\xampp\htdocs\app\resources\js\components\App.vue                          | Vue.js     |        -27 |          0 |         -4 |        -31 |
+| c:\xampp\htdocs\app\resources\js\components\Navbar.vue                       | Vue.js     |       -156 |         -5 |        -14 |       -175 |
+| c:\xampp\htdocs\app\resources\js\components\NewFeedback.vue                  | Vue.js     |       -111 |         -3 |         -2 |       -116 |
+| c:\xampp\htdocs\app\resources\js\components\Pagination.vue                   | Vue.js     |        -99 |        -11 |         -3 |       -113 |
+| c:\xampp\htdocs\app\resources\js\components\SideBar.vue                      | Vue.js     |        -14 |          0 |          0 |        -14 |
+| c:\xampp\htdocs\app\resources\js\components\Uitility\NewBlog.vue             | Vue.js     |        -55 |       -219 |         -3 |       -277 |
+| c:\xampp\htdocs\app\resources\js\components\Uitility\NewCollection.vue       | Vue.js     |        -50 |       -143 |         -2 |       -195 |
+| c:\xampp\htdocs\app\resources\js\components\Uitility\NewPaintingCategory.vue | Vue.js     |       -196 |         -4 |        -10 |       -210 |
+| c:\xampp\htdocs\app\resources\js\components\Uitility\NewPortfolio.vue        | Vue.js     |        -88 |       -212 |         -2 |       -302 |
+| c:\xampp\htdocs\app\resources\js\components\Uitility\NewStore.vue            | Vue.js     |        -82 |       -200 |         -5 |       -287 |
+| c:\xampp\htdocs\app\resources\js\components\Uitility\Orderchat.vue           | Vue.js     |       -281 |        -17 |        -13 |       -311 |
+| c:\xampp\htdocs\app\resources\js\components\Uitility\Uitility.vue            | Vue.js     |       -456 |        -24 |        -19 |       -499 |
+| c:\xampp\htdocs\app\resources\js\components\footer.vue                       | Vue.js     |        -57 |          0 |         -2 |        -59 |
+| c:\xampp\htdocs\app\resources\js\pages\Admin_QnA.vue                         | Vue.js     |       -201 |         -5 |        -20 |       -226 |
+| c:\xampp\htdocs\app\resources\js\pages\Admin_newpost.vue                     | Vue.js     |       -102 |         -2 |         -6 |       -110 |
+| c:\xampp\htdocs\app\resources\js\pages\Admin_newtopic.vue                    | Vue.js     |        -96 |         -3 |         -2 |       -101 |
+| c:\xampp\htdocs\app\resources\js\pages\Admin_topicsposts.vue                 | Vue.js     |       -200 |         -7 |        -21 |       -228 |
+| c:\xampp\htdocs\app\resources\js\pages\BACKUP.vue                            | Vue.js     |       -159 |         -5 |        -19 |       -183 |
+| c:\xampp\htdocs\app\resources\js\pages\Biography.vue                         | Vue.js     |       -238 |         -6 |        -23 |       -267 |
+| c:\xampp\htdocs\app\resources\js\pages\Blog.vue                              | Vue.js     |       -406 |         -2 |        -52 |       -460 |
+| c:\xampp\htdocs\app\resources\js\pages\Bloginfo.vue                          | Vue.js     |       -283 |         -5 |        -27 |       -315 |
+| c:\xampp\htdocs\app\resources\js\pages\Collections.vue                       | Vue.js     |       -199 |         -3 |        -20 |       -222 |
+| c:\xampp\htdocs\app\resources\js\pages\Contact_us.vue                        | Vue.js     |       -172 |          0 |        -15 |       -187 |
+| c:\xampp\htdocs\app\resources\js\pages\Deliveryshipping.vue                  | Vue.js     |       -154 |         -3 |        -12 |       -169 |
+| c:\xampp\htdocs\app\resources\js\pages\DigitalPurchases.vue                  | Vue.js     |       -371 |         -3 |        -49 |       -423 |
+| c:\xampp\htdocs\app\resources\js\pages\DigitalThankYou.vue                   | Vue.js     |        -68 |          0 |         -3 |        -71 |
+| c:\xampp\htdocs\app\resources\js\pages\FAQ.vue                               | Vue.js     |        -45 |          0 |         -2 |        -47 |
+| c:\xampp\htdocs\app\resources\js\pages\Feedback.vue                          | Vue.js     |       -124 |         -2 |        -13 |       -139 |
+| c:\xampp\htdocs\app\resources\js\pages\Home.vue                              | Vue.js     |       -154 |         -3 |        -12 |       -169 |
+| c:\xampp\htdocs\app\resources\js\pages\Login.vue                             | Vue.js     |       -134 |         -2 |        -15 |       -151 |
+| c:\xampp\htdocs\app\resources\js\pages\NewFeedback.vue                       | Vue.js     |       -121 |         -3 |         -3 |       -127 |
+| c:\xampp\htdocs\app\resources\js\pages\NewOrder.vue                          | Vue.js     |        -73 |       -237 |        -17 |       -327 |
+| c:\xampp\htdocs\app\resources\js\pages\NewTopic.vue                          | Vue.js     |        -14 |       -110 |          0 |       -124 |
+| c:\xampp\htdocs\app\resources\js\pages\OrderThankYou.vue                     | Vue.js     |       -175 |          0 |         -5 |       -180 |
+| c:\xampp\htdocs\app\resources\js\pages\Portfolio.vue                         | Vue.js     |       -336 |         -4 |        -34 |       -374 |
+| c:\xampp\htdocs\app\resources\js\pages\PortfolioAll.vue                      | Vue.js     |       -453 |         -6 |        -54 |       -513 |
+| c:\xampp\htdocs\app\resources\js\pages\Purchases.vue                         | Vue.js     |       -357 |         -3 |        -47 |       -407 |
+| c:\xampp\htdocs\app\resources\js\pages\Register.vue                          | Vue.js     |       -256 |         -4 |         -7 |       -267 |
+| c:\xampp\htdocs\app\resources\js\pages\RegisterUser.vue                      | Vue.js     |        -68 |          0 |         -7 |        -75 |
+| c:\xampp\htdocs\app\resources\js\pages\Store.vue                             | Vue.js     |       -458 |         -6 |        -42 |       -506 |
+| c:\xampp\htdocs\app\resources\js\pages\ThankYou.vue                          | Vue.js     |       -185 |          0 |         -5 |       -190 |
+| c:\xampp\htdocs\app\resources\js\pages\Topicspost.vue                        | Vue.js     |       -164 |         -7 |        -23 |       -194 |
+| c:\xampp\htdocs\app\resources\js\pages\User_orders.vue                       | Vue.js     |       -432 |         -4 |        -44 |       -480 |
+| c:\xampp\htdocs\app\resources\js\pages\User_profile.vue                      | Vue.js     |       -219 |          0 |        -15 |       -234 |
+| c:\xampp\htdocs\app\resources\js\pages\createuserpost.vue                    | Vue.js     |       -102 |         -2 |         -6 |       -110 |
+| c:\xampp\htdocs\app\resources\js\pages\new_store.vue                         | Vue.js     |        -53 |       -173 |          0 |       -226 |
+| c:\xampp\htdocs\app\resources\js\pages\orderlist.vue                         | Vue.js     |       -117 |       -487 |        -11 |       -615 |
+| c:\xampp\htdocs\app\resources\js\pages\payment_options.vue                   | Vue.js     |       -304 |         -3 |        -17 |       -324 |
+| c:\xampp\htdocs\app\resources\js\pages\pleaselogin.vue                       | Vue.js     |       -102 |         -3 |         -9 |       -114 |
+| c:\xampp\htdocs\app\resources\js\pages\updatefeedback.vue                    | Vue.js     |        -96 |         -1 |         -3 |       -100 |
+| c:\xampp\htdocs\app\resources\js\pages\updateportfolio.vue                   | Vue.js     |       -101 |         -1 |         -2 |       -104 |
+| c:\xampp\htdocs\app\resources\js\pages\updatetopic.vue                       | Vue.js     |        -94 |         -1 |         -2 |        -97 |
+| c:\xampp\htdocs\app\resources\js\pages\updateuser.vue                        | Vue.js     |       -103 |         -1 |         -3 |       -107 |
+| c:\xampp\htdocs\app\resources\js\routes.js                                   | JavaScript |       -417 |         -1 |        -15 |       -433 |
+| c:\xampp\htdocs\app\resources\js\vuetify.js                                  | JavaScript |        -16 |          0 |         -1 |        -17 |
+| Total                                                                        |            |    -10,344 |     -3,186 |       -486 |    -14,016 |
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
